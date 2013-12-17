@@ -9,8 +9,8 @@ namespace EpicWareWeb.Models
     {
         public int connectionID { get; set; }
         public int strenght { get; set; }
-        public TagConnection tagConnection { get; set; }
-        public User userConnected { get; set; }
+        public virtual TagConnection tagConnection { get; set; }
+        public virtual User userConnected { get; set; }
         
     }
 }

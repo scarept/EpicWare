@@ -3,19 +3,10 @@ namespace EpicWareWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class LanguageFrRqGameScoreNotification : DbMigration
+    public partial class FriendRequestUpdt : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Games",
-                c => new
-                    {
-                        gameID = c.Int(nullable: false, identity: true),
-                        name = c.String(),
-                    })
-                .PrimaryKey(t => t.gameID);
-            
             CreateTable(
                 "dbo.FriendRequests",
                 c => new
@@ -33,16 +24,6 @@ namespace EpicWareWeb.Migrations
                 .Index(t => t.user2_userID)
                 .Index(t => t.game_gameID);
             
-            CreateTable(
-                "dbo.Notifications",
-                c => new
-                    {
-                        notificationID = c.Int(nullable: false, identity: true),
-                        message = c.String(),
-                        time = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.notificationID);
-            
         }
         
         public override void Down()
@@ -53,9 +34,7 @@ namespace EpicWareWeb.Migrations
             DropForeignKey("dbo.FriendRequests", "game_gameID", "dbo.Games");
             DropForeignKey("dbo.FriendRequests", "user2_userID", "dbo.Users");
             DropForeignKey("dbo.FriendRequests", "user1_userID", "dbo.Users");
-            DropTable("dbo.Notifications");
             DropTable("dbo.FriendRequests");
-            DropTable("dbo.Games");
         }
     }
 }

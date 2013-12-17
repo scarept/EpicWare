@@ -5,13 +5,13 @@ namespace EpicWareWeb.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class profile : IMigrationMetadata
+    public sealed partial class FriendRequestUpdt : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(profile));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FriendRequestUpdt));
         
         string IMigrationMetadata.Id
         {
-            get { return "201312171542489_profile"; }
+            get { return "201312171736332_FriendRequestUpdt"; }
         }
         
         string IMigrationMetadata.Source

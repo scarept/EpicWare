@@ -5,13 +5,13 @@ namespace EpicWareWeb.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class LanguageFrRqGameScoreNotification : IMigrationMetadata
+    public sealed partial class GameScoreUpdt : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(LanguageFrRqGameScoreNotification));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(GameScoreUpdt));
         
         string IMigrationMetadata.Id
         {
-            get { return "201312171532261_LanguageFrRqGameScoreNotification"; }
+            get { return "201312171735004_GameScoreUpdt"; }
         }
         
         string IMigrationMetadata.Source

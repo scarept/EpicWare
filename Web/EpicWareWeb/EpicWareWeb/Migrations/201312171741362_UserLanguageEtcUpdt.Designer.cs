@@ -5,13 +5,13 @@ namespace EpicWareWeb.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class LanguageAddScoreUserAdd : IMigrationMetadata
+    public sealed partial class UserLanguageEtcUpdt : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(LanguageAddScoreUserAdd));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UserLanguageEtcUpdt));
         
         string IMigrationMetadata.Id
         {
-            get { return "201312171516264_LanguageAddScoreUserAdd"; }
+            get { return "201312171741362_UserLanguageEtcUpdt"; }
         }
         
         string IMigrationMetadata.Source

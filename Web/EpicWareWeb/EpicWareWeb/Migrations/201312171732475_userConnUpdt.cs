@@ -3,7 +3,7 @@ namespace EpicWareWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class userAddconnectionAdd : DbMigration
+    public partial class userConnUpdt : DbMigration
     {
         public override void Up()
         {
@@ -28,15 +28,20 @@ namespace EpicWareWeb.Migrations
                     {
                         userID = c.Int(nullable: false, identity: true),
                         active = c.Boolean(nullable: false),
+                        mood_moodID = c.Int(),
                     })
-                .PrimaryKey(t => t.userID);
+                .PrimaryKey(t => t.userID)
+                .ForeignKey("dbo.Moods", t => t.mood_moodID)
+                .Index(t => t.mood_moodID);
             
         }
         
         public override void Down()
         {
+            DropIndex("dbo.Users", new[] { "mood_moodID" });
             DropIndex("dbo.Connections", new[] { "userConnected_userID" });
             DropIndex("dbo.Connections", new[] { "tagConnection_tagConnectionID" });
+            DropForeignKey("dbo.Users", "mood_moodID", "dbo.Moods");
             DropForeignKey("dbo.Connections", "userConnected_userID", "dbo.Users");
             DropForeignKey("dbo.Connections", "tagConnection_tagConnectionID", "dbo.TagConnections");
             DropTable("dbo.Users");

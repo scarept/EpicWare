@@ -189,49 +189,37 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171407170_moodAdd.cs" />
-    <Compile Include="Migrations\201312171407170_moodAdd.Designer.cs">
-      <DependentUpon>201312171407170_moodAdd.cs</DependentUpon>
+    <Compile Include="Migrations\201312171727015_moodUpd.cs" />
+    <Compile Include="Migrations\201312171727015_moodUpd.Designer.cs">
+      <DependentUpon>201312171727015_moodUpd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171457282_tagConnAdd.cs" />
-    <Compile Include="Migrations\201312171457282_tagConnAdd.Designer.cs">
-      <DependentUpon>201312171457282_tagConnAdd.cs</DependentUpon>
+    <Compile Include="Migrations\201312171729503_tagConnUpd.cs" />
+    <Compile Include="Migrations\201312171729503_tagConnUpd.Designer.cs">
+      <DependentUpon>201312171729503_tagConnUpd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171512544_userAddconnectionAdd.cs" />
-    <Compile Include="Migrations\201312171512544_userAddconnectionAdd.Designer.cs">
-      <DependentUpon>201312171512544_userAddconnectionAdd.cs</DependentUpon>
+    <Compile Include="Migrations\201312171732475_userConnUpdt.cs" />
+    <Compile Include="Migrations\201312171732475_userConnUpdt.Designer.cs">
+      <DependentUpon>201312171732475_userConnUpdt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171516264_LanguageAddScoreUserAdd.cs" />
-    <Compile Include="Migrations\201312171516264_LanguageAddScoreUserAdd.Designer.cs">
-      <DependentUpon>201312171516264_LanguageAddScoreUserAdd.cs</DependentUpon>
+    <Compile Include="Migrations\201312171735004_GameScoreUpdt.cs" />
+    <Compile Include="Migrations\201312171735004_GameScoreUpdt.Designer.cs">
+      <DependentUpon>201312171735004_GameScoreUpdt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171532261_LanguageFrRqGameScoreNotification.cs" />
-    <Compile Include="Migrations\201312171532261_LanguageFrRqGameScoreNotification.Designer.cs">
-      <DependentUpon>201312171532261_LanguageFrRqGameScoreNotification.cs</DependentUpon>
+    <Compile Include="Migrations\201312171736332_FriendRequestUpdt.cs" />
+    <Compile Include="Migrations\201312171736332_FriendRequestUpdt.Designer.cs">
+      <DependentUpon>201312171736332_FriendRequestUpdt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171533229_intro.cs" />
-    <Compile Include="Migrations\201312171533229_intro.Designer.cs">
-      <DependentUpon>201312171533229_intro.cs</DependentUpon>
+    <Compile Include="Migrations\201312171740049_NotificationsUpdt.cs" />
+    <Compile Include="Migrations\201312171740049_NotificationsUpdt.Designer.cs">
+      <DependentUpon>201312171740049_NotificationsUpdt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171534048_mission.cs" />
-    <Compile Include="Migrations\201312171534048_mission.Designer.cs">
-      <DependentUpon>201312171534048_mission.cs</DependentUpon>
+    <Compile Include="Migrations\201312171741362_UserLanguageEtcUpdt.cs" />
+    <Compile Include="Migrations\201312171741362_UserLanguageEtcUpdt.Designer.cs">
+      <DependentUpon>201312171741362_UserLanguageEtcUpdt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312171542489_profile.cs" />
-    <Compile Include="Migrations\201312171542489_profile.Designer.cs">
-      <DependentUpon>201312171542489_profile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312171544102_profileUpd.cs" />
-    <Compile Include="Migrations\201312171544102_profileUpd.Designer.cs">
-      <DependentUpon>201312171544102_profileUpd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312171549531_missionUpdt.cs" />
-    <Compile Include="Migrations\201312171549531_missionUpdt.Designer.cs">
-      <DependentUpon>201312171549531_missionUpdt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312171556581_userUpdt.cs" />
-    <Compile Include="Migrations\201312171556581_userUpdt.Designer.cs">
-      <DependentUpon>201312171556581_userUpdt.cs</DependentUpon>
+    <Compile Include="Migrations\201312171742414_ProfileUpdt.cs" />
+    <Compile Include="Migrations\201312171742414_ProfileUpdt.Designer.cs">
+      <DependentUpon>201312171742414_ProfileUpdt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -373,38 +361,35 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201312171407170_moodAdd.resx">
-      <DependentUpon>201312171407170_moodAdd.cs</DependentUpon>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{d1cb527d-6029-4352-b03c-798b3524e40e}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201312171727015_moodUpd.resx">
+      <DependentUpon>201312171727015_moodUpd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171457282_tagConnAdd.resx">
-      <DependentUpon>201312171457282_tagConnAdd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171729503_tagConnUpd.resx">
+      <DependentUpon>201312171729503_tagConnUpd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171512544_userAddconnectionAdd.resx">
-      <DependentUpon>201312171512544_userAddconnectionAdd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171732475_userConnUpdt.resx">
+      <DependentUpon>201312171732475_userConnUpdt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171516264_LanguageAddScoreUserAdd.resx">
-      <DependentUpon>201312171516264_LanguageAddScoreUserAdd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171735004_GameScoreUpdt.resx">
+      <DependentUpon>201312171735004_GameScoreUpdt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171532261_LanguageFrRqGameScoreNotification.resx">
-      <DependentUpon>201312171532261_LanguageFrRqGameScoreNotification.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171736332_FriendRequestUpdt.resx">
+      <DependentUpon>201312171736332_FriendRequestUpdt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171533229_intro.resx">
-      <DependentUpon>201312171533229_intro.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171740049_NotificationsUpdt.resx">
+      <DependentUpon>201312171740049_NotificationsUpdt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171534048_mission.resx">
-      <DependentUpon>201312171534048_mission.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171741362_UserLanguageEtcUpdt.resx">
+      <DependentUpon>201312171741362_UserLanguageEtcUpdt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171542489_profile.resx">
-      <DependentUpon>201312171542489_profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171544102_profileUpd.resx">
-      <DependentUpon>201312171544102_profileUpd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171549531_missionUpdt.resx">
-      <DependentUpon>201312171549531_missionUpdt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312171556581_userUpdt.resx">
-      <DependentUpon>201312171556581_userUpdt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312171742414_ProfileUpdt.resx">
+      <DependentUpon>201312171742414_ProfileUpdt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

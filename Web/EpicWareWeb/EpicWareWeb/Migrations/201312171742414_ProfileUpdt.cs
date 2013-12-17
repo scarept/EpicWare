@@ -3,7 +3,7 @@ namespace EpicWareWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class missionUpdt : DbMigration
+    public partial class ProfileUpdt : DbMigration
     {
         public override void Up()
         {
@@ -23,17 +23,20 @@ namespace EpicWareWeb.Migrations
                         facebookProfice = c.String(),
                         twitterProfile = c.String(),
                         gender = c.String(),
+                        pathImg = c.String(),
                     })
                 .PrimaryKey(t => t.profileID);
             
-            AddColumn("dbo.Missions", "level", c => c.Int(nullable: false));
-            DropColumn("dbo.Missions", "leval");
+            AddColumn("dbo.Users", "userProfile_profileID", c => c.Int());
+            AddForeignKey("dbo.Users", "userProfile_profileID", "dbo.Profiles", "profileID");
+            CreateIndex("dbo.Users", "userProfile_profileID");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Missions", "leval", c => c.Int(nullable: false));
-            DropColumn("dbo.Missions", "level");
+            DropIndex("dbo.Users", new[] { "userProfile_profileID" });
+            DropForeignKey("dbo.Users", "userProfile_profileID", "dbo.Profiles");
+            DropColumn("dbo.Users", "userProfile_profileID");
             DropTable("dbo.Profiles");
         }
     }

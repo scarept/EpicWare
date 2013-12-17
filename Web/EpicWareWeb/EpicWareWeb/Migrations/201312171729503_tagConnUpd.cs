@@ -3,24 +3,24 @@ namespace EpicWareWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class moodAdd : DbMigration
+    public partial class tagConnUpd : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Moods",
+                "dbo.TagConnections",
                 c => new
                     {
-                        moodID = c.Int(nullable: false, identity: true),
-                        name = c.String(),
+                        tagConnectionID = c.Int(nullable: false, identity: true),
+                        tag = c.String(),
                     })
-                .PrimaryKey(t => t.moodID);
+                .PrimaryKey(t => t.tagConnectionID);
             
         }
         
         public override void Down()
         {
-            DropTable("dbo.Moods");
+            DropTable("dbo.TagConnections");
         }
     }
 }
