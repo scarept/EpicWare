@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201312172330340_userUpdt.Designer.cs">
       <DependentUpon>201312172330340_userUpdt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312172335443_userProfile.cs" />
+    <Compile Include="Migrations\201312172335443_userProfile.Designer.cs">
+      <DependentUpon>201312172335443_userProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -412,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312172330340_userUpdt.resx">
       <DependentUpon>201312172330340_userUpdt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312172335443_userProfile.resx">
+      <DependentUpon>201312172335443_userProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

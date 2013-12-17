@@ -53,7 +53,7 @@ namespace EpicWareWeb.Controllers
             if (ModelState.IsValid)
             {
                 db.users.Add(user);
-                db.SaveChanges();
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

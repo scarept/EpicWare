@@ -21,6 +21,6 @@ namespace EpicWareWeb.DAL
         public DbSet<IntroFriendRequest> introes { get; set; }
         public DbSet<Mission> missions { get; set; }
         public DbSet<Language> languages { get; set; }
-        //public DbSet<Profile> profiles { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
     }
 }
