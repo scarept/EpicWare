@@ -1,0 +1,99 @@
+﻿@model EpicWareWeb.Models.Profile
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Profile</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nickname)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nickname)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.birthday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.birthday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.country)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.country)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.phoneNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.phoneNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.linkdinProfile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.linkdinProfile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.facebookProfice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.facebookProfice)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.twitterProfile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.twitterProfile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.gender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.gender)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.pathImg)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pathImg)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.profileID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
