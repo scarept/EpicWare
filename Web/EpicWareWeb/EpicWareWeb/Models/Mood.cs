@@ -9,7 +9,6 @@ namespace EpicWareWeb.Models
     public class Mood
     {
         public int moodID { get; set; }
-        [Display(Name = "moodName", ResourceType = typeof(Resources.Resources))]  
         public string name { get; set; }
     }
 }
