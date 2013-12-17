@@ -197,10 +197,22 @@
     <Compile Include="Migrations\201312171457282_tagConnAdd.Designer.cs">
       <DependentUpon>201312171457282_tagConnAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312171512544_userAddconnectionAdd.cs" />
+    <Compile Include="Migrations\201312171512544_userAddconnectionAdd.Designer.cs">
+      <DependentUpon>201312171512544_userAddconnectionAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312171516264_LanguageAddScoreUserAdd.cs" />
+    <Compile Include="Migrations\201312171516264_LanguageAddScoreUserAdd.Designer.cs">
+      <DependentUpon>201312171516264_LanguageAddScoreUserAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Mood.cs" />
+    <Compile Include="Models\ScoreUser.cs" />
     <Compile Include="Models\TagConnection.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +344,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312171457282_tagConnAdd.resx">
       <DependentUpon>201312171457282_tagConnAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312171512544_userAddconnectionAdd.resx">
+      <DependentUpon>201312171512544_userAddconnectionAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312171516264_LanguageAddScoreUserAdd.resx">
+      <DependentUpon>201312171516264_LanguageAddScoreUserAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
