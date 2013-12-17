@@ -8,6 +8,5 @@ namespace EpicWareWeb.Models
     public class ScoreUser
     {
         public int scoreUserID { get; set; }
-        
     }
 }
