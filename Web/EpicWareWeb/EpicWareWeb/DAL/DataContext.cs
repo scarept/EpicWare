@@ -14,5 +14,13 @@ namespace EpicWareWeb.DAL
         public DbSet<TagConnection> tagConnections { get; set; }
         public DbSet<Connection> connections { get; set; }
         public DbSet<User> users { get; set; }
+        public DbSet<ScoreUser> scores { get; set; }
+        public DbSet<Game> games { get; set; }
+        public DbSet<FriendRequest> friendRequests { get; set; }
+        public DbSet<Notification> notifications { get; set; }
+        public DbSet<IntroFriendRequest> introes { get; set; }
+        public DbSet<Mission> missions { get; set; }
+        public DbSet<Language> languages { get; set; }
+        public DbSet<Profile> profiles { get; set; }
     }
 }
