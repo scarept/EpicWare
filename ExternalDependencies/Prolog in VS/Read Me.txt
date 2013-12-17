@@ -1,0 +1,2 @@
+1. Basta extrair na raiz do disco C o ficheiro .rar (framework prolog, Glut e Glaux).
+2. Adicionar as propriedades do projecto os directorios referidos na imagem.

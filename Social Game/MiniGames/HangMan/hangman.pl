@@ -29,24 +29,91 @@ chooseWordFromList(List, Word):-
 	nth0(Index, List, Word).
 
 %%Draws word from guesses made
-%TODO
-drawWordStatus(W, G):-atom_length(W, N), ciclo(W, N).
+drawWordFromGuesses(Word, GuessList):-
+	atom_length(Word, N),
+	string_to_list(Word, WordL),
+	drawWordFromGuesses(WordL, GuessList, N).
+drawWordFromGuesses(W, GuessList, N):-
+	drawWordFromGuesses(W, GuessList, 0, N).
+drawWordFromGuesses(_, _, N, N):-nl.
+drawWordFromGuesses(W, GuessList, X, N):-
+	nth0(X, W, Char),
+	(
+	    (
+	      member(Char, GuessList),
+	      write(' '), put(Char), write(' ')
+	    );
+	    (
+		write(' _ ')
+	    )
+	),
+	Y is X+1,
+	drawWordFromGuesses(W, GuessList, Y, N).
 
-ciclo(W, N):-ciclo(W, 0, N).
-ciclo(_, N, N):-nl.
-ciclo(W, X, N):-Y is X+1, write(' _ '), ciclo(W, Y, N).
-
-processInput(X):-atom_length(X,1),
-	(X >= 'A', X =< 'Z');(X >= 'a', X =< 'z').
+processInput(X):-
+	atom_length(X,N), N =:= 1,
+	atom_codes(X, [Y]),
+	(
+	    (Y =< 90, Y >= 65);
+	    (Y =< 122, Y >= 97)
+	).
 
 %%The game loop
-%TODO
-gameLoop(Word, GuessList):-read(Guess).
+gameLoop(Word, GuessList):-
+	gameLoop(Word, GuessList, 0).
+
+gameLoop(Word, GuessList, 7):-
+	write('You lost, hanged man!'),nl,
+	write('The word was '), write(Word),nl,
+	write('Your guesses: '), nl,
+	string_to_list(Guesses,GuessList),
+	write(Guesses).
+
+gameLoop(Word, GuessList, N):-
+	write('Please enter a letter: '),
+
+	%%Read user input
+	read(Guess),
+
+	%%Check for valid input
+	processInput(Guess),
+
+	%%Obtain character code
+	atom_codes(Guess, GuessCode),
+
+	%%Add guess to list
+	append(GuessList, GuessCode, NewGuessList),
+
+	%%Convert word to list
+	string_to_list(Word, WordAsList),
+
+	%%Check if penalty applies
+	(
+	   \+subset(GuessCode, WordAsList)
+	   -> Y is N+1;
+	   Y is N
+	),
+
+	%%Draw word
+	drawWordFromGuesses(Word, NewGuessList),
+
+	%%Avoid backtracking
+	!,
+
+	%%Check if game is NOT won
+	\+ subset(WordAsList, NewGuessList)
+	%%If NOT won, try another guess
+	-> nl, gameLoop(Word, NewGuessList, Y)
+	%%If won
+	; nl, write('You won!'), true.
 
 %%The game itself, needs language specified
-beginGame(Language):-chooseWordByLanguage(Language, Word),
+hangman(Language):-
+
+	%%Choose a word by language
+	chooseWordByLanguage(Language, Word),
+	write('Word to guess: '),
 	write(Word), nl,
 	GuessList = [],
-	drawWordStatus(Word, GuessList),
+	!,
 	gameLoop(Word, GuessList).
-
