@@ -11,5 +11,6 @@ namespace EpicWareWeb.DAL
     {
         public DataContext() : base("DefaultConnection") { }
         public DbSet<Mood> moods { get; set; }
+        public DbSet<TagConnection> tagConnections { get; set; }
     }
 }

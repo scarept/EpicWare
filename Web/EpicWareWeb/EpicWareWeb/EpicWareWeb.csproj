@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201312171407170_moodAdd.Designer.cs">
       <DependentUpon>201312171407170_moodAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312171457282_tagConnAdd.cs" />
+    <Compile Include="Migrations\201312171457282_tagConnAdd.Designer.cs">
+      <DependentUpon>201312171457282_tagConnAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Mood.cs" />
@@ -325,6 +329,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201312171407170_moodAdd.resx">
       <DependentUpon>201312171407170_moodAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312171457282_tagConnAdd.resx">
+      <DependentUpon>201312171457282_tagConnAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
