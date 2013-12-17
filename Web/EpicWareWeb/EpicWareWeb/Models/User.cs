@@ -8,6 +8,7 @@ namespace EpicWareWeb.Models
     public class User
     {
         public int userID { get; set; }
+        public int UserProfileID { get; set; }
         public List<string> userTags { get; set; }
         public virtual List<Connection> listConnections { get; set; }
         public Language language { get; set; }
