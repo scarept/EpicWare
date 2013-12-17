@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    EpicWareWeb.Models.RegisterModel reg_mod = new EpicWareWeb.Models.RegisterModel();
 }
 
 <h2>Create</h2>
@@ -13,12 +14,34 @@
     <fieldset>
         <legend>User</legend>
 
+        <div>
+            @Html.LabelFor(model => model.userProfile.nickname)
+            @Html.TextBoxFor(model => reg_mod.UserName)
+
+        </div>
+        <div>
+            @Html.LabelFor(model => reg_mod.Password)
+            @Html.PasswordFor(model => reg_mod.Password)
+        </div>
+        <div>
+            @Html.LabelFor(model => reg_mod.ConfirmPassword)
+            @Html.PasswordFor(model => reg_mod.ConfirmPassword)
+        </div>
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.active)
+            @Html.LabelFor(model => model.userProfile.name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.active)
-            @Html.ValidationMessageFor(model => model.active)
+            @Html.EditorFor(model => model.userProfile.name)
+            @Html.ValidationMessageFor(model => model.userProfile.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.lastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.userProfile.lastName)
+            @Html.ValidationMessageFor(model => model.userProfile.lastName)
         </div>
 
         <p>
