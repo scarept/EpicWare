@@ -21,10 +21,40 @@ typedef struct{
 	GLint **matrix;
 }Quadrado;
 
+typedef struct{
+	int *posGPS;
+	bool gps;
+}Modelo;
+
 Teclas tecla;
 Quadrado quad;
+Modelo mod;
 
-
+void pintarGPS()
+{
+	if (mod.gps == true)
+	{
+		cout << " true " << endl;
+		int tamanho = mod.posGPS[0];
+		int x, y;
+		for (int i = 2; i < tamanho; i = i+2)
+		{
+			x = mod.posGPS[(i)];
+			y = mod.posGPS[(i - 1)];
+			glBegin(GL_POLYGON);
+				glColor3f(100, 100, 100);
+				glVertex2f(0 + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
+				glVertex2f(0 + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
+				glVertex2f(quad.dimensao + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
+				glVertex2f(quad.dimensao + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
+			glEnd();
+		}
+	}
+	if (mod.gps == false)
+	{
+		cout << " false" << endl;
+	}
+}
 
 void init(void)
 
@@ -300,7 +330,7 @@ void display(void)
 	matLabirinto = carregarMatriz("teste.txt");
 	//quad.matPos = matLabirinto;
 	desenhaLabirinto(matLabirinto);
-
+	pintarGPS();
 	glFlush();
 
 }
@@ -382,12 +412,15 @@ void Key(unsigned char key, int x, int y)
 
 	case 'H':
 	case 'h': tecla.d = GL_TRUE;
-		fastestWayAvailable(quad.matrix, quad.x, quad.y);
+		mod.posGPS = fastestWayAvailable(quad.matrix, quad.x, quad.y);
+		mod.gps = true;
 		break;
 
 	}
 	//glutPostRedisplay();
 }
+
+
 
 void KeyUp(unsigned char key, int x, int y)
 {
@@ -430,6 +463,7 @@ void TimerTeclas(int value)
 
 int main(int argc, char** argv)
 {
+	mod.gps = false;
 	//carregarMatriz("teste.txt");
 	glutInit(&argc, argv);
 
