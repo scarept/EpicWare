@@ -20,7 +20,7 @@ void fastestWayAvailable(int **matriz, int y, int x){
 	/* Colocar informação da matriz na base de conhecimento*/
 	assertData(matriz);
 
-	char solution[50];
+	char solution[255];
 
 	PlTermv av(3);
 	/* colocar dinamico */
@@ -46,24 +46,25 @@ void fastestWayAvailable(int **matriz, int y, int x){
 
 	char *resTemp;//temporary pointer to solution output (prolog ouput)
 	PlQuery q("path", av);
-	//while (q.next_solution())
-	//{
-		q.next_solution();
+	while (q.next_solution())
+	{
+		//q.next_solution();
 		resTemp = (char*)av[2];
 		cout << (char*)av[2] << endl;
-//	}
-	/*
+	}
+	
 	int finalSize = 0;
 	while (*resTemp != '\0')
 	{
-		if (*resTemp != '[' && *resTemp != ']' && *resTemp != '\''){
+		if (*resTemp != '[' && *resTemp != ']' && *resTemp != '\''  && *resTemp != '('  && *resTemp != ')' && *resTemp != ','){
 			solution[finalSize] = *resTemp;
-			cout << resTemp << endl;
+			cout << solution[finalSize] << endl;
 			finalSize++;
 		}
 		resTemp++;
 	}
-	*/
+	solution[finalSize] = '/0';
+	
 	/*
 	for (int i = 0; i < finalSize; i++){
 		
