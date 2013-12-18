@@ -30,7 +30,7 @@ void init(void)
 
 {
 	/*pos inicioal*/
-	ifstream ficheiro("teste2.txt", ios::in);
+	ifstream ficheiro("teste.txt", ios::in);
 	string linha;
 	getline(ficheiro, linha);
 	char Seperator = ' ';
@@ -297,7 +297,7 @@ void display(void)
 	/* clear the matrix */
 
 	int **matLabirinto;
-	matLabirinto = carregarMatriz("teste2.txt");
+	matLabirinto = carregarMatriz("teste.txt");
 	//quad.matPos = matLabirinto;
 	desenhaLabirinto(matLabirinto);
 
