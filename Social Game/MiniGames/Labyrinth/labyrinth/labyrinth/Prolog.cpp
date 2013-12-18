@@ -20,7 +20,7 @@ void fastestWayAvailable(int **matriz, int y, int x){
 	/* Colocar informação da matriz na base de conhecimento*/
 	assertData(matriz);
 
-	char solution[255];
+	//char solution[255];
 
 	PlTermv av(3);
 	/* colocar dinamico */
@@ -52,30 +52,44 @@ void fastestWayAvailable(int **matriz, int y, int x){
 		resTemp = (char*)av[2];
 		cout << (char*)av[2] << endl;
 	}
-	
+	int valor = 0;
 	int finalSize = 0;
+	int solution[100];
 	while (*resTemp != '\0')
 	{
-		if (*resTemp != '[' && *resTemp != ']' && *resTemp != '\''  && *resTemp != '('  && *resTemp != ')' && *resTemp != ','){
-			solution[finalSize] = *resTemp;
-			cout << solution[finalSize] << endl;
-			finalSize++;
+		if (*resTemp != '[' && *resTemp != '\''  && *resTemp != '('  && *resTemp != ')'){
+			if (*resTemp != ',' && *resTemp != ']'){ //garante que o ultimo valor é escrito no array.
+				//solution[finalSize] = *resTemp;
+				//cout << solution[finalSize] << endl;
+				int num = atoi(resTemp);
+				//valor = valor * 10;
+				valor = valor + num;
+				//finalSize++;
+			}
+			else {
+				finalSize++;
+				solution[finalSize] = valor;
+				cout << valor << endl;
+				valor = 0;
+			}
 		}
+
 		resTemp++;
 	}
-	solution[finalSize] = '/0';
-	
+	solution[0] = finalSize;
+	//solution[finalSize] = '/0';
+
 	/*
 	for (int i = 0; i < finalSize; i++){
-		
-		cout << solution[i];
+
+	cout << solution[i];
 	}
 	cout << endl;
 	*/
 }
 
 /*
-	Recebe a matriz usada para desenhar o labirinto, e sempre que existe uma ligação entre 2 blocos é chamada a "joinConection" para criar o perdicado dinamico.
+Recebe a matriz usada para desenhar o labirinto, e sempre que existe uma ligação entre 2 blocos é chamada a "joinConection" para criar o perdicado dinamico.
 */
 void assertData(int **matriz){
 
@@ -110,11 +124,11 @@ void assertData(int **matriz){
 
 				joinConection(tempXi, tempYi, tempXf, tempYf);
 				joinConection(tempXf, tempYf, tempXi, tempYi);
-				
+
 			}
 			if (matriz[i][j] == 0 && matriz[(i - 1)][j] == 0)
 			{
-				int tempXi = i-1;
+				int tempXi = i - 1;
 				int tempYi = j;
 
 				int tempXf = i;
@@ -129,8 +143,8 @@ void assertData(int **matriz){
 }
 
 /*
-	Responsavel por inserir os valores que lhe são passados na base de conhecimento dinamica PROLOG.
-	Formato liga('(0,0)','(0,0)').	
+Responsavel por inserir os valores que lhe são passados na base de conhecimento dinamica PROLOG.
+Formato liga('(0,0)','(0,0)').
 */
 void joinConection(int tempXi, int tempYi, int tempXf, int tempYf){
 
