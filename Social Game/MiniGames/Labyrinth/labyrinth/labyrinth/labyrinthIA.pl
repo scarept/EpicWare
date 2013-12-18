@@ -14,8 +14,8 @@ liga((0,1),(0,1)).
 % liga((X1,X2),(CX,CY)), not(member(CX,CY),T),L1 ), L1).
 
 path(Inicio,Fim,Perc):- go1([[Inicio]],Fim,P),Perc = P.
-go1([Prim|_],Fim,Prim):- Prim=[Fim|_].
-go1([[Fim|_]|Resto],Fim,Perc):-!.
+%go1([Prim|_],Fim,Prim):- Prim=[Fim|_].
+go1([[Fim|T]|Resto],Fim,Perc):-!, Perc=[Fim|T].
 go1([[Ult|T]|Outros],Fim,Perc):-
 		findall([Z,Ult|T],(liga(Ult,Z),not(member(Z,T))),Lista),
 		%append(Lista,Outros,NPerc), % pesquisa 1º em profundidade
