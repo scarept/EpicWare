@@ -231,6 +231,10 @@
     <Compile Include="Migrations\201312172335443_userProfile.Designer.cs">
       <DependentUpon>201312172335443_userProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312181106558_updProfileFacLink.cs" />
+    <Compile Include="Migrations\201312181106558_updProfileFacLink.Designer.cs">
+      <DependentUpon>201312181106558_updProfileFacLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -419,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312172335443_userProfile.resx">
       <DependentUpon>201312172335443_userProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312181106558_updProfileFacLink.resx">
+      <DependentUpon>201312181106558_updProfileFacLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
