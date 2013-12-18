@@ -40,6 +40,7 @@ namespace EpicWareWeb.Controllers
 
         public ActionResult Create()
         {
+            fillsDropDownList();
             return View();
         }
 
@@ -52,6 +53,7 @@ namespace EpicWareWeb.Controllers
         {
             UserController usrCtr = new UserController();
             User user = usrCtr.UserAutenticated();
+            user.userProfile.birthday = new DateTime();
             user.userProfile.birthday = profile.birthday;
             user.userProfile.country = profile.country;
             user.userProfile.facebookProfile = profile.facebookProfile;
@@ -129,6 +131,15 @@ namespace EpicWareWeb.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        private void fillsDropDownList(object selectedCategorias = null)
+        {
+            var coutrysQuery = from d in db.countrys
+                               select d;
+            var selectList = new SelectList(coutrysQuery, "ID", "nome", selectedCategorias);
+            ViewBag.naturalidades = selectList;
+        } 
         }
     }
 }
