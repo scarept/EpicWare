@@ -17,8 +17,9 @@
             @Html.LabelFor(model => model.birthday)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.birthday)
-            @Html.ValidationMessageFor(model => model.birthday)
+            @Html.TextBoxDatePickerFor(model => model.birthday)  
+            @*@Html.EditorFor(model => model.birthday)
+            @Html.ValidationMessageFor(model => model.birthday)*@
         </div>
 
         <div class="editor-label">
