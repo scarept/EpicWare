@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using EpicWareWeb.Models;
 using EpicWareWeb.DAL;
+using WebMatrix.WebData;
+using System.Web.Security;
+using IDEIBiblio.Controllers;
 
 namespace EpicWareWeb.Controllers
 {
@@ -48,13 +51,30 @@ namespace EpicWareWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(User user)
+        public ActionResult Create(User user, FormCollection collection)
         {
+            RegisterModel reg_model_tmp = new RegisterModel();
+            if (ModelState.IsValid)
+            {
+                
+                reg_model_tmp.UserName = collection.Get("reg_mod.UserName");
+                reg_model_tmp.Password = collection.Get("reg_mod.Password");
+                reg_model_tmp.ConfirmPassword = collection.Get("reg_mod.ConfirmPassword");
+
+                WebSecurity.CreateUserAndAccount(reg_model_tmp.UserName, reg_model_tmp.Password);
+                WebSecurity.Login(reg_model_tmp.UserName, reg_model_tmp.Password);
+                int id = WebSecurity.GetUserId(reg_model_tmp.UserName);
+                user.UserProfileID = id;
+                Roles.AddUserToRole(reg_model_tmp.UserName, "User");
+                
+            }
             if (ModelState.IsValid)
             {
                 db.users.Add(user);
-                //db.SaveChanges();
-                return RedirectToAction("Index");
+                db.SaveChanges();
+                MailController mailSend = new MailController();
+                mailSend.sendMail(user.email, "Registo de conta", "Username/Nikname: " + reg_model_tmp.UserName + "\nPassword: " +reg_model_tmp.Password);
+                return RedirectToAction("Create", "Profile");
             }
 
             return View(user);
@@ -119,6 +139,30 @@ namespace EpicWareWeb.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public User UserAutenticated()
+        {
+            try
+            {
+                int id_login;
+                if (WebSecurity.Initialized)
+                {
+                    id_login = WebSecurity.CurrentUserId;
+                }
+                else
+                {
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    id_login = WebSecurity.CurrentUserId;
+                }
+                var user = from d in db.users where d.UserProfileID == id_login select d;
+                List<User> tempList = user.ToList();
+                return tempList.ElementAt(0);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
