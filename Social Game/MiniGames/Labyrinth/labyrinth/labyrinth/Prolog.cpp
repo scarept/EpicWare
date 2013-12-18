@@ -6,9 +6,14 @@ using namespace std;
 #include <SWI-cpp.h>
 #include "Prolog.h"
 
-void fastestWayAvailable(int **matriz){
+void fastestWayAvailable(int **matriz, int y, int x){
+	//x = 2;
+	//y = 1;
+	int xFinal = matriz[0][3];
+	int yFinal = matriz[0][4];
+	//xFinal = 4;
+	//yFinal = 8;
 
-	
 	char* argv[] = { "swipl.dll", "-s", "labyrinthIA.pl", NULL };
 
 	PlEngine e(3, argv);
@@ -19,17 +24,35 @@ void fastestWayAvailable(int **matriz){
 
 	PlTermv av(3);
 	/* colocar dinamico */
-	av[0] = PlCompound("'(2,1)'"); // start point (current point)
-	av[1] = PlCompound("'(2,3)'"); // end point
+	//av[0] = PlCompound("'(2,1)'"); // start point (current point)
+	//av[1] = PlCompound("'(2,3)'"); // end point
+
+	/*                                      */
+	char *pointerInicial;
+	char tempArr1[10];
+	sprintf(tempArr1, "'(%d,%d)'", x, y);
+	pointerInicial = tempArr1;
+	//PlTermv az(pointerVal1, pointerVal2);
+	av[0] = PlCompound(tempArr1);
+
+	char *pointerFinal;
+	char tempArr2[10];
+	sprintf(tempArr2, "'(%d,%d)'", xFinal, yFinal);
+	pointerFinal = tempArr2;
+	//PlTermv az(pointerVal1, pointerVal2);
+	av[1] = PlCompound(tempArr2);
+
+	/*                                      */
 
 	char *resTemp;//temporary pointer to solution output (prolog ouput)
 	PlQuery q("path", av);
-	while (q.next_solution())
-	{
+	//while (q.next_solution())
+	//{
+		q.next_solution();
 		resTemp = (char*)av[2];
 		cout << (char*)av[2] << endl;
-	}
-	
+//	}
+	/*
 	int finalSize = 0;
 	while (*resTemp != '\0')
 	{
@@ -40,12 +63,14 @@ void fastestWayAvailable(int **matriz){
 		}
 		resTemp++;
 	}
-
+	*/
+	/*
 	for (int i = 0; i < finalSize; i++){
 		
 		cout << solution[i];
 	}
 	cout << endl;
+	*/
 }
 
 /*
@@ -83,6 +108,7 @@ void assertData(int **matriz){
 				int tempYf = j;
 
 				joinConection(tempXi, tempYi, tempXf, tempYf);
+				joinConection(tempXf, tempYf, tempXi, tempYi);
 				
 			}
 			if (matriz[i][j] == 0 && matriz[(i - 1)][j] == 0)
@@ -94,6 +120,7 @@ void assertData(int **matriz){
 				int tempYf = j;
 
 				joinConection(tempXi, tempYi, tempXf, tempYf);
+				joinConection(tempXf, tempYf, tempXi, tempYi);
 			}
 		}
 	}

@@ -6,11 +6,12 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <vector>
+#include "Prolog.h"
 
 using namespace std;
 
 typedef struct {
-	GLboolean   a, w, s, d;
+	GLboolean   a, w, s, d, h;
 }Teclas;
 
 typedef struct{
@@ -29,7 +30,7 @@ void init(void)
 
 {
 	/*pos inicioal*/
-	ifstream ficheiro("teste3.txt", ios::in);
+	ifstream ficheiro("teste2.txt", ios::in);
 	string linha;
 	getline(ficheiro, linha);
 	char Seperator = ' ';
@@ -143,7 +144,7 @@ int** carregarMatriz(string nome){
 				char Seperator = ' ';
 				istringstream StrStream(linha);
 				string Token;
-				int valor, i = 1;
+				int valor, i = 0;
 				while (getline(StrStream, Token, Seperator))
 				{
 					valor = atoi(Token.c_str());
@@ -296,7 +297,7 @@ void display(void)
 	/* clear the matrix */
 
 	int **matLabirinto;
-	matLabirinto = carregarMatriz("teste3.txt");
+	matLabirinto = carregarMatriz("teste2.txt");
 	//quad.matPos = matLabirinto;
 	desenhaLabirinto(matLabirinto);
 
@@ -379,6 +380,11 @@ void Key(unsigned char key, int x, int y)
 		}
 		break;
 
+	case 'H':
+	case 'h': tecla.d = GL_TRUE;
+		fastestWayAvailable(quad.matrix, quad.x, quad.y);
+		break;
+
 	}
 	//glutPostRedisplay();
 }
@@ -400,7 +406,9 @@ void KeyUp(unsigned char key, int x, int y)
 	case 'D':
 	case 'd': tecla.d = GL_FALSE;
 		break;
-
+	case 'H':
+	case 'h': tecla.d = GL_FALSE;
+		break;
 	}
 
 }
@@ -446,4 +454,7 @@ int main(int argc, char** argv)
 	glutMainLoop();
 
 	return 0;
+
+
+
 }
