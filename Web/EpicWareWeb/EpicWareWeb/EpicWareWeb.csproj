@@ -241,9 +241,14 @@
     <Compile Include="Migrations\201312181123309_mailProfileToUser.Designer.cs">
       <DependentUpon>201312181123309_mailProfileToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312181511455_addCountry.cs" />
+    <Compile Include="Migrations\201312181511455_addCountry.Designer.cs">
+      <DependentUpon>201312181511455_addCountry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\IntroFriendRequest.cs" />
@@ -436,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312181123309_mailProfileToUser.resx">
       <DependentUpon>201312181123309_mailProfileToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312181511455_addCountry.resx">
+      <DependentUpon>201312181511455_addCountry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

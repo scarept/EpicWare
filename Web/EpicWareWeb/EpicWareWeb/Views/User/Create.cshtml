@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
     EpicWareWeb.Models.RegisterModel reg_mod = new EpicWareWeb.Models.RegisterModel();
+    
 }
 
 <h2>Create</h2>
@@ -45,11 +46,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.userProfile.email)
+            @Html.LabelFor(model => model.email)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.userProfile.email)
-            @Html.ValidationMessageFor(model => model.userProfile.email)
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
         </div>
 
         <p>
