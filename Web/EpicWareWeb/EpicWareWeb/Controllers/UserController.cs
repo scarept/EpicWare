@@ -10,6 +10,7 @@ using EpicWareWeb.DAL;
 using WebMatrix.WebData;
 using System.Web.Security;
 using IDEIBiblio.Controllers;
+using EpicWareWeb.Filters;
 
 namespace EpicWareWeb.Controllers
 {
@@ -43,7 +44,10 @@ namespace EpicWareWeb.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            fillLanguagesList();
+            User user = new User();
+            user.userProfile = new Profile();
+            return View(user);
         }
 
         //
@@ -51,6 +55,7 @@ namespace EpicWareWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [InitializeSimpleMembership]
         public ActionResult Create(User user, FormCollection collection)
         {
             RegisterModel reg_model_tmp = new RegisterModel();
@@ -60,24 +65,25 @@ namespace EpicWareWeb.Controllers
                 reg_model_tmp.UserName = collection.Get("reg_mod.UserName");
                 reg_model_tmp.Password = collection.Get("reg_mod.Password");
                 reg_model_tmp.ConfirmPassword = collection.Get("reg_mod.ConfirmPassword");
-
-                WebSecurity.CreateUserAndAccount(reg_model_tmp.UserName, reg_model_tmp.Password);
-                WebSecurity.Login(reg_model_tmp.UserName, reg_model_tmp.Password);
-                int id = WebSecurity.GetUserId(reg_model_tmp.UserName);
-                user.UserProfileID = id;
-                Roles.AddUserToRole(reg_model_tmp.UserName, "User");
-                
-            }
-            if (ModelState.IsValid)
-            {
+                user.userProfile.birthday = new DateTime(1900,01,01);
                 db.users.Add(user);
                 db.SaveChanges();
                 MailController mailSend = new MailController();
                 mailSend.sendMail(user.email, "Registo de conta", "Username/Nikname: " + reg_model_tmp.UserName + "\nPassword: " +reg_model_tmp.Password);
+                //if (!WebSecurity.Initialized)
+                //{
+                //    new AccountController().InitilizeBdAccounts();
+                //}
+                WebSecurity.CreateUserAndAccount(reg_model_tmp.UserName, reg_model_tmp.Password);
+                WebSecurity.Login(reg_model_tmp.UserName, reg_model_tmp.Password);
+                int id = WebSecurity.GetUserId(reg_model_tmp.UserName);
+                
+                user.UserProfileID = id;
+                Roles.AddUserToRole(reg_model_tmp.UserName, "User");
                 return RedirectToAction("Create", "Profile");
             }
-
-            return View(user);
+    
+        return View(user);
         }
 
         //
@@ -163,6 +169,14 @@ namespace EpicWareWeb.Controllers
             {
                 return null;
             }
+        }
+
+        private void fillLanguagesList(object selectedLanguage = null)
+        {
+            var languageQuery = from d in db.languages
+                               select d;
+            var selectList = new SelectList(languageQuery, "ID", "nome", selectedLanguage);
+            ViewBag.linguagens = selectList;
         }
     }
 }
