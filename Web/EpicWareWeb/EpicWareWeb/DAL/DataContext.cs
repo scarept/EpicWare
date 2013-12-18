@@ -22,5 +22,6 @@ namespace EpicWareWeb.DAL
         public DbSet<Mission> missions { get; set; }
         public DbSet<Language> languages { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Country> countrys { get; set; }
     }
 }
