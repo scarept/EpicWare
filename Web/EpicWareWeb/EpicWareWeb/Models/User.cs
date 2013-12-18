@@ -17,6 +17,7 @@ namespace EpicWareWeb.Models
         public virtual List<Mission> missions { get; set; }
         public virtual Mood mood { get; set; }
         public virtual Profile userProfile { get; set; }
+        public string email { get; set; }
         public bool active { get; set; }
     }
 }

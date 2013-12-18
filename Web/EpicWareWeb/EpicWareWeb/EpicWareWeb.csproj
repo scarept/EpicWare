@@ -183,6 +183,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\MoodController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -234,6 +235,10 @@
     <Compile Include="Migrations\201312181106558_updProfileFacLink.cs" />
     <Compile Include="Migrations\201312181106558_updProfileFacLink.Designer.cs">
       <DependentUpon>201312181106558_updProfileFacLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312181123309_mailProfileToUser.cs" />
+    <Compile Include="Migrations\201312181123309_mailProfileToUser.Designer.cs">
+      <DependentUpon>201312181123309_mailProfileToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -426,6 +431,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312181106558_updProfileFacLink.resx">
       <DependentUpon>201312181106558_updProfileFacLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312181123309_mailProfileToUser.resx">
+      <DependentUpon>201312181123309_mailProfileToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

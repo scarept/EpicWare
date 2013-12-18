@@ -14,7 +14,6 @@ namespace EpicWareWeb.Models
         public DateTime birthday { get; set; }
         public string country { get; set; }
         public int phoneNumber { get; set; }
-        public string email { get; set; }
         public string linkedinProfile { get; set; }
         public string facebookProfile { get; set; }
         public string twitterProfile { get; set; }
