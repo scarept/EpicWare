@@ -133,13 +133,12 @@ namespace EpicWareWeb.Controllers
             base.Dispose(disposing);
         }
 
-        private void fillsDropDownList(object selectedCategorias = null)
+        private void fillsDropDownList(object selectedCountry = null)
         {
             var coutrysQuery = from d in db.countrys
                                select d;
-            var selectList = new SelectList(coutrysQuery, "ID", "nome", selectedCategorias);
+            var selectList = new SelectList(coutrysQuery, "ID", "nome", selectedCountry);
             ViewBag.naturalidades = selectList;
         } 
         }
     }
-}

@@ -19,5 +19,18 @@ namespace EpicWareWeb.Models
         public virtual Profile userProfile { get; set; }
         public string email { get; set; }
         public bool active { get; set; }
+
+        public User()
+        {
+            userTags = new List<string>();
+            listConnections = new List<Connection>();
+            language = new Language();
+            scores = new List<ScoreUser>();
+            notifications = new List<Notification>();
+            missions = new List<Mission>();
+            mood = new Mood();
+            userProfile = new Profile();
+            active = true;
+        }
     }
 }

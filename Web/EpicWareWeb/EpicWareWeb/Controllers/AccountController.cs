@@ -328,6 +328,11 @@ namespace EpicWareWeb.Controllers
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
+        public void InitilizeBdAccounts ()
+        {
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+        }
+
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
