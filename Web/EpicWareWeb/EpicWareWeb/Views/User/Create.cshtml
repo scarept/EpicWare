@@ -44,6 +44,14 @@
             @Html.ValidationMessageFor(model => model.userProfile.lastName)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.userProfile.email)
+            @Html.ValidationMessageFor(model => model.userProfile.email)
+        </div>
+
         <p>
             <input type="submit" value="Create" />
         </p>

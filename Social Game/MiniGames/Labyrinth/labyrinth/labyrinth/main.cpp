@@ -9,13 +9,69 @@
 
 using namespace std;
 
+typedef struct {
+	GLboolean   a, w, s, d;
+}Teclas;
+
+typedef struct{
+	GLint	x, y;
+	GLint xi, yi;
+	GLint dimensao;
+	GLint **matrix;
+}Quadrado;
+
+Teclas tecla;
+Quadrado quad;
+
+
+
 void init(void)
 
 {
+	/*pos inicioal*/
+	ifstream ficheiro("teste3.txt", ios::in);
+	string linha;
+	getline(ficheiro, linha);
+	char Seperator = ' ';
+	istringstream StrStream(linha);
+	string Token;
+	int valor, i = 0;
+	while (getline(StrStream, Token, Seperator))
+	{
+		cout << i << " : ttt" << endl;
+		valor = atoi(Token.c_str());
+		if (i == 1)
+		{
+			cout << "Valor A: " << valor << endl;
+			quad.x = valor;
+		}
+		if (i == 2)
+		{
+			cout << "Valor B: " << valor << endl;
+			quad.y = valor;
+		}
+		i++;
+		//matLabirinto[0][i] = valor;
+	}
+	/*Fim pos inicial*/
+	//quad.x = quad.xi;
+	//quad.y = quad.yi;
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_FLAT);
+	tecla.a = tecla.w = tecla.s = tecla.d = GL_FALSE;
 }
 
+void desenhaQuadrado(int x, int y)
+{
+	glBegin(GL_POLYGON);
+	glColor3f(0, 100, 100);
+	glVertex2f(0 + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
+	glVertex2f(0 + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
+	glVertex2f(quad.dimensao + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
+	glVertex2f(quad.dimensao + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
+	glEnd();
+
+}
 void criarPerdicados(int **matriz)
 {
 	int nivel = 0;
@@ -38,11 +94,11 @@ void criarPerdicados(int **matriz)
 		{
 			if (matriz[i][j] == 0 && matriz[i][(j - 1)] == 0)
 			{
-				cout << " ta top ligou : (" << i << "," << (j - 1) << ") , (" << i << "," << j << ")" << endl;
+				//cout << " ta top ligou : (" << i << "," << (j-1) << ") , (" << i << "," << j << ")" << endl;
 			}
 			if (matriz[i][j] == 0 && matriz[(i - 1)][j] == 0)
 			{
-				cout << " ta top ligou verti : (" << (i - 1) << "," << j << ") , (" << i << "," << j << ")" << endl;
+				//cout << " ta top ligou verti : (" << (i-1) << "," << j << ") , (" << i << "," << j << ")" << endl;
 			}
 		}
 	}
@@ -64,8 +120,9 @@ int** carregarMatriz(string nome){
 		{
 			if (nivel == 0)
 			{
+				//**********
 				nivel = atoi(linha.c_str());
-				printf("Conteudo %d \n", nivel);
+				//printf("Conteudo %d \n", nivel);
 
 				/* Numero de linhas da matriz*/
 				if (nivel == 1 || nivel == 2)
@@ -82,10 +139,22 @@ int** carregarMatriz(string nome){
 					matLabirinto[i] = new int[auxNumLinhaMat];
 				}
 
+				/*Posição de inicio e posição de fim*/
+				char Seperator = ' ';
+				istringstream StrStream(linha);
+				string Token;
+				int valor, i = 1;
+				while (getline(StrStream, Token, Seperator))
+				{
+					valor = atoi(Token.c_str());
+					matLabirinto[0][i] = valor;
+					i++;
+				}
+
 			}
 			else
 			{
-				printf("linha seguinte \n");
+				//printf("linha seguinte \n");
 				if (nivel == 1 || nivel == 2 || nivel == 3)
 				{
 					//**************continuar aqui
@@ -133,24 +202,30 @@ void desenhaLabirinto(int **matLabirinto)
 	{
 		for (int z = 0; z < 10 - 1; z++)
 		{
-			cout << matLabirinto[i][z] << endl;
+			//cout << matLabirinto[i][z] << endl;
 		}
 	}
 	int nivel = matLabirinto[0][0];
-	cout << "nivel: " << nivel << endl;
+	//cout << "nivel: " << nivel << endl;
 	//dimenção matriz
 	int x = 0, y = 0;
 	if (nivel == 1)
 	{
 		x = y = 10;
+		matLabirinto[0][5] = 10;
+		matLabirinto[0][6] = 10;
 	}
 	else if (nivel == 2)
 	{
 		x = y = 20;
+		matLabirinto[0][5] = 20;
+		matLabirinto[0][6] = 5;
 	}
 	else
 	{
 		x = y = 25;
+		matLabirinto[0][5] = 25;
+		matLabirinto[0][6] = 4;
 	}
 
 	for (int i = 1; i<(x + 1); i++)
@@ -190,15 +265,24 @@ void desenhaLabirinto(int **matLabirinto)
 			}
 		}
 	}
-
+	/*
 	glBegin(GL_POLYGON);
-	glColor3f(0, 0, 255);
+	glColor3f(0,0,255);
 	glVertex2f(0, 0);
 	glVertex2f(0, 10);
 	glVertex2f(10, 10);
 	glVertex2f(10, 0);
 	glEnd();
+	*/
 
+	quad.dimensao = matLabirinto[0][6];
+	//cout << " ola " << endl;
+	//cout << matLabirinto[0][4] << endl;
+	//cout << matLabirinto[0][3] << " -----" << endl;
+	//quad.x = matLabirinto[0][3], quad.y = matLabirinto[0][1];
+	//cout << matLabirinto[0][3] << ";" << matLabirinto[0][1];
+	desenhaQuadrado(quad.x = quad.x + 0, quad.y = quad.y + 0);
+	quad.matrix = matLabirinto;
 	criarPerdicados(matLabirinto);
 }
 
@@ -212,7 +296,8 @@ void display(void)
 	/* clear the matrix */
 
 	int **matLabirinto;
-	matLabirinto = carregarMatriz("teste.txt");
+	matLabirinto = carregarMatriz("teste3.txt");
+	//quad.matPos = matLabirinto;
 	desenhaLabirinto(matLabirinto);
 
 	glFlush();
@@ -238,9 +323,104 @@ void reshape(int w, int h)
 }
 
 
+void Key(unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 'A':
+	case 'a': tecla.a = GL_TRUE;
+
+		cout << quad.matrix[quad.y][quad.x] << endl;
+		cout << "pos x: " << quad.x << " pos.y " << quad.y << endl;
+		cout << "aaa" << endl;
+		if (quad.matrix[quad.y][quad.x - 1] == 0)
+		{
+			cout << " ola aaa " << endl;
+			quad.x = quad.x - 1;
+		}
+
+		//if(quad.matrix[quad.x][quad.y] == 0)
+		//{
+
+		//}
+
+		//quad.y = 1;
+		break;
+	case 'W':
+	case 'w': tecla.w = GL_TRUE;
+		if (quad.matrix[quad.y - 1][quad.x] == 0)
+		{
+			quad.y = quad.y - 1;
+		}
+		//quad.x = quad.x;
+
+		cout << quad.matrix[quad.y][quad.x] << endl;
+		cout << "pos x: " << quad.x << " pos.y " << quad.y << endl;
+
+		cout << "wwww" << endl;
+		break;
+	case 'S':
+	case 's': tecla.s = GL_TRUE;
+		//quad.x = quad.x;
+		if (quad.matrix[quad.y + 1][quad.x] == 0)
+		{
+			cout << " diabooooo " << endl;
+			quad.y = quad.y + 1;
+		}
+
+
+		cout << "sss" << endl;
+		break;
+	case 'D':
+	case 'd': tecla.d = GL_TRUE;
+		if (quad.matrix[quad.y][quad.x + 1] == 0)
+		{
+			cout << " Bom diaaaaaa " << endl;
+			quad.x = quad.x + 1;
+		}
+		break;
+
+	}
+	//glutPostRedisplay();
+}
+
+void KeyUp(unsigned char key, int x, int y)
+{
+	switch (key) {
+		// ... accoes sobre largar teclas ... 
+
+	case 'A':
+	case 'a': tecla.a = GL_FALSE;
+		break;
+	case 'W':
+	case 'w': tecla.w = GL_FALSE;
+		break;
+	case 'S':
+	case 's': tecla.s = GL_FALSE;
+		break;
+	case 'D':
+	case 'd': tecla.d = GL_FALSE;
+		break;
+
+	}
+
+}
+
+void TimerTeclas(int value)
+{
+	glutTimerFunc(20, TimerTeclas, 0);
+	if (tecla.a)
+	{
+		//cout << "olaaaaaaaa aaaaa " << endl;
+		//cout << quad.x << " ; " << quad.y << endl;
+		desenhaQuadrado(5, 5);
+		//sleep(100);
+
+	}
+	//cout << "olaaaaaaaa aaaaa sssssssss" << endl;
+	glutPostRedisplay();
+}
 
 int main(int argc, char** argv)
-
 {
 	//carregarMatriz("teste.txt");
 	glutInit(&argc, argv);
@@ -253,13 +433,16 @@ int main(int argc, char** argv)
 
 	glutCreateWindow(argv[0]);
 
-	init();
+	//init ();
 
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
 
+	glutKeyboardFunc(Key);
+	glutKeyboardUpFunc(KeyUp);
+	glutTimerFunc(20, TimerTeclas, 0);
 
-
+	init();
 	glutMainLoop();
 
 	return 0;
