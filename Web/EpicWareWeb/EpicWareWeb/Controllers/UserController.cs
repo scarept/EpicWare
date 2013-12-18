@@ -56,12 +56,18 @@ namespace EpicWareWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [InitializeSimpleMembership]
-        public ActionResult Create(User user, FormCollection collection)
+        public ActionResult Create(User user, FormCollection collection, string langSelect)
         {
             RegisterModel reg_model_tmp = new RegisterModel();
             if (ModelState.IsValid)
             {
-
+                try
+                {
+                    Language lang = db.languages.Find(Convert.ToInt32(langSelect));
+                    user.language = lang;
+                }
+                catch (Exception){}
+                
                 reg_model_tmp.UserName = collection.Get("reg_mod.UserName");
                 reg_model_tmp.Password = collection.Get("reg_mod.Password");
                 reg_model_tmp.ConfirmPassword = collection.Get("reg_mod.ConfirmPassword");
