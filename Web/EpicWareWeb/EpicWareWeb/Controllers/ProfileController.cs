@@ -137,9 +137,8 @@ namespace EpicWareWeb.Controllers
         {
             var coutrysQuery = from d in db.countrys
                                select d;
-            var selectList = new SelectList(coutrysQuery, "ID", "nome", selectedCategorias);
+            var selectList = new SelectList(coutrysQuery, "countryID", "name", selectedCategorias);
             ViewBag.naturalidades = selectList;
         } 
         }
     }
-}

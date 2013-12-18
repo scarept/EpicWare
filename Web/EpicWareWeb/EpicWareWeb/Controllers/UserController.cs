@@ -61,15 +61,15 @@ namespace EpicWareWeb.Controllers
             RegisterModel reg_model_tmp = new RegisterModel();
             if (ModelState.IsValid)
             {
-                
+
                 reg_model_tmp.UserName = collection.Get("reg_mod.UserName");
                 reg_model_tmp.Password = collection.Get("reg_mod.Password");
                 reg_model_tmp.ConfirmPassword = collection.Get("reg_mod.ConfirmPassword");
-                user.userProfile.birthday = new DateTime(1900,01,01);
+                user.userProfile.birthday = new DateTime(1900, 01, 01);
                 db.users.Add(user);
                 db.SaveChanges();
                 MailController mailSend = new MailController();
-                mailSend.sendMail(user.email, "Registo de conta", "Username/Nikname: " + reg_model_tmp.UserName + "\nPassword: " +reg_model_tmp.Password);
+                mailSend.sendMail(user.email, "Registo de conta", "Username/Nikname: " + reg_model_tmp.UserName + "\nPassword: " + reg_model_tmp.Password);
                 //if (!WebSecurity.Initialized)
                 //{
                 //    new AccountController().InitilizeBdAccounts();
@@ -77,13 +77,13 @@ namespace EpicWareWeb.Controllers
                 WebSecurity.CreateUserAndAccount(reg_model_tmp.UserName, reg_model_tmp.Password);
                 WebSecurity.Login(reg_model_tmp.UserName, reg_model_tmp.Password);
                 int id = WebSecurity.GetUserId(reg_model_tmp.UserName);
-                
+
                 user.UserProfileID = id;
                 Roles.AddUserToRole(reg_model_tmp.UserName, "User");
                 return RedirectToAction("Create", "Profile");
             }
-    
-        return View(user);
+
+            return View(user);
         }
 
         //
@@ -174,8 +174,8 @@ namespace EpicWareWeb.Controllers
         private void fillLanguagesList(object selectedLanguage = null)
         {
             var languageQuery = from d in db.languages
-                               select d;
-            var selectList = new SelectList(languageQuery, "ID", "nome", selectedLanguage);
+                                select d;
+            var selectList = new SelectList(languageQuery, "languageID", "name", selectedLanguage);
             ViewBag.linguagens = selectList;
         }
     }
