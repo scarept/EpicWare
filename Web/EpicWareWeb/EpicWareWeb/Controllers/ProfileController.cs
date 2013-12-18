@@ -50,11 +50,21 @@ namespace EpicWareWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Profile profile)
         {
+            UserController usrCtr = new UserController();
+            User user = usrCtr.UserAutenticated();
+            user.userProfile.birthday = profile.birthday;
+            user.userProfile.country = profile.country;
+            user.userProfile.facebookProfile = profile.facebookProfile;
+            user.userProfile.gender = profile.gender;
+            user.userProfile.linkedinProfile = profile.linkedinProfile;
+            user.userProfile.phoneNumber = profile.phoneNumber;
+            user.userProfile.twitterProfile = profile.twitterProfile;
+
             if (ModelState.IsValid)
             {
-                db.Profiles.Add(profile);
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View(profile);
