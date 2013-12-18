@@ -191,6 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TextBoxHelperExtensions.cs" />
     <Compile Include="Migrations\201312171727015_moodUpd.cs" />
     <Compile Include="Migrations\201312171727015_moodUpd.Designer.cs">
       <DependentUpon>201312171727015_moodUpd.cs</DependentUpon>
@@ -307,6 +308,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Flags\ENG.gif" />
     <Content Include="Images\Flags\PT.gif" />
+    <Content Include="Scripts\inputs-jquery-ui.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
