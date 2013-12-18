@@ -52,6 +52,14 @@
             @Html.ValidationMessageFor(model => model.email)
         </div>
 
+        @* Lingua escolhida *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.language)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("langSelect", (SelectList)ViewBag.linguagens)
+        </div>
+
         <p>
             <input type="submit" value="Create" />
         </p>
