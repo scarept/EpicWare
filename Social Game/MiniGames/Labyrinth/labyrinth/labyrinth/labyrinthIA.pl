@@ -15,9 +15,9 @@ liga((0,1),(0,1)).
 
 path(Inicio,Fim,Perc):- go1([[Inicio]],Fim,P),Perc = P.
 go1([Prim|_],Fim,Prim):- Prim=[Fim|_].
-go1([[Fim|_]|Resto],Fim,Perc):- !, go1(Resto,Fim,Perc).
+go1([[Fim|_]|Resto],Fim,Perc):-!.
 go1([[Ult|T]|Outros],Fim,Perc):-
-		findall([Z,Ult|T],liga(Ult,Z),Lista),
+		findall([Z,Ult|T],(liga(Ult,Z),not(member(Z,T))),Lista),
 		%append(Lista,Outros,NPerc), % pesquisa 1º em profundidade
 		append(Outros,Lista,NPerc),% pesquisa 1º em largura
 		%write('NPerc:'), write(NPerc),nl,
