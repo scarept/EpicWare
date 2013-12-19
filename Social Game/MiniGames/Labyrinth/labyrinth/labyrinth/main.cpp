@@ -7,8 +7,12 @@
 #include <GL/glut.h>
 #include <vector>
 #include "Prolog.h"
+#include "SOIL.h"
 
 using namespace std;
+
+
+
 
 typedef struct {
 	GLboolean   a, w, s, d, h;
@@ -24,6 +28,9 @@ typedef struct{
 typedef struct{
 	int *posGPS;
 	bool gps;
+	GLuint imagem;
+	GLuint textura_paredes;
+	GLuint caminho_text;
 }Modelo;
 
 Teclas tecla;
@@ -41,6 +48,7 @@ void pintarGPS()
 		{
 			x = mod.posGPS[(i)];
 			y = mod.posGPS[(i - 1)];
+			glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA);
 			glBegin(GL_POLYGON);
 				glColor3f(100, 100, 100);
 				glVertex2f(0 + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
@@ -59,6 +67,89 @@ void pintarGPS()
 void init(void)
 
 {
+	/*
+	GLuint tex;
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	float color[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
+
+	float pixels[] = {
+		0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f
+	};
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
+	*/
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glEnable(GL_TEXTURE_2D);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+	mod.imagem = SOIL_load_OGL_texture
+		(
+		"teste.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		);
+
+
+	/* check for an error during the load process */
+	if (0 == mod.imagem)
+	{
+		printf("SOIL loading error: '%s'\n", SOIL_last_result());
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glEnable(GL_TEXTURE_2D);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+	mod.textura_paredes = SOIL_load_OGL_texture
+		(
+		"parede.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		);
+
+
+	/* check for an error during the load process */
+	if (0 == mod.textura_paredes)
+	{
+		printf("SOIL loading error: '%s'\n", SOIL_last_result());
+	}
+
+
+	/*      textura caminhos  */
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glEnable(GL_TEXTURE_2D);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+	mod.caminho_text = SOIL_load_OGL_texture
+		(
+		"fundo.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		);
+
+
+	/* check for an error during the load process */
+	if (0 == mod.caminho_text)
+	{
+		printf("SOIL loading error: '%s'\n", SOIL_last_result());
+	}
+
+
+
+
+
 	/*pos inicioal*/
 	ifstream ficheiro("teste.txt", ios::in);
 	string linha;
@@ -94,49 +185,26 @@ void init(void)
 
 void desenhaQuadrado(int x, int y)
 {
+	
+	
+	glBindTexture(GL_TEXTURE_2D, mod.imagem);
+	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, 0.5); //transparencias 
 	glBegin(GL_POLYGON);
-	glColor3f(0, 100, 100);
-	glVertex2f(0 + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
-	glVertex2f(0 + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
-	glVertex2f(quad.dimensao + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
-	glVertex2f(quad.dimensao + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
+	//glColor3f(0, 100, 100);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(0 + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(0 + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(quad.dimensao + (x*quad.dimensao), quad.dimensao + ((y - 1)*quad.dimensao));
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(quad.dimensao + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
 	glEnd();
 
-}
-void criarPerdicados(int **matriz)
-{
-	int nivel = 0;
-	nivel = matriz[0][0];
-	int largura = 0, altura = 0;
-	if (nivel == 1 || nivel == 2)
-	{
-		largura = nivel * 10;
-		altura = nivel * 10 + 1;
-	}
-	else
-	{
-		largura = 25;
-		altura = 26;
-	}
-
-	for (int i = 1; i<altura; i++)
-	{
-		for (int j = 1; j< largura; j++)
-		{
-			if (matriz[i][j] == 0 && matriz[i][(j - 1)] == 0)
-			{
-				//cout << " ta top ligou : (" << i << "," << (j-1) << ") , (" << i << "," << j << ")" << endl;
-			}
-			if (matriz[i][j] == 0 && matriz[(i - 1)][j] == 0)
-			{
-				//cout << " ta top ligou verti : (" << (i-1) << "," << j << ") , (" << i << "," << j << ")" << endl;
-			}
-		}
-	}
+	glBindTexture(GL_TEXTURE_2D, NULL);
 
 }
 
-//int** carregarMatriz(string nome){
 int** carregarMatriz(string nome){
 	ifstream ficheiro(nome, ios::in);
 	//	char linhab[256];
@@ -265,13 +333,20 @@ void desenhaLabirinto(int **matLabirinto)
 		{
 			if (matLabirinto[i][j] != 0 && x == 10)
 			{
+				glBindTexture(GL_TEXTURE_2D, mod.textura_paredes);
+
 				glBegin(GL_POLYGON);
-				glColor3f(0, 0, 255);
+				//glColor3f(0, 0, 255);
+				glTexCoord2f(0.0, 0.0);
 				glVertex2f(0 + (j * 10), 0 + ((i - 1) * 10));
+				glTexCoord2f(0.0, 1.0);
 				glVertex2f(0 + (j * 10), 10 + ((i - 1) * 10));
+				glTexCoord2f(1.0, 1.0);
 				glVertex2f(10 + (j * 10), 10 + ((i - 1) * 10));
+				glTexCoord2f(1.0, 0.0);
 				glVertex2f(10 + (j * 10), 0 + ((i - 1) * 10));
 				glEnd();
+				glBindTexture(GL_TEXTURE_2D, NULL);
 			}
 
 			if (matLabirinto[i][j] != 0 && x == 20)
@@ -296,15 +371,6 @@ void desenhaLabirinto(int **matLabirinto)
 			}
 		}
 	}
-	/*
-	glBegin(GL_POLYGON);
-	glColor3f(0,0,255);
-	glVertex2f(0, 0);
-	glVertex2f(0, 10);
-	glVertex2f(10, 10);
-	glVertex2f(10, 0);
-	glEnd();
-	*/
 
 	quad.dimensao = matLabirinto[0][6];
 	//cout << " ola " << endl;
@@ -314,7 +380,7 @@ void desenhaLabirinto(int **matLabirinto)
 	//cout << matLabirinto[0][3] << ";" << matLabirinto[0][1];
 	desenhaQuadrado(quad.x = quad.x + 0, quad.y = quad.y + 0);
 	quad.matrix = matLabirinto;
-	criarPerdicados(matLabirinto);
+	//criarPerdicados(matLabirinto);
 }
 
 
@@ -329,8 +395,9 @@ void display(void)
 	int **matLabirinto;
 	matLabirinto = carregarMatriz("teste.txt");
 	//quad.matPos = matLabirinto;
-	desenhaLabirinto(matLabirinto);
 	pintarGPS();
+	desenhaLabirinto(matLabirinto);
+	
 	glFlush();
 
 }
@@ -391,7 +458,16 @@ void Key(unsigned char key, int x, int y)
 		break;
 	case 'S':
 	case 's': tecla.s = GL_TRUE;
+		cout<< quad.matrix[0][3]<<endl;
+		cout << quad.matrix[0][4] << endl;
+
+		cout << quad.y << endl;
+		cout << quad.x << endl;
 		//quad.x = quad.x;
+		if (quad.matrix[0][3] == quad.y +1 && quad.matrix[0][4] == quad.x){
+			cout << " FIM 11111111111111111 " << endl;
+		}
+
 		if (quad.matrix[quad.y + 1][quad.x] == 0)
 		{
 			cout << " diabooooo " << endl;
@@ -484,11 +560,11 @@ int main(int argc, char** argv)
 	glutKeyboardUpFunc(KeyUp);
 	glutTimerFunc(20, TimerTeclas, 0);
 
+	
 	init();
 	glutMainLoop();
 
 	return 0;
 
-
-
 }
+
