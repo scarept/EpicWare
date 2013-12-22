@@ -260,8 +260,22 @@
     <Compile Include="Models\TagConnection.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Profile\Profile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Profile.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Profile\Profile.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Profile.en.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -317,13 +331,31 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\modern_dot_digital-7.ttf" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\Buttons\loginOut.png" />
+    <Content Include="Images\Buttons\loginOver.png" />
+    <Content Include="Images\EpicWare Logos\EpicWare Logo.png" />
+    <Content Include="Images\EpicWare Logos\EpicWare%28com fundo%29.png" />
+    <Content Include="Images\EpicWare Logos\EpicWare.png" />
     <Content Include="Images\Flags\ENG.gif" />
     <Content Include="Images\Flags\PT.gif" />
+    <Content Include="Images\glyphicons_197_remove.png" />
+    <Content Include="Images\glyphicons_198_ok.png" />
+    <Content Include="Images\EpicWare Logos\lapr5.png" />
+    <Content Include="Images\EpicWare Logos\logo.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\inputs-jquery-ui.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <None Include="Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom\development-bundle\demos\autocomplete\search.php" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom\development-bundle\demos\tabs\ajax\content3-slow.php" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom\development-bundle\demos\tabs\ajax\content4-broken.php" />
@@ -363,6 +395,7 @@
     <Content Include="Scripts\jquery-ui-1.9.2.custom\development-bundle\ui.tabs.jquery.json" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom\development-bundle\ui.tooltip.jquery.json" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom\development-bundle\ui.widget.jquery.json" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
@@ -1025,6 +1058,7 @@
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Delete.cshtml" />
+    <Content Include="Views\Shared\_NavBarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1077,6 +1111,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312181511455_addCountry.resx">
       <DependentUpon>201312181511455_addCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Profile\Profile.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Profile.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Profile\Profile.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Profile.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
