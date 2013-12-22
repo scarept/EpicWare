@@ -9,9 +9,9 @@ namespace EpicWareWeb.Models
     {
         public int userID { get; set; }
         public int UserProfileID { get; set; }
-        public List<string> userTags { get; set; }
+        public virtual List<Tag> userTags { get; set; }
         public virtual List<Connection> listConnections { get; set; }
-        public Language language { get; set; }
+        public virtual Language language { get; set; }
         public virtual List<ScoreUser> scores { get; set; }
         public virtual List<Notification> notifications { get; set; }
         public virtual List<Mission> missions { get; set; }
@@ -22,15 +22,15 @@ namespace EpicWareWeb.Models
 
         public User()
         {
-            userTags = new List<string>();
-            listConnections = new List<Connection>();
-            language = new Language();
-            scores = new List<ScoreUser>();
-            notifications = new List<Notification>();
-            missions = new List<Mission>();
-            mood = new Mood();
-            userProfile = new Profile();
-            active = true;
+            //userTags = new List<string>();
+            //listConnections = new List<Connection>();
+            //language = new Language();
+            //scores = new List<ScoreUser>();
+            //notifications = new List<Notification>();
+            //missions = new List<Mission>();
+            //mood = new Mood();
+            //userProfile = new Profile();
+            //active = true;
         }
     }
 }

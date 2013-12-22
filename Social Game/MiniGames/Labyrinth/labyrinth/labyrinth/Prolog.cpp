@@ -6,7 +6,7 @@ using namespace std;
 #include <SWI-cpp.h>
 #include "Prolog.h"
 
-void fastestWayAvailable(int **matriz, int y, int x){
+int* fastestWayAvailable(int **matriz, int y, int x){
 	//x = 2;
 	//y = 1;
 	int xFinal = matriz[0][3];
@@ -54,7 +54,7 @@ void fastestWayAvailable(int **matriz, int y, int x){
 	}
 	int valor = 0;
 	int finalSize = 0;
-	int solution[100];
+	int *solution = new int[100];
 	while (*resTemp != '\0')
 	{
 		if (*resTemp != '[' && *resTemp != '\''  && *resTemp != '('  && *resTemp != ')'){
@@ -77,6 +77,7 @@ void fastestWayAvailable(int **matriz, int y, int x){
 		resTemp++;
 	}
 	solution[0] = finalSize;
+	return solution;
 	//solution[finalSize] = '/0';
 
 	/*

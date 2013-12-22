@@ -5,13 +5,13 @@ namespace EpicWareWeb.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class GameScoreUpdt : IMigrationMetadata
+    public sealed partial class newDBEpic2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(GameScoreUpdt));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newDBEpic2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201312171735004_GameScoreUpdt"; }
+            get { return "201312220002456_newDBEpic2"; }
         }
         
         string IMigrationMetadata.Source

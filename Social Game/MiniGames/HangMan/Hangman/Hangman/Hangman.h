@@ -11,6 +11,7 @@
 #include <math.h>
 #include <time.h>
 #include <GL/glut.h>
+#include "CreateStatement.h"
 
 
 #ifndef M_PI
@@ -43,7 +44,7 @@ private:
 public:
 	CHangman();
 	~CHangman();
-	void run(int, char **);
+	void startGame(int, char **);
 };
 
 #endif

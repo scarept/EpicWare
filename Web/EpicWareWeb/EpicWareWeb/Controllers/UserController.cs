@@ -11,6 +11,7 @@ using WebMatrix.WebData;
 using System.Web.Security;
 using IDEIBiblio.Controllers;
 using EpicWareWeb.Filters;
+using System.IO;
 
 namespace EpicWareWeb.Controllers
 {
@@ -18,8 +19,8 @@ namespace EpicWareWeb.Controllers
     {
         private DataContext db = new DataContext();
 
-        //
-        // GET: /User/
+        
+         //GET: /User/
 
         public ActionResult Index()
         {
@@ -72,6 +73,10 @@ namespace EpicWareWeb.Controllers
                 reg_model_tmp.Password = collection.Get("reg_mod.Password");
                 reg_model_tmp.ConfirmPassword = collection.Get("reg_mod.ConfirmPassword");
                 user.userProfile.birthday = new DateTime(1900, 01, 01);
+                user.userProfile.nickname = reg_model_tmp.UserName;
+                Mood mood = db.moods.Find(2); // Default is normal
+                user.mood = mood;
+                user.active = true;
                 db.users.Add(user);
                 db.SaveChanges();
                 MailController mailSend = new MailController();
@@ -85,12 +90,16 @@ namespace EpicWareWeb.Controllers
                 int id = WebSecurity.GetUserId(reg_model_tmp.UserName);
 
                 user.UserProfileID = id;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
                 Roles.AddUserToRole(reg_model_tmp.UserName, "User");
-                return RedirectToAction("Create", "Profile");
+                return RedirectToAction("CreateProfile");
             }
 
             return View(user);
         }
+
+        /* EDIT METHODS */
 
         //
         // GET: /User/Edit/5
@@ -122,30 +131,121 @@ namespace EpicWareWeb.Controllers
         }
 
         //
-        // GET: /User/Delete/5
-
-        public ActionResult Delete(int id = 0)
+        // GET: /User/EditProfile/5
+        public ActionResult CreateProfile()
         {
-            User user = db.users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
+            User user = UserAutenticated();
+            ViewBag.profileSend = user.userProfile;
+            ViewBag.userAuth = user;
+            fillsDropDownListCountry();
+            fillsDropDownListGenders();
             return View(user);
         }
 
         //
-        // POST: /User/Delete/5
+        // POST: /User/EditProfile/5
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult CreateProfile(FormCollection collection, string naturalSelect, string genderSelect, HttpPostedFileBase file)
         {
-            User user = db.users.Find(id);
-            db.users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            User userAuth = UserAutenticated();
+            
+            /* BIRTHDAY */
+            string data = collection.Get("MyDate");
+            string[] arrData = data.Split('/');
+            int year = Convert.ToInt32(arrData.ElementAt(2));
+            int month = Convert.ToInt32(arrData.ElementAt(0));
+            int day = Convert.ToInt32(arrData.ElementAt(1));
+            userAuth.userProfile.birthday = new DateTime(year, month, day);
+
+            /* PHONE */
+            string phone = collection.Get("profile.phoneNumber");
+            int phoneNumber = Convert.ToInt32(phone);
+            userAuth.userProfile.phoneNumber = phoneNumber;
+
+            /* USERTAGS */
+            string tags = collection.Get("tags");
+            string[] tagsV = tags.Split(',');
+            if (userAuth.userTags == null)
+            {
+                userAuth.userTags = new List<Tag>();
+            }
+            foreach (string tag in tagsV)
+            {
+                Tag t = new Tag();
+                t.tag = tag;
+                userAuth.userTags.Add(t);
+            }
+
+            /* SOCIAL NETWORKS*/
+            string linkedin = collection.Get("profile.linkedinProfile");
+            userAuth.userProfile.linkedinProfile = linkedin;
+            string facebook = collection.Get("profile.facebookProfile");
+            userAuth.userProfile.facebookProfile = facebook;
+            string twitter = collection.Get("profile.twitterProfile");
+            userAuth.userProfile.twitterProfile = twitter;
+
+            /* COUNTRY */
+            Country country = db.countrys.Find(Convert.ToInt32(naturalSelect));
+            userAuth.userProfile.country = country;
+
+            /* GENDER */
+            if (genderSelect == EpicWareWeb.Views.User.User.masculino)
+            {
+                userAuth.userProfile.gender = "M";
+            }else{
+                userAuth.userProfile.gender = "F";
+            }
+            /* PROFILE IMAGE */
+            if (file != null)
+            {
+                // Get extention
+                string[] ext = file.FileName.Split('.');
+                string extention = ext.ElementAt(ext.Count() - 1);
+                
+                string pic = userAuth.userID + "." + extention;
+                string path = Path.Combine(Server.MapPath("~/Images/Profiles/"), pic);
+
+                file.SaveAs(path);
+                userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
+            }
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(userAuth).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
+            return View();
         }
+
+        //
+        // GET: /User/Delete/5
+
+        //public ActionResult Delete(int id = 0)
+        //{
+        //    User user = db.users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(user);
+        //}
+
+        ////
+        //// POST: /User/Delete/5
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    User user = db.users.Find(id);
+        //    db.users.Remove(user);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -184,5 +284,25 @@ namespace EpicWareWeb.Controllers
             var selectList = new SelectList(languageQuery, "languageID", "name", selectedLanguage);
             ViewBag.linguagens = selectList;
         }
+
+        private void fillsDropDownListCountry(object selectedCountry = null)
+        {
+            var coutrysQuery = from d in db.countrys
+                               select d;
+
+            var selectList = new SelectList(coutrysQuery, "countryID", "name", selectedCountry);
+            ViewBag.naturalidades = selectList;
+        }
+
+        private void fillsDropDownListGenders(object selectedGender = null)
+        {
+            List<string> gendersList = new List<string>();
+            gendersList.Add(EpicWareWeb.Views.User.User.masculino);
+            gendersList.Add(EpicWareWeb.Views.User.User.feminino);
+
+            var selectList = new SelectList(gendersList);
+            ViewBag.genders = selectList;
+        }
+
     }
 }

@@ -2,8 +2,8 @@
 
 Estado estado;
 Modelo modelo;
-/*char *word;
-char *guesses;*/
+char word[80];
+char guessList[80] = "";
 
 CHangman::CHangman()
 {
@@ -73,10 +73,8 @@ void Reshape(int width, int height)
 	glLoadIdentity();
 }
 
-
-//void drawBox(char letter){}
-
-void drawGallows(void){
+void drawGallowsPole(void){
+	glPushMatrix();
 	glColor3f(1, 1, 1);
 
 	glTranslatef(-0.75, -0.75, 0);
@@ -110,91 +108,121 @@ void drawGallows(void){
 	glVertex2f(0.1, 0.0);
 	glVertex2f(0.1, -0.2);
 	glEnd();
-
-
+	glPopMatrix();
 }
+
 
 /*Draw stickman*/
 void drawStickmanHead(void){
-	glTranslatef(0.1, -0.3, 0.0);
+	glPushMatrix();
+	glTranslatef(-0.05, -0.15, 0.0);
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < 360; ++i){
 		glVertex2f(cos((i*M_PI) / 180)*modelo.raio, sin((i*M_PI) / 180)*modelo.raio);
 	}
 	glEnd();
+	glPopMatrix();
 }
 
 void drawStickmanBody(void){
-	glTranslatef(0.0, -0.1, 0.0);
+	glPushMatrix();
+	glTranslatef(-0.05, -0.25, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
 	glVertex2f(0.0, -0.25);
 	glEnd();
+	glPopMatrix();
 }
 
 void drawStickmanLeftArm(void){
-	glTranslatef(0.0, -0.05, 0.0);
+	glPushMatrix();
+	glTranslatef(-0.05, -0.325, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
 	glVertex2f(-0.1, -0.1);
 	glEnd();
+	glPopMatrix();
 }
 
 void drawStickmanRightArm(void){
+	glPushMatrix();
+	glTranslatef(-0.05, -0.325, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
 	glVertex2f(0.1, -0.1);
 	glEnd();
+	glPopMatrix();
 }
 
 void drawStickmanLeftLeg(void){
-	glTranslatef(0.0, -0.2, 0.0);
+	glPushMatrix();
+	glTranslatef(-0.05, -0.5, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
 	glVertex2f(-0.1, -0.1);
 	glEnd();
+	glPopMatrix();
 }
 
 void drawStickmanRightLeg(void){
+	glPushMatrix();
+	glTranslatef(-0.05, -0.5, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
 	glVertex2f(0.1, -0.1);
 	glEnd();
+	glPopMatrix();
 }
 /*End Stickman*/
 
+
 void drawText(char *txt){
+	glPushMatrix();
 	glColor3f(1, 1, 1);
-	glRasterPos2f(0.8, -0.5);
+	glRasterPos2f(0.2, -0.5);
 	for (int i = 0; txt[i] != '\0'; ++i){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, txt[i]);
 	}
+	glPopMatrix();
 }
 
 void drawGuessedLetters(char *guesses){
-	glRasterPos2f(-0.2, 0.5);
+	//strcat(guesses, "A B C D E F");
+	glPushMatrix();
+	glRasterPos2f(-0.75, 0.75);
 	for (int i = 0; guesses[i] != '\0'; ++i){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, guesses[i]);
 	}
+	glPopMatrix();
 }
 
-// Callback de desenho
-
-void Draw(void){
+void drawWordCategory(char *category){
+	char result[80];
+	strcpy(result, "CATEGORY: ");
+	strcat(result, category);
+	
 	glPushMatrix();
-	drawGallows();
+	glRasterPos2f(0.2, 0.2);
+	for (int i = 0; result[i] != '\0'; ++i){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, result[i]);
+	}
+	glPopMatrix();
+}
+
+
+// Callback de desenho
+void Draw(void){
+	drawGallowsPole();
 	drawStickmanHead();
 	drawStickmanBody();
 	drawStickmanLeftArm();
 	drawStickmanRightArm();
 	drawStickmanLeftLeg();
 	drawStickmanRightLeg();
-	glPopMatrix();
 
-	glPushMatrix();
 	drawText("_ _ L L _");
-	drawGuessedLetters("W Q L P I S ");
-	glPopMatrix();
+	drawGuessedLetters(guessList);
+	drawWordCategory("SHITS & STUFFS");
 
 	glFlush();
 	if (estado.doubleBuffer)
@@ -367,7 +395,7 @@ void Key(unsigned char key, int x, int y)
 }
 
 
-void CHangman::run(int argc, char **argv)
+void CHangman::startGame(int argc, char **argv)
 {
 	estado.doubleBuffer = GL_TRUE;
 
