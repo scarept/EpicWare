@@ -6,16 +6,21 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <vector>
-#include "Prolog.h"
 #include "SOIL.h"
+
+#include "Prolog.h"
+#include "LoadImages.h"
+#include "LoadExternalFiles.h"
 
 using namespace std;
 
 
+#define BUFSIZE 512
 
+int teste = 0;
 
 typedef struct {
-	GLboolean   a, w, s, d, h;
+	GLboolean   a, w, s, d, h, p;
 }Teclas;
 
 typedef struct{
@@ -26,11 +31,13 @@ typedef struct{
 }Quadrado;
 
 typedef struct{
+	int **matLabirinto;
 	int *posGPS;
 	bool gps;
 	GLuint imagem;
 	GLuint textura_paredes;
 	GLuint caminho_text;
+	GLuint menu;
 }Modelo;
 
 Teclas tecla;
@@ -64,133 +71,121 @@ void pintarGPS()
 	}
 }
 
-void init(void)
+
+
+void initMenu(void)
 
 {
-	/*
-	GLuint tex;
-	glGenTextures(1, &tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
+	/*  texturas  menu */
+	mod.menu = carrega_texturas("menu.png");
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	float color[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
-
-	float pixels[] = {
-		0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f
-	};
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
-	*/
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glEnable(GL_TEXTURE_2D);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-	mod.imagem = SOIL_load_OGL_texture
-		(
-		"teste.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		);
-
-
-	/* check for an error during the load process */
-	if (0 == mod.imagem)
-	{
-		printf("SOIL loading error: '%s'\n", SOIL_last_result());
-	}
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glEnable(GL_TEXTURE_2D);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-	mod.textura_paredes = SOIL_load_OGL_texture
-		(
-		"parede.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		);
-
-
-	/* check for an error during the load process */
-	if (0 == mod.textura_paredes)
-	{
-		printf("SOIL loading error: '%s'\n", SOIL_last_result());
-	}
-
-
-	/*      textura caminhos  */
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glEnable(GL_TEXTURE_2D);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-	mod.caminho_text = SOIL_load_OGL_texture
-		(
-		"fundo.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		);
-
-
-	/* check for an error during the load process */
-	if (0 == mod.caminho_text)
-	{
-		printf("SOIL loading error: '%s'\n", SOIL_last_result());
-	}
-
-
-
-
-
-	/*pos inicioal*/
-	ifstream ficheiro("teste.txt", ios::in);
-	string linha;
-	getline(ficheiro, linha);
-	char Seperator = ' ';
-	istringstream StrStream(linha);
-	string Token;
-	int valor, i = 0;
-	while (getline(StrStream, Token, Seperator))
-	{
-		cout << i << " : ttt" << endl;
-		valor = atoi(Token.c_str());
-		if (i == 1)
-		{
-			cout << "Valor A: " << valor << endl;
-			quad.x = valor;
-		}
-		if (i == 2)
-		{
-			cout << "Valor B: " << valor << endl;
-			quad.y = valor;
-		}
-		i++;
-		//matLabirinto[0][i] = valor;
-	}
-	/*Fim pos inicial*/
-	//quad.x = quad.xi;
-	//quad.y = quad.yi;
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glShadeModel(GL_FLAT);
-	tecla.a = tecla.w = tecla.s = tecla.d = GL_FALSE;
 }
 
-void desenhaQuadrado(int x, int y)
+void desenhaMenu(GLenum mode){
+	
+	/* carregar fundo */
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, mod.menu);
+	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, 0.5); //transparencias 
+	glBegin(GL_POLYGON);
+		//glColor3f(1, 1, 1);
+	glTexCoord2f(0.0, 1.0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(100, 0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(100, 100);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(0, 100);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, NULL);
+	glPopMatrix();
+	
+	/* botões   */
+	
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(1);
+		GLuint imagem = carrega_texturas("bt10.png");
+		glBindTexture(GL_TEXTURE_2D, imagem);
+		glBegin(GL_POLYGON);
+		//glColor3f(1, 1, 1);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(25, 30);
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(75, 30);
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(75, 37);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(25, 37);
+		glEnd();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+	glPopMatrix();
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(2);
+		GLuint imagem20 = carrega_texturas("bt20.png");
+		glBindTexture(GL_TEXTURE_2D, imagem20);
+		glBegin(GL_POLYGON);
+		//glColor3f(1, 1, 1);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(25, 40);
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(75, 40);
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(75, 47);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(25, 47);
+		glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(3);
+		GLuint imagem30 = carrega_texturas("bt30.png");
+		glBindTexture(GL_TEXTURE_2D, imagem30);
+		glBegin(GL_POLYGON);
+		//glColor3f(1, 1, 1);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(25, 50);
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(75, 50);
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(75, 57);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(25, 57);
+		glEnd();
+	glPopMatrix();
+	
+
+	/*  sair btn  */
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(4);
+		glBegin(GL_QUADS);
+		glColor3f(1, 1, 1);
+		glVertex2f(25, 80);
+		glVertex2f(75, 80);
+		glVertex2f(75, 87);
+		glVertex2f(25, 87);
+		glEnd();
+	glPopMatrix();
+
+}
+
+
+
+/* desenha o jogador e coloca-o na sua posição inicial*/
+void drawPlayer(int x, int y)
 {
 	
 	
 	glBindTexture(GL_TEXTURE_2D, mod.imagem);
 	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, 0.5); //transparencias 
 	glBegin(GL_POLYGON);
-	//glColor3f(0, 100, 100);
+	glColor3f(1, 1, 1);
 		glTexCoord2f(0.0, 0.0);
 		glVertex2f(0 + (x*quad.dimensao), 0 + ((y - 1)*quad.dimensao));
 		glTexCoord2f(0.0, 1.0);
@@ -205,108 +200,13 @@ void desenhaQuadrado(int x, int y)
 
 }
 
-int** carregarMatriz(string nome){
-	ifstream ficheiro(nome, ios::in);
-	//	char linhab[256];
-	int** matLabirinto = NULL;
-	int auxNumLinhaMat = 0;
-	int nivel = 0;
-	if (ficheiro)
-	{
-		string linha;
-		int linhaMatriz = 1, colunaMatriz = 0;
-		while (getline(ficheiro, linha))
-		{
-			if (nivel == 0)
-			{
-				//**********
-				nivel = atoi(linha.c_str());
-				//printf("Conteudo %d \n", nivel);
 
-				/* Numero de linhas da matriz*/
-				if (nivel == 1 || nivel == 2)
-				{
-					auxNumLinhaMat = (nivel * 10) + 1;
-				}
-				else
-				{
-					auxNumLinhaMat = 25 + 1;
-				}
-				matLabirinto = new int*[auxNumLinhaMat - 1];
-				for (int i = 0; i < auxNumLinhaMat; i++)
-				{
-					matLabirinto[i] = new int[auxNumLinhaMat];
-				}
-
-				/*Posição de inicio e posição de fim*/
-				char Seperator = ' ';
-				istringstream StrStream(linha);
-				string Token;
-				int valor, i = 0;
-				while (getline(StrStream, Token, Seperator))
-				{
-					valor = atoi(Token.c_str());
-					matLabirinto[0][i] = valor;
-					i++;
-				}
-
-			}
-			else
-			{
-				//printf("linha seguinte \n");
-				if (nivel == 1 || nivel == 2 || nivel == 3)
-				{
-					//**************continuar aqui
-					char Seperator = ' ';
-					istringstream StrStream(linha);
-					string Token;
-					int valor;
-					while (getline(StrStream, Token, Seperator))
-					{
-						valor = atoi(Token.c_str());
-						matLabirinto[linhaMatriz][colunaMatriz] = valor;
-						colunaMatriz++;
-					}
-					linhaMatriz++;
-					colunaMatriz = 0;
-				}
-
-			}
-		}
-	}
-	else
-	{
-		printf("erro abertura ficheiro/n");
-	}
-
-	if (nivel == 1)
-	{
-		matLabirinto[0][0] = 1;
-	}
-	else if (nivel == 2)
-	{
-		matLabirinto[0][0] = 2;
-	}
-	else if (nivel == 3)
-	{
-		matLabirinto[0][0] = 3;
-	}
-
-	return matLabirinto;
-}
 
 void desenhaLabirinto(int **matLabirinto)
 {
-	for (int i = 0; i< 10; i++)
-	{
-		for (int z = 0; z < 10 - 1; z++)
-		{
-			//cout << matLabirinto[i][z] << endl;
-		}
-	}
+
 	int nivel = matLabirinto[0][0];
-	//cout << "nivel: " << nivel << endl;
-	//dimenção matriz
+	
 	int x = 0, y = 0;
 	if (nivel == 1)
 	{
@@ -351,13 +251,22 @@ void desenhaLabirinto(int **matLabirinto)
 
 			if (matLabirinto[i][j] != 0 && x == 20)
 			{
+
+
+				glBindTexture(GL_TEXTURE_2D, mod.textura_paredes);
+
 				glBegin(GL_POLYGON);
-				glColor3f(0, 0, 255);
+				//glColor3f(0, 0, 255);
+				glTexCoord2f(0.0, 0.0);
 				glVertex2f(0 + (j * 5), 0 + ((i - 1) * 5));
+				glTexCoord2f(0.0, 1.0);
 				glVertex2f(0 + (j * 5), 5 + ((i - 1) * 5));
+				glTexCoord2f(1.0, 1.0);
 				glVertex2f(5 + (j * 5), 5 + ((i - 1) * 5));
+				glTexCoord2f(1.0, 0.0);
 				glVertex2f(5 + (j * 5), 0 + ((i - 1) * 5));
 				glEnd();
+				glBindTexture(GL_TEXTURE_2D, NULL);
 			}
 			if (matLabirinto[i][j] != 0 && x == 25)
 			{
@@ -378,28 +287,9 @@ void desenhaLabirinto(int **matLabirinto)
 	//cout << matLabirinto[0][3] << " -----" << endl;
 	//quad.x = matLabirinto[0][3], quad.y = matLabirinto[0][1];
 	//cout << matLabirinto[0][3] << ";" << matLabirinto[0][1];
-	desenhaQuadrado(quad.x = quad.x + 0, quad.y = quad.y + 0);
+	drawPlayer(quad.x = quad.x + 0, quad.y = quad.y + 0);
 	quad.matrix = matLabirinto;
 	//criarPerdicados(matLabirinto);
-}
-
-
-
-void display(void)
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-	//glColor3f (1.0, 1.0, 1.0);
-	glLoadIdentity();
-	/* clear the matrix */
-
-	int **matLabirinto;
-	matLabirinto = carregarMatriz("teste.txt");
-	//quad.matPos = matLabirinto;
-	pintarGPS();
-	desenhaLabirinto(matLabirinto);
-	
-	glFlush();
-
 }
 
 
@@ -407,7 +297,6 @@ void display(void)
 void reshape(int w, int h)
 
 {
-
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 
 	glMatrixMode(GL_PROJECTION);
@@ -417,82 +306,99 @@ void reshape(int w, int h)
 	gluOrtho2D(0, 100, 100, 0);
 
 	glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+
+}
+
+
+
+void display(void)
+{
+
+	if (teste == 0){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		desenhaMenu(GL_SELECT);
+		glutSwapBuffers();
+	}
+	else if (teste == 1){
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		pintarGPS();
+		desenhaLabirinto(mod.matLabirinto);
+		
+		
+		glutSwapBuffers();
+
+	}
+	else if (teste == 2){
+		//implementar pausa
+	}
+
+	glFlush();
 
 }
 
 
 void Key(unsigned char key, int x, int y)
 {
-	switch (key) {
-	case 'A':
-	case 'a': tecla.a = GL_TRUE;
+	/*se estiver com o jogo aberto */
+	if (teste == 1){
+		switch (key) {
+		case 'A':
+		case 'a': tecla.a = GL_TRUE;
 
-		cout << quad.matrix[quad.y][quad.x] << endl;
-		cout << "pos x: " << quad.x << " pos.y " << quad.y << endl;
-		cout << "aaa" << endl;
-		if (quad.matrix[quad.y][quad.x - 1] == 0)
-		{
-			cout << " ola aaa " << endl;
-			quad.x = quad.x - 1;
+			if (quad.matrix[quad.y][quad.x - 1] == 0)
+			{
+				cout << " ola aaa " << endl;
+				quad.x = quad.x - 1;
+			}
+
+			break;
+		case 'W':
+		case 'w': tecla.w = GL_TRUE;
+			if (quad.matrix[quad.y - 1][quad.x] == 0)
+			{
+				quad.y = quad.y - 1;
+			}
+
+			break;
+		case 'S':
+		case 's': tecla.s = GL_TRUE;
+			if (quad.matrix[0][3] == quad.y + 1 && quad.matrix[0][4] == quad.x){
+				teste = 2;
+			}
+
+			if (quad.matrix[quad.y + 1][quad.x] == 0)
+			{
+				quad.y = quad.y + 1;
+			}
+
+			break;
+		case 'D':
+		case 'd': tecla.d = GL_TRUE;
+			if (quad.matrix[quad.y][quad.x + 1] == 0)
+			{
+				quad.x = quad.x + 1;
+			}
+			break;
+
+		case 'H':
+		case 'h': tecla.d = GL_TRUE;
+			mod.posGPS = fastestWayAvailable(quad.matrix, quad.x, quad.y);
+			mod.gps = true;
+			break;
+
+		case 'P':
+		case 'p': tecla.d = GL_TRUE;
+			teste = 0;
+			break;
+
 		}
-
-		//if(quad.matrix[quad.x][quad.y] == 0)
-		//{
-
-		//}
-
-		//quad.y = 1;
-		break;
-	case 'W':
-	case 'w': tecla.w = GL_TRUE;
-		if (quad.matrix[quad.y - 1][quad.x] == 0)
-		{
-			quad.y = quad.y - 1;
-		}
-		//quad.x = quad.x;
-
-		cout << quad.matrix[quad.y][quad.x] << endl;
-		cout << "pos x: " << quad.x << " pos.y " << quad.y << endl;
-
-		cout << "wwww" << endl;
-		break;
-	case 'S':
-	case 's': tecla.s = GL_TRUE;
-		cout<< quad.matrix[0][3]<<endl;
-		cout << quad.matrix[0][4] << endl;
-
-		cout << quad.y << endl;
-		cout << quad.x << endl;
-		//quad.x = quad.x;
-		if (quad.matrix[0][3] == quad.y +1 && quad.matrix[0][4] == quad.x){
-			cout << " FIM 11111111111111111 " << endl;
-		}
-
-		if (quad.matrix[quad.y + 1][quad.x] == 0)
-		{
-			cout << " diabooooo " << endl;
-			quad.y = quad.y + 1;
-		}
-
-
-		cout << "sss" << endl;
-		break;
-	case 'D':
-	case 'd': tecla.d = GL_TRUE;
-		if (quad.matrix[quad.y][quad.x + 1] == 0)
-		{
-			cout << " Bom diaaaaaa " << endl;
-			quad.x = quad.x + 1;
-		}
-		break;
-
-	case 'H':
-	case 'h': tecla.d = GL_TRUE;
-		mod.posGPS = fastestWayAvailable(quad.matrix, quad.x, quad.y);
-		mod.gps = true;
-		break;
-
 	}
+
+
 	//glutPostRedisplay();
 }
 
@@ -529,7 +435,7 @@ void TimerTeclas(int value)
 	{
 		//cout << "olaaaaaaaa aaaaa " << endl;
 		//cout << quad.x << " ; " << quad.y << endl;
-		desenhaQuadrado(5, 5);
+		drawPlayer(5, 5);
 		//sleep(100);
 
 	}
@@ -537,31 +443,132 @@ void TimerTeclas(int value)
 	glutPostRedisplay();
 }
 
-int main(int argc, char** argv)
-{
-	mod.gps = false;
-	//carregarMatriz("teste.txt");
-	glutInit(&argc, argv);
-
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-
-	glutInitWindowSize(500, 500);
-
-	glutInitWindowPosition(100, 100);
-
-	glutCreateWindow(argv[0]);
-
-	//init ();
-
-	glutReshapeFunc(reshape);
-	glutDisplayFunc(display);
-
+void initGame(char * file){
+	/* funcionalidades do teclado*/
 	glutKeyboardFunc(Key);
 	glutKeyboardUpFunc(KeyUp);
 	glutTimerFunc(20, TimerTeclas, 0);
 
+	/*	garantir que a ajuda está off */
+	mod.gps = false;
+
+	mod.matLabirinto = carregarMatriz(file);
+
+	/* carregar iamgens */
+	mod.imagem = carrega_texturas("teste.png");
+	mod.textura_paredes = carrega_texturas("parede.png");
 	
-	init();
+	/* ver coordenadas jogador !!??*/
+	/*Atribuir coordenadas iniciais ao jogador*/
+	quad.y = mod.matLabirinto[0][1];
+	quad.x = mod.matLabirinto[0][2];
+	
+	
+	/* diogo ver */
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glShadeModel(GL_FLAT);
+	tecla.a = tecla.w = tecla.s = tecla.d = GL_FALSE;
+
+
+}
+
+
+void processHits(GLint hits, GLuint buffer[])
+{
+	int i;
+	unsigned int j;
+	GLuint names, *ptr;
+	//printf("hits = %d\n", hits);
+	ptr = (GLuint *)buffer;
+	for (i = 0; i < hits; i++) { /* for each hit */
+		names = *ptr;
+		/*
+		printf(" number of names for hit = %d\n", names);
+		ptr++;
+		printf(" z1 is %g;", (float)*ptr / 0xffffffff);
+		ptr++;
+		printf(" z2 is %g\n", (float)*ptr / 0xffffffff);
+		ptr++;
+		printf(" the name is ");
+		*/
+		ptr = ptr + 3;
+		for (j = 0; j < names; j++) { /* for each name */
+			if (*ptr == 1){
+				initGame("teste.txt");
+				teste = 1;
+
+			}
+			else if (*ptr == 2){
+				initGame("teste2.txt");
+				teste = 1;
+			}
+			else if (*ptr == 3){
+				initGame("teste3.txt");
+				teste = 1;
+			}
+			else if (*ptr == 4){
+			}
+			
+			//printf("%d ", *ptr);
+			ptr++;
+		}
+		//printf("\n");
+	}
+}
+
+
+void pickRects(int button, int state, int x, int y)
+{
+	
+	GLuint selectBuf[BUFSIZE];
+	GLint hits;
+	GLint viewport[4];
+	if (button != GLUT_LEFT_BUTTON || state != GLUT_DOWN)
+		return;
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glSelectBuffer(BUFSIZE, selectBuf);
+	(void)glRenderMode(GL_SELECT);
+	glInitNames();
+	glPushName((GLuint)~0);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	/* create 5x5 pixel picking region near cursor location */
+	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y),0.5, 0.5, viewport);
+	gluOrtho2D(0, 100, 100, 0);
+	desenhaMenu(GL_SELECT);
+
+	glPopMatrix();
+	glFlush();
+	hits = glRenderMode(GL_RENDER);
+	processHits(hits, selectBuf);
+	
+}
+
+int main(int argc, char** argv)
+{
+
+	glutInit(&argc, argv);
+
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+
+	glutInitWindowSize(500, 500); //tamanho da janela
+
+	glutInitWindowPosition(100, 100); //posição inicial da janela
+
+	glutCreateWindow(argv[0]); //linha de comandos
+
+
+	glutMouseFunc(pickRects); //funcionalidade de picking do rato
+
+	glutDisplayFunc(display); //função display actualizada a cada instante
+
+	glutReshapeFunc(reshape);
+
+		
+	initMenu(); //comaça por carregar o menu
+
 	glutMainLoop();
 
 	return 0;

@@ -54,22 +54,43 @@ int* fastestWayAvailable(int **matriz, int y, int x){
 	}
 	int valor = 0;
 	int finalSize = 0;
-	int *solution = new int[100];
+	int *solution = new int[300];
+	int segundo = 0;
 	while (*resTemp != '\0')
 	{
-		if (*resTemp != '[' && *resTemp != '\''  && *resTemp != '('  && *resTemp != ')'){
-			if (*resTemp != ',' && *resTemp != ']'){ //garante que o ultimo valor é escrito no array.
+		if (*resTemp != '[' && *resTemp != '\''){
+			//if (*resTemp != ',' && *resTemp != ']'){ //garante que o ultimo valor é escrito no array.
 				//solution[finalSize] = *resTemp;
 				//cout << solution[finalSize] << endl;
+			if (*resTemp == '('){
+				segundo = 1;
+				resTemp++;
 				int num = atoi(resTemp);
 				//valor = valor * 10;
-				valor = valor + num;
-				//finalSize++;
-			}
-			else {
+				//valor = valor + num;
+				valor = num;
+
 				finalSize++;
 				solution[finalSize] = valor;
 				cout << valor << endl;
+
+
+				//finalSize++;
+			}
+			else if (*resTemp == ',' && segundo==1){
+				segundo = 0;
+				resTemp++;
+				int num = atoi(resTemp);
+				//valor = valor * 10;
+				//valor = valor + num;
+				valor = num;
+
+				finalSize++;
+				solution[finalSize] = valor;
+				cout << valor << endl;
+
+			}else {
+
 				valor = 0;
 			}
 		}
