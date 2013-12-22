@@ -1,0 +1,120 @@
+﻿@model EpicWareWeb.Models.User
+
+@{
+    ViewBag.Title = "EditProfile";
+ }
+
+<h2>EditProfile</h2>
+
+@using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
+    
+    <fieldset>
+        <legend>Profile</legend>
+
+        @* Aniversário *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.birthday)
+        </div>
+        <input type="text" id="MyDate" name="MyDate" required/>
+
+        @* Naturalidade *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.country)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("naturalSelect", (SelectList)ViewBag.naturalidades)
+        </div>
+
+        @* Phone *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.phoneNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => profile.phoneNumber)
+            @Html.ValidationMessageFor(model => profile.phoneNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userTags)
+            @Html.Label(@EpicWareWeb.Views.User.User.textoDefaultTags)
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBox("tags")
+            @*<input type="text" id="tag" name="tag"/>
+            <label onclick="document.getElementById('tagsLB').innerHTML = document.getElementById('tag').nodeValue;">Inserir Tag</label>
+            <label id="tagsLB"></label>*@
+        </div>
+
+            @* Linkedin *@
+            <div class="editor-label">
+                @Html.LabelFor(model => model.userProfile.linkedinProfile)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => profile.linkedinProfile)
+                @Html.ValidationMessageFor(model => profile.linkedinProfile)
+            </div>
+
+            @* Facebook *@
+            <div class="editor-label">
+                @Html.LabelFor(model => model.userProfile.facebookProfile)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => profile.facebookProfile)
+                @Html.ValidationMessageFor(model => profile.facebookProfile)
+            </div>
+
+            @* Twitter *@
+            <div class="editor-label">
+                @Html.LabelFor(model => model.userProfile.twitterProfile)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => profile.twitterProfile)
+                @Html.ValidationMessageFor(model => profile.twitterProfile)
+            </div>
+
+            @* Gender *@
+            <div class="editor-field">
+                @Html.DropDownList("genderSelect", (SelectList)ViewBag.genders)
+            </div>
+
+            @* Image *@
+            <div class="editor-label">
+                <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="200" />
+            </div>
+            <div class="editor-field">
+                <input type="file" name="file" id="file" style="width: 100%;" />
+            </div>
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+</fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#MyDate').datepicker();
+    });
+
+</script>
+<script type="text/javascript">
+    $(function insertTag() {
+        alert("Putas");
+    })
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
