@@ -74,6 +74,8 @@ namespace EpicWareWeb.Controllers
                 reg_model_tmp.ConfirmPassword = collection.Get("reg_mod.ConfirmPassword");
                 user.userProfile.birthday = new DateTime(1900, 01, 01);
                 user.userProfile.nickname = reg_model_tmp.UserName;
+                Mood mood = db.moods.Find(2); // Default is normal
+                user.mood = mood;
                 user.active = true;
                 db.users.Add(user);
                 db.SaveChanges();
@@ -222,28 +224,28 @@ namespace EpicWareWeb.Controllers
         //
         // GET: /User/Delete/5
 
-        public ActionResult Delete(int id = 0)
-        {
-            User user = db.users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
+        //public ActionResult Delete(int id = 0)
+        //{
+        //    User user = db.users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(user);
+        //}
 
-        //
-        // POST: /User/Delete/5
+        ////
+        //// POST: /User/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.users.Find(id);
-            db.users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    User user = db.users.Find(id);
+        //    db.users.Remove(user);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
