@@ -38,7 +38,9 @@ else
                 <span style="padding-top:inherit">
                     <a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
                 </span>
-                <form class="navbar-form navbar-right">
+                
+           
+                <form class="navbar-form navbar-right" action="~/Account/loginForBar">
                     <input type="text" class="col-lg-2" placeholder="Username">
                     <input type="password" class="col-lg-2" placeholder="Password">
                     <label class="checkbox">
@@ -47,7 +49,6 @@ else
                     <button type="submit" class="btn">Sign in</button>
                     <button type="button" class="btn" onclick="location.href='@Url.Action("Register", "Account")';return false;">Register</button>
                 </form>
-
                 </div><!-- /navbar-inner -->
             </div><!-- /navbar -->
         </div>

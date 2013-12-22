@@ -185,7 +185,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\MoodController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -217,17 +216,6 @@
     <Compile Include="Models\TagConnection.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
-    <Compile Include="Views\Profile\Profile.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Profile.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Profile\Profile.en.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Profile.en.resx</DependentUpon>
-=======
     <Compile Include="Views\User\User.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -237,7 +225,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>User.en.resx</DependentUpon>
->>>>>>> 6f3c9df7c2a605be5440fa46374f0af0af1aabcd
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1022,16 +1009,8 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Profile\Details.cshtml" />
-    <Content Include="Views\Profile\Create.cshtml" />
-    <Content Include="Views\Profile\Edit.cshtml" />
-    <Content Include="Views\Profile\Delete.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\_NavBarPartial.cshtml" />
-=======
     <Content Include="Views\User\CreateProfile.cshtml" />
->>>>>>> 6f3c9df7c2a605be5440fa46374f0af0af1aabcd
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1054,14 +1033,6 @@
     <EmbeddedResource Include="Views\User\User.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>User.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Profile\Profile.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Profile.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Profile\Profile.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Profile.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
