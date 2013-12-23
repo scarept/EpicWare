@@ -1,0 +1,57 @@
+﻿
+@if (Request.IsAuthenticated)
+{
+    EpicWareWeb.Controllers.UserController ctruser = new EpicWareWeb.Controllers.UserController();
+    EpicWareWeb.Models.User user = new EpicWareWeb.Models.User();
+    user = ctruser.UserAutenticated();
+    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <span style="padding-top:inherit">
+                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
+                </span>
+                
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" class="span2 search-query">
+                        <button type="submit" class="btn">Search</button>
+                    </div>
+                </form>
+
+                <img src="@user.userProfile.pathImg" class="img-rounded" width="50" height="50"> <a href="~/User/Profile/@user.userID">@user.userProfile.name @user.userProfile.lastName</a>
+
+                </div><!-- /navbar-inner -->
+            </div><!-- /navbar -->
+        </div>
+    </div>
+}
+else
+{
+    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-left">
+                    @Html.Partial("_LanguagePartial")
+                </div>
+                <span style="padding-top:inherit">
+                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
+                </span>
+                
+           
+                <form class="navbar-form navbar-right" action="~/Account/loginForBar">
+                    <input type="text" class="col-lg-2" placeholder="Username">
+                    <input type="password" class="col-lg-2" placeholder="Password">
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <button type="submit" class="btn">Sign in</button>
+                    <button type="button" class="btn" onclick="location.href='@Url.Action("Register", "Account")';return false;">Register</button>
+                </form>
+                </div><!-- /navbar-inner -->
+            </div><!-- /navbar -->
+        </div>
+    </div>
+
+}

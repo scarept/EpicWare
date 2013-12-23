@@ -2,16 +2,20 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
+            @*<div class="content-wrapper">
                 <div class="float-left">
                     <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
                 </div>
@@ -27,21 +31,25 @@
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div>*@
         </header>
+        @Html.Partial("_NavBarPartial");
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
         </div>
-        <footer>
+        
+       @*<footer>
             <div class="content-wrapper">
                 <div class="float-left">
                     <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
                 </div>
             </div>
-        </footer>
-        @RenderSection("scripts", required: false)
-    </body>
+        </footer>*@
+
+
+                    @RenderSection("scripts", required: false)
+</body>
 </html>
