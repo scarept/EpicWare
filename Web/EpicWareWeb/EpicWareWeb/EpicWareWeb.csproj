@@ -185,7 +185,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\MoodController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -987,12 +986,9 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Profile\Details.cshtml" />
-    <Content Include="Views\Profile\Create.cshtml" />
-    <Content Include="Views\Profile\Edit.cshtml" />
-    <Content Include="Views\Profile\Delete.cshtml" />
     <Content Include="Views\User\CreateProfile.cshtml" />
+    <Content Include="Views\User\DesactivateAccount.cshtml" />
+    <Content Include="Views\User\NotActive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
