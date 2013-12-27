@@ -310,13 +310,10 @@
     <Content Include="Images\glyphicons_198_ok.png" />
     <Content Include="Images\EpicWare Logos\lapr5.png" />
     <Content Include="Images\EpicWare Logos\logo.png" />
-<<<<<<< HEAD
-=======
     <Content Include="Images\Logos\glyphicons_social_17_linked_in.png" />
     <Content Include="Images\Logos\glyphicons_social_30_facebook.png" />
     <Content Include="Images\Logos\glyphicons_social_31_twitter.png" />
     <Content Include="Images\Profiles\ric.jpg" />
->>>>>>> e4119f2909727c80dfd8e4839e9ae0220df6e801
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\inputs-jquery-ui.js" />
@@ -1050,6 +1047,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\User\User.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>User.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
