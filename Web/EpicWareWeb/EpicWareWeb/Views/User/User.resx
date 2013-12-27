@@ -129,16 +129,14 @@
   <data name="masculino" xml:space="preserve">
     <value>Masculino</value>
   </data>
-<<<<<<< HEAD
   <data name="nao" xml:space="preserve">
     <value>Não</value>
   </data>
   <data name="reativarConta" xml:space="preserve">
     <value>Reativar Conta</value>
-=======
+  </data>
   <data name="perfil" xml:space="preserve">
     <value>Perfil</value>
->>>>>>> e4119f2909727c80dfd8e4839e9ae0220df6e801
   </data>
   <data name="semimagem" xml:space="preserve">
     <value>Sem Imagem </value>

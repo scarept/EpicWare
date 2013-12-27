@@ -97,7 +97,6 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Não.
         /// </summary>
         public static string nao {
@@ -107,18 +106,20 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reativar Conta.
-        /// </summary>
-        public static string reativarConta {
-            get {
-                return ResourceManager.GetString("reativarConta", resourceCulture);
-=======
         ///   Looks up a localized string similar to Perfil.
         /// </summary>
         public static string perfil {
             get {
                 return ResourceManager.GetString("perfil", resourceCulture);
->>>>>>> e4119f2909727c80dfd8e4839e9ae0220df6e801
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reativar Conta.
+        /// </summary>
+        public static string reativarConta {
+            get {
+                return ResourceManager.GetString("reativarConta", resourceCulture);
             }
         }
         
