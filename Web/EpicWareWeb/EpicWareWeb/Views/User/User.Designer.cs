@@ -61,6 +61,24 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A sua conta de utilizador encontra-se inativa! Pretende reativa-la?.
+        /// </summary>
+        public static string avisoContaDesativada {
+            get {
+                return ResourceManager.GetString("avisoContaDesativada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tem a certeza que pretende desativar a conta de utilizador?.
+        /// </summary>
+        public static string confirmDesativarConta {
+            get {
+                return ResourceManager.GetString("confirmDesativarConta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feminino.
         /// </summary>
         public static string feminino {
@@ -79,11 +97,38 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não.
+        /// </summary>
+        public static string nao {
+            get {
+                return ResourceManager.GetString("nao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reativar Conta.
+        /// </summary>
+        public static string reativarConta {
+            get {
+                return ResourceManager.GetString("reativarConta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sem Imagem .
         /// </summary>
         public static string semimagem {
             get {
                 return ResourceManager.GetString("semimagem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sim.
+        /// </summary>
+        public static string sim {
+            get {
+                return ResourceManager.GetString("sim", resourceCulture);
             }
         }
         

@@ -1,0 +1,37 @@
+﻿@model EpicWareWeb.Models.User
+@{
+    EpicWareWeb.Models.Connection conn = new EpicWareWeb.Models.Connection();
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddFriend</title>
+</head>
+<body>
+    <h3>Defina a Força e Tag de Conecção</h3>
+    <div>
+@using (Html.BeginForm())
+{ 
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.userID)
+    <table >
+        <tr>
+            <td>Força</td><td>@Html.TextBoxFor(model => conn.strenght)</td>
+        </tr>
+        <tr>
+            <td>TagConnection</td><td>@Html.DropDownList("tagSelect", (SelectList)ViewBag.tagConnections)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="AddFriend"/></td>
+        </tr>       
+    </table>
+}
+       
+    </div>
+</body>
+</html>

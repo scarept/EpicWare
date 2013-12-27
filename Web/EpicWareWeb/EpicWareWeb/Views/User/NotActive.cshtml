@@ -1,0 +1,23 @@
+﻿@model EpicWareWeb.Models.User
+
+@{
+    ViewBag.Title = "Reactivate";
+}
+<h4>@EpicWareWeb.Views.User.User.avisoContaDesativada</h4>
+@using (Html.BeginForm("ReativateAccount","User"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.userID)
+    <p>
+       <input type="submit" value="@EpicWareWeb.Views.User.User.reativarConta" />
+    </p>
+}
+@using (Html.BeginForm("Index","Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <p>
+        <input type="submit" value="@EpicWareWeb.Views.User.User.nao" />
+    </p>
+}

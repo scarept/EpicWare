@@ -308,16 +308,53 @@ namespace EpicWareWeb.Controllers
         [Authorize]
         public ActionResult AddFriend(int id = 0)
         {
+            fillDropDownListTagConnection();
             User user = db.users.Find(id);
-            return View(User);
+            return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult AddFriend(User user, FormCollection collection)
+        public ActionResult AddFriend(string tagSelect, FormCollection collection)
         {
+            User userAuth = UserAutenticated();
+            User user = db.users.Find(Convert.ToInt32(collection.Get("userID")));
 
+            Connection conn1 = new Connection();
+            Connection conn2 = new Connection();
+
+            /* Strenght */
+            string força = collection.Get("conn.strenght");
+            int forçaInt = Convert.ToInt32(força);
+            conn1.strenght = forçaInt;
+            conn2.strenght = forçaInt;
+
+            /* Tag Connection */
+            TagConnection tagConn = db.tagConnections.Find(Convert.ToInt32(tagSelect));
+            conn1.tagConnection = tagConn;
+            conn2.tagConnection = tagConn;
+
+            /* Owner */
+            conn1.Owner = userAuth;
+            conn2.Owner = user;
+
+            /* User Connected */
+            conn1.userConnected = user;
+            conn2.userConnected = userAuth;
+
+            /* Save connections on all users*/
+            userAuth.listConnections.Add(conn1);
+            user.listConnections.Add(conn2);
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.Entry(userAuth).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
             return RedirectToAction("", "");
         }
 
@@ -376,6 +413,15 @@ namespace EpicWareWeb.Controllers
 
             var selectList = new SelectList(gendersList);
             ViewBag.genders = selectList;
+        }
+
+        private void fillDropDownListTagConnection(object selectedTag = null)
+        {
+            var tagQuery = from d in db.tagConnections
+                                  orderby d.tag
+                                  select d;
+            var selectTag = new SelectList(tagQuery, "tagConnectionID", "tag", selectedTag);
+            ViewBag.tagConnections = selectTag; 
         }
 
     }
