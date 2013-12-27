@@ -221,6 +221,11 @@ namespace EpicWareWeb.Controllers
             return View();
         }
 
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
         //
         // GET: /User/Delete/5
 
