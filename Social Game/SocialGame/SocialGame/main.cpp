@@ -1,13 +1,18 @@
-#define _USE_MATH_DEFINES
+ï»¿#define _USE_MATH_DEFINES
 #include <math.h>
 #include <stdlib.h>     
 #include <GL\glut.h>
 #include <iostream>
 #include "Grafo.h"
+#include "LoadImages.h"
 
 using namespace std;
 
-//conversões
+
+//funÃ§Ãµes
+void myReshape(int w, int h);
+
+//conversï¿½es
 #define radToDeg(x)   (180*(x)/M_PI)
 #define dtr(x)   (M_PI*(x)/180)
 
@@ -78,7 +83,16 @@ typedef struct Estado{
 	GLint		lightViewer;
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
+	GLint		estadoJogo;
 }Estado;
+
+typedef struct Menu{
+	GLuint loginBoxImg;
+	GLuint imagemFundo;
+	char * username;
+	char * password;
+
+}Menu;
 
 typedef struct Modelo {
 #ifdef __cplusplus
@@ -96,6 +110,7 @@ typedef struct Modelo {
 
 Estado estado;
 Modelo modelo;
+Menu menu;
 
 void initEstado(){
 	estado.camera.dir_lat = M_PI / 4;
@@ -128,8 +143,88 @@ void initModelo(){
 }
 
 
-void myInit()
+void desenhaMenu(){
+	/* carregar fundo */
+	glPushMatrix();
+		glEnable(GL_TEXTURE_2D); //obrigatorio para ler imagens no soil
+		//GLuint ax = carrega_texturas("menu.png");
+	
+		glBindTexture(GL_TEXTURE_2D, menu.imagemFundo);
+		/* render texturas */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, 0.5); //transparencias 
+		glBegin(GL_POLYGON);
+		//glColor3f(0, 1, 1);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(100, 0);
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(100, 100);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(0, 100);
+		glEnd();
+	glPopMatrix();
+	/* caixa de login */
+
+	glPushMatrix();
+		glBindTexture(GL_TEXTURE_2D, menu.loginBoxImg);
+		/* render imagens */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBegin(GL_POLYGON);
+		//glColor3f(0, 1, 0);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(30, 10);
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(70, 10);
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(70, 90);
+		glTexCoord2f(0.0, 0.0);
+		glVertex2f(30, 90);
+		glEnd();
+	glPopMatrix();
+
+	
+	
+	/* escrever texto */
+	glRasterPos2f(39, 45);
+	char * username = "LuisMendes";
+	while (*username != '\0'){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *username);
+		username++;
+	}
+
+	glRasterPos2f(39, 55);
+	char * password = "*******";
+	while (*password != '\0'){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *password);
+		password++;
+	}
+
+
+
+	glDisable(GL_TEXTURE_2D); // desetivar para nÃ£o interferir com o grafo 3D
+}
+
+void menuInit(){
+	menu.imagemFundo = carrega_texturas("background.png");
+	menu.loginBoxImg = carrega_texturas("login.png");
+	/*
+	glPushMatrix();
+	menu.imagemFundo = carrega_texturas("menu.png");
+	//GLint in = carrega_texturas("menu.png");
+	glPopMatrix();
+	*/
+}
+
+void gameInit()
 {
+	glPushMatrix();
+	GLuint ax = carrega_texturas("menu.png");
+	glPopMatrix();
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
 
@@ -167,16 +262,16 @@ void imprime_ajuda(void)
 	printf("w,W - PolygonMode Wireframe \n");
 	printf("p,P - PolygonMode Point \n");
 	printf("c,C - Liga/Desliga Cull Face \n");
-	printf("n,N - Liga/Desliga apresentação das normais \n");
+	printf("n,N - Liga/Desliga apresentaï¿½ï¿½o das normais \n");
 	printf("******* grafos ******* \n");
 	printf("F1  - Grava grafo do ficheiro \n");
-	printf("F2  - Lê grafo para ficheiro \n");
+	printf("F2  - Lï¿½ grafo para ficheiro \n");
 	printf("F6  - Cria novo grafo\n");
 	printf("******* Camera ******* \n");
-	printf("Botão esquerdo - Arrastar os eixos (centro da camera)\n");
-	printf("Botão direito  - Rodar camera\n");
-	printf("Botão direito com CTRL - Zoom-in/out\n");
-	printf("PAGE_UP, PAGE_DOWN - Altera distância da camara \n");
+	printf("Botï¿½o esquerdo - Arrastar os eixos (centro da camera)\n");
+	printf("Botï¿½o direito  - Rodar camera\n");
+	printf("Botï¿½o direito com CTRL - Zoom-in/out\n");
+	printf("PAGE_UP, PAGE_DOWN - Altera distï¿½ncia da camara \n");
 	printf("ESC - Sair\n");
 }
 
@@ -326,10 +421,10 @@ void desenhaParede(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, G
 	glEnd();
 
 	if (estado.apresentaNormais) {
-		desenhaNormal(xi, yi, zi, cross, emerald);
-		desenhaNormal(xf, yf, zf, cross, emerald);
-		desenhaNormal(xf, yf, zf + 1, cross, emerald);
-		desenhaNormal(xi, yi, zi + 1, cross, emerald);
+	desenhaNormal(xi, yi, zi, cross, emerald);
+	desenhaNormal(xf, yf, zf, cross, emerald);
+	desenhaNormal(xf, yf, zf + 1, cross, emerald);
+	desenhaNormal(xi, yi, zi + 1, cross, emerald);
 	}
 	*/
 }
@@ -437,7 +532,7 @@ void desenhaChao(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLf
 
 
 void desenhaLigacao(Arco arco){
-	No *noi, *nof;// dois nós que vao ser ligados
+	No *noi, *nof;// dois nï¿½s que vao ser ligados
 	GLUquadricObj *obj = gluNewQuadric();
 	GLdouble distanciaLig;
 	GLdouble angOrientacao;
@@ -453,22 +548,22 @@ void desenhaLigacao(Arco arco){
 	material(red_plastic);
 
 	glPushMatrix();
-		//mover para o nó inicial para coemçar a desenhar
-		glTranslatef(noi->x, noi->y, noi->z);
-		//Desnivel
-		catetoOposto = nof->z - noi->z;
-		//base do triangulo
-		tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));
-		//distancia entre os 2 nós
-		distanciaLig = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2) + pow((nof->z - noi->z), 2));
-		angInclinacao = radToDeg(atan2(catetoOposto, tamanhoCA));
-		//Angulo de rotacao dos zz
-		angOrientacao = radToDeg(atan2(nof->y - noi->y, nof->x - noi->x));
-		glRotated(angOrientacao, 0, 0, 1);
-		//Angulo de rotacao dos yy
-		glRotated(angInclinacao - 90, 0, -1, 0);
-		//a largura da ligação pode variar, mas apenas está presente a força de ligação definida pelo utilizador actual.
-		gluCylinder(obj, arco.forcaLig /5, arco.forcaLig /5, distanciaLig, 30, 30);//30 numero de vertices
+	//mover para o nï¿½ inicial para coemï¿½ar a desenhar
+	glTranslatef(noi->x, noi->y, noi->z);
+	//Desnivel
+	catetoOposto = nof->z - noi->z;
+	//base do triangulo
+	tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));
+	//distancia entre os 2 nï¿½s
+	distanciaLig = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2) + pow((nof->z - noi->z), 2));
+	angInclinacao = radToDeg(atan2(catetoOposto, tamanhoCA));
+	//Angulo de rotacao dos zz
+	angOrientacao = radToDeg(atan2(nof->y - noi->y, nof->x - noi->x));
+	glRotated(angOrientacao, 0, 0, 1);
+	//Angulo de rotacao dos yy
+	glRotated(angInclinacao - 90, 0, -1, 0);
+	//a largura da ligaï¿½ï¿½o pode variar, mas apenas estï¿½ presente a forï¿½a de ligaï¿½ï¿½o definida pelo utilizador actual.
+	gluCylinder(obj, arco.forcaLig / 5, arco.forcaLig / 5, distanciaLig, 30, 30);//30 numero de vertices
 	glPopMatrix();
 
 
@@ -476,38 +571,38 @@ void desenhaLigacao(Arco arco){
 }
 
 void desenhaEsferaNo(float largura){
-	
+
 	material(preto);
 	glPushMatrix();
-		//glColor3f(0.0, 1.0, 0.0);
-		glutSolidSphere(largura / 2, 20, 20);
+	//glColor3f(0.0, 1.0, 0.0);
+	glutSolidSphere(largura / 2, 20, 20);
 	glPopMatrix();
 
 }
 
 void drawGraph(){
 	glPushMatrix();
-		glTranslatef(0, 0, 0.05);
-		glScalef(5, 5, 5);
-		material(red_plastic);
-		/* desnha bolas que representam os nós */
-		for (int i = 0; i<numNos; i++){
-			glPushMatrix();
-				//material(preto);
-				//move para as coordenadas onde tem que desenhar
-				glTranslatef(nos[i].x, nos[i].y, nos[i].z);// +0.25);
-				//desenhar esfera
-				desenhaEsferaNo(nos[i].largura);
+	glTranslatef(0, 0, 0.05);
+	glScalef(5, 5, 5);
+	material(red_plastic);
+	/* desnha bolas que representam os nï¿½s */
+	for (int i = 0; i<numNos; i++){
+		glPushMatrix();
+		//material(preto);
+		//move para as coordenadas onde tem que desenhar
+		glTranslatef(nos[i].x, nos[i].y, nos[i].z);// +0.25);
+		//desenhar esfera
+		desenhaEsferaNo(nos[i].largura);
 
-			glPopMatrix();
-		}
-		/* desnha os cilindors que representão as ligações a cada nó */
-		//material(emerald);
-		for (int i = 0; i < numArcos; i++){
-			desenhaLigacao(arcos[i]);
-			//rampa pequena que sai do arco (talvez não necessario)
-			//desenhaElemLigacao(arcos[i]);
-		}
+		glPopMatrix();
+	}
+	/* desnha os cilindors que representï¿½o as ligaï¿½ï¿½es a cada nï¿½ */
+	//material(emerald);
+	for (int i = 0; i < numArcos; i++){
+		desenhaLigacao(arcos[i]);
+		//rampa pequena que sai do arco (talvez nï¿½o necessario)
+		//desenhaElemLigacao(arcos[i]);
+	}
 	glPopMatrix();
 }
 
@@ -612,29 +707,39 @@ void setCamera(){
 void display(void)
 {
 
+	if (estado.estadoJogo == 0){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	setCamera();
-
-	material(slate);
-	desenhaSolo();
-
-
-	desenhaEixos();
-
-	// desnha o grafo 3D
-	drawGraph();
-
-	if (estado.eixoTranslaccao) {
-		// desenha plano de translacção
-		cout << "Translate... " << estado.eixoTranslaccao << endl;
-		desenhaPlanoDrag(estado.eixoTranslaccao);
+		desenhaMenu();
+		glutSwapBuffers();
+		glFlush();
 
 	}
+	else if (estado.estadoJogo == 1){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		setCamera();
 
-	glFlush();
-	glutSwapBuffers();
+		material(slate);
+		desenhaSolo();
+
+
+		desenhaEixos();
+
+		// desnha o grafo 3D
+		drawGraph();
+
+		if (estado.eixoTranslaccao) {
+			// desenha plano de translacï¿½ï¿½o
+			cout << "Translate... " << estado.eixoTranslaccao << endl;
+			desenhaPlanoDrag(estado.eixoTranslaccao);
+
+		}
+
+		glFlush();
+		glutSwapBuffers();
+		
+	}
 
 }
 
@@ -650,16 +755,30 @@ void keyboard(unsigned char key, int x, int y)
 		break;
 	case 'h':
 	case 'H':
-		imprime_ajuda();
+		//imprime_ajuda();
+		estado.estadoJogo = 1;
+		gameInit();
+		/* forÃ§a a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
+		myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		glutPostRedisplay();
+
+		cout << "modo jogo!" << endl;
 		break;
 	case 'l':
 	case 'L':
+		menuInit();
+		estado.estadoJogo = 0;
+		myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		glutPostRedisplay();
+
+		/*
 		if (estado.lightViewer)
 			estado.lightViewer = 0;
 		else
 			estado.lightViewer = 1;
 		glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, estado.lightViewer);
 		glutPostRedisplay();
+		*/
 		break;
 	case 'k':
 	case 'K':
@@ -749,10 +868,10 @@ void Special(int key, int x, int y){
 
 void setProjection(int x, int y, GLboolean picking){
 	glLoadIdentity();
-	if (picking) { // se está no modo picking, lê viewport e define zona de picking
+	if (picking) { // se estï¿½ no modo picking, lï¿½ viewport e define zona de picking
 		GLint vport[4];
 		glGetIntegerv(GL_VIEWPORT, vport);
-		gluPickMatrix(x, glutGet(GLUT_WINDOW_HEIGHT) - y, 4, 4, vport); // Inverte o y do rato para corresponder à jana
+		gluPickMatrix(x, glutGet(GLUT_WINDOW_HEIGHT) - y, 4, 4, vport); // Inverte o y do rato para corresponder ï¿½ jana
 	}
 
 	gluPerspective(estado.camera.fov, (GLfloat)glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1, 500);
@@ -760,10 +879,31 @@ void setProjection(int x, int y, GLboolean picking){
 }
 
 void myReshape(int w, int h){
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	setProjection(0, 0, GL_FALSE);
-	glMatrixMode(GL_MODELVIEW);
+	
+	if (estado.estadoJogo == 0){
+		glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+
+		glMatrixMode(GL_PROJECTION);
+
+		glLoadIdentity();
+
+		gluOrtho2D(0, 100, 100, 0);
+
+		glMatrixMode(GL_MODELVIEW);
+		//glLoadIdentity();
+	}
+	else if (estado.estadoJogo == 1){
+	
+		glEnable(GL_DEPTH_TEST);
+
+		glViewport(0, 0, w, h);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+
+		setProjection(0, 0, GL_FALSE);
+		glMatrixMode(GL_MODELVIEW);
+	}
+
 }
 
 
@@ -806,7 +946,7 @@ void motionDrag(int x, int y){
 	glInitNames();
 
 	glMatrixMode(GL_PROJECTION);
-	glPushMatrix(); // guarda a projecção
+	glPushMatrix(); // guarda a projecï¿½ï¿½o
 	glLoadIdentity();
 	setProjection(x, y, GL_TRUE);
 
@@ -840,7 +980,7 @@ void motionDrag(int x, int y){
 	}
 
 
-	glMatrixMode(GL_PROJECTION); //repõe matriz projecção
+	glMatrixMode(GL_PROJECTION); //repï¿½e matriz projecï¿½ï¿½o
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glutPostRedisplay();
@@ -856,7 +996,7 @@ int picking(int x, int y){
 	glInitNames();
 
 	glMatrixMode(GL_PROJECTION);
-	glPushMatrix(); // guarda a projecção
+	glPushMatrix(); // guarda a projecï¿½ï¿½o
 	glLoadIdentity();
 	setProjection(x, y, GL_TRUE);
 
@@ -875,12 +1015,12 @@ int picking(int x, int y){
 				zmin = (double)ptr[1] / UINT_MAX;
 				objid = ptr[3];
 			}
-			ptr += 3 + ptr[0]; // ptr[0] contem o número de nomes (normalmente 1); 3 corresponde a numnomes, zmin e zmax
+			ptr += 3 + ptr[0]; // ptr[0] contem o nï¿½mero de nomes (normalmente 1); 3 corresponde a numnomes, zmin e zmax
 		}
 	}
 
 
-	glMatrixMode(GL_PROJECTION); //repõe matriz projecção
+	glMatrixMode(GL_PROJECTION); //repï¿½e matriz projecï¿½ï¿½o
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 
@@ -932,8 +1072,12 @@ void main(int argc, char **argv)
 	/* need both double buffering and z buffer */
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(800, 800); //tamanho da janela
+	glutInitWindowSize(1000, 700); //tamanho da janela
 	glutCreateWindow("SocialGame - EpicWare"); //nome da janela
+
+	estado.estadoJogo = 0;
+
+
 
 	glutReshapeFunc(myReshape);
 	glutDisplayFunc(display);
@@ -941,11 +1085,15 @@ void main(int argc, char **argv)
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(Special);
 	/*  Funcionalidades do rato   */
-	glutMouseFunc(mouse);
-
-	myInit();
+	//glutMouseFunc(mouse);
 
 	imprime_ajuda();
+
+	menuInit();
+	//gameInit();
+	
+
+
 
 	glutMainLoop();
 }
