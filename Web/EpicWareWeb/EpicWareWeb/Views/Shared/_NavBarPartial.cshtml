@@ -47,7 +47,6 @@ else
                 
            
 
-               @* <form class="navbar-form navbar-right" action="~/Account/loginForBar">*@
             @using (Html.BeginForm("loginForBar", "Account"))
             {
                
@@ -59,7 +58,7 @@ else
                 @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
             }
                     
-               </form>
+               
                 </div><!-- /navbar-inner -->
             </div><!-- /navbar -->
         </div>
