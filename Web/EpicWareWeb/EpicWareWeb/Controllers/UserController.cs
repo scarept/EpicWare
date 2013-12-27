@@ -311,6 +311,12 @@ namespace EpicWareWeb.Controllers
             return View();
         }
 
+        public ActionResult NoReativateAccount()
+        {
+            WebSecurity.Logout();
+            return RedirectToAction("Index", "Home");
+        }
+
         // Get
         [Authorize]
         public ActionResult AddFriend(int id = 0)

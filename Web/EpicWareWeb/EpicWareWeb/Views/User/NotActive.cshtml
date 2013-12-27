@@ -17,7 +17,7 @@
             }
         </td>
         <td>
-            @using (Html.BeginForm("Index", "Home"))
+            @using (Html.BeginForm("NoReativateAccount", "User"))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)

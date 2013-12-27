@@ -3,9 +3,7 @@
     EpicWareWeb.Models.LoginModel m = new EpicWareWeb.Models.LoginModel();
 }
 
-
-
-﻿@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated)
 {
     //EpicWareWeb.Controllers.UserController ctruser = new EpicWareWeb.Controllers.UserController();
     //EpicWareWeb.Models.User user = new EpicWareWeb.Models.User();
@@ -38,25 +36,44 @@ else
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
-                <div class="navbar-left">
-                    @Html.Partial("_LanguagePartial")
-                </div>
-                <span style="padding-top:inherit">
-                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
-                </span>
+     <table>
+         <tr>
+             <td>
+                 <div class="navbar-left">
+                     @Html.Partial("_LanguagePartial")
+                 </div>
+             </td>
+
+             <td>
+                 <span style="padding-top:inherit">
+                     <a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
+                 </span>
+             </td>
+
+             <td>
+                    @using (Html.BeginForm("loginForBar", "Account"))
+                    {
+
+                        @Html.TextBoxFor(Model => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" })
+                        @Html.ValidationMessageFor(Model => m.UserName)
+                        @Html.TextBoxFor(Model => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" })
+                        @Html.ValidationMessageFor(Model => m.Password)
+                        @Html.CheckBoxFor(Model => m.RememberMe)
+                        @Html.HiddenFor(Model => m.RememberMe)
+                        @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
+                        <input type="submit" value="SigIn" />
+                    }
+             </td>
+         </tr>
+     </table>
+    
+                
+                
                 
            
 
-            @using (Html.BeginForm("loginForBar", "Account"))
-            {
-               
-                @Html.TextBoxFor(Model => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" }) 
-                @Html.ValidationMessageFor(Model => m.UserName)
-                @Html.TextBoxFor(Model => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" }) 
-                @Html.ValidationMessageFor(Model => m.Password)
-                @Html.CheckBoxFor(Model => m.RememberMe)
-                @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
-            }
+             
+            
                     
                
                 </div><!-- /navbar-inner -->

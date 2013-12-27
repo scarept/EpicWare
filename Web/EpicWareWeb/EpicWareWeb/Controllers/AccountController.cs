@@ -47,8 +47,23 @@ namespace EpicWareWeb.Controllers
             return View(model);
         }
         [AllowAnonymous]
-        public ActionResult loginForBar(LoginModel model)
+        public ActionResult loginForBar(FormCollection collection)
         {
+            /* Build model with form data */
+            LoginModel model = new LoginModel();
+            model.UserName = collection.Get("m.Username");
+            model.Password = collection.Get("m.Password");
+            string rem = collection.Get("m.RememberMe");
+            string[] remArr = rem.Split(',');
+            if (remArr[0] == "true")
+            {
+                model.RememberMe = true;
+            }
+            else
+            {
+                model.RememberMe = false;
+            }
+            
             
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
