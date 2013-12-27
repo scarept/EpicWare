@@ -241,6 +241,7 @@ namespace EpicWareWeb.Controllers
         {
             User user = UserAutenticated();
             user.active = false;
+            WebSecurity.Logout();
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
