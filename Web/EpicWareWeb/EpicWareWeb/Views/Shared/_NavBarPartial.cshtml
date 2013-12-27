@@ -1,13 +1,11 @@
-<<<<<<< HEAD
-﻿@*@model EpicWareWeb.Models.LoginModel*@
+﻿﻿@*@model EpicWareWeb.Models.LoginModel*@
 @{
     EpicWareWeb.Models.LoginModel m = new EpicWareWeb.Models.LoginModel();
 }
 
-@if (Request.IsAuthenticated)
-=======
+
+
 ﻿@if (Request.IsAuthenticated)
->>>>>>> 2b8e0eebd395e05544618e89c9ba130bf88ab054
 {
     //EpicWareWeb.Controllers.UserController ctruser = new EpicWareWeb.Controllers.UserController();
     //EpicWareWeb.Models.User user = new EpicWareWeb.Models.User();
@@ -48,7 +46,7 @@ else
                 </span>
                 
            
-<<<<<<< HEAD
+
                @* <form class="navbar-form navbar-right" action="~/Account/loginForBar">*@
             @using (Html.BeginForm("loginForBar", "Account"))
             {
@@ -59,21 +57,6 @@ else
                 @Html.ValidationMessageFor(Model => m.Password)
                 @Html.CheckBoxFor(Model => m.RememberMe)
                 @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
-           
-                @*<input type="text" class="col-lg-2" placeholder="Username">
-=======
-               <form class="navbar-form navbar-right" action="~/Account/loginForBar">
-                <input type="text" class="col-lg-2" placeholder="Username">
->>>>>>> 2b8e0eebd395e05544618e89c9ba130bf88ab054
-                    <input type="password" class="col-lg-2" placeholder="Password">
-                    <label class="checkbox">
-                        <input type="checkbox"> Remember me
-                    </label>
-                    
-                    
-                
-                    <button type="submit" class="btn">Sign in</button>
-                    <button type="button" class="btn" onclick="location.href='@Url.Action("Register", "Account")';return false;">Register</button>
             }
                     
                </form>
