@@ -1,7 +1,33 @@
-﻿<div class="editor-label">
-    @Html.Label(@EpicWareWeb.Views.User.User.confirmDesativarConta)
-    @Html.ActionLink(@EpicWareWeb.Views.User.User.sim, "DesactivateAccount")
-    @Html.ActionLink(@EpicWareWeb.Views.User.User.nao, "Index")
+﻿@model EpicWareWeb.Models.User
 
-    // COLOCAR EM BEGIN PARA NAO RETORNAR PARA O METODO GET
+<div class="editor-label">
+    @*@Html.Label(@EpicWareWeb.Views.User.User.confirmDesativarConta)
+    @Html.ActionLink(@EpicWareWeb.Views.User.User.sim, "DesactivateAccount")
+    @Html.ActionLink(@EpicWareWeb.Views.User.User.nao, "Index")*@
+
+    <h2>@EpicWareWeb.Views.User.User.confirmDesativarConta</h2>
+
+    <table>
+        <tr>
+            <td>
+                @using (Html.BeginForm("DesactivateAccount", "User"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.userID)
+                    <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.sim</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("Index", "Home"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <button type="submit" class="btn btn-danger">@EpicWareWeb.Views.User.User.nao</button>
+                }
+            </td>
+        </tr>
+    </table>
+
+    @*COLOCAR EM BEGIN PARA NAO RETORNAR PARA O METODO GET*@
 </div>
