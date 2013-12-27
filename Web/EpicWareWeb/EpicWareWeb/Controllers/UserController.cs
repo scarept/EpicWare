@@ -230,6 +230,14 @@ namespace EpicWareWeb.Controllers
             return View();
         }
 
+<<<<<<< HEAD
+=======
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
+>>>>>>> 2b8e0eebd395e05544618e89c9ba130bf88ab054
         [HttpPost]
         [Authorize]
         public ActionResult DesactivateAccount()
@@ -244,6 +252,10 @@ namespace EpicWareWeb.Controllers
             }
             return View();
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b8e0eebd395e05544618e89c9ba130bf88ab054
         //
         // GET: /User/Delete/5
 

@@ -134,10 +134,16 @@
   </data>
   <data name="reativarConta" xml:space="preserve">
     <value>Reativar Conta</value>
+<<<<<<< HEAD
     </data>
   <data name="perfil" xml:space="preserve">
     <value>Perfil</value>
 
+=======
+  </data>
+  <data name="perfil" xml:space="preserve">
+    <value>Perfil</value>
+>>>>>>> 2b8e0eebd395e05544618e89c9ba130bf88ab054
   </data>
   <data name="semimagem" xml:space="preserve">
     <value>Sem Imagem </value>
