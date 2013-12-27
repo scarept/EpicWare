@@ -3,21 +3,29 @@
 @{
     ViewBag.Title = "Reactivate";
 }
-<h4>@EpicWareWeb.Views.User.User.avisoContaDesativada</h4>
-@using (Html.BeginForm("ReativateAccount","User"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.userID)
-    <p>
-       <input type="submit" value="@EpicWareWeb.Views.User.User.reativarConta" />
-    </p>
-}
-@using (Html.BeginForm("Index","Home"))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    <p>
-        <input type="submit" value="@EpicWareWeb.Views.User.User.nao" />
-    </p>
-}
+<h2>@EpicWareWeb.Views.User.User.avisoContaDesativada</h2>
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm("ReativateAccount", "User"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.userID)
+                <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.reativarConta</button>
+                @*<input type="submit" value="@EpicWareWeb.Views.User.User.reativarConta" />*@
+            }
+        </td>
+        <td>
+            @using (Html.BeginForm("Index", "Home"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @*<input type="submit" value="@EpicWareWeb.Views.User.User.nao" />*@
+                <button type="submit" class="btn btn-danger">@EpicWareWeb.Views.User.User.nao</button>
+            }
+        </td>
+    </tr>
+</table>
+
+
