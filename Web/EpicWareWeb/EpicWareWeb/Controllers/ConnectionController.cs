@@ -90,5 +90,10 @@ namespace EpicWareWeb.Controllers
             return returnList;
         }
 
+        //public bool addFriend(User user)
+        //{
+
+        //}
+
     }
 }

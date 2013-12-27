@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using EpicWareWeb.Filters;
 using EpicWareWeb.Models;
+using EpicWareWeb.DAL;
 
 namespace EpicWareWeb.Controllers
 {
@@ -17,6 +18,7 @@ namespace EpicWareWeb.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private DataContext db = new DataContext();
         //
         // GET: /Account/Login
 
@@ -38,6 +40,30 @@ namespace EpicWareWeb.Controllers
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
+            }
+
+            // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            return View(model);
+        }
+        [AllowAnonymous]
+        public ActionResult loginForBar(LoginModel model)
+        {
+            
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            {
+                int id_login = WebSecurity.GetUserId(model.UserName);
+                var userQ = from d in db.users where d.UserProfileID == id_login select d;
+                List<User> tempList = userQ.ToList();
+                User user = tempList.ElementAt(0);
+                if (user.active)
+                {
+                    return RedirectToAction("Index","Home");
+                }
+                else
+                {
+                    return RedirectToAction("NotActive", "User", new { id = user.userID });
+                }
             }
 
             // If we got this far, something failed, redisplay form
