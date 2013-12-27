@@ -21,7 +21,7 @@ namespace EpicWareWeb.Controllers
 
         
          //GET: /User/
-
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.users.ToList());
@@ -29,7 +29,7 @@ namespace EpicWareWeb.Controllers
 
         //
         // GET: /User/Details/5
-
+        [Authorize]
         public ActionResult Details(int id = 0)
         {
             User user = db.users.Find(id);
@@ -103,7 +103,7 @@ namespace EpicWareWeb.Controllers
 
         //
         // GET: /User/Edit/5
-
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             User user = db.users.Find(id);
@@ -119,6 +119,7 @@ namespace EpicWareWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
@@ -132,6 +133,7 @@ namespace EpicWareWeb.Controllers
 
         //
         // GET: /User/EditProfile/5
+        [Authorize]
         public ActionResult CreateProfile()
         {
             User user = UserAutenticated();
@@ -147,6 +149,8 @@ namespace EpicWareWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+
         public ActionResult CreateProfile(FormCollection collection, string naturalSelect, string genderSelect, HttpPostedFileBase file)
         {
             User userAuth = UserAutenticated();
@@ -220,12 +224,34 @@ namespace EpicWareWeb.Controllers
             
             return View();
         }
+        [Authorize]
+        public ActionResult DesactivateAccount(int id = 0)
+        {
+            return View();
+        }
 
+<<<<<<< HEAD
         public ActionResult Profile()
         {
             return View();
         }
 
+=======
+        [HttpPost]
+        [Authorize]
+        public ActionResult DesactivateAccount()
+        {
+            User user = UserAutenticated();
+            user.active = false;
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index","Home");
+            }
+            return View();
+        }
+>>>>>>> 6b995bbee3d3f215b0163bcbf7a60bea5ae8065d
         //
         // GET: /User/Delete/5
 
@@ -251,6 +277,57 @@ namespace EpicWareWeb.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
+
+        public ActionResult Profile(int id = 0)
+        {
+            User user = db.users.Find(id);
+            return View(user);
+        }
+
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult Profile(int id = 0)
+        //{
+        //    return View();
+        //}
+
+        public ActionResult NotActive(int id = 0)
+        {
+            User user = db.users.Find(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ReativateAccount()
+        {
+            User user = UserAutenticated();
+            user.active = true;
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        // Get
+        [Authorize]
+        public ActionResult AddFriend(int id = 0)
+        {
+            User user = db.users.Find(id);
+            return View(User);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult AddFriend(User user, FormCollection collection)
+        {
+
+            return RedirectToAction("", "");
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -1,4 +1,6 @@
-﻿
+﻿@model EpicWareWeb.Models.LoginModel
+
+
 @if (Request.IsAuthenticated)
 {
     EpicWareWeb.Controllers.UserController ctruser = new EpicWareWeb.Controllers.UserController();
@@ -40,15 +42,30 @@ else
                 </span>
                 
            
-                <form class="navbar-form navbar-right" action="~/Account/loginForBar">
-                    <input type="text" class="col-lg-2" placeholder="Username">
+               @* <form class="navbar-form navbar-right" action="~/Account/loginForBar">*@
+            @using (Html.BeginForm("loginForBar", "Account"))
+            {
+               
+                @Html.TextBoxFor(m => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" }) 
+                @Html.ValidationMessageFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" }) 
+                @Html.ValidationMessageFor(m => m.Password)
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+           
+                @*<input type="text" class="col-lg-2" placeholder="Username">
                     <input type="password" class="col-lg-2" placeholder="Password">
                     <label class="checkbox">
                         <input type="checkbox"> Remember me
-                    </label>
+                    </label>*@
+                    
+                    
+                
                     <button type="submit" class="btn">Sign in</button>
                     <button type="button" class="btn" onclick="location.href='@Url.Action("Register", "Account")';return false;">Register</button>
-                </form>
+            }
+                    
+               @*</form>*@
                 </div><!-- /navbar-inner -->
             </div><!-- /navbar -->
         </div>

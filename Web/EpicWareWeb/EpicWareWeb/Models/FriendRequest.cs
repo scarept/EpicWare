@@ -11,5 +11,7 @@ namespace EpicWareWeb.Models
         public virtual User user1 { get; set; }
         public virtual User user2 { get; set; }
         public virtual Game game { get; set; }
+        public virtual TagConnection tagConnection { get; set; }
+        public int strenght { get; set; }
     }
 }

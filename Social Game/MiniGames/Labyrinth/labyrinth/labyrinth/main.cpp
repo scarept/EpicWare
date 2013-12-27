@@ -164,11 +164,17 @@ void desenhaMenu(GLenum mode){
 	glPushMatrix();
 	if (mode == GL_SELECT)
 		glLoadName(4);
-		glBegin(GL_QUADS);
-		glColor3f(1, 1, 1);
+		GLuint imagemExit = carrega_texturas("btExit.png");
+		glBindTexture(GL_TEXTURE_2D, imagemExit);
+		glBegin(GL_POLYGON);
+		//glColor3f(1, 1, 1);
+		glTexCoord2f(0.0, 1.0);
 		glVertex2f(25, 80);
+		glTexCoord2f(1.0, 1.0);
 		glVertex2f(75, 80);
+		glTexCoord2f(1.0, 0.0);
 		glVertex2f(75, 87);
+		glTexCoord2f(0.0, 0.0);
 		glVertex2f(25, 87);
 		glEnd();
 	glPopMatrix();
@@ -270,13 +276,20 @@ void desenhaLabirinto(int **matLabirinto)
 			}
 			if (matLabirinto[i][j] != 0 && x == 25)
 			{
+				glBindTexture(GL_TEXTURE_2D, mod.textura_paredes);
+
 				glBegin(GL_POLYGON);
-				glColor3f(0, 0, 255);
+				//glColor3f(0, 0, 255);
+				glTexCoord2f(0.0, 0.0);
 				glVertex2f(0 + (j * 4), 0 + ((i - 1) * 4));
+				glTexCoord2f(0.0, 1.0);
 				glVertex2f(0 + (j * 4), 4 + ((i - 1) * 4));
+				glTexCoord2f(1.0, 1.0);
 				glVertex2f(4 + (j * 4), 4 + ((i - 1) * 4));
+				glTexCoord2f(1.0, 0.0);
 				glVertex2f(4 + (j * 4), 0 + ((i - 1) * 4));
 				glEnd();
+				glBindTexture(GL_TEXTURE_2D, NULL);
 			}
 		}
 	}
@@ -473,7 +486,7 @@ void initGame(char * file){
 }
 
 
-void processHits(GLint hits, GLuint buffer[])
+void clickEvent(GLint hits, GLuint buffer[])
 {
 	int i;
 	unsigned int j;
@@ -507,6 +520,7 @@ void processHits(GLint hits, GLuint buffer[])
 				teste = 1;
 			}
 			else if (*ptr == 4){
+				exit(0);
 			}
 			
 			//printf("%d ", *ptr);
@@ -542,7 +556,7 @@ void pickRects(int button, int state, int x, int y)
 	glPopMatrix();
 	glFlush();
 	hits = glRenderMode(GL_RENDER);
-	processHits(hits, selectBuf);
+	clickEvent(hits, selectBuf);
 	
 }
 
