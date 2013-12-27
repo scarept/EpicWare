@@ -7116,3 +7116,21 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
+/*Added by epic ware */
+.alert-normal {
+  color: #838586;
+  background-color: #F8F9FA;
+  border-color: #EEEEEE;
+}
+
+
+.alert-normal hr {
+  border-top-color: #EAEAEA;
+}
+
+
+.alert-normal .alert-link {
+  color: #5D5D5D;
+}

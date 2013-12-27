@@ -310,6 +310,13 @@
     <Content Include="Images\glyphicons_198_ok.png" />
     <Content Include="Images\EpicWare Logos\lapr5.png" />
     <Content Include="Images\EpicWare Logos\logo.png" />
+<<<<<<< HEAD
+=======
+    <Content Include="Images\Logos\glyphicons_social_17_linked_in.png" />
+    <Content Include="Images\Logos\glyphicons_social_30_facebook.png" />
+    <Content Include="Images\Logos\glyphicons_social_31_twitter.png" />
+    <Content Include="Images\Profiles\ric.jpg" />
+>>>>>>> e4119f2909727c80dfd8e4839e9ae0220df6e801
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\inputs-jquery-ui.js" />
@@ -1016,13 +1023,13 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\Shared\_NavBarPartial.cshtml" />
     <Content Include="Views\User\CreateProfile.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\User\DesactivateAccount.cshtml" />
     <Content Include="Views\User\NotActive.cshtml" />
     <Content Include="Views\User\AddFriend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Profiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
