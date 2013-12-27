@@ -1,5 +1,7 @@
-﻿@model EpicWareWeb.Models.LoginModel
-
+﻿@*@model EpicWareWeb.Models.LoginModel*@
+@{
+    EpicWareWeb.Models.LoginModel m = new EpicWareWeb.Models.LoginModel();
+}
 
 @if (Request.IsAuthenticated)
 {
@@ -46,12 +48,12 @@ else
             @using (Html.BeginForm("loginForBar", "Account"))
             {
                
-                @Html.TextBoxFor(m => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" }) 
-                @Html.ValidationMessageFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" }) 
-                @Html.ValidationMessageFor(m => m.Password)
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                @Html.TextBoxFor(Model => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" }) 
+                @Html.ValidationMessageFor(Model => m.UserName)
+                @Html.TextBoxFor(Model => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" }) 
+                @Html.ValidationMessageFor(Model => m.Password)
+                @Html.CheckBoxFor(Model => m.RememberMe)
+                @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
            
                 @*<input type="text" class="col-lg-2" placeholder="Username">
                     <input type="password" class="col-lg-2" placeholder="Password">
