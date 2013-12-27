@@ -1024,6 +1024,8 @@
     <Content Include="Views\User\DesactivateAccount.cshtml" />
     <Content Include="Views\User\NotActive.cshtml" />
     <Content Include="Views\User\AddFriend.cshtml" />
+    <Content Include="Views\User\ListFriendRequest.cshtml" />
+    <Content Include="Views\User\_FriendRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

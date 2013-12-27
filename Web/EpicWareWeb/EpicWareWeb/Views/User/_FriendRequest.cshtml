@@ -1,0 +1,27 @@
+﻿@model EpicWareWeb.Models.FriendRequest
+
+<table width="500">
+    <tr>
+        <td rowspan =3>
+            <img src="@Model.user1.userProfile.pathImg" alt="No Image" />
+        </td>
+    </tr>
+    <tr>
+        <td>Nome: @Model.user1.userProfile.name</td><td>Ult. Nome: @Model.user1.userProfile.lastName</td>
+    </tr>    
+    <tr>    
+        <td>Força: @Model.strenght</td><td>Tag Connection: @Model.tagConnection.tag</td>
+    </tr>
+    <tr><td></td>
+        @using (Html.BeginForm("AcceptFR", "User"))
+        {
+            @Html.HiddenFor(model => model.friendRequestID)
+            <td><input type="submit" value="Aceitar" /></td>
+        }
+        @using (Html.BeginForm("RejectFR", "User"))
+        {
+            @Html.HiddenFor(model => model.friendRequestID)
+            <td><input type="submit" value="Rejeitar" /></td>
+        }
+    </tr>
+</table>

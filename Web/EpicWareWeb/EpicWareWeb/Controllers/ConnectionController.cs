@@ -64,7 +64,7 @@ namespace EpicWareWeb.Controllers
         public List<FriendRequest> friendsRequestedPending()
         {
             User userAuth = new UserController().UserAutenticated();
-            var fRP = from d in db.friendRequests where d.user2 == userAuth select d;
+            var fRP = from d in db.friendRequests where d.user2.userID == userAuth.userID select d;
             return fRP.ToList();
         }
 

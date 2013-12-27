@@ -334,19 +334,58 @@ namespace EpicWareWeb.Controllers
             User userAuth = UserAutenticated();
             User user = db.users.Find(Convert.ToInt32(collection.Get("userID")));
 
-            Connection conn1 = new Connection();
-            Connection conn2 = new Connection();
+            /*Create Friend Request*/
+            FriendRequest fR = new FriendRequest();
 
             /* Strenght */
             string força = collection.Get("conn.strenght");
             int forçaInt = Convert.ToInt32(força);
-            conn1.strenght = forçaInt;
-            conn2.strenght = forçaInt;
+            fR.strenght = forçaInt;
 
             /* Tag Connection */
             TagConnection tagConn = db.tagConnections.Find(Convert.ToInt32(tagSelect));
-            conn1.tagConnection = tagConn;
-            conn2.tagConnection = tagConn;
+            fR.tagConnection = tagConn;
+            
+            /*Users*/
+            fR.user1 = userAuth;
+            fR.user2 = user;
+
+            if (ModelState.IsValid)
+            {
+                db.friendRequests.Add(fR);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Profile");
+        }
+
+        [Authorize]
+        public ActionResult ListFriendRequest()
+        {
+            ConnectionController ctrConn = new ConnectionController();
+            return View(ctrConn.friendsRequestedPending());
+        }
+
+        [Authorize]
+        public ActionResult AcceptFR(FormCollection collection)
+        {
+            /*Get friend request*/
+            int fRId = Convert.ToInt32(collection.Get("friendRequestID"));
+            FriendRequest fR = db.friendRequests.Find(fRId);
+
+
+            User userAuth = UserAutenticated();
+            User user = fR.user1;
+            
+            Connection conn1 = new Connection();
+            Connection conn2 = new Connection();
+
+            /* Strenght */
+            conn1.strenght = fR.strenght;
+            conn2.strenght = fR.strenght;
+
+            /* Tag Connection */
+            conn1.tagConnection = fR.tagConnection;
+            conn2.tagConnection = fR.tagConnection;
 
             /* Owner */
             conn1.Owner = userAuth;
@@ -356,7 +395,7 @@ namespace EpicWareWeb.Controllers
             conn1.userConnected = user;
             conn2.userConnected = userAuth;
 
-            /* Save connections on all users*/
+            /* Save connections on all users and remove FrindRequest*/
             userAuth.listConnections.Add(conn1);
             user.listConnections.Add(conn2);
 
@@ -365,12 +404,25 @@ namespace EpicWareWeb.Controllers
                 db.Entry(user).State = EntityState.Modified;
                 db.Entry(userAuth).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                db.friendRequests.Remove(fR);
+                db.SaveChanges();
             }
-            
-            return RedirectToAction("", "");
+            return RedirectToAction("ListFriendRequest");
         }
 
+        public ActionResult RejectFR(FormCollection collection)
+        {
+            /*Get friend request*/
+            int fRId = Convert.ToInt32(collection.Get("friendRequestID"));
+            FriendRequest fR = db.friendRequests.Find(fRId);
+
+            if (ModelState.IsValid)
+            {
+                db.friendRequests.Remove(fR);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ListFriendRequest");
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
