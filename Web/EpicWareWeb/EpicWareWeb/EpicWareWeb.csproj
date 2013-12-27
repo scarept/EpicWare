@@ -287,7 +287,6 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Flags\ENG.gif" />
     <Content Include="Images\Flags\PT.gif" />
-<<<<<<< HEAD
     <Content Include="Images\glyphicons_197_remove.png" />
     <Content Include="Images\glyphicons_198_ok.png" />
     <Content Include="Images\EpicWare Logos\lapr5.png" />
@@ -298,8 +297,6 @@
     <Content Include="Images\Profiles\ric.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-=======
->>>>>>> 6b995bbee3d3f215b0163bcbf7a60bea5ae8065d
     <Content Include="Scripts\inputs-jquery-ui.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -1000,12 +997,9 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\CreateProfile.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\User\Profile.cshtml" />
-=======
     <Content Include="Views\User\DesactivateAccount.cshtml" />
     <Content Include="Views\User\NotActive.cshtml" />
->>>>>>> 6b995bbee3d3f215b0163bcbf7a60bea5ae8065d
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
