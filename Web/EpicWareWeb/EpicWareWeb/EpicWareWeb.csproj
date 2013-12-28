@@ -1024,14 +1024,11 @@
     <Content Include="Views\User\DesactivateAccount.cshtml" />
     <Content Include="Views\User\NotActive.cshtml" />
     <Content Include="Views\User\AddFriend.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\User\_ProfileButtonsPartial.cshtml" />
     <Content Include="Views\User\_ProfileCommentPartial.cshtml" />
     <Content Include="Views\User\_ProfileInfoUserPartial.cshtml" />
-=======
     <Content Include="Views\User\ListFriendRequest.cshtml" />
     <Content Include="Views\User\_FriendRequest.cshtml" />
->>>>>>> 83bab328adbfad836d2f0324d7f9a9dbda5f99b3
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
