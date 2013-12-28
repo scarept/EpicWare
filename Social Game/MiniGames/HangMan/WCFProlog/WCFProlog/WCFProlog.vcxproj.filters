@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\WCF">
+      <UniqueIdentifier>{1bdaddc2-4835-4f26-bc63-9362bf2143d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\WCF">
+      <UniqueIdentifier>{4ce90907-a5f6-46dc-a572-0dcb92284daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI">
+      <UniqueIdentifier>{de27c39c-5fe3-44ce-9e99-300660798bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI">
+      <UniqueIdentifier>{5283e7dd-727a-4672-9681-16b6c6311972}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hangman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WCF.cpp">
+      <Filter>Source Files\WCF</Filter>
+    </ClCompile>
+    <ClCompile Include="tempuri.org.xsd.c">
+      <Filter>Source Files\WCF</Filter>
+    </ClCompile>
+    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
+      <Filter>Source Files\WCF</Filter>
+    </ClCompile>
+    <ClCompile Include="SocialGameService.xsd.c">
+      <Filter>Source Files\WCF</Filter>
+    </ClCompile>
+    <ClCompile Include="tempuri.org.wsdl.c">
+      <Filter>Source Files\WCF</Filter>
+    </ClCompile>
+    <ClCompile Include="HangmanLogic.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Hangman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WCF.h">
+      <Filter>Header Files\WCF</Filter>
+    </ClInclude>
+    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
+      <Filter>Header Files\WCF</Filter>
+    </ClInclude>
+    <ClInclude Include="SocialGameService.xsd.h">
+      <Filter>Header Files\WCF</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.wsdl.h">
+      <Filter>Header Files\WCF</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.xsd.h">
+      <Filter>Header Files\WCF</Filter>
+    </ClInclude>
+    <ClInclude Include="HangmanLogic.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

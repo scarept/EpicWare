@@ -4,7 +4,7 @@
 
 GLuint carrega_texturas(char * nomeTextura){
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_TEXTURE_2D); //em 3D necessario desativar
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	GLuint imagem = SOIL_load_OGL_texture
