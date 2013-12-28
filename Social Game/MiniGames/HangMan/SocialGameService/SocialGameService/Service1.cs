@@ -16,6 +16,14 @@ namespace SocialGameService
             return x + y;
         }
 
+        public IList<string> getInfoUser(int id)
+        {
+            IList<string> conteudo;
+            SocialNetworkGateway SN = new SocialNetworkGateway();
+            conteudo = SN.getInfoUser(id);
+            return conteudo;
+        }
+
         public IList<Word> GetEveryWord()
         {
             HangmanGateway hg = new HangmanGateway();

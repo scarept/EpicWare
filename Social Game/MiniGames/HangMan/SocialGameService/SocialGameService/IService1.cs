@@ -29,6 +29,9 @@ namespace SocialGameService
         IList<Word> GetEveryWord();
 
         [OperationContract]
+        IList<string> getInfoUser(int id);
+
+        [OperationContract]
         int Add(int x, int y);
     }
 }
