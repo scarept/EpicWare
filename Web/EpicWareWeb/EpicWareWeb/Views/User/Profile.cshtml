@@ -4,7 +4,8 @@
     ViewBag.Title = @EpicWareWeb.Views.User.User.perfil;
 }
 
-<h1 style="color:white; font-size:24px; text-align:center;"><b>Ricardo Brandão (ScarePT)</b></h1>
+<h1 style="color:white; font-size:24px; text-align:center;"><b>@Model.userProfile.name @Model.userProfile.lastName ( @Model.userProfile.nickname)</b></h1>
+    @*<b>Ricardo Brandão (ScarePT)</b></h1>*@
 <br />
 <br />
 <div class="container-fluid">
@@ -16,77 +17,20 @@
                         <img src="~/Images/Profiles/ric.jpg" width="200" height="200" />
                     </td>
                 </tr>
-                <tr>
-                    <td style="text-align:center;">
-                        <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">Adicionar Amigo</span></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align:center;">
-                        <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">Pedir Introdução</span></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align:center;">
-                        <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">Aceitar Amigo</span></button><br /><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align:center;">
-                        <div class="alert alert-success"><span style="font-size:12px"><b>Pedido de amizade enviado</b></span></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align:center;">
-                        <div class="alert alert-warning"><span style="font-size:12px"><b>Pedido de amizade pendente</b></span></div>
-                    </td>
-                </tr>
+                @Html.Partial("_ProfileButtonsPartial")
             </table>
         </div>
         <div class="col-md-8">
             
-            <table style="color:white; font-size:14px;">
-                <tr>
-                    <td width="500" align="left" style="padding-left:0px;">
-                        <div class="alert alert-info"><b>Nick:</b> ScarePT</div>
-                    </td>
-                    <td width="500" align="right" style="padding-right:0px;">
-                        <div class="alert alert-info"><b>Estado de Humor:</b> Bombastico :D</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="500" align="left" style="padding-left:0px;">
-                        <div class="alert alert-info"><b>Genero:</b> Macho</div>
-                    </td>
-                    <td width="500" align="right" style="padding-right:0px;">
-                        <div class="alert alert-info"><b>Aniversário:</b> 20/07/1991</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="500" align="left" style="padding-left:0px;">
-                        <div class="alert alert-info">
-                            <b>Social:</b> <a href=""><img src="~/Images/Logos/glyphicons_social_17_linked_in.png" /></a>
-                            <a href=""><img src="~/Images/Logos/glyphicons_social_30_facebook.png" /></a>
-                            <a href=""><img src="~/Images/Logos/glyphicons_social_31_twitter.png" /></a>
-                        </div>
-                    </td>
-                    <td width="500" align="right" style="padding-right:0px;">
-                        <div class="alert alert-info"><b>País:</b> Portugal</div>
-
-                    </td>
-                </tr>
-            </table> 
+            @Html.Partial("_ProfileInfoUserPartial")
             
-                <br /><br />
-                <div class="alert alert-normal">
-                    <div style="width:25px;">
-                        <img src="~/Images/Profiles/ric.jpg" width="25" height="25" />  <b>Joaquim Almeida</b>
-                        <br /><br />
-                        XPTOWFrgrbjyrhtghfytreghfrtegbdnhtregfbgtrefgbhtrgefdbghrtegfbhrtfgrhgtergdhyrtgdhytreghtregt
-                        threthtegdhregthreghrgytrgjyrtegytrghrtgfretyjrtghtyeythtehjrysjywuryjsnrsea5tyjrsuey75urhrteshjrs
-                    </div>
-                </div>
-            <span style="color:white; font-size:14px;">
+            <br /><br />
+                
+            @*@foreach (var com in @Model.comments)
+            {
+                @Html.Partial("_ProfileCommentPartial",com)
+            }*@
+            @*<span style="color:white; font-size:14px;">
                 About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
                 About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
                 About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
@@ -94,11 +38,8 @@
                 About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
                 About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
                 About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-            </span>
+            </span>*@
         </div>
-        @*<div class="col-md-2">
-            
-        </div>*@
     </div>
 </div>
 

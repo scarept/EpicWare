@@ -61,6 +61,42 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aceitar Amigo.
+        /// </summary>
+        public static string aceitar_amigo {
+            get {
+                return ResourceManager.GetString("aceitar_amigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adicionar Amigo.
+        /// </summary>
+        public static string adicionar_amigo {
+            get {
+                return ResourceManager.GetString("adicionar_amigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedido de amizade pendente.
+        /// </summary>
+        public static string amizade_pendente {
+            get {
+                return ResourceManager.GetString("amizade_pendente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aniversário.
+        /// </summary>
+        public static string aniversario {
+            get {
+                return ResourceManager.GetString("aniversario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A sua conta de utilizador encontra-se inativa! Pretende reativa-la?.
         /// </summary>
         public static string avisoContaDesativada {
@@ -79,11 +115,38 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editar Perfil.
+        /// </summary>
+        public static string edit_perfil {
+            get {
+                return ResourceManager.GetString("edit_perfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feminino.
         /// </summary>
         public static string feminino {
             get {
                 return ResourceManager.GetString("feminino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Género.
+        /// </summary>
+        public static string genero {
+            get {
+                return ResourceManager.GetString("genero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estado de Humor.
+        /// </summary>
+        public static string humor {
+            get {
+                return ResourceManager.GetString("humor", resourceCulture);
             }
         }
         
@@ -102,6 +165,33 @@ namespace EpicWareWeb.Views.User {
         public static string nao {
             get {
                 return ResourceManager.GetString("nao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string nick {
+            get {
+                return ResourceManager.GetString("nick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to País.
+        /// </summary>
+        public static string pais {
+            get {
+                return ResourceManager.GetString("pais", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedir Introdução.
+        /// </summary>
+        public static string pedir_intro {
+            get {
+                return ResourceManager.GetString("pedir_intro", resourceCulture);
             }
         }
         
@@ -138,6 +228,15 @@ namespace EpicWareWeb.Views.User {
         public static string sim {
             get {
                 return ResourceManager.GetString("sim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Social.
+        /// </summary>
+        public static string social {
+            get {
+                return ResourceManager.GetString("social", resourceCulture);
             }
         }
         

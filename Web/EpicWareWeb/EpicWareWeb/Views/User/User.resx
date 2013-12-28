@@ -134,12 +134,6 @@
   </data>
   <data name="reativarConta" xml:space="preserve">
     <value>Reativar Conta</value>
-
-    </data>
-  <data name="perfil" xml:space="preserve">
-    <value>Perfil</value>
-
-
   </data>
   <data name="perfil" xml:space="preserve">
     <value>Perfil</value>
@@ -152,5 +146,38 @@
   </data>
   <data name="textoDefaultTags" xml:space="preserve">
     <value>Separado por ','</value>
+  </data>
+  <data name="aniversario" xml:space="preserve">
+    <value>Aniversário</value>
+  </data>
+  <data name="genero" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="humor" xml:space="preserve">
+    <value>Estado de Humor</value>
+  </data>
+  <data name="nick" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="pais" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="social" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="aceitar_amigo" xml:space="preserve">
+    <value>Aceitar Amigo</value>
+  </data>
+  <data name="adicionar_amigo" xml:space="preserve">
+    <value>Adicionar Amigo</value>
+  </data>
+  <data name="amizade_pendente" xml:space="preserve">
+    <value>Pedido de amizade pendente</value>
+  </data>
+  <data name="edit_perfil" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="pedir_intro" xml:space="preserve">
+    <value>Pedir Introdução</value>
   </data>
 </root>

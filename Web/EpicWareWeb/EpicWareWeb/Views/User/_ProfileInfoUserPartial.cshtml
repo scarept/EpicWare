@@ -1,0 +1,39 @@
+﻿@model EpicWareWeb.Models.User
+
+<table style="color:white; font-size:14px;">
+    <tr>
+        <td width="500" align="left" style="padding-left:0px;">
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.nick:</b> @Model.userProfile.nickname</div>@*ScarePT</div>*@
+        </td>
+        <td width="500" align="right" style="padding-right:0px;">
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.humor:</b> @Model.mood</div>@*Bombastico :D</div>*@
+        </td>
+    </tr>
+    <tr>
+        <td width="500" align="left" style="padding-left:0px;">
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.genero:</b> @Model.userProfile.gender</div>@*Macho</div>*@
+        </td>
+        <td width="500" align="right" style="padding-right:0px;">
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.aniversario:</b> @Model.userProfile.birthday</div>@*20/07/1991</div>*@
+        </td>
+    </tr>
+    <tr>
+        @if (!(Model.userProfile.facebookProfile == null && Model.userProfile.linkedinProfile == null && Model.userProfile.twitterProfile == null))
+        {
+            <td width="500" align="left" style="padding-left:0px;">
+                <div class="alert alert-info">
+                    <b>@EpicWareWeb.Views.User.User.social:</b> 
+                    @if (Model.userProfile.facebookProfile != null){<a href=@Model.userProfile.facebookProfile><img src="~/Images/Logos/glyphicons_social_17_linked_in.png" /></a>}
+                    @if (Model.userProfile.linkedinProfile != null){<a href=@Model.userProfile.linkedinProfile><img src="~/Images/Logos/glyphicons_social_30_facebook.png" /></a>}
+                    @if (Model.userProfile.twitterProfile != null){<a href=@Model.userProfile.twitterProfile><img src="~/Images/Logos/glyphicons_social_31_twitter.png" /></a>}
+                    
+                </div>
+            </td>
+        }
+        
+        <td width="500" align="right" style="padding-right:0px;">
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @Model.userProfile.country</div>@*Portugal</div>*@
+
+        </td>
+    </tr>
+</table> 
