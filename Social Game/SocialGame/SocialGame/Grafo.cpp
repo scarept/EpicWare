@@ -1,6 +1,15 @@
 #include "Grafo.h"
 #include <iostream>
 #include <fstream>
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include <stdlib.h>     
+
+
+
+//conversoes
+#define radToDeg(x)   (180*(x)/M_PI)
+#define degToRad(x)   (M_PI*(x)/180)
 
 #define __GRAFO__FILE__ "exemplo.grafo"
 
@@ -96,27 +105,117 @@ void gravaGrafo(){
 		myfile << arcos[i].noi << " " << arcos[i].nof << " " << arcos[i].peso << " " << arcos[i].forcaLig << endl;
 	myfile.close();
 }
+
+void ligacaoNos(int noi, int nof){
+	arcos[numArcos].noi = noi;
+	arcos[numArcos].nof = nof;
+	arcos[numArcos].peso = 10;
+	arcos[numArcos].forcaLig = 2;
+	arcos[numArcos].largura = 1;
+
+
+	numArcos = numArcos + 1;
+
+}
+
+void distribuicaoRadial(No no_inicio, int amigosDiretos[]){
+	//definir no inicio do ficheiro
+	float pi = 3.14;
+	float raio = 7;
+	float altura = -2;
+
+	int tamanho = amigosDiretos[0];
+	double alpha = 360 / tamanho; //numero de amigos exepto a primeira posição que é o numero de elementos (ou seja não se contabiliza o zero)
+	alpha = degToRad(alpha);
+	for (int i = 1; i <= tamanho; i++){
+
+		
+		float x = raio * ((cos(i*alpha)));
+		float y = raio * (sin(i*alpha));
+
+		nos[numNos].userId = amigosDiretos[i];
+		nos[numNos].x = x + no_inicio.x;
+		nos[numNos].y = y + no_inicio.y;
+		nos[numNos].z = no_inicio.z + altura;
+		/* função que conta o numero de tags MUDAR*/
+		nos[numNos].largura= 2;
+
+		numNos = numNos + 1;
+
+		ligacaoNos(no_inicio.userId, amigosDiretos[i]);
+	}
+}
+
 void leGrafo(){
+
+	No user;
+	user.x = 0;
+	user.y = 0;
+	user.z = 6;
+	user.largura = 2;
+	user.userId = 1;
+
+	nos[0] = user;
+
+	numNos = 1;
+	numArcos = 0;
+
+	int amigos[] = { 12, 2, 3,4,5,6,7,8,9,10,11,12 };
+	distribuicaoRadial(user, amigos);
+
+
+	/*
+	nos[0].userId = 1;
+	nos[0].x = 0;
+	nos[0].y = 0;
+	nos[0].z = 0;
+	nos[0].largura = 2; // calculo por numero de tags
+
+	nos[1].userId = 2;
+	nos[1].x = 5;
+	nos[1].y = 5;
+	nos[1].z = 5;
+	nos[1].largura = 2;
+	*/
+	/*
+	arcos[0].noi = 1;
+	arcos[0].nof = 2;
+	arcos[0].peso = 10;
+	arcos[0].forcaLig = 2;
+	arcos[0].largura = 1;
+	*/
+	//numNos = 2;
+	//numArcos = 1;
+
+
+
+	/*
 	ifstream myfile;
 
 	myfile.open (__GRAFO__FILE__, ios::in);
 	if (!myfile.is_open()) {
-		cout << "Erro ao abrir " << __GRAFO__FILE__ << "para ler" <<endl;
-		exit(1);
+	cout << "Erro ao abrir " << __GRAFO__FILE__ << "para ler" <<endl;
+	exit(1);
 	}
+
 	myfile >> numNos;
-	for(int i=0; i<numNos;i++)
-		myfile >> nos[i].x >> nos[i].y >> nos[i].z;
+	for (int i = 0; i < numNos; i++)
+	myfile >> nos[i].x >> nos[i].y >> nos[i].z;
 	myfile >> numArcos ;
 	for(int i=0; i<numArcos;i++)
-		myfile >> arcos[i].noi >> arcos[i].nof >> arcos[i].peso >> arcos[i].forcaLig >> arcos[i].largura;
+	myfile >> arcos[i].noi >> arcos[i].nof >> arcos[i].peso >> arcos[i].forcaLig >> arcos[i].largura;
 	myfile.close();
-	// calcula a largura de cada no = maior largura dos arcos que divergem/convergem desse/nesse no	
-	for(int i=0; i<numNos;i++){
-		nos[i].largura=0;
-		for(int j=0; j<numArcos; j++)
-			//caso a ligação seja maior que o tamanho do nó
-			if ((arcos[j].noi == i || arcos[j].nof == i) && nos[i].largura < arcos[j].forcaLig)
-				nos[i].largura = arcos[j].forcaLig;
-	}		
+	
+	// calcula a largura de cada no = maior largura dos arcos que divergem/convergem desse/nesse no
+	for (int i = 0; i<2; i++){
+	nos[i].largura = 0;
+	for (int j = 0; j<1; j++)
+	//caso a ligação seja maior que o tamanho do nó
+	if ((arcos[j].noi == i || arcos[j].nof == i) && nos[i].largura < arcos[j].forcaLig)
+	nos[i].largura = arcos[j].forcaLig;
+	}
+	*/
+
+
 }
+
