@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    IEnumerable<EpicWareWeb.Models.IntroFriendRequest> Intros = (IEnumerable<EpicWareWeb.Models.IntroFriendRequest>)ViewBag.intros;
 }
 
 <!DOCTYPE html>
@@ -19,6 +20,10 @@
         @foreach (var item in Model)
         {
             @Html.Partial("_FriendRequest", item)
+        }
+        @foreach (var item in Intros)
+        {
+            //@Html.Partial("_", item)
         }
     </table>
     }
