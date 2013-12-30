@@ -11,6 +11,7 @@ namespace EpicWareWeb.Models
         public User userA { get; set; }
         public User userB { get; set; }
         public User userC { get; set; }
+        public bool sendedBC { get; set; }
         public string messageAB { get; set; }
         public string messageBC { get; set; }
     }
