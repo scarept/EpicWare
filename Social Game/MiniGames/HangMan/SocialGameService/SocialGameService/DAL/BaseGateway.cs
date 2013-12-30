@@ -10,7 +10,8 @@ namespace SocialGameService
         {
         }
 
-        private const string _CONNSTR = @"Data Source = 172.31.101.74,1433\SQLEXPRESS;Initial Catalog=epicware;User ID=sa;Password=EpicWar3";
+        private const string _CONNSTR = @"Data Source = 172.31.101.74,1433\SQLEXPRESS;Initial Catalog=epicwar2e;User ID=sa;Password=EpicWar3";
+        //private const string _CONNSTR = @"Data Source = 172.31.101.74,1433\SQLEXPRESS;Initial Catalog=epicware;User ID=sa;Password=EpicWar3";
 
         private string CONNSTR
         {

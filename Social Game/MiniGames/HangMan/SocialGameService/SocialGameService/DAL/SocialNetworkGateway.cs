@@ -34,5 +34,25 @@ namespace SocialGameService
                 return null;
             }
         }
+
+        public IList<int> getConnection(int id)
+        {
+            SqlCommand sql = new SqlCommand();
+            IList<int> connections = new List<int>();
+            try
+            {
+                DataSet ds = ExecuteQuery(GetConnection(true), "select userConnected_userID as Cone from Connections where User_userID = " + id);
+                foreach(DataRow dr in ds.Tables[0].Rows)
+                {
+                    connections.Add(int.Parse(dr["Cone"].ToString()));
+                }
+                return connections;
+            }
+            catch(SqlException ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

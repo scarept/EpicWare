@@ -32,6 +32,9 @@ namespace SocialGameService
         IList<string> getInfoUser(int id);
 
         [OperationContract]
+        IList<int> getUserConnected(int id);
+
+        [OperationContract]
         int Add(int x, int y);
     }
 }
