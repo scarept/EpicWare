@@ -15,7 +15,7 @@ void escreveTexto();
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
-#define dtr(x)   (M_PI*(x)/180)
+#define degToRad(x)   (M_PI*(x)/180)
 
 #define graus(X) (double)((X)*180/M_PI)
 #define rad(X)   (double)((X)*M_PI/180)
@@ -293,9 +293,9 @@ void loginInit(){
 
 void gameInit()
 {
-	glPushMatrix();
-	GLuint ax = carrega_texturas("menu.png");
-	glPopMatrix();
+	//glPushMatrix();
+	//GLuint ax = carrega_texturas("menu.png");
+	//glPopMatrix();
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
 
@@ -599,6 +599,18 @@ void desenhaChao(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLf
 	}
 }
 
+No* procuraNo(int idUser){
+	No * no;
+
+	for (int i = 0; i <= numNos; i++){
+		no = &nos[i];
+		if (no->userId == idUser){
+			return no;
+		}
+	}
+	no = NULL;
+	return no;
+}
 
 
 
@@ -611,9 +623,12 @@ void desenhaLigacao(Arco arco){
 	GLdouble tamanhoCA;
 	GLdouble angInclinacao;
 
-
-	noi = &nos[arco.noi];
-	nof = &nos[arco.nof];
+	/* retirar coodenadas pela posição do array do no inicial e final */
+	/* substiruir e chamar função procuraNo(int id) (DONE)*/
+	//noi = &nos[arco.noi];
+	//nof = &nos[arco.nof];
+	noi = procuraNo(arco.noi);
+	nof = procuraNo(arco.nof);
 
 	//material(cinza);
 	material(red_plastic);
@@ -621,7 +636,6 @@ void desenhaLigacao(Arco arco){
 	glPushMatrix();
 	//mover para o n� inicial para coem�ar a desenhar
 	glTranslatef(noi->x, noi->y, noi->z);
-	//Desnivel
 	catetoOposto = nof->z - noi->z;
 	//base do triangulo
 	tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));

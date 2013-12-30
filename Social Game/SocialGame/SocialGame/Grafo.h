@@ -12,6 +12,7 @@ typedef struct No{
 	float x, y, z, largura;
 	char * tags;
 	char * estadoHumor;
+	int userId;
 }No;
 
 typedef struct Arco{
