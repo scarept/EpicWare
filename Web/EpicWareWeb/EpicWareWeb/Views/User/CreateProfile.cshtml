@@ -6,7 +6,7 @@
 
 <h2>EditProfile</h2>
 
-@using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CreateProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

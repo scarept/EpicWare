@@ -1,26 +1,82 @@
 ﻿@model EpicWareWeb.Models.User
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "EditProfile";
 }
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
+    EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
+    
     <fieldset>
         <legend>User</legend>
 
-        @Html.HiddenFor(model => model.userID)
-
+        @* Lingua escolhida *@
         <div class="editor-label">
-            @Html.LabelFor(model => model.active)
+            @Html.LabelFor(model => model.language)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.active)
-            @Html.ValidationMessageFor(model => model.active)
+            @Html.DropDownList("langSelect", (SelectList)ViewBag.linguagens)
+        </div>
+
+        @* Phone *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.phoneNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => profile.phoneNumber)
+            @Html.ValidationMessageFor(model => profile.phoneNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userTags)
+            @Html.Label(@EpicWareWeb.Views.User.User.textoDefaultTags)
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBox("tags")
+            @*<input type="text" id="tag" name="tag"/>
+                <label onclick="document.getElementById('tagsLB').innerHTML = document.getElementById('tag').nodeValue;">Inserir Tag</label>
+                <label id="tagsLB"></label>*@
+        </div>
+
+        @* Linkedin *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.linkedinProfile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => profile.linkedinProfile)
+            @Html.ValidationMessageFor(model => profile.linkedinProfile)
+        </div>
+
+        @* Facebook *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.facebookProfile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => profile.facebookProfile)
+            @Html.ValidationMessageFor(model => profile.facebookProfile)
+        </div>
+
+        @* Twitter *@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userProfile.twitterProfile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => profile.twitterProfile)
+            @Html.ValidationMessageFor(model => profile.twitterProfile)
+        </div>
+
+        @* Image *@
+        <div class="editor-label">
+            <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="200" />
+        </div>
+        <div class="editor-field">
+            <input type="file" name="file" id="file" style="width: 100%;" />
         </div>
 
         <p>
