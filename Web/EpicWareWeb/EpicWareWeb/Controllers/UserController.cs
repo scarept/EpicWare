@@ -40,6 +40,8 @@ namespace EpicWareWeb.Controllers
             return View(user);
         }
 
+        /* PERFIL MANAGER*/
+
         //
         // GET: /User/Create
 
@@ -280,10 +282,33 @@ namespace EpicWareWeb.Controllers
             return View();
         }
 
-        //public ActionResult Profile()
-        //{
-        //    return View();
-        //}
+
+        public ActionResult NotActive(int id = 0)
+        {
+            User user = db.users.Find(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ReativateAccount()
+        {
+            User user = UserAutenticated();
+            user.active = true;
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        public ActionResult NoReativateAccount()
+        {
+            WebSecurity.Logout();
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpPost]
         [Authorize]
@@ -300,6 +325,10 @@ namespace EpicWareWeb.Controllers
             }
             return View();
         }
+
+
+
+        /* VISUALIZAÇÃO */ 
 
         //
         // GET: /User/Delete/5
@@ -333,6 +362,10 @@ namespace EpicWareWeb.Controllers
             return View(user);
         }
 
+
+
+        /* FRIEND REQUEST*/
+
         //[HttpPost]
         //[Authorize]
         //public ActionResult Profile(int id = 0)
@@ -340,32 +373,6 @@ namespace EpicWareWeb.Controllers
         //    return View();
         //}
 
-        public ActionResult NotActive(int id = 0)
-        {
-            User user = db.users.Find(id);
-            return View(user);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult ReativateAccount()
-        {
-            User user = UserAutenticated();
-            user.active = true;
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-        }
-
-        public ActionResult NoReativateAccount()
-        {
-            WebSecurity.Logout();
-            return RedirectToAction("Index", "Home");
-        }
 
         // Get
         [Authorize]
@@ -475,6 +482,9 @@ namespace EpicWareWeb.Controllers
             return RedirectToAction("ListFriendRequest");
         }
 
+
+        /* INTRODUTION REQUEST */ 
+
         //Get
         [Authorize]
         public ActionResult IntrodutionRequest(int id = 0)
@@ -525,11 +535,64 @@ namespace EpicWareWeb.Controllers
             return PartialView("_TxtIntrodution");
         }
 
+
+        /*INTRODUTION MANAGE MIDDLE ACTION*/
+
+        [Authorize]
+        public ActionResult ListIntrosFriendRequestMiddle()
+        {
+            ConnectionController ctrConn = new ConnectionController();
+            return View(ctrConn.introsRequestMiddlePending());
+        }
+
+        
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public PartialViewResult ResponseMiddleIntroAjax(int id)
+        {
+            IntroFriendRequest intro = db.introes.Find(id);
+            ViewBag.intro = intro;
+            return PartialView("_IntroSendBC");
+        }
+
+        public RedirectToRouteResult SendMiddleIntroAjax(int id, FormCollection collection)
+        {
+            string msgBC = collection.Get("txtIntro");
+            IntroFriendRequest intro = db.introes.Find(id);
+            intro.messageBC = msgBC;
+            intro.sendedBC = true;
+            if (ModelState.IsValid)
+            {
+                db.Entry(intro).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("ListIntrosFriendRequestMiddle");
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public PartialViewResult RejectMiddleIntroAjax(int id)
+        {
+            IntroFriendRequest intro = db.introes.Find(id);
+            if (ModelState.IsValid)
+            {
+                db.introes.Remove(intro);
+                db.SaveChanges();
+            }
+                return PartialView("_empty");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        /* AUX METHODS */
 
         public User UserAutenticated()
         {
@@ -555,6 +618,10 @@ namespace EpicWareWeb.Controllers
             }
         }
 
+
+
+        /*DROP DOWN LIST AUX*/
+        
         private void fillLanguagesList(object selectedLanguage = null)
         {
             var languageQuery = from d in db.languages

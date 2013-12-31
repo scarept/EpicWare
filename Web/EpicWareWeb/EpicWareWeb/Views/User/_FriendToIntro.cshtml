@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            @Ajax.BeginForm("RequestIntroAjax", new { id1 = Model.Owner.userID, id2 = Model.userConnected.userID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials" }){
+            @using (Ajax.BeginForm("RequestIntroAjax", new { id1 = Model.Owner.userID, id2 = Model.userConnected.userID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials" })){
                 <input type="submit" value="Pedir introdução" />
             }
         </td>        

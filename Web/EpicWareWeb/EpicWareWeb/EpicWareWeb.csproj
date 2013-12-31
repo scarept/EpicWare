@@ -1037,6 +1037,10 @@
     <Content Include="Views\User\_FriendToIntro.cshtml" />
     <Content Include="Views\User\_TxtIntrodution.cshtml" />
     <Content Include="Views\User\_IntroSended.cshtml" />
+    <Content Include="Views\User\_IntroRequestB.cshtml" />
+    <Content Include="Views\User\_empty.cshtml" />
+    <Content Include="Views\User\ListIntrosFriendRequestMiddle.cshtml" />
+    <Content Include="Views\User\_IntroSendBC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

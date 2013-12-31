@@ -72,9 +72,48 @@ namespace EpicWareWeb.Controllers
         [Authorize]
         public List<FriendRequest> friendsRequestedPending()
         {
-            User userAuth = new UserController().UserAutenticated();
-            var fRP = from d in db.friendRequests where d.user2.userID == userAuth.userID select d;
-            return fRP.ToList();
+            try
+            {
+                User userAuth = new UserController().UserAutenticated();
+                var fRP = from d in db.friendRequests where d.user2.userID == userAuth.userID select d;
+                return fRP.ToList();
+            }
+            catch (Exception)
+            {
+                return new List<FriendRequest>();
+            }
+            
+        }
+
+        // List of intro requests in middle action
+        public List<IntroFriendRequest> introsRequestMiddlePending()
+        {
+            try
+            {
+                User userAuth = new UserController().UserAutenticated();
+                var fRP = from d in db.introes where d.userB.userID == userAuth.userID select d;
+                return fRP.ToList();
+            }
+            catch (Exception)
+            {
+                return new List<IntroFriendRequest>();
+            }
+
+        }
+
+        // List of intros received pending
+        public List<IntroFriendRequest> introsRequestPending()
+        {
+            try
+            {
+                User userAuth = new UserController().UserAutenticated();
+                var fRP = from d in db.introes where d.userC.userID == userAuth.userID select d;
+                return fRP.ToList();
+            }
+            catch (Exception)
+            {
+                return new List<IntroFriendRequest>();
+            }
         }
 
         // List of No Coomon Friends between User Autenticated and User parameter

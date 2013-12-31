@@ -1,0 +1,21 @@
+﻿@model IEnumerable<EpicWareWeb.Models.IntroFriendRequest>
+@{
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListIntrosFriendRequestMiddle</title>
+</head>
+<body>
+    <div id="partials">
+        @foreach (EpicWareWeb.Models.IntroFriendRequest item in Model)
+        {
+            @Html.Partial("_IntroRequestB", item)
+        }
+    </div>
+</body>
+</html>
