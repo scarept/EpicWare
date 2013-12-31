@@ -536,7 +536,8 @@ namespace EpicWareWeb.Controllers
         }
 
 
-        /*INTRODUTION MANAGE MIDDLE ACTION*/
+
+        /* INTRODUTION MANAGE MIDDLE ACTION */
 
         [Authorize]
         public ActionResult ListIntrosFriendRequestMiddle()
@@ -586,6 +587,57 @@ namespace EpicWareWeb.Controllers
         }
 
 
+        /* INTRODUTION RESPONSE */
+
+        public RedirectToRouteResult AcceptIntroFR(IntroFriendRequest intro)
+        {
+            User userAuth = UserAutenticated();
+            User user = intro.userA;
+
+            Connection conn1 = new Connection();
+            Connection conn2 = new Connection();
+
+            /* Strenght */
+            conn1.strenght = 1; // one by default of introdution
+            conn2.strenght = 1;
+
+            /* Tag Connection */
+            conn1.tagConnection = db.tagConnections.Find(1); // Amigo by default
+            conn2.tagConnection = db.tagConnections.Find(1);
+
+            /* Owner */
+            conn1.Owner = userAuth;
+            conn2.Owner = user;
+
+            /* User Connected */
+            conn1.userConnected = user;
+            conn2.userConnected = userAuth;
+
+            /* Save connections on all users and remove FrindRequest*/
+            userAuth.listConnections.Add(conn1);
+            user.listConnections.Add(conn2);
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.Entry(userAuth).State = EntityState.Modified;
+                db.SaveChanges();
+                db.introes.Remove(intro);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ListFriendRequest");
+        }
+
+        public RedirectToRouteResult RejectIntroFR(IntroFriendRequest intro)
+        {
+            if (ModelState.IsValid)
+            {
+                db.introes.Remove(intro);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ListFriendRequest");      
+        }
+        /**/
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
@@ -618,7 +670,7 @@ namespace EpicWareWeb.Controllers
             }
         }
 
-
+       
 
         /*DROP DOWN LIST AUX*/
         

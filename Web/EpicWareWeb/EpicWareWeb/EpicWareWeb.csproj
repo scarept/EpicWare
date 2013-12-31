@@ -1041,6 +1041,7 @@
     <Content Include="Views\User\_empty.cshtml" />
     <Content Include="Views\User\ListIntrosFriendRequestMiddle.cshtml" />
     <Content Include="Views\User\_IntroSendBC.cshtml" />
+    <Content Include="Views\User\_IntroRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
