@@ -180,4 +180,7 @@
   <data name="pedir_intro" xml:space="preserve">
     <value>Pedir Introdução</value>
   </data>
+  <data name="introEnviada" xml:space="preserve">
+    <value>Pedido Introdução Enviado</value>
+  </data>
 </root>

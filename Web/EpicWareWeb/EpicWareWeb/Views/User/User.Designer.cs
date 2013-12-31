@@ -151,6 +151,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pedido Introdução Enviado.
+        /// </summary>
+        public static string introEnviada {
+            get {
+                return ResourceManager.GetString("introEnviada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Masculino.
         /// </summary>
         public static string masculino {
