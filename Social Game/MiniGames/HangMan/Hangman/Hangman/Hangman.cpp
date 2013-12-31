@@ -222,7 +222,7 @@ void Draw(void){
 
 	drawText("_ _ L L _");
 	drawGuessedLetters(guessList);
-	drawWordCategory("SHITS & STUFFS");
+	drawWordCategory("STUFFS");
 
 	glFlush();
 	if (estado.doubleBuffer)
