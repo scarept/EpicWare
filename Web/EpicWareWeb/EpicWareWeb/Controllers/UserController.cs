@@ -419,6 +419,7 @@ namespace EpicWareWeb.Controllers
         public ActionResult ListFriendRequest()
         {
             ConnectionController ctrConn = new ConnectionController();
+            ViewBag.introsVB = ctrConn.introsRequestPending();
             return View(ctrConn.friendsRequestedPending());
         }
 
