@@ -12,9 +12,21 @@
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
-                <span style="padding-top:inherit">
-                    <a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
-                </span>
+                <table>
+                    <tr>
+                        <td><span style="padding-top:inherit"><a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
+                            </span>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            }
+                        </td>
+                    </tr>
+                </table>
+                
                 
                 @*<form class="form-search">
                     <div class="input-append">

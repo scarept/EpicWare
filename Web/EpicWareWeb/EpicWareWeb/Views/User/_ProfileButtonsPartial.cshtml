@@ -1,15 +1,24 @@
-﻿
-@if (true)
-{
-    //caso 1: Não são amigos
-    <tr>
+﻿@{
+    EpicWareWeb.Controllers.ConnectionController ctrConn = new EpicWareWeb.Controllers.ConnectionController();
+    EpicWareWeb.Models.User userProf = Model;
+    
+}
+
+@if (ctrConn.amI(userProf))
+{// profile é do proprio user
+ <tr>
     <td style="text-align:center;">
-        <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.adicionar_amigo</span></button>
+        @using (Html.BeginForm("Edit", "User",FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.edit_perfil</span></button>
+        }
     </td>
 </tr>
 }
 //caso 2: não sao amigos mas ja existe um convite do visitante para o visitado
-else if(true){
+else if(ctrConn.friendRequested(userProf)){
 <tr>
     <td style="text-align:center;">
         <div class="alert alert-warning"><span style="font-size:12px"><b>@EpicWareWeb.Views.User.User.amizade_pendente</b></span></div>
@@ -17,7 +26,7 @@ else if(true){
 </tr>
 }
 //caso 3: nao sao amigos mas o visitado ja enviou pedido ao visitante
-else if (true)
+else if (ctrConn.friendRequestReceived(userProf))
 {
     <tr>
     <td style="text-align:center;">
@@ -26,7 +35,7 @@ else if (true)
 </tr>
 }
 //caso 4 ja sao amigos
-else if (true)
+else if (ctrConn.isFriends(userProf))
 {
     <tr>
     <td style="text-align:center;">
@@ -34,14 +43,20 @@ else if (true)
     </td>
 </tr>
 }
-//caso 5 aquele profile é do proprio user
-else if(true){
-    <tr>
+
+else if (!ctrConn.isFriends(userProf))
+{
+ //caso 1: Não são amigos
+<tr>
     <td style="text-align:center;">
-        <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.edit_perfil</span></button>
+    @using (Html.BeginForm("AddFriend", "User", new { id = userProf.userID },FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.adicionar_amigo</span></button>
+    }
     </td>
 </tr>
-    //faltam aqui mais opçoes nao me lembro delas agora sorry
 }
 
 

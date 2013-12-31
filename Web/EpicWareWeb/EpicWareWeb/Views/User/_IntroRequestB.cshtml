@@ -1,0 +1,59 @@
+﻿@model EpicWareWeb.Models.IntroFriendRequest
+
+@{
+    EpicWareWeb.Models.IntroFriendRequest intro = Model;       
+    string rejectAJX = "intro_"+@intro.introFriendRequestID;
+    string idDivTextArea = "txa" + @intro.introFriendRequestID;
+}
+<div id="@rejectAJX">
+    <table width="500" style="color:white;">
+        <tr>
+            <td>Origem: </td>
+            <td>@intro.userA.userProfile.nickname</td>
+        </tr>
+        <tr>
+            <td>Destino: </td><td>@intro.userC.userProfile.nickname</td>
+        </tr>
+        <tr>
+            <td rowspan="3" colspan="2">@intro.messageAB</td>
+        </tr>
+        <tr>
+            <td>
+                @if (intro.sendedBC)
+                {
+                    <span style="color:orange;">Pedido de introdução enviado</span>
+                }
+                else
+                {
+                    using (Ajax.BeginForm("ResponseMiddleIntroAjax", new { id = intro.introFriendRequestID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = @idDivTextArea }))
+                    {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <input type="submit" value="Aceitar" />
+                    }
+                }
+            </td>
+            <td>
+                @if (intro.sendedBC)
+                {
+
+                }
+                else
+                {
+                    using (Ajax.BeginForm("RejectMiddleIntroAjax", new { id = intro.introFriendRequestID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = @rejectAJX })){
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <input type="submit" value="Rejeitar" />
+                } 
+                }
+                
+                
+                
+            </td>
+            
+        </tr>
+    </table>
+</div>
+<div id="@idDivTextArea">
+
+</div>

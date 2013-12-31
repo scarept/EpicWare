@@ -1,0 +1,30 @@
+﻿@model EpicWareWeb.Models.IntroFriendRequest
+
+<table width="500">
+    <tr>
+        <td>Sugerido por: </td><td>@Model.userB.userProfile.nickname</td>
+    </tr>
+    <tr>
+        <td colspan="2">@Model.sendedBC</td>
+    </tr>
+    <tr>
+        <td rowspan=3>
+            <img src="@Model.userA.userProfile.pathImg" alt="No Image" />
+        </td>
+    </tr>
+    <tr>
+        <td>Nome: @Model.userA.userProfile.name</td>
+        <td>Ult. Nome: @Model.userA.userProfile.lastName</td>
+    </tr>
+    <tr>
+        <td></td>
+        @using (Html.BeginForm("AcceptIntroFR", "User"))
+        {
+            <td><input type="submit" value="Aceitar" /></td>
+        }
+        @using (Html.BeginForm("RejectIntroFR", "User"))
+        {
+            <td><input type="submit" value="Rejeitar" /></td>
+        }
+    </tr>
+</table>

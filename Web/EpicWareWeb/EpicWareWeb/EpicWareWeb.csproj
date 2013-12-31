@@ -204,6 +204,10 @@
     <Compile Include="Migrations\201312231907478_FriendRequesAddTagAndStr.Designer.cs">
       <DependentUpon>201312231907478_FriendRequesAddTagAndStr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.cs" />
+    <Compile Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.Designer.cs">
+      <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -1029,6 +1033,15 @@
     <Content Include="Views\User\_ProfileInfoUserPartial.cshtml" />
     <Content Include="Views\User\ListFriendRequest.cshtml" />
     <Content Include="Views\User\_FriendRequest.cshtml" />
+    <Content Include="Views\User\IntrodutionRequest.cshtml" />
+    <Content Include="Views\User\_FriendToIntro.cshtml" />
+    <Content Include="Views\User\_TxtIntrodution.cshtml" />
+    <Content Include="Views\User\_IntroSended.cshtml" />
+    <Content Include="Views\User\_IntroRequestB.cshtml" />
+    <Content Include="Views\User\_empty.cshtml" />
+    <Content Include="Views\User\ListIntrosFriendRequestMiddle.cshtml" />
+    <Content Include="Views\User\_IntroSendBC.cshtml" />
+    <Content Include="Views\User\_IntroRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1045,6 +1058,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312231907478_FriendRequesAddTagAndStr.resx">
       <DependentUpon>201312231907478_FriendRequesAddTagAndStr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.resx">
+      <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\User\User.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

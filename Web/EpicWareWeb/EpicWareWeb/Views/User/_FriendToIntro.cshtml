@@ -1,0 +1,22 @@
+﻿@model EpicWareWeb.Models.Connection
+@{
+   
+}
+
+<table width="500">
+    <tr>
+        <td rowspan=2>
+           <img src="@Model.userConnected.userProfile.pathImg" alt="No Image" />
+        </td>
+    </tr>
+    <tr>
+        <td align="left">Nick: </td><td align="right">@Model.userConnected.userProfile.nickname</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @using (Ajax.BeginForm("RequestIntroAjax", new { id1 = Model.Owner.userID, id2 = Model.userConnected.userID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials" })){
+                <input type="submit" value="Pedir introdução" />
+            }
+        </td>        
+    </tr>
+</table>

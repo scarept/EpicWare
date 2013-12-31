@@ -1,0 +1,10 @@
+﻿@{
+    EpicWareWeb.Models.IntroFriendRequest introFR= (EpicWareWeb.Models.IntroFriendRequest)ViewBag.intro;
+}
+<div>
+@using (Html.BeginForm("SendMiddleIntroAjax","User", new { id = introFR.introFriendRequestID }))
+{
+    @Html.TextArea("txtIntro")
+    <input type="submit" value="Enviar" />
+}
+</div>
