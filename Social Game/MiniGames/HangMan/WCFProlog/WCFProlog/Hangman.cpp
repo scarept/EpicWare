@@ -2,20 +2,18 @@
 #include "HangmanLogic.h"
 #include "WCF.h"
 
+/*Global variables*/
 Estado estado;
 Modelo modelo;
+
 char word[80];
 char category[80];
 char guessList[80] = "";
 
-CHangman::CHangman()
-{
-}
+CHangman::CHangman(){}
 
 
-CHangman::~CHangman()
-{
-}
+CHangman::~CHangman(){}
 
 
 void Init(void){
@@ -26,12 +24,9 @@ void Init(void){
 	//delay para o timer
 	estado.delay = 1000;
 
-	modelo.tamLado = 1;
-	modelo.numLados = 4;
-	modelo.raio = 0.1;
-	modelo.tipoPoligono = GL_POLYGON;
-
-
+	modelo.raio = 40;	//Set stickman's head size
+	modelo.menuPoint = true; //Open in category menu
+	modelo.numErrors = 0; //Draw only gallowsPole
 	// Lê hora do Sistema
 	current_time = localtime(&timer);
 	modelo.hora.hor = current_time->tm_hour;
@@ -68,7 +63,7 @@ void Reshape(int width, int height)
 
 	// gluOrtho2D(left,right,bottom,top); 
 	// projeccao ortogonal 2D, com profundidade (Z) entre -1 e 1
-	gluOrtho2D(-1, 1, -1, 1);
+	gluOrtho2D(0, 800, 800, 0);
 
 	// Matriz Modelview
 	// Matriz onde são realizadas as tranformacoes dos modelos desenhados
@@ -76,49 +71,50 @@ void Reshape(int width, int height)
 	glLoadIdentity();
 }
 
+/*Draw stickman*/
 void drawGallowsPole(void){
 	glPushMatrix();
 	glColor3f(1, 1, 1);
 
-	glTranslatef(-0.75, -0.75, 0);
+	glTranslatef(30, 700, 0);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.3, 0.0);
-	glVertex2f(0.3, -0.05);
-	glVertex2f(0.0, -0.05);
+	glVertex2f(130, 0.0);
+	glVertex2f(130, 25);
+	glVertex2f(0.0, 25);
 	glEnd();
 
-	//glRotatef((M_PI/2)*(-1), 0, 0, 1);
-	glTranslatef(0.2, 0.0, 0);
+	//glColor3f(1, 0, 0);
+	glTranslatef(50, 0, 0);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.0, 1.0);
-	glVertex2f(-0.1, 1.0);
-	glVertex2f(-0.1, 0.0);
+	glVertex2f(0.0, -300);
+	glVertex2f(30, -300);
+	glVertex2f(30, 0.0);
 	glEnd();
 
-
-	glTranslatef(0.0, 1.0, 0.0);
+	//glColor3f(1, 0, 0);
+	glTranslatef(30, -300, 0.0);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.5, 0.0);
-	glVertex2f(0.5, -0.1);
-	glVertex2f(0.0, -0.1);
+	glVertex2f(180, 0.0);
+	glVertex2f(180, 25);
+	glVertex2f(0.0, 25);
 	glEnd();
 
-	glTranslatef(0.395, -0.1, 0.0);
+	//glColor3f(1, 0, 0);
+	glTranslatef(178, 26, 0.0);
 	glBegin(GL_LINES);
-	glVertex2f(0.1, 0.0);
-	glVertex2f(0.1, -0.2);
+	glVertex2f(0, 0.0);
+	glVertex2f(0, 50);
 	glEnd();
 	glPopMatrix();
 }
 
-
-/*Draw stickman*/
 void drawStickmanHead(void){
 	glPushMatrix();
-	glTranslatef(-0.05, -0.15, 0.0);
+	glTranslatef(288, 515, 0.0);
+	//glColor3f(1, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < 360; ++i){
 		glVertex2f(cos((i*M_PI) / 180)*modelo.raio, sin((i*M_PI) / 180)*modelo.raio);
@@ -129,54 +125,199 @@ void drawStickmanHead(void){
 
 void drawStickmanBody(void){
 	glPushMatrix();
-	glTranslatef(-0.05, -0.25, 0.0);
+	glTranslatef(288, 555, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.0, -0.25);
+	glVertex2f(0.0, 100);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanLeftArm(void){
 	glPushMatrix();
-	glTranslatef(-0.05, -0.325, 0.0);
+	glTranslatef(288, 575, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(-0.1, -0.1);
+	glVertex2f(-30, 30);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanRightArm(void){
 	glPushMatrix();
-	glTranslatef(-0.05, -0.325, 0.0);
+	glTranslatef(288, 575, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.1, -0.1);
+	glVertex2f(30, 30);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanLeftLeg(void){
 	glPushMatrix();
-	glTranslatef(-0.05, -0.5, 0.0);
+	glTranslatef(288, 655, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(-0.1, -0.1);
+	glVertex2f(-30, 30);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanRightLeg(void){
 	glPushMatrix();
-	glTranslatef(-0.05, -0.5, 0.0);
+	glTranslatef(288, 655, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.1, -0.1);
+	glVertex2f(30, 30);
 	glEnd();
 	glPopMatrix();
 }
 /*End Stickman*/
+
+/*Draw Buttons*/
+void drawKeyboard(GLenum mode){
+	GLuint letter[26];
+	int xStart = 400, yStart = 600;
+	char* prefix = "bt_";
+	char* suffix = ".png";
+	char let[2] = { 'A', 0 };
+	char result[10];
+	for (int i = 1; i <= 26; i++){
+		strcpy(result, prefix);
+		strcat(result, let);
+		strcat(result, suffix);
+		glPushMatrix();
+		if (mode == GL_SELECT)
+			glLoadName(1000 + i);
+		letter[i-1] = carrega_texturas(result);
+
+		glBindTexture(GL_TEXTURE_2D, letter[i-1]);
+
+		glBegin(GL_POLYGON);
+		glTexCoord2f(0, 1);
+		glVertex2f(xStart, yStart - 35);
+		glTexCoord2f(1, 1);
+		glVertex2f(xStart + 35, yStart - 35);
+		glTexCoord2f(1, 0);
+		glVertex2f(xStart + 35, yStart);
+		glTexCoord2f(0, 0);
+		glVertex2f(xStart, yStart);
+		glEnd();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+		glPopMatrix();
+		
+		let[0]++;
+		if (i == 0 || i % 10 !=0){
+			xStart += 40;
+		}
+		else if (i == 20){
+			xStart = 480;
+			yStart += 40;
+		}
+		else{
+			xStart = 400;
+			yStart += 40;
+		}
+	}
+}
+
+/*
+void drawLanguageMenu(GLenum mode){
+	GLuint imagePT = carrega_texturas("bt_PT.png");
+	GLuint imageEN = carrega_texturas("bt_EN.png");
+	GLuint imageFR = carrega_texturas("bt_FR.png");
+	GLuint imageDE = carrega_texturas("bt_DE.png");
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(1);
+	glBindTexture(GL_TEXTURE_2D, imagePT);
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(25, 30);
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(75, 30);
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(75, 37);
+	glTexCoord2f(0.0, 0.0);
+	glVertex2f(25, 37);
+	glEnd();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(2);
+	glBindTexture(GL_TEXTURE_2D, imageEN);
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(25, 40);
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(75, 40);
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(75, 47);
+	glTexCoord2f(0.0, 0.0);
+	glVertex2f(25, 47);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(3);
+	glBindTexture(GL_TEXTURE_2D, imageFR);
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(25, 50);
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(75, 50);
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(75, 57);
+	glTexCoord2f(0.0, 0.0);
+	glVertex2f(25, 57);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(4);
+	glBindTexture(GL_TEXTURE_2D, imageDE);
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(25, 80);
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(75, 80);
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(75, 87);
+	glTexCoord2f(0.0, 0.0);
+	glVertex2f(25, 87);
+	glEnd();
+	glPopMatrix();
+}
+*/
+
+void drawCategoriesMenu(GLuint value){
+	/*Do magic here*/
+}
+
+/*End Buttons*/
+
+/*Game screen*/
+void drawGameScreen(GLenum mode){
+	drawGallowsPole();
+	if (modelo.numErrors > 0)
+		drawStickmanHead();
+	if (modelo.numErrors > 1)
+		drawStickmanBody();
+	if (modelo.numErrors > 2)
+		drawStickmanLeftArm();
+	if (modelo.numErrors > 3)
+		drawStickmanRightArm();
+	if (modelo.numErrors > 4)
+		drawStickmanLeftLeg();
+	if (modelo.numErrors > 5)
+		drawStickmanRightLeg();
+	drawKeyboard(mode);
+}
 
 
 void drawText(char *txt){
@@ -203,7 +344,7 @@ void drawWordCategory(char *category){
 	char result[80];
 	strcpy(result, "CATEGORY: ");
 	strcat(result, category);
-	
+
 	glPushMatrix();
 	glRasterPos2f(0.2, 0.2);
 	for (int i = 0; result[i] != '\0'; ++i){
@@ -212,24 +353,83 @@ void drawWordCategory(char *category){
 	glPopMatrix();
 }
 
+void clickEvent(GLint hits, GLuint *buffer){
+	//cout << "Pressed" << endl;
+	GLuint names, *ptr = buffer;
+	//cout << hits << endl;
+	for (int i = 0; i < hits; i++){
+		cout << "Inside!" << endl;
+		names = *ptr;
+		ptr += 3;
+		
+		for (int j = 0; j < names; j++){
+			if (*ptr > 1000 && *ptr < 1027){
+				//drawCategoriesMenu(*ptr);
+				cout << (char)(*ptr - 1001 + 65) << endl;
+				if (modelo.numErrors < 7)
+					modelo.numErrors++;
+				else
+					modelo.numErrors = 0;
+				glFlush();
+			}
+			else{
+				cout << "Coisas" << endl;
+				exit(0);
+				
+			}
+			ptr++;
+		}
+	}
+}
+
+void pickRects(int button, int state, int x, int y)
+{
+
+	GLuint selectBuf[BUFSIZE];
+	GLint hits;
+	GLint viewport[4];
+	if (button != GLUT_LEFT_BUTTON || state != GLUT_DOWN)
+		return;
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glSelectBuffer((GLsizei)BUFSIZE, selectBuf);
+	glRenderMode(GL_SELECT);
+	glInitNames();
+	glPushName((GLuint)~0);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	/* create 5x5 pixel picking region near cursor location */
+	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y), 5, 5, viewport);
+	gluOrtho2D(0, 800, 800, 0);
+	drawGameScreen(GL_SELECT);
+
+	glPopMatrix();
+	glFlush();
+	hits = glRenderMode(GL_RENDER);
+	clickEvent(hits, selectBuf);
+
+}
 
 // Callback de desenho
 void Draw(void){
-	drawGallowsPole();
-	drawStickmanHead();
-	drawStickmanBody();
-	drawStickmanLeftArm();
-	drawStickmanRightArm();
-	drawStickmanLeftLeg();
-	drawStickmanRightLeg();
-
-	drawText(word);
-	drawGuessedLetters(guessList);
-	drawWordCategory("SHITS & STUFFS");
+	
+	if (!modelo.menuPoint){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		drawCategoriesMenu(GL_SELECT);
+		glutSwapBuffers();
+	}
+	else{
+		glClear(GL_COLOR_BUFFER_BIT);
+		drawGameScreen(GL_SELECT);
+		glutSwapBuffers();
+	}
+	//drawText(word);
+	//drawGuessedLetters(guessList);
+	//drawWordCategory("SHITS & STUFFS");
 
 	glFlush();
-	if (estado.doubleBuffer)
-		glutSwapBuffers();
+	
 }
 
 /*******************************
@@ -438,10 +638,10 @@ void CHangman::startGame(int argc, char **argv)
 	s.chooseWord("Filmes", "Portugues");
 
 	estado.doubleBuffer = GL_TRUE;
-
+	
 	glutInit(&argc, argv);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(1000, 600);
+	glutInitWindowSize(640, 480);
 	glutInitDisplayMode(((estado.doubleBuffer) ? GLUT_DOUBLE : GLUT_SINGLE) | GLUT_RGB);
 	if (glutCreateWindow("Hangman") == GL_FALSE)
 		exit(1);
@@ -455,6 +655,10 @@ void CHangman::startGame(int argc, char **argv)
 	// callbacks de janelas/desenho
 	glutReshapeFunc(Reshape);
 	glutDisplayFunc(Draw);
+
+	glutMouseFunc(pickRects);
+	//glutMotionFunc(MouseMotion);
+	//glutPassiveMotionFunc(MousePassiveMotion);
 
 	// Callbacks de teclado
 	glutKeyboardFunc(Key);

@@ -11,10 +11,20 @@
 #include <math.h>
 #include <time.h>
 #include <GL/glut.h>
+#include "C:\Users\Vítor\Desktop\EpicWare\Social Game\MiniGames\Labyrinth\labyrinth\labyrinth\LoadImages.h"
 
+#ifdef WIN32
+	#define WIN32_LEAN_AND_MEAN
+	#include <Windows.h>
+#endif
+
+using namespace std;
 
 #ifndef M_PI
 #define M_PI 3.1415926535897932384626433832795
+#endif
+#ifndef BUFSIZE
+#define BUFSIZE 512
 #endif
 
 #define DEBUG 1
@@ -29,11 +39,14 @@ struct Horas{
 };
 
 struct Modelo{
-	GLint       numLados;
 	GLfloat     raio;
-	GLfloat     tamLado;
-	GLenum      tipoPoligono;
 	Horas       hora;
+	bool		menuPoint; //false for categories, true for play
+	int			numErrors; //number of times user failed a guess
+	char*		word; //word picked randomly
+	char*		guesses; //letters already guessed by user
+	char*		partialWord; //word with letter already guessed in correct place
+	char*		category; //Selected word's category
 };
 
 
