@@ -1,0 +1,15 @@
+﻿@model IEnumerable<EpicWareWeb.Models.Connection>
+
+
+    @{
+        ViewBag.Title = "IntrodutionRequest";
+
+    }
+
+    <h2>IntrodutionRequest</h2>
+<div id="partials">
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_FriendToIntro", item)
+    }
+</div>

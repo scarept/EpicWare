@@ -106,7 +106,9 @@ namespace EpicWareWeb.Controllers
         [Authorize]
         public ActionResult Edit(int id = 0)
         {
-            User user = db.users.Find(id);
+            fillLanguagesList();
+            User user = UserAutenticated();
+            ViewBag.profileSend = user.userProfile;
             if (user == null)
             {
                 return HttpNotFound();
@@ -120,15 +122,63 @@ namespace EpicWareWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(FormCollection collection, string langSelect, HttpPostedFileBase file)
         {
+            User userAuth = UserAutenticated();
+
+            /* LANGUAGE */
+            userAuth.language = null;
+            Language l = db.languages.Find(Convert.ToInt32(langSelect));
+            userAuth.language = l;
+
+            /* PHONE */
+            string phone = collection.Get("profile.phoneNumber");
+            int phoneNumber = Convert.ToInt32(phone);
+            userAuth.userProfile.phoneNumber = phoneNumber;
+
+            /* USERTAGS */
+            string tags = collection.Get("tags");
+            string[] tagsV = tags.Split(',');
+            if (userAuth.userTags == null)
+            {
+                userAuth.userTags = new List<Tag>();
+            }
+            foreach (string tag in tagsV)
+            {
+                Tag t = new Tag();
+                t.tag = tag;
+                userAuth.userTags.Add(t);
+            }
+
+            /* SOCIAL NETWORKS*/
+            string linkedin = collection.Get("profile.linkedinProfile");
+            userAuth.userProfile.linkedinProfile = linkedin;
+            string facebook = collection.Get("profile.facebookProfile");
+            userAuth.userProfile.facebookProfile = facebook;
+            string twitter = collection.Get("profile.twitterProfile");
+            userAuth.userProfile.twitterProfile = twitter;
+
+            /* PROFILE IMAGE */
+            if (file != null)
+            {
+                // Get extention
+                string[] ext = file.FileName.Split('.');
+                string extention = ext.ElementAt(ext.Count() - 1);
+
+                string pic = userAuth.userID + "." + extention;
+                string path = Path.Combine(Server.MapPath("~/Images/Profiles/"), pic);
+
+                file.SaveAs(path);
+                userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(userAuth).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Profile", new { id = userAuth.userID });
             }
-            return View(user);
+            return View();
         }
 
         //
@@ -230,10 +280,10 @@ namespace EpicWareWeb.Controllers
             return View();
         }
 
-        public ActionResult Profile()
-        {
-            return View();
-        }
+        //public ActionResult Profile()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         [Authorize]
@@ -410,6 +460,7 @@ namespace EpicWareWeb.Controllers
             return RedirectToAction("ListFriendRequest");
         }
 
+        [Authorize]
         public ActionResult RejectFR(FormCollection collection)
         {
             /*Get friend request*/
@@ -423,6 +474,57 @@ namespace EpicWareWeb.Controllers
             }
             return RedirectToAction("ListFriendRequest");
         }
+
+        //Get
+        [Authorize]
+        public ActionResult IntrodutionRequest(int id = 0)
+        {
+            User user = db.users.Find(id);
+            ConnectionController ctrConn = new ConnectionController();
+            return View(ctrConn.noCommonConnections(user));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public PartialViewResult IntrodutionRequest(FormCollection collection)
+        {
+            string friendID = collection.Get("friend.userID");
+            User userFriend = db.users.Find(Convert.ToInt32(friendID));
+
+            string toIntroID = collection.Get("toIntro.userID");
+            User userToIntro = db.users.Find(Convert.ToInt32(toIntroID));
+
+            string txtIntro = collection.Get("txtIntro");
+
+            IntroFriendRequest introFR = new IntroFriendRequest();
+            introFR.sendedBC = false;
+            introFR.userA = UserAutenticated();
+            introFR.userB = userFriend;
+            introFR.userC = userToIntro;
+            introFR.messageAB = txtIntro;
+
+            if (ModelState.IsValid)
+            {
+                db.introes.Add(introFR);
+                db.SaveChanges();
+            }
+            return PartialView ("_IntroSended");
+
+        }
+
+        [HttpPost]
+        public PartialViewResult RequestIntroAjax(int id1, int id2)
+        {
+            User userConnected = db.users.Find(Convert.ToInt32(id2));
+            User userFriend = db.users.Find(Convert.ToInt32(id1));
+
+            ViewBag.userConnectedVB = userConnected;
+            ViewBag.userFriendVB = userFriend;
+
+            return PartialView("_TxtIntrodution");
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

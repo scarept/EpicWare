@@ -1,0 +1,16 @@
+﻿@{
+    EpicWareWeb.Models.User friend = (EpicWareWeb.Models.User)ViewBag.userFriendVB;
+    EpicWareWeb.Models.User toIntro = (EpicWareWeb.Models.User)ViewBag.userConnectedVB;
+}
+<h3>Pedido de introdução a @friend.userProfile.nickname ao seu amigo @toIntro.userProfile.nickname</h3>
+
+@Ajax.BeginForm("IntrodutionRequest", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials"} )
+{
+     @Html.AntiForgeryToken()
+     @Html.ValidationSummary(true)
+    
+     @Html.HiddenFor(model => friend.userID)
+     @Html.HiddenFor(model => toIntro.userID)
+     @Html.TextArea("txtIntro");
+     <input type="submit" value="Pedir Introdução" />
+}
