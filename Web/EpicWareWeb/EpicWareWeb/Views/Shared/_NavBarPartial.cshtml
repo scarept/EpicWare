@@ -48,9 +48,9 @@ else
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
-     <table>
+     <table width="1000">
          <tr>
-             <td>
+             <td align="left">
                  <div class="navbar-left">
                      @Html.Partial("_LanguagePartial")
                  </div>
@@ -62,19 +62,19 @@ else
                  </span>
              </td>
 
-             <td>
-                    @using (Html.BeginForm("loginForBar", "Account"))
-                    {
+             <td align="right">
+                     @using (Html.BeginForm("loginForBar", "Account"))
+                     {
 
-                        @Html.TextBoxFor(Model => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" })
-                        @Html.ValidationMessageFor(Model => m.UserName)
-                        @Html.TextBoxFor(Model => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" })
-                        @Html.ValidationMessageFor(Model => m.Password)
-                        @Html.CheckBoxFor(Model => m.RememberMe)
-                        @Html.HiddenFor(Model => m.RememberMe)
-                        @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
-                        <input type="submit" value="SigIn" />
-                    }
+                         @Html.TextBoxFor(Model => m.UserName, new { @Id = "user", @Value = "username", @class = "col-lg-2", @onfocus = "document.getElementById('user').value =''" })
+                         @Html.ValidationMessageFor(Model => m.UserName)
+                         @Html.TextBoxFor(Model => m.Password, new { @Id = "pass", @Value = "password", @class = "col-lg-2", @onfocus = "document.getElementById('pass').value =''" })
+                         @Html.ValidationMessageFor(Model => m.Password)
+                         @Html.CheckBoxFor(Model => m.RememberMe)
+                         @Html.HiddenFor(Model => m.RememberMe)
+                         @Html.LabelFor(Model => m.RememberMe, new { @class = "checkbox" })
+                         <button type="submit" class="btn btn-info">Sign In</button>
+                     }
              </td>
          </tr>
      </table>
