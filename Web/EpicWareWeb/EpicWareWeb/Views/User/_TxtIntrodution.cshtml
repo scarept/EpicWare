@@ -12,5 +12,6 @@
      @Html.HiddenFor(model => friend.userID)
      @Html.HiddenFor(model => toIntro.userID)
      @Html.TextArea("txtIntro");
-     <input type="submit" value="Pedir Introdução" />
+     @*<input type="submit" value="Pedir Introdução" />*@
+     <button type="submit" class="btn btn-info">@EpicWareWeb.Views.User.User.pedir_intro</button>
 }
