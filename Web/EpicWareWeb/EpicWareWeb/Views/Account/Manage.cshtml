@@ -1,15 +1,8 @@
 ﻿@model EpicWareWeb.Models.LocalPasswordModel
-@{
-    ViewBag.Title = "Manage Account";
-}
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
 
 <p class="message-success">@ViewBag.StatusMessage</p>
 
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+<h2>You're logged in as <strong>@User.Identity.Name</strong>.</h2>
 
 @if (ViewBag.HasLocalPassword)
 {
@@ -20,12 +13,12 @@ else
     @Html.Partial("_SetPasswordPartial")
 }
 
-<section id="externalLogins">
+@*<section id="externalLogins">
     @Html.Action("RemoveExternalLogins")
 
     <h3>Add an external login</h3>
     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+</section>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
