@@ -225,6 +225,11 @@
     <Compile Include="Models\TagConnection.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Shared\Shared.Designer.cs">
+      <DependentUpon>Shared.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\User\User.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1061,6 +1066,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.resx">
       <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Shared.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shared.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\User\User.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
