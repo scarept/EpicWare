@@ -266,6 +266,10 @@ namespace EpicWareWeb.Controllers
                 file.SaveAs(path);
                 userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
             }
+            else
+            {
+                userAuth.userProfile.pathImg = "/Images/Profiles/default.gif";
+            }
 
             if (ModelState.IsValid)
             {
