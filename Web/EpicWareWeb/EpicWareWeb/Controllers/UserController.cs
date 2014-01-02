@@ -362,7 +362,15 @@ namespace EpicWareWeb.Controllers
 
         public ActionResult Profile(int id = 0)
         {
-            User user = db.users.Find(id);
+            User user;
+            if (id == 0)
+            {
+                user = UserAutenticated();
+            }
+            else
+            {
+                user = db.users.Find(id);
+            }
             return View(user);
         }
 
