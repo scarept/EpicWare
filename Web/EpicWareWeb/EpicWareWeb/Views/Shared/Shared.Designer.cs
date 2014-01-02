@@ -61,6 +61,15 @@ namespace EpicWareWeb.Views.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alterar Password.
+        /// </summary>
+        public static string changePass {
+            get {
+                return ResourceManager.GetString("changePass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inicio.
         /// </summary>
         public static string home {
@@ -111,6 +120,15 @@ namespace EpicWareWeb.Views.Shared {
         public static string register {
             get {
                 return ResourceManager.GetString("register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definir Password.
+        /// </summary>
+        public static string setPass {
+            get {
+                return ResourceManager.GetString("setPass", resourceCulture);
             }
         }
         

@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="changePass" xml:space="preserve">
-    <value>Alterar Password</value>
-  </data>
-  <data name="home" xml:space="preserve">
-    <value>Inicio</value>
-  </data>
-  <data name="index" xml:space="preserve">
-    <value>Indice</value>
-  </data>
-  <data name="login" xml:space="preserve">
-    <value>Entrar</value>
-  </data>
-  <data name="logout" xml:space="preserve">
-    <value>Sair</value>
-  </data>
-  <data name="password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>Registar</value>
-  </data>
-  <data name="setPass" xml:space="preserve">
-    <value>Definir Password</value>
-  </data>
-  <data name="username" xml:space="preserve">
-    <value>Nome Utilizador</value>
+  <data name="remember" xml:space="preserve">
+    <value>Lembrar-me?</value>
   </data>
 </root>
