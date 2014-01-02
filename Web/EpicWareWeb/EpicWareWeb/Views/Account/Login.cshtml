@@ -33,12 +33,15 @@
         <button class="btn btn-info" type="submit">@EpicWareWeb.Views.Shared.Shared.login</button>
     </fieldset>
 }
-
+@using (Html.BeginForm("Create", "User", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 <p>
     @*@Html.ActionLink("Register", "Register")*@
     <button class="btn btn-info" type="submit">@EpicWareWeb.Views.Shared.Shared.register</button>
 </p>
-
+}
 @*<section class="social" id="socialLoginForm">
     <h2>Use another service to log in.</h2>
     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
