@@ -26,7 +26,7 @@ util = teste.UserAutenticated();
                             <img src="" width="25" height="25" />
                         </td>
                         <td align="right">
-                            @*@using (Html.BeginForm("Profile", "User", FormMethod.Post, new { id = "logoutForm" }))*@
+                            @using (Html.BeginForm("Profile", "User", FormMethod.Get))
                             {
                             <button class="btn"><img src=@util.userProfile.pathImg width="25" height="25" /> @util.userProfile.name @util.userProfile.lastName</button>
                             }
