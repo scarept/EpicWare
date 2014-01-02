@@ -3,13 +3,11 @@
 @{
     ViewBag.Title = "Log in";
 }
-
+<br />
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
 </hgroup>
 
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -32,13 +30,14 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Log in" />
+        <button class="btn btn-info" type="submit">@EpicWareWeb.Views.Shared.Shared.login</button>
     </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
 }
-</section>
+
+<p>
+    @*@Html.ActionLink("Register", "Register")*@
+    <button class="btn btn-info" type="submit">@EpicWareWeb.Views.Shared.Shared.register</button>
+</p>
 
 @*<section class="social" id="socialLoginForm">
     <h2>Use another service to log in.</h2>
