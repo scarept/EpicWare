@@ -16,14 +16,17 @@
 #include "SocialGameService.xsd.h"
 #include <vector>
 
-#define SOILPATH "..\..\..\..\..\ExternalDependencies\SOIL"
-
 using namespace std;
 
 class HangmanLogic{
 public:
 	HangmanLogic();
 	~HangmanLogic();
+	/*
+	Validates a user's guess, returns the indexes in Word where Guess is found
+	Index starts at 0
+	*/
+	vector<int> validateGuess(char* guess, string word);
 
 	/*
 	Treats and then asserts word facts into the prolog engine from a Word vector

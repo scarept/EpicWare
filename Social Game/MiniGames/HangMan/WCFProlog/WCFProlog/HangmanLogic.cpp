@@ -9,6 +9,36 @@ HangmanLogic::HangmanLogic(){}
 
 HangmanLogic::~HangmanLogic(){}
 
+vector<int> HangmanLogic::validateGuess(char* guess, string word){
+
+	PlTermv av(3);
+
+	//Define the input variables
+	av[0] = guess;
+	av[1] = word.c_str();
+
+	//Define the query
+	PlQuery q("validateGuess", av);
+
+	vector<int> indexList;
+
+	while (q.next_solution()){
+
+		//Define string to be tokenized and it's delimiters
+		char * pch = strtok((char*)av[2], " ,'[]");
+
+		while (pch != NULL)
+		{
+			//Add index to vector
+			indexList.push_back((int)*pch);
+
+			pch = strtok(NULL, " ,'[]");
+		}
+	}
+
+	return indexList;
+}
+
 bool HangmanLogic::isGameWon(string word, char* guessList){
 
 	//Get list length
