@@ -124,6 +124,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feliz.
+        /// </summary>
+        public static string feliz {
+            get {
+                return ResourceManager.GetString("feliz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feminino.
         /// </summary>
         public static string feminino {
@@ -183,6 +192,15 @@ namespace EpicWareWeb.Views.User {
         public static string nick {
             get {
                 return ResourceManager.GetString("nick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string normal {
+            get {
+                return ResourceManager.GetString("normal", resourceCulture);
             }
         }
         
@@ -255,6 +273,15 @@ namespace EpicWareWeb.Views.User {
         public static string textoDefaultTags {
             get {
                 return ResourceManager.GetString("textoDefaultTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Triste.
+        /// </summary>
+        public static string triste {
+            get {
+                return ResourceManager.GetString("triste", resourceCulture);
             }
         }
     }
