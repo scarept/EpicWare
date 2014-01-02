@@ -2,20 +2,36 @@
 
 <table style="color:white; font-size:14px;">
     <tr>
+        
         <td width="500" align="left" style="padding-left:0px;">
             <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.nick:</b> @Model.userProfile.nickname</div>@*ScarePT</div>*@
         </td>
+        @if (!(Model.mood == null)) {
         <td width="500" align="right" style="padding-right:0px;">
             <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.humor:</b> @Model.mood</div>@*Bombastico :D</div>*@
         </td>
+        }
     </tr>
     <tr>
-        <td width="500" align="left" style="padding-left:0px;">
-            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.genero:</b> @Model.userProfile.gender</div>@*Macho</div>*@
-        </td>
+        @if (!(Model.userProfile.gender == null)) {
+            if (Model.userProfile.gender == "F")
+            {
+                <td width="500" align="left" style="padding-left:0px;">
+                    <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.genero:</b> @EpicWareWeb.Views.User.User.feminino</div>@*Macho</div>*@
+                </td>
+            }
+            if (Model.userProfile.gender == "M")
+            {
+                <td width="500" align="left" style="padding-left:0px;">
+                    <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.genero:</b> @EpicWareWeb.Views.User.User.masculino</div>@*Macho</div>*@
+                </td>
+            }
+        }
+        @if (!(Model.userProfile.birthday == null)) { 
         <td width="500" align="right" style="padding-right:0px;">
-            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.aniversario:</b> @Model.userProfile.birthday</div>@*20/07/1991</div>*@
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.aniversario:</b> @Model.userProfile.birthday.Day/@Model.userProfile.birthday.Month/@Model.userProfile.birthday.Year</div>@*20/07/1991</div>*@
         </td>
+        }
     </tr>
     <tr>
         @if (!(Model.userProfile.facebookProfile == null && Model.userProfile.linkedinProfile == null && Model.userProfile.twitterProfile == null))
@@ -30,10 +46,10 @@
                 </div>
             </td>
         }
-        
+        @if (!(Model.userProfile.country == null)) {
         <td width="500" align="right" style="padding-right:0px;">
-            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @Model.userProfile.country</div>@*Portugal</div>*@
-
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @Model.userProfile.country.name</div>@*Portugal</div>*@
         </td>
+        }
     </tr>
 </table> 
