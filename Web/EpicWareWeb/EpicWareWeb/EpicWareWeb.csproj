@@ -216,6 +216,11 @@
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\IntroFriendRequest.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\LanguageModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageModels.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Mission.cs" />
     <Compile Include="Models\Mood.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -1066,6 +1071,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.resx">
       <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\LanguageModels.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanguageModels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Shared.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
