@@ -183,4 +183,13 @@
   <data name="introEnviada" xml:space="preserve">
     <value>Pedido Introdução Enviado</value>
   </data>
+  <data name="feliz" xml:space="preserve">
+    <value>Feliz</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="triste" xml:space="preserve">
+    <value>Triste</value>
+  </data>
 </root>
