@@ -183,6 +183,58 @@
   <data name="introEnviada" xml:space="preserve">
     <value>Pedido Introdução Enviado</value>
   </data>
+<<<<<<< HEAD
+  <data name="create" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="image" xml:space="preserve">
+    <value>Foto de Perfil</value>
+  </data>
+  <data name="accept" xml:space="preserve">
+    <value>Aceitar</value>
+  </data>
+  <data name="destino" xml:space="preserve">
+    <value>Destino</value>
+  </data>
+  <data name="forca" xml:space="preserve">
+    <value>Força</value>
+  </data>
+  <data name="friendPending" xml:space="preserve">
+    <value>Pedidos de Amizade Pendentes</value>
+  </data>
+  <data name="introPending" xml:space="preserve">
+    <value>Pedidos de Introdução Pendentes</value>
+  </data>
+  <data name="introReq" xml:space="preserve">
+    <value>Pedidos de Introdução</value>
+  </data>
+  <data name="lastname" xml:space="preserve">
+    <value>Sobrenome</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="noPending" xml:space="preserve">
+    <value>Sem pedidos Pendentes</value>
+  </data>
+  <data name="origem" xml:space="preserve">
+    <value>Origem</value>
+  </data>
+  <data name="reject" xml:space="preserve">
+    <value>Rejeitar</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="sugestedby" xml:space="preserve">
+    <value>Sugerido Por</value>
+  </data>
+  <data name="tagconn" xml:space="preserve">
+    <value>Tag da Relação</value>
+=======
   <data name="feliz" xml:space="preserve">
     <value>Feliz</value>
   </data>
@@ -212,5 +264,6 @@
   </data>
   <data name="novopedidointroducao" xml:space="preserve">
     <value>Novo pedido de introdução</value>
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
   </data>
 </root>

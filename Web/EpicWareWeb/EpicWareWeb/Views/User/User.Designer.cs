@@ -61,6 +61,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aceitar.
+        /// </summary>
+        public static string accept {
+            get {
+                return ResourceManager.GetString("accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aceitar Amigo.
         /// </summary>
         public static string aceitar_amigo {
@@ -115,6 +124,33 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criar.
+        /// </summary>
+        public static string create {
+            get {
+                return ResourceManager.GetString("create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destino.
+        /// </summary>
+        public static string destino {
+            get {
+                return ResourceManager.GetString("destino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar.
+        /// </summary>
+        public static string edit {
+            get {
+                return ResourceManager.GetString("edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar Perfil.
         /// </summary>
         public static string edit_perfil {
@@ -138,6 +174,24 @@ namespace EpicWareWeb.Views.User {
         public static string feminino {
             get {
                 return ResourceManager.GetString("feminino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Força.
+        /// </summary>
+        public static string forca {
+            get {
+                return ResourceManager.GetString("forca", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedidos de Amizade Pendentes.
+        /// </summary>
+        public static string friendPending {
+            get {
+                return ResourceManager.GetString("friendPending", resourceCulture);
             }
         }
         
@@ -169,6 +223,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foto de Perfil.
+        /// </summary>
+        public static string image {
+            get {
+                return ResourceManager.GetString("image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pedido Introdução Enviado.
         /// </summary>
         public static string introEnviada {
@@ -178,11 +241,37 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Pedidos de Introdução Pendentes.
+        /// </summary>
+        public static string introPending {
+            get {
+                return ResourceManager.GetString("introPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedidos de Introdução.
+        /// </summary>
+        public static string introReq {
+            get {
+                return ResourceManager.GetString("introReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sobrenome.
+        /// </summary>
+        public static string lastname {
+            get {
+                return ResourceManager.GetString("lastname", resourceCulture);
+=======
         ///   Looks up a localized string similar to Lida.
         /// </summary>
         public static string lida {
             get {
                 return ResourceManager.GetString("lida", resourceCulture);
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
             }
         }
         
@@ -196,11 +285,19 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Nome.
+        /// </summary>
+        public static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
+=======
         ///   Looks up a localized string similar to Mensagem.
         /// </summary>
         public static string mensagem {
             get {
                 return ResourceManager.GetString("mensagem", resourceCulture);
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
             }
         }
         
@@ -223,15 +320,30 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Sem pedidos Pendentes.
+        /// </summary>
+        public static string noPending {
+            get {
+                return ResourceManager.GetString("noPending", resourceCulture);
+=======
         ///   Looks up a localized string similar to Normal.
         /// </summary>
         public static string normal {
             get {
                 return ResourceManager.GetString("normal", resourceCulture);
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
             }
         }
         
         /// <summary>
+<<<<<<< HEAD
+        ///   Looks up a localized string similar to Origem.
+        /// </summary>
+        public static string origem {
+            get {
+                return ResourceManager.GetString("origem", resourceCulture);
+=======
         ///   Looks up a localized string similar to Notificações.
         /// </summary>
         public static string notificacoes {
@@ -255,6 +367,7 @@ namespace EpicWareWeb.Views.User {
         public static string novopedidointroducao {
             get {
                 return ResourceManager.GetString("novopedidointroducao", resourceCulture);
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
             }
         }
         
@@ -295,11 +408,29 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rejeitar.
+        /// </summary>
+        public static string reject {
+            get {
+                return ResourceManager.GetString("reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sem Imagem .
         /// </summary>
         public static string semimagem {
             get {
                 return ResourceManager.GetString("semimagem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enviar.
+        /// </summary>
+        public static string send {
+            get {
+                return ResourceManager.GetString("send", resourceCulture);
             }
         }
         
@@ -318,6 +449,24 @@ namespace EpicWareWeb.Views.User {
         public static string social {
             get {
                 return ResourceManager.GetString("social", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sugerido Por.
+        /// </summary>
+        public static string sugestedby {
+            get {
+                return ResourceManager.GetString("sugestedby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tag da Relação.
+        /// </summary>
+        public static string tagconn {
+            get {
+                return ResourceManager.GetString("tagconn", resourceCulture);
             }
         }
         
