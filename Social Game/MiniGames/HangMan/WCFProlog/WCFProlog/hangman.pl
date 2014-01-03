@@ -6,9 +6,98 @@ wordEN(computer).
 wordEN(laptop).
 wordEN(hangman).
 
+gameWon(Word, GuessList):-
+
+	%%Get GuessList length
+	length(GuessList, N),
+
+	%%Get Word as a list of codes
+	string_to_list(Word, WordAsList),
+
+	%%Initialize TempIndexList
+	TempIndexList = [],
+
+	%%Find all indexes
+	gameWonLoop(GuessList, WordAsList, 0, N, TempIndexList, FinalIndexList),
+
+	%%Discard repeated
+	sort(FinalIndexList, ReallyFinalIndexList),
+
+	%%Get Word length
+	atom_length(Word, N1),
+
+	NN1 is N1-1,
+	%%Generate number list
+	numlist(0, NN1, NumList),
+
+	%%Check if game is won
+	!, NumList = ReallyFinalIndexList.
+
+gameWonLoop(GuessList, Word, N, N, IndexList, IndexList).
+gameWonLoop(GuessList, Word, X, N, IndexList, FinalIndexList):-
+
+        %%Get the guess, a char
+	nth0(X, GuessList, Char),
+
+	%%Obtain the indexes for which guess is valid
+	validateGuess(Char, Word, NewIndexList),
+
+	%%Add it to existing List
+	append(NewIndexList, IndexList, TempIndexList),
+
+	%%Increase guess counter
+	Y is X + 1,
+
+	gameWonLoop(GuessList, Word, Y, N, TempIndexList, FinalIndexList).
+
+
+
+getTopicsByLanguage(Language,Topics):-findall(X, word(_,X,Language), TopicList),
+	sort(TopicList, Topics).
+
 getWordByTopicAndLanguage(Topic, Language, Word):-
 		findall(X, word(X,Topic,Language), WordList),
 		chooseWordFromList(WordList, Word).
+
+%%Validates a user's guess
+%% True if the Guess character is found (on the Word) in every index in IndexList
+validateGuess(Guess, Word, IndexList):-
+
+	        %%Get Word length
+	        atom_length(Word, N),
+
+		%%Get Word as a list of codes
+		string_to_list(Word, WordAsList),
+
+		%%Obtain Guess code
+		atom_codes(Guess, GuessCode),
+
+		%%Initialize list to store indexes
+		TempIndexList = [],
+
+		%%Retrieve IndexList
+		checkWordForGuess(WordAsList, GuessCode, 0, N, TempIndexList, IndexList).
+
+checkWordForGuess(_, _, N, N, IndexList, IndexList):-true.
+checkWordForGuess(Word, Guess, X, N, TempIndexList, IndexList):-
+	%%Get the Char that is at the Xth position of Word
+	nth0(X, Word, Char),
+
+	%%Write the Char
+	%%put(Char),
+
+	(
+	    %%If Char at X is Guess
+	    (
+	      member(Char, Guess), !,
+              append(TempIndexList, [X], NewIndexList),
+	      Y is X + 1,
+	      checkWordForGuess(Word, Guess, Y, N, NewIndexList, IndexList)
+	    );
+	    %%Else
+	      Y is X + 1,
+	      checkWordForGuess(Word, Guess, Y, N, TempIndexList, IndexList)
+	).
 
 %%Picks word dictionary from specified language
 %%English
