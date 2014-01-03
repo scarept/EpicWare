@@ -241,7 +241,6 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Pedidos de Introdução Pendentes.
         /// </summary>
         public static string introPending {
@@ -265,13 +264,15 @@ namespace EpicWareWeb.Views.User {
         public static string lastname {
             get {
                 return ResourceManager.GetString("lastname", resourceCulture);
-=======
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lida.
         /// </summary>
         public static string lida {
             get {
                 return ResourceManager.GetString("lida", resourceCulture);
->>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
             }
         }
         
@@ -285,19 +286,20 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
-<<<<<<< HEAD
-        ///   Looks up a localized string similar to Nome.
-        /// </summary>
-        public static string name {
-            get {
-                return ResourceManager.GetString("name", resourceCulture);
-=======
         ///   Looks up a localized string similar to Mensagem.
         /// </summary>
         public static string mensagem {
             get {
                 return ResourceManager.GetString("mensagem", resourceCulture);
->>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome.
+        /// </summary>
+        public static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
             }
         }
         
@@ -320,30 +322,24 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Sem pedidos Pendentes.
         /// </summary>
         public static string noPending {
             get {
                 return ResourceManager.GetString("noPending", resourceCulture);
-=======
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Normal.
         /// </summary>
         public static string normal {
             get {
                 return ResourceManager.GetString("normal", resourceCulture);
->>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
             }
         }
         
         /// <summary>
-<<<<<<< HEAD
-        ///   Looks up a localized string similar to Origem.
-        /// </summary>
-        public static string origem {
-            get {
-                return ResourceManager.GetString("origem", resourceCulture);
-=======
         ///   Looks up a localized string similar to Notificações.
         /// </summary>
         public static string notificacoes {
@@ -367,7 +363,15 @@ namespace EpicWareWeb.Views.User {
         public static string novopedidointroducao {
             get {
                 return ResourceManager.GetString("novopedidointroducao", resourceCulture);
->>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Origem.
+        /// </summary>
+        public static string origem {
+            get {
+                return ResourceManager.GetString("origem", resourceCulture);
             }
         }
         

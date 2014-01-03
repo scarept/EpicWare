@@ -183,7 +183,6 @@
   <data name="introEnviada" xml:space="preserve">
     <value>Pedido Introdução Enviado</value>
   </data>
-<<<<<<< HEAD
   <data name="create" xml:space="preserve">
     <value>Criar</value>
   </data>
@@ -234,7 +233,7 @@
   </data>
   <data name="tagconn" xml:space="preserve">
     <value>Tag da Relação</value>
-=======
+  </data>
   <data name="feliz" xml:space="preserve">
     <value>Feliz</value>
   </data>
@@ -264,6 +263,5 @@
   </data>
   <data name="novopedidointroducao" xml:space="preserve">
     <value>Novo pedido de introdução</value>
->>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
   </data>
 </root>
