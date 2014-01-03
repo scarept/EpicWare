@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -192,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IWebService.cs" />
     <Compile Include="Migrations\201312220002456_newDBEpic2.cs" />
     <Compile Include="Migrations\201312220002456_newDBEpic2.Designer.cs">
       <DependentUpon>201312220002456_newDBEpic2.cs</DependentUpon>
@@ -261,6 +265,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>User.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WebService.svc.cs">
+      <DependentUpon>WebService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +339,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\modern_dot_digital-7.ttf" />
     <Content Include="Content\toastr.less" />
+    <Content Include="WebService.svc" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Buttons\loginOut.png" />
     <Content Include="Images\Buttons\loginOver.png" />
