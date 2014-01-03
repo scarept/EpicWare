@@ -4,14 +4,12 @@
     IEnumerable<EpicWareWeb.Models.IntroFriendRequest> Intros = (IEnumerable<EpicWareWeb.Models.IntroFriendRequest>)ViewBag.introsVB;
 }
 
-    <title>ListFriendRequest</title>
-
     @if (Model.Count() > 0 || Intros.Count() > 0)
     {  
     
         if (Model.Count() > 0)
         {
-           <h2>Pedidos de amizade pendentes</h2>
+           <h2>@EpicWareWeb.Views.User.User.friendPending</h2>
            <table>
             @foreach (var item in Model)
             {
@@ -22,7 +20,7 @@
         
         if(Intros.Count() > 0)
         {
-            <h2>Pedidos de introduçao pendentes</h2>
+            <h2>@EpicWareWeb.Views.User.User.introPending</h2>
             <table>
             @foreach (var item in Intros)
             {
@@ -33,6 +31,6 @@
     }
     else
     {
-        <h2>Sem pedidos pendentes</h2>
+        <h2>@EpicWareWeb.Views.User.User.noPending</h2>
     }
 

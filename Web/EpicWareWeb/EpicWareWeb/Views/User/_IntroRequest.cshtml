@@ -2,7 +2,7 @@
 
 <table width="500">
     <tr>
-        <td>Sugerido por: </td><td>@Model.userB.userProfile.nickname</td>
+        <td>@EpicWareWeb.Views.User.User.sugestedby: </td><td>@Model.userB.userProfile.nickname</td>
     </tr>
     <tr>
         <td colspan="2">@Model.sendedBC</td>
@@ -13,18 +13,18 @@
         </td>
     </tr>
     <tr>
-        <td>Nome: @Model.userA.userProfile.name</td>
-        <td>Ult. Nome: @Model.userA.userProfile.lastName</td>
+        <td>@EpicWareWeb.Views.User.User.name: @Model.userA.userProfile.name</td>
+        <td>@EpicWareWeb.Views.User.User.lastname: @Model.userA.userProfile.lastName</td>
     </tr>
     <tr>
         <td></td>
         @using (Html.BeginForm("AcceptIntroFR", "User"))
         {
-            <td><input type="submit" value="Aceitar" /></td>
+            <td><button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button></td>
         }
         @using (Html.BeginForm("RejectIntroFR", "User"))
         {
-            <td><input type="submit" value="Rejeitar" /></td>
+            <td><button type="submit" class="btn btn-warning">@EpicWareWeb.Views.User.User.reject</button></td>
         }
     </tr>
 </table>
