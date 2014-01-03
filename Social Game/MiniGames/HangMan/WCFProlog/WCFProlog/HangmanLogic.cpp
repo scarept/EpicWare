@@ -10,12 +10,17 @@ HangmanLogic::HangmanLogic(){}
 HangmanLogic::~HangmanLogic(){}
 
 vector<int> HangmanLogic::validateGuess(char* guess, string word){
-
+	/*	char array with "garbage" in its beginning
+		it is necessary, otherwise, if the character searched is the first 
+		in string, strtok would return NULL
+	*/
+	char littleHelper[80] = "0";
+	strcat(littleHelper, &word[0]);
 	PlTermv av(3);
 
 	//Define the input variables
 	av[0] = guess;
-	av[1] = word.c_str();
+	av[1] = littleHelper;
 
 	//Define the query
 	PlQuery q("validateGuess", av);
@@ -23,17 +28,16 @@ vector<int> HangmanLogic::validateGuess(char* guess, string word){
 	vector<int> indexList;
 
 	while (q.next_solution()){
-
+		char pch[80];
 		//Define string to be tokenized and it's delimiters
-		char * pch = strtok((char*)av[2], " ,'[]");
+		char *indexes = strtok((char*)av[2], " ,'[]");
+		if (indexes == NULL)
+			return indexList;
 
-		while (pch != NULL)
-		{
-			//Add index to vector
-			indexList.push_back((int)*pch);
-
-			pch = strtok(NULL, " ,'[]");
-		}
+		strcpy(pch, indexes);
+		
+		for (int i = 0; pch[i] != '\0'; i++)
+			indexList.push_back(((int) pch[i])-1);
 	}
 
 	return indexList;
@@ -43,7 +47,8 @@ bool HangmanLogic::isGameWon(string word, char* guessList){
 
 	//Get list length
 	int n = strlen(guessList);
-
+	if (n == 0)
+		return false;
 	//Conjure up a list from guesses
 	string guesses = "[";
 	for (int i = 0; i < n; i++){
@@ -69,7 +74,7 @@ bool HangmanLogic::isGameWon(string word, char* guessList){
 	//Initialize the return variable
 	bool state = false;
 	
-	//Summom predicate
+	//Summon predicate
 	state = q.next_solution();
 
 	return state;

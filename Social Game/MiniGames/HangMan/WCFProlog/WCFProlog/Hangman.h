@@ -2,7 +2,7 @@
 #define HANGMAN_H
 
 #ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
+	#define _CRT_SECURE_NO_WARNINGS
 #endif
 
 #include <stdio.h>
@@ -11,7 +11,7 @@
 #include <math.h>
 #include <time.h>
 #include <GL/glut.h>
-#include "C:\Users\VÃ­tor\Desktop\EpicWare\Social Game\MiniGames\Labyrinth\labyrinth\labyrinth\LoadImages.h"
+#include "C:\Users\Vítor\Desktop\EpicWare\Social Game\MiniGames\Labyrinth\labyrinth\labyrinth\LoadImages.h"
 
 #ifdef WIN32
 	#define WIN32_LEAN_AND_MEAN
@@ -26,6 +26,8 @@ using namespace std;
 #ifndef BUFSIZE
 #define BUFSIZE 512
 #endif
+#define WIDTH 800
+#define HEIGHT 800
 
 #define DEBUG 1
 
@@ -39,14 +41,14 @@ struct Horas{
 };
 
 struct Modelo{
-	GLfloat     raio;
+	GLfloat     raio; //Stickman's head size
 	Horas       hora;
-	bool		menuPoint; //false for categories, true for play
+	bool		onGame; //false for categories, true for play
 	int			numErrors; //number of times user failed a guess
-	char*		word; //word picked randomly
-	char*		guesses; //letters already guessed by user
-	char*		partialWord; //word with letter already guessed in correct place
-	char*		category; //Selected word's category
+	char		word[80]; //word picked randomly
+	char		guesses[27]; //letters already guessed by user
+	char		partialWord[80]; //word with letters already guessed in correct place
+	char		category[80]; //Selected word's category
 };
 
 
