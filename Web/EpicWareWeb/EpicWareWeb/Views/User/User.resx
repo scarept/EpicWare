@@ -183,6 +183,7 @@
   <data name="introEnviada" xml:space="preserve">
     <value>Pedido Introdução Enviado</value>
   </data>
+<<<<<<< HEAD
   <data name="create" xml:space="preserve">
     <value>Criar</value>
   </data>
@@ -233,5 +234,36 @@
   </data>
   <data name="tagconn" xml:space="preserve">
     <value>Tag da Relação</value>
+=======
+  <data name="feliz" xml:space="preserve">
+    <value>Feliz</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="triste" xml:space="preserve">
+    <value>Triste</value>
+  </data>
+  <data name="notificacoes" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
+  <data name="hora" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="lida" xml:space="preserve">
+    <value>Lida</value>
+  </data>
+  <data name="mensagem" xml:space="preserve">
+    <value>Mensagem</value>
+  </data>
+  <data name="ver" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="novopedidoamizade" xml:space="preserve">
+    <value>Novo pedido de amizade</value>
+  </data>
+  <data name="novopedidointroducao" xml:space="preserve">
+    <value>Novo pedido de introdução</value>
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
   </data>
 </root>

@@ -7,7 +7,7 @@
 @if (ctrConn.amI(userProf))
 {// profile é do proprio user
  <tr>
-    <td style="text-align:center;">
+    <td>
         @using (Html.BeginForm("Edit", "User",FormMethod.Get))
         {
             @Html.AntiForgeryToken()
@@ -20,7 +20,7 @@
 //caso 2: não sao amigos mas ja existe um convite do visitante para o visitado
 else if(ctrConn.friendRequested(userProf)){
 <tr>
-    <td style="text-align:center;">
+    <td>
         <div class="alert alert-warning"><span style="font-size:12px"><b>@EpicWareWeb.Views.User.User.amizade_pendente</b></span></div>
     </td>
 </tr>
@@ -29,7 +29,7 @@ else if(ctrConn.friendRequested(userProf)){
 else if (ctrConn.friendRequestReceived(userProf))
 {
     <tr>
-    <td style="text-align:center;">
+    <td>
         <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.aceitar_amigo</span></button><br /><br />
     </td>
 </tr>
@@ -37,18 +37,22 @@ else if (ctrConn.friendRequestReceived(userProf))
 //caso 4 ja sao amigos
 else if (ctrConn.isFriends(userProf))
 {
+    using (Html.BeginForm("IntrodutionRequest", "User", new { id = userProf.userID}, FormMethod.Get))
+    {
     <tr>
-    <td style="text-align:center;">
-        <button type="button" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.pedir_intro</span></button>
-    </td>
-</tr>
+        <td>
+            <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.pedir_intro</span></button>
+        </td>
+    </tr>
+    }
+
 }
 
 else if (!ctrConn.isFriends(userProf))
 {
  //caso 1: Não são amigos
 <tr>
-    <td style="text-align:center;">
+    <td>
     @using (Html.BeginForm("AddFriend", "User", new { id = userProf.userID },FormMethod.Get))
     {
         @Html.AntiForgeryToken()

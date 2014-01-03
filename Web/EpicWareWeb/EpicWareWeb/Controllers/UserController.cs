@@ -111,6 +111,8 @@ namespace EpicWareWeb.Controllers
             fillLanguagesList();
             User user = UserAutenticated();
             ViewBag.profileSend = user.userProfile;
+            fillDropDownListMood(user.mood);
+
             if (user == null)
             {
                 return HttpNotFound();
@@ -124,9 +126,14 @@ namespace EpicWareWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(FormCollection collection, string langSelect, HttpPostedFileBase file)
+        public ActionResult Edit(FormCollection collection, string langSelect, string moodSelect,HttpPostedFileBase file)
         {
             User userAuth = UserAutenticated();
+
+            /* MOOD */
+            userAuth.mood = null;
+            Mood tmp = db.moods.Find(Convert.ToInt32(moodSelect));
+            userAuth.mood = tmp;
 
             /* LANGUAGE */
             userAuth.language = null;
@@ -424,7 +431,22 @@ namespace EpicWareWeb.Controllers
                 db.friendRequests.Add(fR);
                 db.SaveChanges();
             }
-            return RedirectToAction("Profile");
+
+            /* Create Notification */
+            Notification note = new Notification();
+            note.notificationType = db.notificationsType.Find(1); // FR type
+            note.message = @EpicWareWeb.Views.User.User.novopedidoamizade + " : " + userAuth.userProfile.nickname;
+            note.time = DateTime.Now;
+            note.read = false;
+            user.notifications.Add(note);
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Profile", new { id = userAuth.userID });
+            }
+            return RedirectToAction("Profile", new { id = userAuth.userID });
         }
 
         [Authorize]
@@ -527,8 +549,18 @@ namespace EpicWareWeb.Controllers
             introFR.userC = userToIntro;
             introFR.messageAB = txtIntro;
 
+            /* Create Notification */
+            Notification note = new Notification();
+            note.notificationType = db.notificationsType.Find(2); // IR type
+            note.message = @EpicWareWeb.Views.User.User.novopedidointroducao + " : " + UserAutenticated().userProfile.nickname;
+            note.time = DateTime.Now;
+            note.read = false;
+            userFriend.notifications.Add(note);
+
             if (ModelState.IsValid)
             {
+                db.Entry(userFriend).State = EntityState.Modified;
+                db.SaveChanges();
                 db.introes.Add(introFR);
                 db.SaveChanges();
             }
@@ -657,6 +689,30 @@ namespace EpicWareWeb.Controllers
             base.Dispose(disposing);
         }
 
+        /* NOTIFICATIONS */
+        
+        [HttpGet]
+        public PartialViewResult Notifications()
+        {
+            User user = UserAutenticated();
+            return PartialView("_Notifications", user);
+        }
+
+        public ActionResult ListNotifications()
+        {
+            User user = UserAutenticated();
+            foreach(Notification item in user.notifications)
+            {
+                item.read = true;
+            }
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return View(user.notifications);
+        }
+
         /* AUX METHODS */
 
         public User UserAutenticated()
@@ -721,6 +777,15 @@ namespace EpicWareWeb.Controllers
                                   select d;
             var selectTag = new SelectList(tagQuery, "tagConnectionID", "tag", selectedTag);
             ViewBag.tagConnections = selectTag; 
+        }
+
+        private void fillDropDownListMood(object selectedMood = null)
+        {
+            var moodQuery = from d in db.moods
+                           orderby d.moodID
+                           select d;
+            var selectTag = new SelectList(moodQuery, "moodID", "name", selectedMood);
+            ViewBag.moods = selectTag;
         }
 
     }

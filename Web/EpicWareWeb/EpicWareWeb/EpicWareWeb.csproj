@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -192,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IWebService.cs" />
     <Compile Include="Migrations\201312220002456_newDBEpic2.cs" />
     <Compile Include="Migrations\201312220002456_newDBEpic2.Designer.cs">
       <DependentUpon>201312220002456_newDBEpic2.cs</DependentUpon>
@@ -207,6 +211,22 @@
     <Compile Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.cs" />
     <Compile Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.Designer.cs">
       <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401022327246_rmImgNotification.cs" />
+    <Compile Include="Migrations\201401022327246_rmImgNotification.Designer.cs">
+      <DependentUpon>201401022327246_rmImgNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401022337302_updNotification.cs" />
+    <Compile Include="Migrations\201401022337302_updNotification.Designer.cs">
+      <DependentUpon>201401022337302_updNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401022353314_updNotification2.cs" />
+    <Compile Include="Migrations\201401022353314_updNotification2.Designer.cs">
+      <DependentUpon>201401022353314_updNotification2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401022355073_updNotification3.cs" />
+    <Compile Include="Migrations\201401022355073_updNotification3.Designer.cs">
+      <DependentUpon>201401022355073_updNotification3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -224,6 +244,7 @@
     <Compile Include="Models\Mission.cs" />
     <Compile Include="Models\Mood.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\ScoreUser.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -244,6 +265,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>User.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WebService.svc.cs">
+      <DependentUpon>WebService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +329,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -312,6 +338,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\modern_dot_digital-7.ttf" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="WebService.svc" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Buttons\loginOut.png" />
     <Content Include="Images\Buttons\loginOver.png" />
@@ -982,6 +1010,8 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1052,6 +1082,10 @@
     <Content Include="Views\User\ListIntrosFriendRequestMiddle.cshtml" />
     <Content Include="Views\User\_IntroSendBC.cshtml" />
     <Content Include="Views\User\_IntroRequest.cshtml" />
+    <Content Include="Scripts\toastr.min.js.map" />
+    <Content Include="Views\Shared\_Notifications.cshtml" />
+    <Content Include="Views\User\ListNotifications.cshtml" />
+    <Content Include="Views\User\_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1071,6 +1105,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.resx">
       <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401022327246_rmImgNotification.resx">
+      <DependentUpon>201401022327246_rmImgNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401022337302_updNotification.resx">
+      <DependentUpon>201401022337302_updNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401022353314_updNotification2.resx">
+      <DependentUpon>201401022353314_updNotification2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401022355073_updNotification3.resx">
+      <DependentUpon>201401022355073_updNotification3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>ResXFileCodeGenerator</Generator>

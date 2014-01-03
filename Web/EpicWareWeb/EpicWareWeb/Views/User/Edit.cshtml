@@ -13,6 +13,19 @@
     EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
     
     <fieldset>
+<<<<<<< HEAD
+=======
+        <legend>User</legend>
+
+        @* Mood selecionado*@ 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.mood)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("moodSelect", (SelectList)ViewBag.moods)
+        </div>
+
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
         @* Lingua escolhida *@
         <div class="editor-label">
             <h3>@Html.LabelFor(model => model.language)</h3>
@@ -71,10 +84,17 @@
         <h2><b>@EpicWareWeb.Views.User.User.image</b></h2>
         @* Image *@
         <div class="editor-label">
+<<<<<<< HEAD
             <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="200" width="200" />
         </div>
         <div class="editor-field">
             <input type="file" name="file" id="file" style="width: 300px;" />
+=======
+            <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="250" />
+        </div>
+        <div class="editor-field">
+            <input type="file" name="file" id="file" style="width: 250px;" />
+>>>>>>> 43abbe2e70f35e655eabf405888eabf11ec7a012
         </div>
         <br />
         <p>
