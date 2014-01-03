@@ -151,6 +151,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hora.
+        /// </summary>
+        public static string hora {
+            get {
+                return ResourceManager.GetString("hora", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Estado de Humor.
         /// </summary>
         public static string humor {
@@ -169,11 +178,29 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lida.
+        /// </summary>
+        public static string lida {
+            get {
+                return ResourceManager.GetString("lida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Masculino.
         /// </summary>
         public static string masculino {
             get {
                 return ResourceManager.GetString("masculino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mensagem.
+        /// </summary>
+        public static string mensagem {
+            get {
+                return ResourceManager.GetString("mensagem", resourceCulture);
             }
         }
         
@@ -201,6 +228,33 @@ namespace EpicWareWeb.Views.User {
         public static string normal {
             get {
                 return ResourceManager.GetString("normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notificações.
+        /// </summary>
+        public static string notificacoes {
+            get {
+                return ResourceManager.GetString("notificacoes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novo pedido de amizade.
+        /// </summary>
+        public static string novopedidoamizade {
+            get {
+                return ResourceManager.GetString("novopedidoamizade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novo pedido de introdução.
+        /// </summary>
+        public static string novopedidointroducao {
+            get {
+                return ResourceManager.GetString("novopedidointroducao", resourceCulture);
             }
         }
         
@@ -282,6 +336,15 @@ namespace EpicWareWeb.Views.User {
         public static string triste {
             get {
                 return ResourceManager.GetString("triste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ver.
+        /// </summary>
+        public static string ver {
+            get {
+                return ResourceManager.GetString("ver", resourceCulture);
             }
         }
     }

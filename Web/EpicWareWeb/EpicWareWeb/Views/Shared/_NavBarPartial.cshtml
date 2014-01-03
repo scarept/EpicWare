@@ -23,7 +23,10 @@ util = teste.UserAutenticated();
                             </span>
                         </td>
                         <td>
-                            <img src="" width="25" height="25" />
+                            @*<img src="" width="25" height="25" />*@
+                        </td>
+                        <td style="color:white; text-align:right;">
+                              <div id="notifications"></div>
                         </td>
                         <td align="right">
                             @using (Html.BeginForm("Profile", "User", FormMethod.Get))
@@ -120,3 +123,24 @@ else
     </div>
 
 }
+<script type="text/javascript">
+    function loadPartialView() {
+        //alert("Reload");
+        $.ajax({
+            url: "@Url.Action("Notifications", "User")",
+            type: 'GET', // <-- make a async request by GET
+        dataType: 'html', // <-- to expect an html response
+        success: function(result) {
+            $('#notifications').html(result);
+        }
+    });
+    }
+
+    $(function() {
+       loadPartialView();
+       setInterval("loadPartialView()", 5000);
+        
+        
+
+    });
+</script>

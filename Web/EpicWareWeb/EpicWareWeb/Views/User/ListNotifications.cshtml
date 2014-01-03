@@ -1,0 +1,15 @@
+﻿@model IEnumerable<EpicWareWeb.Models.Notification>
+@{
+    ViewBag.Title = "ListNotifications";
+}
+
+<h2>ListNotifications</h2>
+<table>
+    <tr>
+        <th>@EpicWareWeb.Views.User.User.mensagem</th><th>@EpicWareWeb.Views.User.User.hora</th><th>@EpicWareWeb.Views.User.User.lida</th><th></th>
+    </tr>
+    @foreach (EpicWareWeb.Models.Notification item in Model)
+    {
+        @Html.Partial("_Notification", item)
+    }
+</table>
