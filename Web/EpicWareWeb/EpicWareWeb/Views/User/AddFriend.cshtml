@@ -21,13 +21,13 @@
     @Html.HiddenFor(model => model.userID)
     <table >
         <tr>
-            <td>Força</td><td>@Html.TextBoxFor(model => conn.strenght)</td>
+            <td>@EpicWareWeb.Views.User.User.forca</td><td>@Html.TextBoxFor(model => conn.strenght)</td>
         </tr>
         <tr>
-            <td>TagConnection</td><td>@Html.DropDownList("tagSelect", (SelectList)ViewBag.tagConnections)</td>
+            <td>@EpicWareWeb.Views.User.User.tagconn</td><td>@Html.DropDownList("tagSelect", (SelectList)ViewBag.tagConnections)</td>
         </tr>
         <tr>
-            <td><input type="submit" value="AddFriend"/></td>
+            <td><button type="submit" class="btn btn-sucess">@EpicWareWeb.Views.User.User.adicionar_amigo</button></td>
         </tr>       
     </table>
 }

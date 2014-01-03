@@ -7,21 +7,21 @@
         </td>
     </tr>
     <tr>
-        <td>Nome: @Model.user1.userProfile.name</td><td>Ult. Nome: @Model.user1.userProfile.lastName</td>
+        <td>@EpicWareWeb.Views.User.User.name: @Model.user1.userProfile.name</td><td>@EpicWareWeb.Views.User.User.lastname: @Model.user1.userProfile.lastName</td>
     </tr>    
     <tr>    
-        <td>Força: @Model.strenght</td><td>Tag Connection: @Model.tagConnection.tag</td>
+        <td>@EpicWareWeb.Views.User.User.forca: @Model.strenght</td><td>@EpicWareWeb.Views.User.User.tagconn: @Model.tagConnection.tag</td>
     </tr>
     <tr><td></td>
         @using (Html.BeginForm("AcceptFR", "User"))
         {
             @Html.HiddenFor(model => model.friendRequestID)
-            <td><input type="submit" value="Aceitar" /></td>
+            <td><button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button></td>
         }
         @using (Html.BeginForm("RejectFR", "User"))
         {
             @Html.HiddenFor(model => model.friendRequestID)
-            <td><input type="submit" value="Rejeitar" /></td>
+            <td><button type="submit" class="btn btn-danger">@EpicWareWeb.Views.User.User.reject</button></td>
         }
     </tr>
 </table>

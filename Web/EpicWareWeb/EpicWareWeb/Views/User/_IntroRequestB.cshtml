@@ -8,11 +8,11 @@
 <div id="@rejectAJX">
     <table width="500" style="color:white;">
         <tr>
-            <td>Origem: </td>
+            <td>@EpicWareWeb.Views.User.User.origem: </td>
             <td>@intro.userA.userProfile.nickname</td>
         </tr>
         <tr>
-            <td>Destino: </td><td>@intro.userC.userProfile.nickname</td>
+            <td>@EpicWareWeb.Views.User.User.destino: </td><td>@intro.userC.userProfile.nickname</td>
         </tr>
         <tr>
             <td rowspan="3" colspan="2">@intro.messageAB</td>
@@ -21,7 +21,7 @@
             <td>
                 @if (intro.sendedBC)
                 {
-                    <span style="color:orange;">Pedido de introdução enviado</span>
+                    <span style="color:orange;">@EpicWareWeb.Views.User.User.introEnviada</span>
                 }
                 else
                 {
@@ -29,7 +29,7 @@
                     {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    <input type="submit" value="Aceitar" />
+                    <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button>
                     }
                 }
             </td>
@@ -43,7 +43,7 @@
                     using (Ajax.BeginForm("RejectMiddleIntroAjax", new { id = intro.introFriendRequestID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = @rejectAJX })){
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    <input type="submit" value="Rejeitar" />
+                    <button type="submit" class="btn btn-warning">@EpicWareWeb.Views.User.User.reject</button>
                 } 
                 }
                 

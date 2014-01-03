@@ -84,14 +84,14 @@
 
             @* Image *@
             <div class="editor-label">
-                <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="200" />
+                <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="200" width="200" />
             </div>
             <div class="editor-field">
                 <input type="file" name="file" id="file" style="width: 100%;" />
             </div>
 
             <p>
-                <input type="submit" value="Save" />
+                <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.create</button>
             </p>
 </fieldset>
 }

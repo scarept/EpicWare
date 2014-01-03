@@ -5,10 +5,7 @@
 /*Global variables*/
 Estado estado;
 Modelo modelo;
-
-char word[80];
-char category[80];
-char guessList[80] = "";
+HangmanLogic s;
 
 CHangman::CHangman(){}
 
@@ -25,7 +22,7 @@ void Init(void){
 	estado.delay = 1000;
 
 	modelo.raio = 40;	//Set stickman's head size
-	modelo.menuPoint = true; //Open in category menu
+	modelo.onGame = true; //Open in category menu
 	modelo.numErrors = 0; //Draw only gallowsPole
 	// Lê hora do Sistema
 	current_time = localtime(&timer);
@@ -63,7 +60,7 @@ void Reshape(int width, int height)
 
 	// gluOrtho2D(left,right,bottom,top); 
 	// projeccao ortogonal 2D, com profundidade (Z) entre -1 e 1
-	gluOrtho2D(0, 800, 800, 0);
+	gluOrtho2D(0, WIDTH, HEIGHT, 0);
 
 	// Matriz Modelview
 	// Matriz onde são realizadas as tranformacoes dos modelos desenhados
@@ -177,204 +174,163 @@ void drawStickmanRightLeg(void){
 /*Draw Buttons*/
 void drawKeyboard(GLenum mode){
 	GLuint letter[26];
-	int xStart = 400, yStart = 600;
+	int xStart = WIDTH/2, yStart = (2.0/3.0)*HEIGHT;
 	char* prefix = "bt_";
 	char* suffix = ".png";
 	char let[2] = { 'A', 0 };
 	char result[10];
 	for (int i = 1; i <= 26; i++){
-		strcpy(result, prefix);
-		strcat(result, let);
-		strcat(result, suffix);
-		glPushMatrix();
-		if (mode == GL_SELECT)
-			glLoadName(1000 + i);
-		letter[i-1] = carrega_texturas(result);
+		if (strchr(modelo.guesses, (let[0] - 'A' + 'a')) == NULL){
+			strcpy(result, prefix);
+			strcat(result, let);
+			strcat(result, suffix);
+			glPushMatrix();
+			if (mode == GL_SELECT)
+				glLoadName(1000 + i);
+			letter[i - 1] = carrega_texturas(result);
 
-		glBindTexture(GL_TEXTURE_2D, letter[i-1]);
+			glBindTexture(GL_TEXTURE_2D, letter[i - 1]);
 
-		glBegin(GL_POLYGON);
-		glTexCoord2f(0, 1);
-		glVertex2f(xStart, yStart - 35);
-		glTexCoord2f(1, 1);
-		glVertex2f(xStart + 35, yStart - 35);
-		glTexCoord2f(1, 0);
-		glVertex2f(xStart + 35, yStart);
-		glTexCoord2f(0, 0);
-		glVertex2f(xStart, yStart);
-		glEnd();
-		glBindTexture(GL_TEXTURE_2D, NULL);
-		glPopMatrix();
-		
+			glBegin(GL_POLYGON);
+			glTexCoord2f(0, 1);
+			glVertex2f(xStart, yStart - (7.0/160.0)*HEIGHT);
+			glTexCoord2f(1, 1);
+			glVertex2f(xStart + (7.0 / 160.0)*WIDTH, yStart - (7.0 / 160.0)*HEIGHT);
+			glTexCoord2f(1, 0);
+			glVertex2f(xStart + (7.0 / 160.0)*WIDTH, yStart);
+			glTexCoord2f(0, 0);
+			glVertex2f(xStart, yStart);
+			glEnd();
+			glBindTexture(GL_TEXTURE_2D, NULL);
+			glPopMatrix();
+		}
 		let[0]++;
-		if (i == 0 || i % 10 !=0){
-			xStart += 40;
+		if (i % 10 !=0){
+			xStart += 0.05*WIDTH;
 		}
 		else if (i == 20){
-			xStart = 480;
-			yStart += 40;
+			xStart = WIDTH/2 + 0.1*WIDTH;
+			yStart += 0.05*HEIGHT;
 		}
 		else{
-			xStart = 400;
-			yStart += 40;
+			xStart = WIDTH/2;
+			yStart += 0.05*HEIGHT;
 		}
 	}
 }
 
-/*
-void drawLanguageMenu(GLenum mode){
-	GLuint imagePT = carrega_texturas("bt_PT.png");
-	GLuint imageEN = carrega_texturas("bt_EN.png");
-	GLuint imageFR = carrega_texturas("bt_FR.png");
-	GLuint imageDE = carrega_texturas("bt_DE.png");
-
-	glPushMatrix();
-	if (mode == GL_SELECT)
-		glLoadName(1);
-	glBindTexture(GL_TEXTURE_2D, imagePT);
-	glBegin(GL_POLYGON);
-	glTexCoord2f(0.0, 1.0);
-	glVertex2f(25, 30);
-	glTexCoord2f(1.0, 1.0);
-	glVertex2f(75, 30);
-	glTexCoord2f(1.0, 0.0);
-	glVertex2f(75, 37);
-	glTexCoord2f(0.0, 0.0);
-	glVertex2f(25, 37);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	if (mode == GL_SELECT)
-		glLoadName(2);
-	glBindTexture(GL_TEXTURE_2D, imageEN);
-	glBegin(GL_POLYGON);
-	glTexCoord2f(0.0, 1.0);
-	glVertex2f(25, 40);
-	glTexCoord2f(1.0, 1.0);
-	glVertex2f(75, 40);
-	glTexCoord2f(1.0, 0.0);
-	glVertex2f(75, 47);
-	glTexCoord2f(0.0, 0.0);
-	glVertex2f(25, 47);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	if (mode == GL_SELECT)
-		glLoadName(3);
-	glBindTexture(GL_TEXTURE_2D, imageFR);
-	glBegin(GL_POLYGON);
-	glTexCoord2f(0.0, 1.0);
-	glVertex2f(25, 50);
-	glTexCoord2f(1.0, 1.0);
-	glVertex2f(75, 50);
-	glTexCoord2f(1.0, 0.0);
-	glVertex2f(75, 57);
-	glTexCoord2f(0.0, 0.0);
-	glVertex2f(25, 57);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	if (mode == GL_SELECT)
-		glLoadName(4);
-	glBindTexture(GL_TEXTURE_2D, imageDE);
-	glBegin(GL_POLYGON);
-	glTexCoord2f(0.0, 1.0);
-	glVertex2f(25, 80);
-	glTexCoord2f(1.0, 1.0);
-	glVertex2f(75, 80);
-	glTexCoord2f(1.0, 0.0);
-	glVertex2f(75, 87);
-	glTexCoord2f(0.0, 0.0);
-	glVertex2f(25, 87);
-	glEnd();
-	glPopMatrix();
+void drawCategoryButtons(GLenum mode){
+	
 }
-*/
 
 void drawCategoriesMenu(GLuint value){
 	/*Do magic here*/
 }
-
 /*End Buttons*/
 
-/*Game screen*/
-void drawGameScreen(GLenum mode){
-	drawGallowsPole();
-	if (modelo.numErrors > 0)
-		drawStickmanHead();
-	if (modelo.numErrors > 1)
-		drawStickmanBody();
-	if (modelo.numErrors > 2)
-		drawStickmanLeftArm();
-	if (modelo.numErrors > 3)
-		drawStickmanRightArm();
-	if (modelo.numErrors > 4)
-		drawStickmanLeftLeg();
-	if (modelo.numErrors > 5)
-		drawStickmanRightLeg();
-	drawKeyboard(mode);
-}
-
-
+/*Text */
 void drawText(char *txt){
+	float size = (9.0 / (1.5*strlen(txt))) < 1.0 ? (9.0 / (1.5*strlen(txt))) : 1.0;
 	glPushMatrix();
 	glColor3f(1, 1, 1);
-	glRasterPos2f(0.2, -0.5);
-	for (int i = 0; txt[i] != '\0'; ++i){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, txt[i]);
-	}
-	glPopMatrix();
-}
-
-void drawGuessedLetters(char *guesses){
-	//strcat(guesses, "A B C D E F");
-	glPushMatrix();
-	glRasterPos2f(-0.75, 0.75);
-	for (int i = 0; guesses[i] != '\0'; ++i){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, guesses[i]);
-	}
+	glTranslatef(WIDTH/20.0, HEIGHT / 3 + HEIGHT/20, 0);
+	glRotatef(180, 1, 0, 0);
+	glScalef(size, size, 0);
+	for (int i = 0; i< strlen(txt); i++)
+		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, txt[i]);
 	glPopMatrix();
 }
 
 void drawWordCategory(char *category){
-	char result[80];
-	strcpy(result, "CATEGORY: ");
-	strcat(result, category);
-
 	glPushMatrix();
-	glRasterPos2f(0.2, 0.2);
-	for (int i = 0; result[i] != '\0'; ++i){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, result[i]);
-	}
+	glTranslatef(WIDTH / 2 - strlen(category) * 80 / 2, HEIGHT / 5, 0);
+	glRotatef(180 , 1.0, 0.0, 0.0);
+	for (int i = 0; i< strlen(category); i++)
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, category[i]);
 	glPopMatrix();
+}
+/*End text*/
+
+/*Game screen*/
+void drawFinalScreen(char *message){
+	glPushMatrix();
+	glTranslatef(WIDTH /20.0, HEIGHT / 2.0 - 2 * HEIGHT / 100.0, 0);
+	glRotatef(180, 1, 0, 0);
+	glScalef(0.8, 0.8, 1);
+	for (int i = 0; i < strlen(message); i++)
+		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, message[i]);
+	glPopMatrix();
+
+}
+
+void drawGameScreen(GLenum mode){
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (s.isGameWon(modelo.word, modelo.guesses)){
+		drawFinalScreen("YOU WIN!");
+	}
+	else if (modelo.numErrors >= 6){
+		drawFinalScreen("YOU LOSE!");
+	}
+	else{
+		drawWordCategory("VULVA");
+		drawText(modelo.partialWord);
+		drawGallowsPole();
+		if (modelo.numErrors > 0)
+			drawStickmanHead();
+		if (modelo.numErrors > 1)
+			drawStickmanBody();
+		if (modelo.numErrors > 2)
+			drawStickmanLeftArm();
+		if (modelo.numErrors > 3)
+			drawStickmanRightArm();
+		if (modelo.numErrors > 4)
+			drawStickmanLeftLeg();
+		if (modelo.numErrors > 5)
+			drawStickmanRightLeg();
+		drawKeyboard(mode);
+	}
+	//glutSwapBuffers();
 }
 
 void clickEvent(GLint hits, GLuint *buffer){
-	//cout << "Pressed" << endl;
 	GLuint names, *ptr = buffer;
-	//cout << hits << endl;
+	char str[2];	/*char array little helper*/
+	str[1] = 0;		/*put \0 in the end*/
 	for (int i = 0; i < hits; i++){
-		cout << "Inside!" << endl;
-		names = *ptr;
+		names = *ptr;	/*this is pure magic, just don't ask!*/
 		ptr += 3;
-		
-		for (int j = 0; j < names; j++){
+		for (unsigned int j = 0; j < names; j++){
+			/*If user clicked any letter on board*/
 			if (*ptr > 1000 && *ptr < 1027){
-				//drawCategoriesMenu(*ptr);
-				cout << (char)(*ptr - 1001 + 65) << endl;
-				if (modelo.numErrors < 7)
-					modelo.numErrors++;
-				else
-					modelo.numErrors = 0;
-				glFlush();
+				/*Add guess to guess list*/
+				str[0] = (*ptr - 1001 + 'a');
+				strcat(modelo.guesses, str);
+				
+				try{
+					vector<int> indexes = s.validateGuess(&str[0], modelo.word);
+					if (!indexes.empty()){
+						while (!indexes.empty()){
+							modelo.partialWord[indexes.back()] = str[0] - 'a' + 'A';
+							indexes.pop_back();
+						}
+					}
+					else{
+						modelo.numErrors++;
+					}
+					drawGameScreen(GL_SELECT);
+					glutSwapBuffers();
+				}
+				catch (PlException &plex){
+				
+					cout << (char*)plex;
+				}
+
+				
 			}
-			else{
-				cout << "Coisas" << endl;
-				exit(0);
+			else {
+				cout << *ptr << endl;
+				//exit(0);
 				
 			}
 			ptr++;
@@ -400,8 +356,8 @@ void pickRects(int button, int state, int x, int y)
 	glPushMatrix();
 	glLoadIdentity();
 	/* create 5x5 pixel picking region near cursor location */
-	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y), 5, 5, viewport);
-	gluOrtho2D(0, 800, 800, 0);
+	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y), 1, 1, viewport);
+	gluOrtho2D(0, WIDTH, HEIGHT, 0);
 	drawGameScreen(GL_SELECT);
 
 	glPopMatrix();
@@ -414,40 +370,18 @@ void pickRects(int button, int state, int x, int y)
 // Callback de desenho
 void Draw(void){
 	
-	if (!modelo.menuPoint){
+	if (!modelo.onGame){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		drawCategoriesMenu(GL_SELECT);
 		glutSwapBuffers();
 	}
 	else{
-		glClear(GL_COLOR_BUFFER_BIT);
 		drawGameScreen(GL_SELECT);
 		glutSwapBuffers();
 	}
-	//drawText(word);
-	//drawGuessedLetters(guessList);
-	//drawWordCategory("SHITS & STUFFS");
 
 	glFlush();
-	
 }
-
-/*******************************
-***   callbacks timer/idle   ***
-*******************************/
-
-// Callback Idle
-
-void Idle(void)
-{
-
-	// accoes a tomar quando o glut está idle 
-
-	// redesenhar o ecra 
-	// glutPostRedisplay();
-}
-
-// Callback de temporizador
 
 void Timer(int value)
 {
@@ -458,27 +392,6 @@ void Timer(int value)
 	// redesenhar o ecra 
 	glutPostRedisplay();
 }
-
-
-void imprime_ajuda(void)
-{
-	printf("\n\nDesenho de um quadrado\n");
-	printf("h,H - Ajuda \n");
-	printf("p,P - Poligono desenhado com GL_POLYGON\n");
-	printf("t,T - Poligono desenhado com GL_TRIANGLE_FAN\n");
-	printf("l,L - Poligono desenhado com GL_LINE_LOOP\n");
-	printf("+   - Aumentar tamanho numero de Lados\n");
-	printf("-   - Diminuir tamanho numero de Lados\n");
-	printf("R   - Aumentar tamanho raio\n");
-	printf("r   - Diminuir tamanho raio\n");
-	printf("ESC - Sair\n");
-}
-
-/*******************************
-***  callbacks de teclado    ***
-*******************************/
-
-// Callback para interaccao via teclado (carregar na tecla)
 
 void Key(unsigned char key, int x, int y)
 {
@@ -598,17 +511,12 @@ void Key(unsigned char key, int x, int y)
 }
 
 
-void CHangman::startGame(int argc, char **argv)
-{
-
-	HangmanLogic s;
-
-	/*---------------------*/
+void CHangman::startGame(int argc, char **argv){
 
 	//Open connection
 	WCF* webService = new WCF();;
 
-	std:vector<Word> words;
+	vector<Word> words;
 
 	words = webService->getEveryWord();
 
@@ -622,7 +530,7 @@ void CHangman::startGame(int argc, char **argv)
 	}
 
 	s.assertData(words);
-
+	
 	//Close connection and free heap
 	webService->~WCF();
 
@@ -634,21 +542,25 @@ void CHangman::startGame(int argc, char **argv)
 	//PlQuery q("word", av);
 	//while (q.next_solution())
 	//	cout << (char *)av[1] << endl;
-	
-	s.chooseWord("Filmes", "Portugues");
+	string tmp = s.chooseWord("Filmes", "Portugues");
+	strcpy(modelo.word, &tmp[0] );
+	for (int i = 0; modelo.word[i] != '\0'; i++)
+		modelo.partialWord[i] = '_';
 
+	cout << modelo.word << endl;
+	cout << modelo.partialWord << endl;
 	estado.doubleBuffer = GL_TRUE;
 	
 	glutInit(&argc, argv);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(640, 480);
+	glutInitWindowSize(WIDTH, HEIGHT-200);
 	glutInitDisplayMode(((estado.doubleBuffer) ? GLUT_DOUBLE : GLUT_SINGLE) | GLUT_RGB);
 	if (glutCreateWindow("Hangman") == GL_FALSE)
 		exit(1);
 
 	Init();
 
-	imprime_ajuda();
+	//imprime_ajuda();
 
 	// Registar callbacks do GLUT
 
@@ -657,19 +569,9 @@ void CHangman::startGame(int argc, char **argv)
 	glutDisplayFunc(Draw);
 
 	glutMouseFunc(pickRects);
-	//glutMotionFunc(MouseMotion);
-	//glutPassiveMotionFunc(MousePassiveMotion);
-
+	
 	// Callbacks de teclado
 	glutKeyboardFunc(Key);
-	//glutKeyboardUpFunc(KeyUp);
-	//glutSpecialFunc(SpecialKey);
-	//glutSpecialFunc(SpecialKeyUp);
-
-	// callbacks timer/idle
-	//glutTimerFunc(estado.delay, Timer, 0);
-	//glutIdleFunc(Idle);
-
 
 	// COMECAR...
 	glutMainLoop();

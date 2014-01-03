@@ -5,6 +5,6 @@
 @using (Html.BeginForm("SendMiddleIntroAjax","User", new { id = introFR.introFriendRequestID }))
 {
     @Html.TextArea("txtIntro")
-    <input type="submit" value="Enviar" />
+    <button type="submit" class="btn btn-info">@EpicWareWeb.Views.User.User.send</button>
 }
 </div>
