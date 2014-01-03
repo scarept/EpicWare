@@ -15,6 +15,14 @@
     <fieldset>
         <legend>User</legend>
 
+        @* Mood selecionado*@ 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.mood)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("moodSelect", (SelectList)ViewBag.moods)
+        </div>
+
         @* Lingua escolhida *@
         <div class="editor-label">
             @Html.LabelFor(model => model.language)
@@ -73,10 +81,10 @@
 
         @* Image *@
         <div class="editor-label">
-            <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="200" />
+            <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="250" />
         </div>
         <div class="editor-field">
-            <input type="file" name="file" id="file" style="width: 100%;" />
+            <input type="file" name="file" id="file" style="width: 250px;" />
         </div>
 
         <p>
@@ -84,10 +92,6 @@
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
