@@ -58,6 +58,27 @@ util = teste.UserAutenticated();
             </div><!-- /navbar -->
         </div>
     </div>
+<script type="text/javascript">
+    function loadPartialView() {
+        //alert("Reload");
+        $.ajax({
+            url: "@Url.Action("Notifications", "User")",
+            type: 'GET', // <-- make a async request by GET
+        dataType: 'html', // <-- to expect an html response
+        success: function(result) {
+            $('#notifications').html(result);
+        }
+    });
+    }
+
+    $(function() {
+       loadPartialView();
+       setInterval("loadPartialView()", 5000);
+        
+        
+
+    });
+</script>
 }
 else
 {
@@ -123,24 +144,4 @@ else
     </div>
 
 }
-<script type="text/javascript">
-    function loadPartialView() {
-        //alert("Reload");
-        $.ajax({
-            url: "@Url.Action("Notifications", "User")",
-            type: 'GET', // <-- make a async request by GET
-        dataType: 'html', // <-- to expect an html response
-        success: function(result) {
-            $('#notifications').html(result);
-        }
-    });
-    }
 
-    $(function() {
-       loadPartialView();
-       setInterval("loadPartialView()", 5000);
-        
-        
-
-    });
-</script>
