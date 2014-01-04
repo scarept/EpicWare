@@ -76,6 +76,11 @@ typedef struct Camera{
 
 }Camera;
 
+typedef struct Collision{
+	GLboolean inCollision;
+	GLfloat distance;
+}Collision;
+
 typedef struct Estado{
 	Camera		camera;
 	int			xMouse, yMouse;
@@ -114,6 +119,7 @@ typedef struct Modelo {
 Estado estado;
 Modelo modelo;
 Login login;
+Collision col;
 
 void initEstado(){
 	estado.camera.dir_lat = M_PI / 4;
@@ -649,6 +655,7 @@ void desenhaLigacao(Arco arco){
 	glRotated(angInclinacao - 90, 0, -1, 0);
 	//a largura da liga��o pode variar, mas apenas est� presente a for�a de liga��o definida pelo utilizador actual.
 	gluCylinder(obj, arco.forcaLig / 5, arco.forcaLig / 5, distanciaLig, 30, 30);//30 numero de vertices
+
 	glPopMatrix();
 
 
@@ -770,6 +777,8 @@ void desenhaEixos(){
 	glPopMatrix();
 	glPopName();
 	glPopMatrix();
+
+
 
 }
 
@@ -984,7 +993,9 @@ void Special(int key, int x, int y){
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_UP:
+		//cout << "Estado camera + antes: " << estado.camera.dist << endl;
 		estado.camera.dist -= 1;
+		//cout << "Estado camera + depois: " << estado.camera.dist << endl;
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
@@ -1039,8 +1050,26 @@ void myReshape(int w, int h){
 void motionRotate(int x, int y){
 #define DRAG_SCALE	0.01
 	double lim = M_PI / 2 - 0.1;
-	estado.camera.dir_long += (estado.xMouse - x)*DRAG_SCALE;
+	/**/
+
+
+
+
+	/********/
+	//cout << "Longitude (antes): " << estado.camera.dir_long << endl;
+	//cout << "latitude (antes): " << estado.camera.dir_lat << endl;
+	//colisões chão
+	/*
+	if ((estado.camera.dir_lat - (estado.yMouse - y)*DRAG_SCALE*0.5) >= 0.01)
+	{
+		cout << " passou chão " << endl;
+		
+
+	}
+	*/
 	estado.camera.dir_lat -= (estado.yMouse - y)*DRAG_SCALE*0.5;
+	estado.camera.dir_long += (estado.xMouse - x)*DRAG_SCALE;
+	
 	if (estado.camera.dir_lat>lim)
 		estado.camera.dir_lat = lim;
 	else
@@ -1048,22 +1077,62 @@ void motionRotate(int x, int y){
 		estado.camera.dir_lat = -lim;
 	estado.xMouse = x;
 	estado.yMouse = y;
+	//cout << "Longitude (depois): " << estado.camera.dir_long << endl;
+	//cout << "latitude (depois): " << estado.camera.dir_lat << endl;
+
 	glutPostRedisplay();
+}
+
+bool collision()
+{
+	Vertice eye;
+	eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
+	//cout << "olho x: " << eye[0]/5 << " olho y : " << eye[1]/5 << " olho z: " << eye[2]/5 << endl;
+	
+	float dist;
+	No * no;
+	for (int i = 0; i <= 12; i++)
+	{
+		no = &nos[i];
+		dist = sqrtf((powf(((eye[0]/5) - no->x), 2)) + (powf(((eye[1]/5) - no->y), 2)) + (powf(((eye[2]/5) - no->z), 2)));
+		if (dist <= no->largura+1)
+		{
+			col.inCollision = true;
+			return true;
+		}
+	}
+	// Ver com a larguar da esfera e ta top =D
+	return false;
 }
 
 void motionZoom(int x, int y){
 #define ZOOM_SCALE	0.5
-	estado.camera.dist -= (estado.yMouse - y)*ZOOM_SCALE;
-	if (estado.camera.dist<5)
-		estado.camera.dist = 5;
-	else
-	if (estado.camera.dist>200)
-		estado.camera.dist = 200;
-	estado.yMouse = y;
-	glutPostRedisplay();
+	
+	//bool teste = collision();
+	if (collision() == false || ((estado.camera.dist <= (estado.camera.dist - (estado.yMouse - y)*ZOOM_SCALE)) && col.inCollision==true))
+	{
+		estado.camera.dist -= (estado.yMouse - y)*ZOOM_SCALE;
+		if (estado.camera.dist<5)
+		{
+			cout << "limit min" << endl;
+			estado.camera.dist = 5;
+		}
+		else
+		if (estado.camera.dist>200)
+		{
+			cout << "limit max" << endl;
+			estado.camera.dist = 200;
+		}
+		estado.yMouse = y;
+		glutPostRedisplay();
+	}
 }
 
 void motionDrag(int x, int y){
+	cout << "pos x: " << x  << endl;
+	cout << "pos y: " << y << endl;
 	GLuint buffer[100];
 	GLint vp[4];
 	GLdouble proj[16], mv[16];
@@ -1107,6 +1176,7 @@ void motionDrag(int x, int y){
 		}
 		glutPostRedisplay();
 	}
+	
 
 
 	glMatrixMode(GL_PROJECTION); //rep�e matriz projec��o
@@ -1271,10 +1341,14 @@ void mouse(int btn, int state, int x, int y){
 			if (state == GLUT_DOWN){
 				estado.eixoTranslaccao = picking(x, y);
 				if (estado.eixoTranslaccao)
+				{
+
 					glutMotionFunc(motionDrag);
+				}
 				cout << "Right down - objecto:" << estado.eixoTranslaccao << endl;
 			}
 			else{
+				//* mov livre 
 				if (estado.eixoTranslaccao != 0) {
 					estado.camera.center[0] = estado.eixo[0];
 					estado.camera.center[1] = estado.eixo[1];
