@@ -6,6 +6,8 @@
 Estado estado;
 Modelo modelo;
 HangmanLogic s;
+vector<string> categories;
+string language = "Portugues";
 
 CHangman::CHangman(){}
 
@@ -21,8 +23,13 @@ void Init(void){
 	//delay para o timer
 	estado.delay = 1000;
 
-	modelo.raio = 40;	//Set stickman's head size
-	modelo.onGame = true; //Open in category menu
+	categories = s.getTopicsByLanguage(language);
+
+	if (WIDTH > HEIGHT)
+		modelo.raio = 0.05*HEIGHT;	//Set stickman's head size
+	else
+		modelo.raio = 0.05*WIDTH;
+	modelo.onGame = false; //Open in category menu
 	modelo.numErrors = 0; //Draw only gallowsPole
 	// Lê hora do Sistema
 	current_time = localtime(&timer);
@@ -42,6 +49,10 @@ void Reshape(int width, int height)
 {
 	GLint size;
 
+	
+	if (width / height != 8.0 / 6.0)
+		height = 6.0 / 8.0 * width;
+
 	if (width < height)
 		size = width;
 	else
@@ -60,6 +71,7 @@ void Reshape(int width, int height)
 
 	// gluOrtho2D(left,right,bottom,top); 
 	// projeccao ortogonal 2D, com profundidade (Z) entre -1 e 1
+	glutReshapeWindow(WIDTH, HEIGHT);
 	gluOrtho2D(0, WIDTH, HEIGHT, 0);
 
 	// Matriz Modelview
@@ -73,44 +85,44 @@ void drawGallowsPole(void){
 	glPushMatrix();
 	glColor3f(1, 1, 1);
 
-	glTranslatef(30, 700, 0);
+	glTranslatef(0.0375*WIDTH, 0.875*HEIGHT, 0);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(130, 0.0);
-	glVertex2f(130, 25);
-	glVertex2f(0.0, 25);
+	glVertex2f(0.1625*WIDTH, 0.0);
+	glVertex2f(0.1625*WIDTH, 0.03125*HEIGHT);
+	glVertex2f(0.0, 0.03125*HEIGHT);
 	glEnd();
 
 	//glColor3f(1, 0, 0);
-	glTranslatef(50, 0, 0);
+	glTranslatef(0.0625*WIDTH, 0, 0);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.0, -300);
-	glVertex2f(30, -300);
-	glVertex2f(30, 0.0);
+	glVertex2f(0.0, -0.375*HEIGHT);
+	glVertex2f(0.0375*WIDTH, -0.375*HEIGHT);
+	glVertex2f(0.0375*WIDTH, 0.0);
 	glEnd();
 
 	//glColor3f(1, 0, 0);
-	glTranslatef(30, -300, 0.0);
+	glTranslatef(0.0375*WIDTH, -0.375*HEIGHT, 0.0);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(180, 0.0);
-	glVertex2f(180, 25);
-	glVertex2f(0.0, 25);
+	glVertex2f(0.225*WIDTH, 0.0);
+	glVertex2f(0.225*WIDTH, 0.03125*HEIGHT);
+	glVertex2f(0.0, 0.03125*HEIGHT);
 	glEnd();
 
 	//glColor3f(1, 0, 0);
-	glTranslatef(178, 26, 0.0);
+	glTranslatef(0.2225*WIDTH, 0.0325*HEIGHT, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0, 0.0);
-	glVertex2f(0, 50);
+	glVertex2f(0, 0.0625*HEIGHT);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanHead(void){
 	glPushMatrix();
-	glTranslatef(288, 515, 0.0);
+	glTranslatef(0.36*WIDTH, 0.64375*HEIGHT, 0.0);
 	//glColor3f(1, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < 360; ++i){
@@ -122,59 +134,81 @@ void drawStickmanHead(void){
 
 void drawStickmanBody(void){
 	glPushMatrix();
-	glTranslatef(288, 555, 0.0);
+	glTranslatef(0.36*WIDTH, 0.69375*HEIGHT, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(0.0, 100);
+	glVertex2f(0.0, 0.125*HEIGHT);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanLeftArm(void){
 	glPushMatrix();
-	glTranslatef(288, 575, 0.0);
+	glTranslatef(0.36*WIDTH, 0.71875*HEIGHT, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(-30, 30);
+	glVertex2f(-0.0375*WIDTH, 0.0375*HEIGHT);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanRightArm(void){
 	glPushMatrix();
-	glTranslatef(288, 575, 0.0);
+	glTranslatef(0.36*WIDTH, 0.71875*HEIGHT, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(30, 30);
+	glVertex2f(0.0375*WIDTH, 0.0375*HEIGHT);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanLeftLeg(void){
 	glPushMatrix();
-	glTranslatef(288, 655, 0.0);
+	glTranslatef(0.36*WIDTH, 0.81875*HEIGHT, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(-30, 30);
+	glVertex2f(-0.0375*WIDTH, 0.0375*HEIGHT);
 	glEnd();
 	glPopMatrix();
 }
 
 void drawStickmanRightLeg(void){
 	glPushMatrix();
-	glTranslatef(288, 655, 0.0);
+	glTranslatef(0.36*WIDTH, 0.81875*HEIGHT, 0.0);
 	glBegin(GL_LINES);
 	glVertex2f(0.0, 0.0);
-	glVertex2f(30, 30);
+	glVertex2f(0.0375*WIDTH, 0.0375*HEIGHT);
 	glEnd();
 	glPopMatrix();
 }
 /*End Stickman*/
 
+/*Text */
+void drawText(char *txt, int x, int y, float size){
+	glPushMatrix();
+	//glColor3f(1, 1, 1);
+	glTranslatef(x, y, 0);
+	glRotatef(180, 1, 0, 0);
+	glScalef(size, size, 0);
+	for (int i = 0; i< strlen(txt); i++)
+		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, txt[i]);
+	glPopMatrix();
+}
+
+void drawWordCategory(char *category){
+	glPushMatrix();
+	glTranslatef(WIDTH / 2 - strlen(category) * 80 / 2, HEIGHT / 5, 0);
+	glRotatef(180 , 1.0, 0.0, 0.0);
+	for (int i = 0; i< strlen(category); i++)
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, category[i]);
+	glPopMatrix();
+}
+/*End text*/
+
 /*Draw Buttons*/
 void drawKeyboard(GLenum mode){
 	GLuint letter[26];
-	int xStart = WIDTH/2, yStart = (2.0/3.0)*HEIGHT;
+	int xStart = WIDTH / 2, yStart = (2.0 / 3.0)*HEIGHT;
 	char* prefix = "bt_";
 	char* suffix = ".png";
 	char let[2] = { 'A', 0 };
@@ -193,7 +227,7 @@ void drawKeyboard(GLenum mode){
 
 			glBegin(GL_POLYGON);
 			glTexCoord2f(0, 1);
-			glVertex2f(xStart, yStart - (7.0/160.0)*HEIGHT);
+			glVertex2f(xStart, yStart - (7.0 / 160.0)*HEIGHT);
 			glTexCoord2f(1, 1);
 			glVertex2f(xStart + (7.0 / 160.0)*WIDTH, yStart - (7.0 / 160.0)*HEIGHT);
 			glTexCoord2f(1, 0);
@@ -205,51 +239,53 @@ void drawKeyboard(GLenum mode){
 			glPopMatrix();
 		}
 		let[0]++;
-		if (i % 10 !=0){
+		if (i % 10 != 0){
 			xStart += 0.05*WIDTH;
 		}
 		else if (i == 20){
-			xStart = WIDTH/2 + 0.1*WIDTH;
+			xStart = WIDTH / 2 + 0.1*WIDTH;
 			yStart += 0.05*HEIGHT;
 		}
 		else{
-			xStart = WIDTH/2;
+			xStart = WIDTH / 2;
 			yStart += 0.05*HEIGHT;
 		}
 	}
 }
 
 void drawCategoryButtons(GLenum mode){
-	
+	int identifierCounter = 0;
+	int xStart = WIDTH / 2.0 - WIDTH / 4.0, xEnd = WIDTH / 2.0 + WIDTH / 4.0, yStart = HEIGHT/2.0 -	categories.size()/2.0 * 0.00625*HEIGHT, yEnd = yStart + 0.0625*HEIGHT;
+	for each (string category in categories){
+		glPushMatrix();
+		if (mode == GL_SELECT)
+			glLoadName(1100 + identifierCounter);
+		glColor3d(1, 1, 1);
+		glBegin(GL_POLYGON);
+		glVertex2f(xStart, yStart);
+		glVertex2f(xEnd, yStart);
+		glVertex2f(xEnd, yEnd);
+		glVertex2f(xStart, yEnd);
+		glEnd();	
+		glPopMatrix();	
+
+		glPushMatrix();
+		glColor3d(0, 0, 0);
+		drawText(&category[0], (xStart + xEnd) / 2 - strlen(&category[0]) / 2 * 20, yStart + ((yEnd - yStart) / 2.0) + 0.25*(yEnd - yStart), 0.2);
+		glPopMatrix();
+		
+		identifierCounter++;
+		yStart += 0.0625*HEIGHT + 0.00625*HEIGHT;
+		yEnd = yStart + 0.0625*HEIGHT;
+	}
 }
 
-void drawCategoriesMenu(GLuint value){
-	/*Do magic here*/
+void drawCategoriesMenu(GLenum mode){
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawCategoryButtons(mode);
 }
 /*End Buttons*/
-
-/*Text */
-void drawText(char *txt){
-	float size = (9.0 / (1.5*strlen(txt))) < 1.0 ? (9.0 / (1.5*strlen(txt))) : 1.0;
-	glPushMatrix();
-	glColor3f(1, 1, 1);
-	glTranslatef(WIDTH/20.0, HEIGHT / 3 + HEIGHT/20, 0);
-	glRotatef(180, 1, 0, 0);
-	glScalef(size, size, 0);
-	for (int i = 0; i< strlen(txt); i++)
-		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, txt[i]);
-	glPopMatrix();
-}
-
-void drawWordCategory(char *category){
-	glPushMatrix();
-	glTranslatef(WIDTH / 2 - strlen(category) * 80 / 2, HEIGHT / 5, 0);
-	glRotatef(180 , 1.0, 0.0, 0.0);
-	for (int i = 0; i< strlen(category); i++)
-		glutStrokeCharacter(GLUT_STROKE_ROMAN, category[i]);
-	glPopMatrix();
-}
-/*End text*/
 
 /*Game screen*/
 void drawFinalScreen(char *message){
@@ -273,8 +309,9 @@ void drawGameScreen(GLenum mode){
 		drawFinalScreen("YOU LOSE!");
 	}
 	else{
-		drawWordCategory("VULVA");
-		drawText(modelo.partialWord);
+		glColor3f(1, 1, 1);
+		drawText(modelo.category, WIDTH / 2 - strlen(modelo.category) * 80 / 2, HEIGHT / 5, (9.0 / (1.5*strlen(modelo.category))) < 1.0 ? (9.0 / (1.5*strlen(modelo.category))) : 1.0);
+		drawText(modelo.partialWord, WIDTH / 20.0, HEIGHT / 3 + HEIGHT / 20, (9.0 / (1.5*strlen(modelo.partialWord))) < 1.0 ? (9.0 / (1.5*strlen(modelo.partialWord))) : 1.0);
 		drawGallowsPole();
 		if (modelo.numErrors > 0)
 			drawStickmanHead();
@@ -328,19 +365,31 @@ void clickEvent(GLint hits, GLuint *buffer){
 
 				
 			}
-			else {
+			else if(*ptr >=1100 && *ptr < 1100+categories.size()) {
 				cout << *ptr << endl;
-				//exit(0);
-				
+				strcpy(modelo.category, &(categories[*ptr - 1100])[0]);
+				modelo.onGame = true;
+				try{
+					//cout << s.chooseWord(modelo.category, language) << endl;
+					strcpy(modelo.word, &(s.chooseWord(modelo.category, language))[0]);
+					for (int i = 0; modelo.word[i] != '\0'; i++)
+						modelo.partialWord[i] = '_';
+					drawGameScreen(GL_SELECT);
+					glutSwapBuffers();
+				}
+				catch (PlException &ex){
+					cerr << (char *)ex << endl;
+				}
+			}
+			else{
+				cout << *ptr << endl;
 			}
 			ptr++;
 		}
 	}
 }
 
-void pickRects(int button, int state, int x, int y)
-{
-
+void pickRects(int button, int state, int x, int y){
 	GLuint selectBuf[BUFSIZE];
 	GLint hits;
 	GLint viewport[4];
@@ -358,7 +407,13 @@ void pickRects(int button, int state, int x, int y)
 	/* create 5x5 pixel picking region near cursor location */
 	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y), 1, 1, viewport);
 	gluOrtho2D(0, WIDTH, HEIGHT, 0);
-	drawGameScreen(GL_SELECT);
+	if (modelo.onGame){
+		drawGameScreen(GL_SELECT);
+	}
+	else{
+		drawCategoriesMenu(GL_SELECT);
+		modelo.onGame = true;
+	}
 
 	glPopMatrix();
 	glFlush();
@@ -371,7 +426,6 @@ void pickRects(int button, int state, int x, int y)
 void Draw(void){
 	
 	if (!modelo.onGame){
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		drawCategoriesMenu(GL_SELECT);
 		glutSwapBuffers();
 	}
@@ -542,18 +596,18 @@ void CHangman::startGame(int argc, char **argv){
 	//PlQuery q("word", av);
 	//while (q.next_solution())
 	//	cout << (char *)av[1] << endl;
-	string tmp = s.chooseWord("Filmes", "Portugues");
+	/*string tmp = s.chooseWord("Filmes", language);
 	strcpy(modelo.word, &tmp[0] );
 	for (int i = 0; modelo.word[i] != '\0'; i++)
-		modelo.partialWord[i] = '_';
+		modelo.partialWord[i] = '_';*/
 
-	cout << modelo.word << endl;
-	cout << modelo.partialWord << endl;
+	/*cout << modelo.word << endl;
+	cout << modelo.partialWord << endl;*/
 	estado.doubleBuffer = GL_TRUE;
 	
 	glutInit(&argc, argv);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(WIDTH, HEIGHT-200);
+	glutInitWindowSize(WIDTH, HEIGHT);
 	glutInitDisplayMode(((estado.doubleBuffer) ? GLUT_DOUBLE : GLUT_SINGLE) | GLUT_RGB);
 	if (glutCreateWindow("Hangman") == GL_FALSE)
 		exit(1);
