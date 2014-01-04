@@ -27,9 +27,12 @@
             </td>
         </tr>
         <tr>
+            @using (Html.BeginForm("Create","User",FormMethod.Get)) 
+            { 
             <td width="300">
-                <button type="button" class="btn btn-lg btn-primary" style="width:200px;">Registar</button>
+                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">Registar</button>
             </td>
+            }
         </tr>
     </table>
 </div>
