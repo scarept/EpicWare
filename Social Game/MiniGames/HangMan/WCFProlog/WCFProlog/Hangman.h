@@ -27,7 +27,7 @@ using namespace std;
 #define BUFSIZE 512
 #endif
 #define WIDTH 800
-#define HEIGHT 800
+#define HEIGHT 600
 
 #define DEBUG 1
 

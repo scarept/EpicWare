@@ -49,18 +49,12 @@ void Reshape(int width, int height)
 {
 	GLint size;
 
-	
-	if (width / height != 8.0 / 6.0)
-		height = 6.0 / 8.0 * width;
-
 	if (width < height)
 		size = width;
 	else
 		size = height;
 
-	// glViewport(botom, left, width, height)
 	// define parte da janela a ser utilizada pelo OpenGL
-
 	glViewport(0, 0, (GLint)size, (GLint)size);
 
 
@@ -123,7 +117,6 @@ void drawGallowsPole(void){
 void drawStickmanHead(void){
 	glPushMatrix();
 	glTranslatef(0.36*WIDTH, 0.64375*HEIGHT, 0.0);
-	//glColor3f(1, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < 360; ++i){
 		glVertex2f(cos((i*M_PI) / 180)*modelo.raio, sin((i*M_PI) / 180)*modelo.raio);
@@ -186,7 +179,6 @@ void drawStickmanRightLeg(void){
 /*Text */
 void drawText(char *txt, int x, int y, float size){
 	glPushMatrix();
-	//glColor3f(1, 1, 1);
 	glTranslatef(x, y, 0);
 	glRotatef(180, 1, 0, 0);
 	glScalef(size, size, 0);
@@ -412,7 +404,6 @@ void pickRects(int button, int state, int x, int y){
 	}
 	else{
 		drawCategoriesMenu(GL_SELECT);
-		modelo.onGame = true;
 	}
 
 	glPopMatrix();
