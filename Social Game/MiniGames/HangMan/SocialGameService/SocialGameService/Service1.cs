@@ -32,6 +32,13 @@ namespace SocialGameService
             return conectionsList;
         }
 
+        public IList<int> getAllUsers(){
+            IList<int> users;
+            SocialNetworkGateway sn = new SocialNetworkGateway();
+            users = sn.getAllUsers();
+            return users;
+        }
+
         public IList<Word> GetEveryWord()
         {
             HangmanGateway hg = new HangmanGateway();

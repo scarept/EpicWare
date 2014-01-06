@@ -54,5 +54,21 @@ namespace SocialGameService
             }
         }
 
+        public IList<int> getAllUsers() {
+            SqlCommand sql = new SqlCommand();
+            IList<int> users = new List<int>();
+            try
+            {
+                DataSet ds = ExecuteQuery(GetConnection(true), "select userID from Users");
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                    users.Add(int.Parse(dr["userID"].ToString()));
+
+                return users;
+            }
+            catch (SqlException ex) {
+                return null;
+            }
+        }
+
     }
 }
