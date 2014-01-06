@@ -133,6 +133,7 @@ void distribuicaoRadial(No no_inicio, int amigosDiretos[]){
 		float x = raio * ((cos(i*alpha)));
 		float y = raio * (sin(i*alpha));
 
+		nos[numNos].nome = "Amigo";
 		nos[numNos].userId = amigosDiretos[i];
 		nos[numNos].x = x + no_inicio.x;
 		nos[numNos].y = y + no_inicio.y;
@@ -154,14 +155,16 @@ void leGrafo(){
 	user.z = 6;
 	user.largura = 2;
 	user.userId = 1;
+	user.nome = "Eu";
 
 	nos[0] = user;
 
 	numNos = 1;
 	numArcos = 0;
 
-	int amigos[] = { 12, 2, 3,4,5,6,7,8,9,10,11,12 };
+	int amigos[] = { 11, 2, 3,4,5,6,7,8,9,10,11,12 };
 	distribuicaoRadial(user, amigos);
+
 
 
 	/*

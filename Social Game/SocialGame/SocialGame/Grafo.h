@@ -13,14 +13,15 @@ typedef struct No{
 	char * tags;
 	char * estadoHumor;
 	int userId;
+	char * nome;
 }No;
 
 typedef struct Arco{
 	int noi, nof; //substituir depois pelo user id
 	float peso, largura;
 	float forcaLig;
-	char * userIdi;
-	char * userIdf;
+	//char * userIdi;
+	//char * userIdf;
 	char * tag;
 	float raio;
 }Arco;

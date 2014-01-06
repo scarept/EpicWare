@@ -76,11 +76,6 @@ typedef struct Camera{
 
 }Camera;
 
-typedef struct Collision{
-	GLboolean inCollision;
-	GLfloat distance;
-}Collision;
-
 typedef struct Estado{
 	Camera		camera;
 	int			xMouse, yMouse;
@@ -119,7 +114,6 @@ typedef struct Modelo {
 Estado estado;
 Modelo modelo;
 Login login;
-Collision col;
 
 void initEstado(){
 	estado.camera.dir_lat = M_PI / 4;
@@ -272,6 +266,8 @@ void desenhaLogin(GLenum mode){
 
 void escreveTexto(){
 	/* escrever texto */
+	glColor3f(1.0f, 1.0f, 1.0f);
+
 	glRasterPos2f(39, 45);
 	int tamanho = login.username.length();
 	for(int i = 0; i < tamanho;i++){
@@ -620,7 +616,7 @@ No* procuraNo(int idUser){
 
 
 
-void desenhaLigacao(Arco arco){
+void desenhaLigacao(Arco arco, GLenum mode){
 	No *noi, *nof;// dois n�s que vao ser ligados
 	GLUquadricObj *obj = gluNewQuadric();
 	GLdouble distanciaLig;
@@ -640,39 +636,76 @@ void desenhaLigacao(Arco arco){
 	material(red_plastic);
 
 	glPushMatrix();
-	//mover para o n� inicial para coem�ar a desenhar
-	glTranslatef(noi->x, noi->y, noi->z);
-	catetoOposto = nof->z - noi->z;
-	//base do triangulo
-	tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));
-	//distancia entre os 2 n�s
-	distanciaLig = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2) + pow((nof->z - noi->z), 2));
-	angInclinacao = radToDeg(atan2(catetoOposto, tamanhoCA));
-	//Angulo de rotacao dos zz
-	angOrientacao = radToDeg(atan2(nof->y - noi->y, nof->x - noi->x));
-	glRotated(angOrientacao, 0, 0, 1);
-	//Angulo de rotacao dos yy
-	glRotated(angInclinacao - 90, 0, -1, 0);
-	//a largura da liga��o pode variar, mas apenas est� presente a for�a de liga��o definida pelo utilizador actual.
-	gluCylinder(obj, arco.forcaLig / 5, arco.forcaLig / 5, distanciaLig, 30, 30);//30 numero de vertices
 
+	if (mode == GL_SELECT){
+		glLoadName(-1);
+
+		//mover para o n� inicial para coem�ar a desenhar
+		glTranslatef(noi->x, noi->y, noi->z);
+		catetoOposto = nof->z - noi->z;
+		//base do triangulo
+		tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));
+		//distancia entre os 2 n�s
+		distanciaLig = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2) + pow((nof->z - noi->z), 2));
+		angInclinacao = radToDeg(atan2(catetoOposto, tamanhoCA));
+		//Angulo de rotacao dos zz
+		angOrientacao = radToDeg(atan2(nof->y - noi->y, nof->x - noi->x));
+		glRotated(angOrientacao, 0, 0, 1);
+		//Angulo de rotacao dos yy
+		glRotated(angInclinacao - 90, 0, -1, 0);
+		//a largura da liga��o pode variar, mas apenas est� presente a for�a de liga��o definida pelo utilizador actual.
+		gluCylinder(obj, arco.forcaLig / 5, arco.forcaLig / 5, distanciaLig, 30, 30);//30 numero de vertices
+	}
 	glPopMatrix();
 
 
 
 }
 
-void desenhaEsferaNo(float largura){
+void desenhaEsferaNo(float largura, GLenum mode, int userId){
 
-	material(preto);
+	
 	glPushMatrix();
-	//glColor3f(0.0, 1.0, 0.0);
-	glutSolidSphere(largura / 2, 20, 20);
+	if (mode == GL_SELECT){
+		glLoadName(userId);
+		material(preto);
+		//glColor3f(0.0, 1.0, 0.0);
+		glutSolidSphere(largura / 2, 20, 20);
+	}
+	glPopMatrix();
+		
+}
+
+void desenhaNomes(float x1, float y1, float z, char *nome){
+	
+	glPushMatrix();
+
+		material(brass);
+	
+		char *teste = "Luis Mendes";
+		/* escrever texto */
+		//como é feito antes um translate para o local certo onde foi desenhado o nó, basta alterar as coordenadas do z para ser visivel o texto
+		
+		int tamanho = 11;
+		//equação para manter sempre no meio o nome
+		glRasterPos3f(0, 0, 1.1);
+
+		while (*nome != '\0'){
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *nome);
+			nome++;
+		}
+		/*
+		for (int i = 0; i < tamanho; i++){
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *teste);
+			teste++;
+		}
+		*/
 	glPopMatrix();
 
 }
 
-void drawGraph(){
+
+void drawGraph(GLenum mode){
 	glPushMatrix();
 	glTranslatef(0, 0, 0.05);
 	glScalef(5, 5, 5);
@@ -684,14 +717,16 @@ void drawGraph(){
 		//move para as coordenadas onde tem que desenhar
 		glTranslatef(nos[i].x, nos[i].y, nos[i].z);// +0.25);
 		//desenhar esfera
-		desenhaEsferaNo(nos[i].largura);
+		desenhaEsferaNo(nos[i].largura, mode,nos[i].userId);
+		desenhaNomes(nos[i].x, nos[i].y, nos[i].z, nos[i].nome);
+
 
 		glPopMatrix();
 	}
 	/* desnha os cilindors que represent�o as liga��es a cada n� */
 	//material(emerald);
 	for (int i = 0; i < numArcos; i++){
-		desenhaLigacao(arcos[i]);
+		desenhaLigacao(arcos[i], mode);
 		//rampa pequena que sai do arco (talvez n�o necessario)
 		//desenhaElemLigacao(arcos[i]);
 	}
@@ -778,8 +813,6 @@ void desenhaEixos(){
 	glPopName();
 	glPopMatrix();
 
-
-
 }
 
 void setCamera(){
@@ -821,7 +854,7 @@ void display(void)
 		desenhaEixos();
 
 		// desnha o grafo 3D
-		drawGraph();
+		drawGraph(GL_SELECT);
 
 		if (estado.eixoTranslaccao) {
 			// desenha plano de translac��o
@@ -993,9 +1026,7 @@ void Special(int key, int x, int y){
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_UP:
-		//cout << "Estado camera + antes: " << estado.camera.dist << endl;
 		estado.camera.dist -= 1;
-		//cout << "Estado camera + depois: " << estado.camera.dist << endl;
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
@@ -1050,26 +1081,8 @@ void myReshape(int w, int h){
 void motionRotate(int x, int y){
 #define DRAG_SCALE	0.01
 	double lim = M_PI / 2 - 0.1;
-	/**/
-
-
-
-
-	/********/
-	//cout << "Longitude (antes): " << estado.camera.dir_long << endl;
-	//cout << "latitude (antes): " << estado.camera.dir_lat << endl;
-	//colisões chão
-	/*
-	if ((estado.camera.dir_lat - (estado.yMouse - y)*DRAG_SCALE*0.5) >= 0.01)
-	{
-		cout << " passou chão " << endl;
-		
-
-	}
-	*/
-	estado.camera.dir_lat -= (estado.yMouse - y)*DRAG_SCALE*0.5;
 	estado.camera.dir_long += (estado.xMouse - x)*DRAG_SCALE;
-	
+	estado.camera.dir_lat -= (estado.yMouse - y)*DRAG_SCALE*0.5;
 	if (estado.camera.dir_lat>lim)
 		estado.camera.dir_lat = lim;
 	else
@@ -1077,62 +1090,23 @@ void motionRotate(int x, int y){
 		estado.camera.dir_lat = -lim;
 	estado.xMouse = x;
 	estado.yMouse = y;
-	//cout << "Longitude (depois): " << estado.camera.dir_long << endl;
-	//cout << "latitude (depois): " << estado.camera.dir_lat << endl;
-
 	glutPostRedisplay();
-}
-
-bool collision()
-{
-	Vertice eye;
-	eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
-	eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
-	eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
-	//cout << "olho x: " << eye[0]/5 << " olho y : " << eye[1]/5 << " olho z: " << eye[2]/5 << endl;
-	
-	float dist;
-	No * no;
-	for (int i = 0; i <= 12; i++)
-	{
-		no = &nos[i];
-		dist = sqrtf((powf(((eye[0]/5) - no->x), 2)) + (powf(((eye[1]/5) - no->y), 2)) + (powf(((eye[2]/5) - no->z), 2)));
-		if (dist <= no->largura+1)
-		{
-			col.inCollision = true;
-			return true;
-		}
-	}
-	// Ver com a larguar da esfera e ta top =D
-	return false;
 }
 
 void motionZoom(int x, int y){
 #define ZOOM_SCALE	0.5
-	
-	//bool teste = collision();
-	if (collision() == false || ((estado.camera.dist <= (estado.camera.dist - (estado.yMouse - y)*ZOOM_SCALE)) && col.inCollision==true))
-	{
-		estado.camera.dist -= (estado.yMouse - y)*ZOOM_SCALE;
-		if (estado.camera.dist<5)
-		{
-			cout << "limit min" << endl;
-			estado.camera.dist = 5;
-		}
-		else
-		if (estado.camera.dist>200)
-		{
-			cout << "limit max" << endl;
-			estado.camera.dist = 200;
-		}
-		estado.yMouse = y;
-		glutPostRedisplay();
-	}
+	estado.camera.dist -= (estado.yMouse - y)*ZOOM_SCALE;
+	if (estado.camera.dist<5)
+		estado.camera.dist = 5;
+	else
+	if (estado.camera.dist>200)
+		estado.camera.dist = 200;
+	estado.yMouse = y;
+	glutPostRedisplay();
 }
 
 void motionDrag(int x, int y){
-	cout << "pos x: " << x  << endl;
-	cout << "pos y: " << y << endl;
+	
 	GLuint buffer[100];
 	GLint vp[4];
 	GLdouble proj[16], mv[16];
@@ -1176,39 +1150,164 @@ void motionDrag(int x, int y){
 		}
 		glutPostRedisplay();
 	}
-	
 
 
 	glMatrixMode(GL_PROJECTION); //rep�e matriz projec��o
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glutPostRedisplay();
+	
 }
 
+//int picking(int x, int y)
+//{
+//
+//	GLuint selectBuf[BUFSIZE];
+//	GLint hits;
+//	GLint viewport[4];
+//	//if (button != GLUT_LEFT_BUTTON || state != GLUT_DOWN)
+//		//return;
+//	glGetIntegerv(GL_VIEWPORT, viewport);
+//	glSelectBuffer(BUFSIZE, selectBuf);
+//	(void)glRenderMode(GL_SELECT);
+//	glInitNames();
+//	glPushName((GLuint)~0);
+//
+//	glMatrixMode(GL_PROJECTION);
+//	glPushMatrix();
+//	glLoadIdentity();
+//	/* create 5x5 pixel picking region near cursor location */
+//	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y), 0.5, 0.5, viewport);
+//	//gluOrtho2D(0, 100, 100, 0);
+//	drawGraph(GL_SELECT);
+//
+//	glPopMatrix();
+//	glFlush();
+//	hits = glRenderMode(GL_RENDER);
+//
+//	if (hits > 0){
+//		/*
+//		int i;
+//		unsigned int j;
+//		GLuint names, *ptr;
+//		//printf("hits = %d\n", hits);
+//		ptr = (GLuint *)selectBuf;
+//		for (i = 0; i < hits; i++) {
+//			names = *ptr;
+//			
+//			printf(" number of names for hit = %d\n", names);
+//			ptr++;
+//			printf(" z1 is %g;", (float)*ptr / 0xffffffff);
+//			ptr++;
+//			printf(" z2 is %g\n", (float)*ptr / 0xffffffff);
+//			ptr++;
+//			printf(" the name is ");
+//			
+//			ptr = ptr + 3;
+//			for (j = 0; j < names; j++) { 
+//				if (*ptr == 1){
+//				}
+//			}
+//		}
+//		*/
+//
+//	}
+//
+//
+//	return 0;
+//}
+
+
+
+//int picking(int x, int y){
+//	
+//	GLint view[4];
+//	GLuint buff[BUFSIZE] = { 0 };
+//	glSelectBuffer(BUFSIZE, buff); //escolher o buffer para guardar os valores para a seleccao
+//	glGetIntegerv(GL_VIEWPORT, view);//retorna info sobre o viewport
+//	glRenderMode(GL_SELECT);//muda para o modo de seleccao, ou seja nao desenha
+//	glInitNames();//limpa a stack que contem info sobre os objectos
+//	glPushName(0);
+//
+//	//modificar o volume de visualizacao
+//	glMatrixMode(GL_PROJECTION);
+//	glPushMatrix();
+//	glLoadIdentity();
+//	//restringir seleccao a uma area a volta do cursor
+//
+//	gluPickMatrix(x, (GLdouble)(view[3] - y), 0.5, 0.5, view);
+//	gluPerspective(estado.camera.fov, (float)view[2] / (float)view[3], 1, 500);
+//
+//	//desenhar os objectos
+//	glMatrixMode(GL_MODELVIEW);
+//
+//	glLoadIdentity();
+//	setCamera();
+//	//estado.picking = true;
+//	drawGraph(GL_SELECT);
+//	//desenhaTodosNos(DESENHAR_GRAFO);//mete os nomes na stack de nomes
+//	glMatrixMode(GL_PROJECTION);//o pushmatrix foi feito no modo projeccao
+//	glPopMatrix();
+//	//estado.picking = false;
+//	int hits= glRenderMode(GL_RENDER);//retorna o numero de objectos desenhados naquela area e retorna para o modo render  
+//	
+//
+//	int i;
+//	unsigned int j;
+//	GLuint names, *ptr;
+//	//printf("hits = %d\n", hits);
+//	ptr = (GLuint *)buff;
+//	for (i = 0; i < hits; i++) { /* for each hit */
+//		names = *ptr;
+//		ptr = ptr + 3;
+//		for (j = 0; j < names; j++) { /* for each name */
+//			if (*ptr == 1){
+//				cout << "entrou" << endl;
+//			}
+//		}
+//	}
+//
+//	
+//	return 0;
+//}
+
+
+
 int picking(int x, int y){
-	int i, n, objid = 0;
+	int i, n, objid = -1;
 	double zmin = 10.0;
 	GLuint buffer[100], *ptr;
+	GLint hits;
+	GLint view[4];
 
 	glSelectBuffer(100, buffer);
+		glGetIntegerv(GL_VIEWPORT, view);//buscar viewport para criar a matriz de projecção
 	glRenderMode(GL_SELECT);
 	glInitNames();
+		glPushName(0);
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix(); // guarda a projec��o
 	glLoadIdentity();
-	setProjection(x, y, GL_TRUE);
+	//setProjection(x, y, GL_TRUE);
+		double posicaoRealLargura = view[3]-y;
+		gluPickMatrix(x, posicaoRealLargura, 0.5, 0.5, view); // os 0.5 são area de variação de click no x e y
+		float aspectWindow = (float)view[2] / (float)view[3];
+		gluPerspective(estado.camera.fov, aspectWindow, 1, 500); //definir mais tarde o znear e z far
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	setCamera();
-	desenhaEixos();
+	//desenhaEixos();
+	drawGraph(GL_SELECT);
 
-	n = glRenderMode(GL_RENDER);
-	if (n > 0)
-	{
+		//glMatrixMode(GL_PROJECTION);
+
+	hits = glRenderMode(GL_RENDER);
+	if (hits > 0)
+	{/*
 		ptr = buffer;
-		for (i = 0; i < n; i++)
+		for (i = 0; i < hits; i++)
 		{
 			if (zmin >(double) ptr[1] / UINT_MAX) {
 				zmin = (double)ptr[1] / UINT_MAX;
@@ -1216,6 +1315,30 @@ int picking(int x, int y){
 			}
 			ptr += 3 + ptr[0]; // ptr[0] contem o n�mero de nomes (normalmente 1); 3 corresponde a numnomes, zmin e zmax
 		}
+		
+		*/
+		
+			int i;
+			unsigned int j;
+			GLuint names, *ptr;
+			////printf("hits = %d\n", hits);
+			ptr = (GLuint *)buffer;
+			///*como só trata 1 evento de cada vez, assumindo que o envento que se quer é o 1*/
+			for (i = 0; i < 1; i++) { 
+				names = *ptr;
+				ptr = ptr + 3;
+				for (j = 0; j < names; j++) {
+					if (*ptr < 20000){ //optamos por colocar ligações com id's superiores a 20000
+			////			cout << "entrou No: "<<*ptr << endl;
+						objid = *ptr;
+					}
+			////		else {
+			////			cout << "entrou Ligacao" << endl;
+
+			////		}
+				}
+			}
+	
 	}
 
 
@@ -1323,6 +1446,7 @@ void mouse(int btn, int state, int x, int y){
 	else if (estado.estadoJogo == 1){ // se estiver no jogo 3D tem outro tipo de picking
 		switch (btn) {
 		case GLUT_RIGHT_BUTTON:
+			
 			if (state == GLUT_DOWN){
 				estado.xMouse = x;
 				estado.yMouse = y;
@@ -1336,19 +1460,21 @@ void mouse(int btn, int state, int x, int y){
 				glutMotionFunc(NULL);
 				cout << "Left up\n";
 			}
+			
 			break;
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN){
-				estado.eixoTranslaccao = picking(x, y);
-				if (estado.eixoTranslaccao)
-				{
-
-					glutMotionFunc(motionDrag);
+				int idUserSelect = picking(x, y);
+				if (idUserSelect >= 0){
+					cout << "UserId: " << idUserSelect << endl;
 				}
-				cout << "Right down - objecto:" << estado.eixoTranslaccao << endl;
-			}
+				//estado.eixoTranslaccao = picking(x, y);
+				//if (estado.eixoTranslaccao)
+					//glutMotionFunc(motionDrag);
+					//cout << "Right down - objecto:" << estado.eixoTranslaccao << endl;
+				//glutPostRedisplay();
+			}/*
 			else{
-				//* mov livre 
 				if (estado.eixoTranslaccao != 0) {
 					estado.camera.center[0] = estado.eixo[0];
 					estado.camera.center[1] = estado.eixo[1];
@@ -1359,6 +1485,7 @@ void mouse(int btn, int state, int x, int y){
 				}
 				cout << "Right up\n";
 			}
+			*/
 			break;
 		}
 	}
