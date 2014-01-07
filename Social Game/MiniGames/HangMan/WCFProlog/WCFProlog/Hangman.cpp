@@ -14,6 +14,21 @@ CHangman::CHangman(){}
 
 CHangman::~CHangman(){}
 
+void toggleGlutWindowMaximizeBox(char *szWindowTitle)
+{
+	long dwStyle;
+	HWND hwndGlut;
+
+	string s = (string)szWindowTitle;
+	std::wstring stemp = std::wstring(s.begin(), s.end());
+	LPCWSTR sw = stemp.c_str();
+
+	hwndGlut = FindWindow(NULL, sw);
+
+	dwStyle = GetWindowLong(hwndGlut, GWL_STYLE);
+	dwStyle ^= WS_MAXIMIZEBOX;
+	SetWindowLong(hwndGlut, GWL_STYLE, dwStyle);
+}
 
 void Init(void){
 
@@ -603,6 +618,7 @@ void CHangman::startGame(int argc, char **argv){
 	if (glutCreateWindow("Hangman") == GL_FALSE)
 		exit(1);
 
+	toggleGlutWindowMaximizeBox("Hangman");
 	Init();
 
 	//imprime_ajuda();
