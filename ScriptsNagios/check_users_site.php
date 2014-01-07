@@ -7,7 +7,7 @@ try{
     $res = $result->getNumberUsersResult;
 }catch(Exception $e){
     print "CRITICAL - WebService is not acessible. $e";
-    exit(1);
+    exit(2);
 }
 
 if(file_exists('/tmp/users'))
