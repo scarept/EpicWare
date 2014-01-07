@@ -9,6 +9,7 @@
 using namespace std;
 
 #define BUFSIZE 512
+#define VELOCIDADE 0.5
 //funções
 void myReshape(int w, int h);
 void escreveTexto();
@@ -20,6 +21,9 @@ void escreveTexto();
 #define graus(X) (double)((X)*180/M_PI)
 #define rad(X)   (double)((X)*M_PI/180)
 
+#define DIMENSAO_CAMARA 1
+
+GLfloat velocidadeAtual;
 // luzes e materiais
 
 const GLfloat mat_ambient[][4] = { { 0.33, 0.22, 0.03, 1.0 },	// brass
@@ -54,6 +58,8 @@ const GLfloat mat_shininess[] = { 27.8,	// brass
 75.0,	// preto
 60.0 };	// cinza
 
+
+bool Colisoes();
 enum tipo_material { brass, red_plastic, emerald, slate, azul, preto, cinza }; //materiais para cobrir os objectos
 
 #ifdef __cplusplus
@@ -65,7 +71,9 @@ inline tipo_material operator++(tipo_material &rs, int) {
 typedef	GLdouble Vertice[3];
 typedef	GLdouble Vector[4];
 
-
+typedef struct teclas_t{
+	GLboolean   up, down, left, right;
+}teclas_t;
 
 typedef struct Camera{
 	GLfloat fov;
@@ -85,6 +93,8 @@ typedef struct Estado{
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
 	GLint		estadoJogo; // 0 - login; 1- Jogo 3D; 2- menu
+	teclas_t	teclas;
+	GLint		timer;
 }Estado;
 
 typedef struct Login{
@@ -109,6 +119,8 @@ typedef struct Modelo {
 
 	GLfloat escala;
 	GLUquadric *quad;
+	GLuint velAnterior;
+	GLfloat velocidade = 0.5;
 }Modelo;
 
 Estado estado;
@@ -997,7 +1009,6 @@ void keyboard(unsigned char key, int x, int y)
 }
 
 void Special(int key, int x, int y){
-
 	switch (key){
 	case GLUT_KEY_F1:
 		gravaGrafo();
@@ -1025,14 +1036,48 @@ void Special(int key, int x, int y){
 		addArco(criaArco(4, 6, 1, 1));  // 4 - 6
 		glutPostRedisplay();
 		break;
+
+	case GLUT_KEY_UP: estado.teclas.up = GL_TRUE;
+		break;
+	case GLUT_KEY_DOWN: estado.teclas.down = GL_TRUE;
+		break;
+	case GLUT_KEY_LEFT: estado.teclas.left = GL_TRUE;
+		break;
+	case GLUT_KEY_RIGHT: estado.teclas.right = GL_TRUE;
+		break;
+		/*
 	case GLUT_KEY_UP:
+
+		
 		estado.camera.dist -= 1;
 		glutPostRedisplay();
+		
 		break;
 	case GLUT_KEY_DOWN:
+		
 		estado.camera.dist += 1;
 		glutPostRedisplay();
+		
 		break;
+		*/
+	}
+}
+
+void SpecialUP(int key, int x, int y)
+{
+	if (estado.estadoJogo == 1)
+	{
+		switch (key)
+		{
+		case GLUT_KEY_UP: estado.teclas.up = GL_FALSE;
+			break;
+		case GLUT_KEY_DOWN: estado.teclas.down = GL_FALSE;
+			break;
+		case GLUT_KEY_LEFT: estado.teclas.left = GL_FALSE;
+			break;
+		case GLUT_KEY_RIGHT: estado.teclas.right = GL_FALSE;
+			break;
+		}
 	}
 }
 
@@ -1094,6 +1139,7 @@ void motionRotate(int x, int y){
 }
 
 void motionZoom(int x, int y){
+	bool aux = Colisoes();
 #define ZOOM_SCALE	0.5
 	estado.camera.dist -= (estado.yMouse - y)*ZOOM_SCALE;
 	if (estado.camera.dist<5)
@@ -1491,12 +1537,53 @@ void mouse(int btn, int state, int x, int y){
 	}
 }
 
+void init()
+{
+	estado.timer = 100;
+	
+}
+
+void Timer(int value)
+{
+	//Tempo tempo passado
+	GLuint curr = glutGet(GLUT_ELAPSED_TIME);
+	//velHtimer = =
+	velocidadeAtual = modelo.velocidade*(curr * modelo.velAnterior)*0.001;
+	modelo.velAnterior = curr;
+
+	glutTimerFunc(estado.timer, Timer, 0);
+	//cout << " ollllaaa " << endl;
+	if (estado.teclas.up)
+	{
+		cout << " ollllaaaarrrraaa " << endl;
+	}
+	if (estado.teclas.down)
+	{
+		cout << " ollllaaaarrrraaa555 " << endl;
+	}
+	if (estado.teclas.left)
+	{
+		cout << "left" << endl;
+	}
+	if (estado.teclas.right)
+	{
+		cout << "right" << endl;
+	}
+	display();
+}
+
+bool Colisoes()
+{
+
+	return false;
+}
+
 void main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 
 	/* need both double buffering and z buffer */
-
+	init();
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(1000, 700); //tamanho da janela
 	glutCreateWindow("SocialGame - EpicWare"); //nome da janela
@@ -1511,7 +1598,11 @@ void main(int argc, char **argv)
 	glutDisplayFunc(display);
 	/*  Funcionalidade do teclado  */
 	glutKeyboardFunc(keyboard);
+	
+	//glutTimerFunc();
+
 	glutSpecialFunc(Special);
+	glutSpecialUpFunc(SpecialUP);
 	/*  Funcionalidades do rato   */
 	glutMouseFunc(mouse);
 
@@ -1519,7 +1610,7 @@ void main(int argc, char **argv)
 
 	loginInit();
 	
-	
+	glutTimerFunc(estado.timer, Timer, 0);
 
 
 
