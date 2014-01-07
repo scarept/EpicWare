@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DAL\BaseGateway.cs" />
     <Compile Include="DAL\HangmanGateway.cs" />
+    <Compile Include="DAL\SocialNetworkGateway.cs" />
     <Compile Include="IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service1.cs" />

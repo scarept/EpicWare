@@ -11,7 +11,7 @@
 #include <math.h>
 #include <time.h>
 #include <GL/glut.h>
-#include "C:\Users\Vítor\Desktop\EpicWare\Social Game\MiniGames\Labyrinth\labyrinth\labyrinth\LoadImages.h"
+#include <External images for OpenGL\LoadImages.h>
 
 #ifdef WIN32
 	#define WIN32_LEAN_AND_MEAN
