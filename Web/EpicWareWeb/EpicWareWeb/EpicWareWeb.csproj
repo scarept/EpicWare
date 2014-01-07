@@ -190,7 +190,9 @@
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\MoodController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DAL\BaseGateway.cs" />
     <Compile Include="DAL\DataContext.cs" />
+    <Compile Include="DAL\HangmanGateway.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1139,6 +1141,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>User.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
