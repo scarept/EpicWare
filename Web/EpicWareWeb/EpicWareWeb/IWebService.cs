@@ -31,6 +31,9 @@ namespace EpicWareWeb
         int getNumberUsers();
 
         [OperationContract]
+        int getNumberDownloads();
+
+        [OperationContract]
         User getUserByID(int id, string user, string pass);
 
         [OperationContract]

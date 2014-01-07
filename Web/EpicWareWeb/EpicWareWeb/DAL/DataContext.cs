@@ -25,5 +25,6 @@ namespace EpicWareWeb.DAL
         public DbSet<Country> countrys { get; set; }
         public DbSet tags { get; set; }
         public DbSet<NotificationType> notificationsType { get; set; }
+        public DbSet <Download> downloads { get; set; }
     }
 }

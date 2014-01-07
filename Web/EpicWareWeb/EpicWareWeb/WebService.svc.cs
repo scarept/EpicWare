@@ -24,6 +24,22 @@ namespace EpicWareWeb
             return db.users.Count();            
         }
 
+        public int getNumberDownloads()
+        {
+            DateTime now = DateTime.Now;
+            DateTime later = DateTime.Now.AddHours(-1);
+            
+            int count = 0;
+            foreach (Download d in db.downloads)
+            {
+                if (d.time > later && d.time < now)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
         public User getUserByID(int id, string user, string pass)
         {
             if(Membership.ValidateUser(user,pass)){
