@@ -10,6 +10,7 @@ using namespace std;
 
 #define BUFSIZE 512
 #define VELOCIDADE 0.5
+#define K_VALUE 1
 //funções
 void myReshape(int w, int h);
 void escreveTexto();
@@ -22,6 +23,8 @@ void escreveTexto();
 #define rad(X)   (double)((X)*M_PI/180)
 
 #define DIMENSAO_CAMARA 1
+#define ZOOM_SCALE	0.5
+#define DRAG_SCALE	0.01
 
 GLfloat velocidadeAtual;
 // luzes e materiais
@@ -72,7 +75,7 @@ typedef	GLdouble Vertice[3];
 typedef	GLdouble Vector[4];
 
 typedef struct teclas_t{
-	GLboolean   up, down, left, right;
+	GLboolean   up, down, left, right, keyQ, keyA;
 }teclas_t;
 
 typedef struct Camera{
@@ -119,8 +122,9 @@ typedef struct Modelo {
 
 	GLfloat escala;
 	GLUquadric *quad;
-	GLuint velAnterior;
+	GLuint tempAnterior;
 	GLfloat velocidade = 0.5;
+	Vertice eye;
 }Modelo;
 
 Estado estado;
@@ -1004,9 +1008,18 @@ void keyboard(unsigned char key, int x, int y)
 			initModelo();
 			glutPostRedisplay();
 			break;
+		case 'q':
+		case 'Q':
+			estado.teclas.keyQ = GL_TRUE;
+			break;
+		case 'a':
+		case 'A':
+			estado.teclas.keyA = GL_TRUE;
+
 		}
 	}
 }
+
 
 void Special(int key, int x, int y){
 	switch (key){
@@ -1063,6 +1076,19 @@ void Special(int key, int x, int y){
 	}
 }
 
+void keyboardUP(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+	case 'q':
+	case 'Q':
+		estado.teclas.keyQ = GL_FALSE;
+		break;
+	case 'a':
+	case 'A':
+		estado.teclas.keyA = GL_FALSE;
+	}
+}
 void SpecialUP(int key, int x, int y)
 {
 	if (estado.estadoJogo == 1)
@@ -1124,10 +1150,11 @@ void myReshape(int w, int h){
 
 
 void motionRotate(int x, int y){
-#define DRAG_SCALE	0.01
 	double lim = M_PI / 2 - 0.1;
 	estado.camera.dir_long += (estado.xMouse - x)*DRAG_SCALE;
 	estado.camera.dir_lat -= (estado.yMouse - y)*DRAG_SCALE*0.5;
+	cout << " lat: " << estado.camera.dir_lat << endl;
+	cout << "long" << estado.camera.dir_long << endl;
 	if (estado.camera.dir_lat>lim)
 		estado.camera.dir_lat = lim;
 	else
@@ -1140,7 +1167,7 @@ void motionRotate(int x, int y){
 
 void motionZoom(int x, int y){
 	bool aux = Colisoes();
-#define ZOOM_SCALE	0.5
+
 	estado.camera.dist -= (estado.yMouse - y)*ZOOM_SCALE;
 	if (estado.camera.dist<5)
 		estado.camera.dist = 5;
@@ -1539,35 +1566,59 @@ void mouse(int btn, int state, int x, int y){
 
 void init()
 {
-	estado.timer = 100;
+	estado.timer = 40;
 	
 }
 
 void Timer(int value)
 {
+	modelo.eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	modelo.eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	modelo.eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
 	//Tempo tempo passado
-	GLuint curr = glutGet(GLUT_ELAPSED_TIME);
-	//velHtimer = =
-	velocidadeAtual = modelo.velocidade*(curr * modelo.velAnterior)*0.001;
-	modelo.velAnterior = curr;
+	GLuint temACT = glutGet(GLUT_ELAPSED_TIME);
+	//Velocidade com base no tempo passado
+	velocidadeAtual = modelo.velocidade*(temACT - modelo.tempAnterior)*0.001;
+	modelo.tempAnterior = temACT;
 
 	glutTimerFunc(estado.timer, Timer, 0);
 	//cout << " ollllaaa " << endl;
 	if (estado.teclas.up)
 	{
-		cout << " ollllaaaarrrraaa " << endl;
+		cout << " Up " << endl;
+		cout << "olho x: " << modelo.eye[0]/5 << " olho y : " << modelo.eye[1]/5 << " olho z: " << modelo.eye[2]/5 << endl;
 	}
 	if (estado.teclas.down)
 	{
-		cout << " ollllaaaarrrraaa555 " << endl;
+		cout << " Down " << endl;
+		cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
 	}
 	if (estado.teclas.left)
 	{
 		cout << "left" << endl;
+		cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		estado.camera.dir_long -= velocidadeAtual;
+
 	}
 	if (estado.teclas.right)
 	{
 		cout << "right" << endl;
+		cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		estado.camera.dir_long += velocidadeAtual;
+	}
+	if (estado.teclas.keyA)
+	{
+		cout << "A" << endl;
+		cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		estado.camera.dist += 1;
+	}
+	if (estado.teclas.keyQ)
+	{
+		cout << "Q" << endl;
+		cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		cout << "Valor velocidade: " << velocidadeAtual << endl;
+		//estado.camera.dir_long += velocidadeAtual;
+		estado.camera.dist -= 1;
 	}
 	display();
 }
@@ -1598,9 +1649,9 @@ void main(int argc, char **argv)
 	glutDisplayFunc(display);
 	/*  Funcionalidade do teclado  */
 	glutKeyboardFunc(keyboard);
+	glutKeyboardUpFunc(keyboardUP);
 	
 	//glutTimerFunc();
-
 	glutSpecialFunc(Special);
 	glutSpecialUpFunc(SpecialUP);
 	/*  Funcionalidades do rato   */
