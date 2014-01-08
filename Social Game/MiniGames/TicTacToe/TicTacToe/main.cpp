@@ -7,11 +7,14 @@
 #include <GL/glut.h>
 #include <vector>
 //#include "SOIL.h"
-
-//#include "Prolog.h"
 #include "LoadImages.h"
 //#include "LoadExternalFiles.h"
 
+#include <iostream>
+#include <SWI-Prolog.h>
+#include <SWI-Stream.h>
+#include <SWI-cpp.h>
+//#include "Prolog" 
 using namespace std;
 
 #define BUFSIZE 512
@@ -86,6 +89,184 @@ void initMenu(void)
 	mod.exit = carrega_texturas("EXIT.png");
 	mod.play = carrega_texturas("PLAY.png");
 }
+
+
+
+
+/*
+Responsavel por inserir os valores que lhe são passados na base de conhecimento dinamica PROLOG.
+Formato liga('(0,0)','(0,0)').
+*/
+void joinConection(string envio){
+
+	PlTermv bv(1);
+
+	PlTermv az(&envio);
+	bv[0] = PlCompound("board", az);
+	cout << (char*)bv[0] << endl;
+	PlQuery p("asserta", bv);
+	p.next_solution();
+
+
+}
+/*
+Recebe a matriz usada para desenhar o labirinto, e sempre que existe uma ligação entre 2 blocos é chamada a "joinConection" para criar o perdicado dinamico.
+*/
+void assertData(string* arr){
+	string envio = "[";
+	for (int i = 0; i = 9; i++)
+	{
+		envio = envio + arr[i];
+		if (i < 8)
+		{
+			envio = envio + ",";
+		}
+		else{
+			envio = envio + "]";
+		}
+	}
+	joinConection(envio);
+}
+
+/* FUNÇÕES PROLOG */
+int* fastestWayAvailable(string* arr){
+
+	char* argv[] = { "", "-s", "tictactoe.pl", NULL };
+
+	PlEngine e(3, argv);
+
+	/* Colocar informação da matriz na base de conhecimento*/
+	assertData(arr);
+
+	//char solution[255];
+
+	PlTermv av(1);
+
+	char *pointerInicial;
+	char tempArr1[10];
+	//sprintf(tempArr1, "'(%d,%d)'", x, y);
+	pointerInicial = tempArr1;
+	//PlTermv az(pointerVal1, pointerVal2);
+	av[0] = PlCompound(tempArr1);
+
+	char *pointerFinal;
+	char tempArr2[10];
+	//sprintf(tempArr2, "'(%d,%d)'", xFinal, yFinal);
+	pointerFinal = tempArr2;
+	//PlTermv az(pointerVal1, pointerVal2);
+	av[1] = PlCompound(tempArr2);
+
+	/*                                      */
+
+	char *resTemp;//temporary pointer to solution output (prolog ouput)
+	PlQuery q("path", av);
+	while (q.next_solution())
+	{
+		//q.next_solution();
+		resTemp = (char*)av[2];
+		cout << (char*)av[2] << endl;
+	}
+	int valor = 0;
+	int finalSize = 0;
+	int *solution = new int[300];
+	int segundo = 0;
+	while (*resTemp != '\0')
+	{
+		if (*resTemp != '[' && *resTemp != '\''){
+			//if (*resTemp != ',' && *resTemp != ']'){ //garante que o ultimo valor é escrito no array.
+			//solution[finalSize] = *resTemp;
+			//cout << solution[finalSize] << endl;
+			if (*resTemp == '('){
+				segundo = 1;
+				resTemp++;
+				int num = atoi(resTemp);
+				//valor = valor * 10;
+				//valor = valor + num;
+				valor = num;
+
+				finalSize++;
+				solution[finalSize] = valor;
+				cout << valor << endl;
+
+
+				//finalSize++;
+			}
+			else if (*resTemp == ',' && segundo == 1){
+				segundo = 0;
+				resTemp++;
+				int num = atoi(resTemp);
+				//valor = valor * 10;
+				//valor = valor + num;
+				valor = num;
+
+				finalSize++;
+				solution[finalSize] = valor;
+				cout << valor << endl;
+
+			}
+			else {
+
+				valor = 0;
+			}
+		}
+
+		resTemp++;
+	}
+	solution[0] = finalSize;
+	return solution;
+	//solution[finalSize] = '/0';
+
+	/*
+	for (int i = 0; i < finalSize; i++){
+
+	cout << solution[i];
+	}
+	cout << endl;
+	*/
+}
+
+
+
+
+
+/* LOGICA DE JOGO */
+void converterMatrixEmArray(string* arrRet)
+{
+	int count = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (mod.matJogo[i][j] == 0)
+			{
+				stringstream ss;
+				ss << count + 1;
+				string z = "_Z"+ss.str();
+				arrRet[count] = z;
+			}
+			else if (mod.matJogo[i][j] == 1)
+			{
+				arrRet[count] = "x";
+			}
+			else{
+				arrRet[count] = "o";
+			}
+			count++;
+		}
+	}
+}
+
+int jogadaComputador()
+{
+	string arrProlog[9];
+	converterMatrixEmArray(arrProlog);
+	fastestWayAvailable(arrProlog);
+
+	return -1;
+}
+
+
+
 
 
 
@@ -380,6 +561,9 @@ void picking(int button, int state, int x, int y)
 
 int main(int argc, char** argv)
 {
+	/* Teste */
+	resetMatriz();
+	jogadaComputador();
 
 	glutInit(&argc, argv);
 
