@@ -56,5 +56,10 @@ namespace SocialGameService
             return words;
 
         }
+
+        public int getConnectionStrenght(int id1, int id2) {
+            SocialNetworkGateway sn = new SocialNetworkGateway();
+            return sn.getConnectionStrenght(id1, id2);
+        }
     }
 }

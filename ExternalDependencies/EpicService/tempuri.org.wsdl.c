@@ -13,6 +13,8 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
     {
         WS_MESSAGE_DESCRIPTION IWebService_getNumberUsers_InputMessage;
         WS_MESSAGE_DESCRIPTION IWebService_getNumberUsers_OutputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberDownloads_InputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberDownloads_OutputMessage;
         WS_MESSAGE_DESCRIPTION IWebService_getUserByID_InputMessage;
         WS_MESSAGE_DESCRIPTION IWebService_getUserByID_OutputMessage;
         WS_MESSAGE_DESCRIPTION IWebService_getUserFriendsByUserId_InputMessage;
@@ -33,6 +35,11 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
                 WS_PARAMETER_DESCRIPTION params[1];
                 WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getNumberUsers;
             } BasicHttpBinding_IWebService_getNumberUsers;
+            struct  // BasicHttpBinding_IWebService_getNumberDownloads
+            {
+                WS_PARAMETER_DESCRIPTION params[1];
+                WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getNumberDownloads;
+            } BasicHttpBinding_IWebService_getNumberDownloads;
             struct  // BasicHttpBinding_IWebService_getUserByID
             {
                 WS_PARAMETER_DESCRIPTION params[4];
@@ -58,7 +65,7 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
                 WS_PARAMETER_DESCRIPTION params[2];
                 WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getAllUsersID;
             } BasicHttpBinding_IWebService_getAllUsersID;
-            WS_OPERATION_DESCRIPTION* operations[6];
+            WS_OPERATION_DESCRIPTION* operations[7];
             WS_CONTRACT_DESCRIPTION contractDesc;
         } BasicHttpBinding_IWebService;
     } contracts;  // endof contracts 
@@ -78,6 +85,8 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
         {
             WS_XML_STRING IWebService_getNumberUsers_InputMessageactionName;  // http://tempuri.org/IWebService/getNumberUsers
             WS_XML_STRING IWebService_getNumberUsers_OutputMessageactionName;  // http://tempuri.org/IWebService/getNumberUsersResponse
+            WS_XML_STRING IWebService_getNumberDownloads_InputMessageactionName;  // http://tempuri.org/IWebService/getNumberDownloads
+            WS_XML_STRING IWebService_getNumberDownloads_OutputMessageactionName;  // http://tempuri.org/IWebService/getNumberDownloadsResponse
             WS_XML_STRING IWebService_getUserByID_InputMessageactionName;  // http://tempuri.org/IWebService/getUserByID
             WS_XML_STRING IWebService_getUserByID_OutputMessageactionName;  // http://tempuri.org/IWebService/getUserByIDResponse
             WS_XML_STRING IWebService_getUserFriendsByUserId_InputMessageactionName;  // http://tempuri.org/IWebService/getUserFriendsByUserId
@@ -115,6 +124,35 @@ HRESULT CALLBACK BasicHttpBinding_IWebService_getNumberUsersOperationStub(
     return _operation( 
         _context,
         (_stack->getNumberUsersResult),
+        (WS_ASYNC_CONTEXT*)_asyncContext,
+        _error);
+}
+#pragma warning(default: 4055)  // conversion from data pointer to function pointer
+#if (_MSC_VER >=1400) 
+#pragma warning(pop)
+#endif
+
+typedef struct BasicHttpBinding_IWebService_getNumberDownloadsParamStruct 
+{
+    int* getNumberDownloadsResult;
+} BasicHttpBinding_IWebService_getNumberDownloadsParamStruct;
+
+#if (_MSC_VER >=1400) 
+#pragma warning(push)
+#endif
+#pragma warning(disable: 4055) // conversion from data pointer to function pointer
+HRESULT CALLBACK BasicHttpBinding_IWebService_getNumberDownloadsOperationStub(
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ void* _stackStruct,
+    _In_ const void* _callback,
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error)
+{
+    BasicHttpBinding_IWebService_getNumberDownloadsCallback _operation = (BasicHttpBinding_IWebService_getNumberDownloadsCallback)_callback;
+    BasicHttpBinding_IWebService_getNumberDownloadsParamStruct *_stack =(BasicHttpBinding_IWebService_getNumberDownloadsParamStruct*)_stackStruct;
+    return _operation( 
+        _context,
+        (_stack->getNumberDownloadsResult),
         (WS_ASYNC_CONTEXT*)_asyncContext,
         _error);
 }
@@ -300,6 +338,14 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberUsers_OutputMessageactionName, // http://tempuri.org/IWebService/getNumberUsersResponse
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberUsersResponse, 
         },    // message description for IWebService_getNumberUsers_OutputMessage
+        {  // message description for IWebService_getNumberDownloads_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberDownloads_InputMessageactionName, // http://tempuri.org/IWebService/getNumberDownloads
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberDownloads, 
+        },    // message description for IWebService_getNumberDownloads_InputMessage
+        {  // message description for IWebService_getNumberDownloads_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberDownloads_OutputMessageactionName, // http://tempuri.org/IWebService/getNumberDownloadsResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberDownloadsResponse, 
+        },    // message description for IWebService_getNumberDownloads_OutputMessage
         {  // message description for IWebService_getUserByID_InputMessage
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getUserByID_InputMessageactionName, // http://tempuri.org/IWebService/getUserByID
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getUserByID, 
@@ -359,6 +405,22 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
                     WS_NON_RPC_LITERAL_OPERATION
                 }, //operation description for BasicHttpBinding_IWebService_getNumberUsers
             },  // BasicHttpBinding_IWebService_getNumberUsers
+            {  // BasicHttpBinding_IWebService_getNumberDownloads
+                {  // parameter descriptions for BasicHttpBinding_IWebService_getNumberDownloads
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)-1, (USHORT)0},
+                },  // parameter descriptions for BasicHttpBinding_IWebService_getNumberDownloads
+                {  // operation description for BasicHttpBinding_IWebService_getNumberDownloads
+                    1,
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getNumberDownloads_InputMessage, 
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getNumberDownloads_OutputMessage, 
+                    0,
+                    0,
+                    1,
+                    (WS_PARAMETER_DESCRIPTION*)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberDownloads.params,
+                    BasicHttpBinding_IWebService_getNumberDownloadsOperationStub,
+                    WS_NON_RPC_LITERAL_OPERATION
+                }, //operation description for BasicHttpBinding_IWebService_getNumberDownloads
+            },  // BasicHttpBinding_IWebService_getNumberDownloads
             {  // BasicHttpBinding_IWebService_getUserByID
                 {  // parameter descriptions for BasicHttpBinding_IWebService_getUserByID
                     {WS_PARAMETER_TYPE_NORMAL, (USHORT)0, (USHORT)-1},
@@ -452,6 +514,7 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
             },  // BasicHttpBinding_IWebService_getAllUsersID
             {  // array of operations for BasicHttpBinding_IWebService
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberUsers.BasicHttpBinding_IWebService_getNumberUsers,
+                (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberDownloads.BasicHttpBinding_IWebService_getNumberDownloads,
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getUserByID.BasicHttpBinding_IWebService_getUserByID,
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getUserFriendsByUserId.BasicHttpBinding_IWebService_getUserFriendsByUserId,
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getUserByAutetication.BasicHttpBinding_IWebService_getUserByAutetication,
@@ -459,7 +522,7 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getAllUsersID.BasicHttpBinding_IWebService_getAllUsersID,
             },  // array of operations for BasicHttpBinding_IWebService
             {  // contract description for BasicHttpBinding_IWebService
-            6,
+            7,
             (WS_OPERATION_DESCRIPTION**)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.operations,
             },  // end of contract description for BasicHttpBinding_IWebService
         },  // BasicHttpBinding_IWebService
@@ -492,23 +555,25 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
         {  // xmlStrings
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getNumberUsers",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 0),
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getNumberUsersResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 1),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByID",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 2),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByIDResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 3),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserFriendsByUserId",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 4),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserFriendsByUserIdResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 5),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByAutetication",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 6),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByAuteticationResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 7),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/GetEveryWord",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 8),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/GetEveryWordResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 9),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getAllUsersID",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 10),
-            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getAllUsersIDResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 11),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getNumberDownloads",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 2),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getNumberDownloadsResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 3),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByID",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 4),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByIDResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 5),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserFriendsByUserId",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 6),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserFriendsByUserIdResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 7),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByAutetication",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 8),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserByAuteticationResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 9),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/GetEveryWord",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 10),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/GetEveryWordResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 11),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getAllUsersID",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 12),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getAllUsersIDResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 13),
         },  // end of xmlStrings
         
         {  // tempuri_org_wsdldictionary
-          // 3d54fe2a-d240-499f-812c-e8c839f51593 
-        { 0x3d54fe2a, 0xd240, 0x499f, { 0x81, 0x2c, 0xe8,0xc8, 0x39, 0xf5, 0x15, 0x93 } },
+          // dac03cac-fb72-40a8-a487-188ad9d6311d 
+        { 0xdac03cac, 0xfb72, 0x40a8, { 0xa4, 0x87, 0x18,0x8a, 0xd9, 0xd6, 0x31, 0x1d } },
         (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings,
-        12,
+        14,
         TRUE,
         },
     },  //  end of dictionary
@@ -534,6 +599,28 @@ HRESULT WINAPI BasicHttpBinding_IWebService_getNumberUsers(
     _argList[0] = &getNumberUsersResult;
     return WsCall(_serviceProxy,
         (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberUsers.BasicHttpBinding_IWebService_getNumberUsers,
+        (const void **)&_argList,
+        _heap,
+        _callProperties,
+        _callPropertyCount,
+        _asyncContext,
+        _error);
+}
+
+// operation: BasicHttpBinding_IWebService_getNumberDownloads
+HRESULT WINAPI BasicHttpBinding_IWebService_getNumberDownloads(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _Out_ int* getNumberDownloadsResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error)
+{
+    void* _argList[1]; 
+    _argList[0] = &getNumberDownloadsResult;
+    return WsCall(_serviceProxy,
+        (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberDownloads.BasicHttpBinding_IWebService_getNumberDownloads,
         (const void **)&_argList,
         _heap,
         _callProperties,
@@ -688,6 +775,14 @@ const _tempuri_org_wsdl tempuri_org_wsdl =
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberUsers_OutputMessageactionName, // http://tempuri.org/IWebService/getNumberUsersResponse
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberUsersResponse, 
         },    // message description for IWebService_getNumberUsers_OutputMessage
+        {  // message description for IWebService_getNumberDownloads_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberDownloads_InputMessageactionName, // http://tempuri.org/IWebService/getNumberDownloads
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberDownloads, 
+        },    // message description for IWebService_getNumberDownloads_InputMessage
+        {  // message description for IWebService_getNumberDownloads_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberDownloads_OutputMessageactionName, // http://tempuri.org/IWebService/getNumberDownloadsResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberDownloadsResponse, 
+        },    // message description for IWebService_getNumberDownloads_OutputMessage
         {  // message description for IWebService_getUserByID_InputMessage
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getUserByID_InputMessageactionName, // http://tempuri.org/IWebService/getUserByID
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getUserByID, 
@@ -731,7 +826,7 @@ const _tempuri_org_wsdl tempuri_org_wsdl =
     },  // messages
     {  // contracts
         {  // BasicHttpBinding_IWebService
-            6,
+            7,
             (WS_OPERATION_DESCRIPTION**)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.operations,
         },  // end of BasicHttpBinding_IWebService
     },  // contracts

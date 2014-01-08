@@ -43,6 +43,8 @@ extern "C" {
 
 //     struct _getNumberUsers;
 //     struct _getNumberUsersResponse;
+//     struct _getNumberDownloads;
+//     struct _getNumberDownloadsResponse;
 //     struct _getUserByID;
 //     struct _getUserByIDResponse;
 //     struct _getUserFriendsByUserId;
@@ -72,6 +74,14 @@ typedef struct _getNumberUsersResponse
 {
     int getNumberUsersResult;
 } _getNumberUsersResponse;
+
+typedef struct _getNumberDownloads _getNumberDownloads;
+
+// typeDescription: n/a
+typedef struct _getNumberDownloadsResponse 
+{
+    int getNumberDownloadsResult;
+} _getNumberDownloadsResponse;
 
 // typeDescription: n/a
 typedef struct _getUserByID 
@@ -151,6 +161,16 @@ typedef struct _tempuri_org_xsd
         // elementDescription: tempuri_org_xsd.globalElements.getNumberUsersResponse
         WS_ELEMENT_DESCRIPTION getNumberUsersResponse;
         
+        // xml element: getNumberDownloads ("http://tempuri.org/")
+        // c type: _getNumberDownloads
+        // elementDescription: tempuri_org_xsd.globalElements.getNumberDownloads
+        WS_ELEMENT_DESCRIPTION getNumberDownloads;
+        
+        // xml element: getNumberDownloadsResponse ("http://tempuri.org/")
+        // c type: _getNumberDownloadsResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getNumberDownloadsResponse
+        WS_ELEMENT_DESCRIPTION getNumberDownloadsResponse;
+        
         // xml element: getUserByID ("http://tempuri.org/")
         // c type: _getUserByID
         // elementDescription: tempuri_org_xsd.globalElements.getUserByID
@@ -206,6 +226,8 @@ typedef struct _tempuri_org_xsd
     {
         WS_STRUCT_DESCRIPTION getNumberUsers;
         WS_STRUCT_DESCRIPTION getNumberUsersResponse;
+        WS_STRUCT_DESCRIPTION getNumberDownloads;
+        WS_STRUCT_DESCRIPTION getNumberDownloadsResponse;
         WS_STRUCT_DESCRIPTION getUserByID;
         WS_STRUCT_DESCRIPTION getUserByIDResponse;
         WS_STRUCT_DESCRIPTION getUserFriendsByUserId;

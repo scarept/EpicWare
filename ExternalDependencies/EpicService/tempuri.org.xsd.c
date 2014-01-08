@@ -16,6 +16,11 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION getNumberUsersResult;
             WS_FIELD_DESCRIPTION* _getNumberUsersResponseFields [1]; 
         } _getNumberUsersResponsedescs; // end of _getNumberUsersResponse
+        struct  // _getNumberDownloadsResponse
+        {
+            WS_FIELD_DESCRIPTION getNumberDownloadsResult;
+            WS_FIELD_DESCRIPTION* _getNumberDownloadsResponseFields [1]; 
+        } _getNumberDownloadsResponsedescs; // end of _getNumberDownloadsResponse
         struct  // _getUserByID
         {
             WS_FIELD_DESCRIPTION id;
@@ -70,6 +75,9 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_XML_STRING _getNumberUsersTypeNamespace;  // http://tempuri.org/
             WS_XML_STRING _getNumberUsersResponseTypeName;  // getNumberUsersResponse
             WS_XML_STRING _getNumberUsersResponsegetNumberUsersResultLocalName;  // getNumberUsersResult
+            WS_XML_STRING _getNumberDownloadsTypeName;  // getNumberDownloads
+            WS_XML_STRING _getNumberDownloadsResponseTypeName;  // getNumberDownloadsResponse
+            WS_XML_STRING _getNumberDownloadsResponsegetNumberDownloadsResultLocalName;  // getNumberDownloadsResult
             WS_XML_STRING _getUserByIDTypeName;  // getUserByID
             WS_XML_STRING _getUserByIDidLocalName;  // id
             WS_XML_STRING _getUserByIDuserLocalName;  // user
@@ -120,6 +128,22 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberUsersResponsedescs.getNumberUsersResult,
             },
         },    // _getNumberUsersResponse
+        {  // _getNumberDownloadsResponse
+            {  // field description for getNumberDownloadsResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberDownloadsResponsegetNumberDownloadsResultLocalName, // getNumberDownloadsResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getNumberDownloadsResponse, getNumberDownloadsResult),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for getNumberDownloadsResult
+            {  // fields description for _getNumberDownloadsResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberDownloadsResponsedescs.getNumberDownloadsResult,
+            },
+        },    // _getNumberDownloadsResponse
         {  // _getUserByID
             {  // field description for id
             WS_ELEMENT_FIELD_MAPPING,
@@ -324,38 +348,41 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 1),
             WS_XML_STRING_DICTIONARY_VALUE("getNumberUsersResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 2),
             WS_XML_STRING_DICTIONARY_VALUE("getNumberUsersResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 3),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserByID",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 4),
-            WS_XML_STRING_DICTIONARY_VALUE("id",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 5),
-            WS_XML_STRING_DICTIONARY_VALUE("user",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 6),
-            WS_XML_STRING_DICTIONARY_VALUE("pass",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 7),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserByIDResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 8),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserByIDResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 9),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserFriendsByUserId",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 10),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserFriendsByUserIdResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 11),
-            WS_XML_STRING_DICTIONARY_VALUE("User",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 12),
-            WS_XML_STRING_DICTIONARY_VALUE("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 13),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserFriendsByUserIdResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 14),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserByAutetication",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 15),
-            WS_XML_STRING_DICTIONARY_VALUE("password",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 16),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserByAuteticationResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 17),
-            WS_XML_STRING_DICTIONARY_VALUE("getUserByAuteticationResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 18),
-            WS_XML_STRING_DICTIONARY_VALUE("GetEveryWord",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 19),
-            WS_XML_STRING_DICTIONARY_VALUE("GetEveryWordResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 20),
-            WS_XML_STRING_DICTIONARY_VALUE("Word",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 21),
-            WS_XML_STRING_DICTIONARY_VALUE("http://schemas.datacontract.org/2004/07/EpicWareWeb",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 22),
-            WS_XML_STRING_DICTIONARY_VALUE("GetEveryWordResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 23),
-            WS_XML_STRING_DICTIONARY_VALUE("getAllUsersID",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 24),
-            WS_XML_STRING_DICTIONARY_VALUE("getAllUsersIDResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 25),
-            WS_XML_STRING_DICTIONARY_VALUE("int",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 26),
-            WS_XML_STRING_DICTIONARY_VALUE("http://schemas.microsoft.com/2003/10/Serialization/Arrays",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 27),
-            WS_XML_STRING_DICTIONARY_VALUE("getAllUsersIDResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 28),
+            WS_XML_STRING_DICTIONARY_VALUE("getNumberDownloads",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 4),
+            WS_XML_STRING_DICTIONARY_VALUE("getNumberDownloadsResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 5),
+            WS_XML_STRING_DICTIONARY_VALUE("getNumberDownloadsResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 6),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserByID",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 7),
+            WS_XML_STRING_DICTIONARY_VALUE("id",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 8),
+            WS_XML_STRING_DICTIONARY_VALUE("user",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 9),
+            WS_XML_STRING_DICTIONARY_VALUE("pass",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 10),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserByIDResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 11),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserByIDResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 12),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserFriendsByUserId",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 13),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserFriendsByUserIdResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 14),
+            WS_XML_STRING_DICTIONARY_VALUE("User",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 15),
+            WS_XML_STRING_DICTIONARY_VALUE("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 16),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserFriendsByUserIdResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 17),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserByAutetication",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 18),
+            WS_XML_STRING_DICTIONARY_VALUE("password",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 19),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserByAuteticationResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 20),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserByAuteticationResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 21),
+            WS_XML_STRING_DICTIONARY_VALUE("GetEveryWord",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 22),
+            WS_XML_STRING_DICTIONARY_VALUE("GetEveryWordResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 23),
+            WS_XML_STRING_DICTIONARY_VALUE("Word",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 24),
+            WS_XML_STRING_DICTIONARY_VALUE("http://schemas.datacontract.org/2004/07/EpicWareWeb",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 25),
+            WS_XML_STRING_DICTIONARY_VALUE("GetEveryWordResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 26),
+            WS_XML_STRING_DICTIONARY_VALUE("getAllUsersID",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 27),
+            WS_XML_STRING_DICTIONARY_VALUE("getAllUsersIDResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 28),
+            WS_XML_STRING_DICTIONARY_VALUE("int",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 29),
+            WS_XML_STRING_DICTIONARY_VALUE("http://schemas.microsoft.com/2003/10/Serialization/Arrays",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 30),
+            WS_XML_STRING_DICTIONARY_VALUE("getAllUsersIDResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 31),
         },  // end of xmlStrings
         
         {  // tempuri_org_xsddictionary
-          // 61f14be4-4986-43fc-a661-0f0de1c840af 
-        { 0x61f14be4, 0x4986, 0x43fc, { 0xa6, 0x61, 0x0f,0x0d, 0xe1, 0xc8, 0x40, 0xaf } },
+          // ee6c2ccc-058a-49e1-bf28-0a4603fe5377 
+        { 0xee6c2ccc, 0x058a, 0x49e1, { 0xbf, 0x28, 0x0a,0x46, 0x03, 0xfe, 0x53, 0x77 } },
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings,
-        29,
+        32,
         TRUE,
         },
     },  //  end of dictionary
@@ -375,6 +402,18 @@ const _tempuri_org_xsd tempuri_org_xsd =
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
             WS_STRUCT_TYPE,
             (void*)&tempuri_org_xsd.externallyReferencedTypes.getNumberUsersResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberDownloadsTypeName, // getNumberDownloads
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getNumberDownloads,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberDownloadsResponseTypeName, // getNumberDownloadsResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getNumberDownloadsResponse,
         },
         {
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDTypeName, // getUserByID
@@ -460,6 +499,28 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         0,
         },   // end of struct description for _getNumberUsersResponse
+        {
+        0,
+        1,
+        0,
+        0,
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberDownloadsTypeName, // getNumberDownloads
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getNumberDownloads
+        {
+        sizeof(_getNumberDownloadsResponse),
+        __alignof(_getNumberDownloadsResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberDownloadsResponsedescs._getNumberDownloadsResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getNumberDownloadsResponsedescs._getNumberDownloadsResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberDownloadsResponseTypeName, // getNumberDownloadsResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getNumberDownloadsResponse
         {
         sizeof(_getUserByID),
         __alignof(_getUserByID),

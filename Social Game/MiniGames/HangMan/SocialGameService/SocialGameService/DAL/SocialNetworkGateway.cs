@@ -70,5 +70,21 @@ namespace SocialGameService
             }
         }
 
+        public int getConnectionStrenght(int id1, int id2) { 
+            SqlCommand sql = new SqlCommand();
+            int strenght = -1;
+            try
+            {
+                DataSet ds = ExecuteQuery(GetConnection(true), "select strenght from connections where User_userID = " + id1 + " and userConnected_userID = " + id2);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                    strenght = int.Parse(dr["strenght"].ToString());
+
+                return strenght;
+            }
+            catch (SqlException ex) {
+                return -1;
+            }
+        }
+
     }
 }
