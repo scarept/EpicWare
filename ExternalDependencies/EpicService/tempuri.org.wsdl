@@ -15,6 +15,12 @@
   <wsdl:message name="IWebService_getNumberUsers_OutputMessage">
     <wsdl:part name="parameters" element="tns:getNumberUsersResponse" />
   </wsdl:message>
+  <wsdl:message name="IWebService_getNumberDownloads_InputMessage">
+    <wsdl:part name="parameters" element="tns:getNumberDownloads" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_getNumberDownloads_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getNumberDownloadsResponse" />
+  </wsdl:message>
   <wsdl:message name="IWebService_getUserByID_InputMessage">
     <wsdl:part name="parameters" element="tns:getUserByID" />
   </wsdl:message>
@@ -50,6 +56,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getNumberUsers" message="tns:IWebService_getNumberUsers_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getNumberUsersResponse" message="tns:IWebService_getNumberUsers_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="getNumberDownloads">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getNumberDownloads" message="tns:IWebService_getNumberDownloads_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getNumberDownloadsResponse" message="tns:IWebService_getNumberDownloads_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="getUserByID">
       <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getUserByID" message="tns:IWebService_getUserByID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getUserByIDResponse" message="tns:IWebService_getUserByID_OutputMessage" />
@@ -75,6 +85,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="getNumberUsers">
       <soap:operation soapAction="http://tempuri.org/IWebService/getNumberUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNumberDownloads">
+      <soap:operation soapAction="http://tempuri.org/IWebService/getNumberDownloads" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -125,6 +125,7 @@ extern "C" {
 // The following client functions were generated:
 
 //     BasicHttpBinding_IWebService_getNumberUsers
+//     BasicHttpBinding_IWebService_getNumberDownloads
 //     BasicHttpBinding_IWebService_getUserByID
 //     BasicHttpBinding_IWebService_getUserFriendsByUserId
 //     BasicHttpBinding_IWebService_getUserByAutetication
@@ -184,6 +185,16 @@ HRESULT BasicHttpBinding_IWebService_CreateServiceEndpoint(
 HRESULT WINAPI BasicHttpBinding_IWebService_getNumberUsers(
     _In_ WS_SERVICE_PROXY* _serviceProxy,
     _Out_ int* getNumberUsersResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IWebService_getNumberDownloads
+HRESULT WINAPI BasicHttpBinding_IWebService_getNumberDownloads(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _Out_ int* getNumberDownloadsResult, 
     _In_ WS_HEAP* _heap,
     _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
     _In_ const ULONG _callPropertyCount,
@@ -261,6 +272,12 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getNumberUsersCallback) 
     _In_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_ WS_ERROR* _error);
 
+typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getNumberDownloadsCallback) (
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _Out_ int* getNumberDownloadsResult, 
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error);
+
 typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getUserByIDCallback) (
     _In_ const WS_OPERATION_CONTEXT* _context,
     _In_ int id, 
@@ -306,6 +323,7 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getAllUsersIDCallback) (
 typedef struct BasicHttpBinding_IWebServiceFunctionTable 
 {
     BasicHttpBinding_IWebService_getNumberUsersCallback BasicHttpBinding_IWebService_getNumberUsers;
+    BasicHttpBinding_IWebService_getNumberDownloadsCallback BasicHttpBinding_IWebService_getNumberDownloads;
     BasicHttpBinding_IWebService_getUserByIDCallback BasicHttpBinding_IWebService_getUserByID;
     BasicHttpBinding_IWebService_getUserFriendsByUserIdCallback BasicHttpBinding_IWebService_getUserFriendsByUserId;
     BasicHttpBinding_IWebService_getUserByAuteticationCallback BasicHttpBinding_IWebService_getUserByAutetication;
@@ -332,6 +350,18 @@ typedef struct _tempuri_org_wsdl
         // action: "http://tempuri.org/IWebService/getNumberUsersResponse"
         // messageDescription: tempuri_org_wsdl.messages.IWebService_getNumberUsers_OutputMessage
         WS_MESSAGE_DESCRIPTION IWebService_getNumberUsers_OutputMessage;
+        
+        // message: IWebService_getNumberDownloads_InputMessage
+        // c type: _getNumberDownloads
+        // action: "http://tempuri.org/IWebService/getNumberDownloads"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getNumberDownloads_InputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberDownloads_InputMessage;
+        
+        // message: IWebService_getNumberDownloads_OutputMessage
+        // c type: _getNumberDownloadsResponse
+        // action: "http://tempuri.org/IWebService/getNumberDownloadsResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getNumberDownloads_OutputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberDownloads_OutputMessage;
         
         // message: IWebService_getUserByID_InputMessage
         // c type: _getUserByID
@@ -401,6 +431,9 @@ typedef struct _tempuri_org_wsdl
         // operation: BasicHttpBinding_IWebService_getNumberUsers
         //     input message: IWebService_getNumberUsers_InputMessage
         //     output message: IWebService_getNumberUsers_OutputMessage
+        // operation: BasicHttpBinding_IWebService_getNumberDownloads
+        //     input message: IWebService_getNumberDownloads_InputMessage
+        //     output message: IWebService_getNumberDownloads_OutputMessage
         // operation: BasicHttpBinding_IWebService_getUserByID
         //     input message: IWebService_getUserByID_InputMessage
         //     output message: IWebService_getUserByID_OutputMessage

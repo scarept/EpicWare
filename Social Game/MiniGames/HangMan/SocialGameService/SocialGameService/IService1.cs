@@ -38,6 +38,9 @@ namespace SocialGameService
         IList<int> getAllUsers();
 
         [OperationContract]
+        int getConnectionStrenght(int id1, int id2);
+
+        [OperationContract]
         int Add(int x, int y);
     }
 }
