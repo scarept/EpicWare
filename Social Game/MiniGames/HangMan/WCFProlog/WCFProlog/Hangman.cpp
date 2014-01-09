@@ -57,20 +57,19 @@ void Init(void){
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
-
 }
 
 void Reshape(int width, int height)
 {
-	GLint size;
-
-	if (width < height)
-		size = width;
-	else
-		size = height;
+	GLint sizeW = width;
+	GLint sizeH = height;
+	//if (width < height)
+	//	size = width;
+	//else
+	//	size = height;
 
 	// define parte da janela a ser utilizada pelo OpenGL
-	glViewport(0, 0, (GLint)size, (GLint)size);
+	glViewport(0, 0, (GLint)sizeW, (GLint)sizeH);
 
 
 	// Matriz Projeccao
