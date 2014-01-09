@@ -1,6 +1,6 @@
 #include "Hangman.h"
 #include "HangmanLogic.h"
-#include "WCF.h"
+#include <WCF\WCF.h>
 
 /*Global variables*/
 Estado estado;

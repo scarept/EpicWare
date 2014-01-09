@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <vector>
 
+using namespace std;
+
 class WCF
 {
 private:
@@ -24,8 +26,10 @@ public:
 	
 	WCF();
 	~WCF();
-	std::vector<Word> getEveryWord();
-
+	vector<Word> getEveryWord();
+	//vector<int> getFriendsByUser(int);
+	vector<int> getAllUsers(void);
+	//int getConnectionStrenght(int, int);
 };
 
 #endif

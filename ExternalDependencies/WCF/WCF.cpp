@@ -52,3 +52,45 @@ std::vector<Word> WCF::getEveryWord(){
 
 	return wordVector;
 }
+
+//vector<int> WCF::getFriendsByUser(int userID){
+//
+//	//Numero de palavras retornadas
+//	unsigned int n = 0;
+//	int *ids;
+//	vector<int> friendsVector;
+//
+//	//chamada de uma operação do service – getEveryWord. O resultado vem no parâmetro words
+//	hr = BasicHttpBinding_ISWebService_getUserConnected(proxy, userID, &n, &ids, heap, NULL, 0, NULL, error);
+//
+//	for (int i = 0; i < n; i++){
+//		friendsVector.push_back(*ids);
+//		ids = ids + 1;
+//	}
+//
+//	return friendsVector;
+//}
+
+vector<int> WCF::getAllUsers(void){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+
+	hr = BasicHttpBinding_IWebService_getAllUsersID(proxy, &n, &ids, heap, NULL, 0, NULL, error);
+
+	for (int i = 0; i < n; i++){
+		users.push_back(*ids);
+		ids = ids + 1;
+	}
+
+	return users;
+}
+
+//int WCF::getConnectionStrenght(int id1, int id2){
+//	unsigned int n = 0;
+//	int strenght;
+//
+//	hr = BasicHttpBinding_IWebService_getConnectionStrenght(proxy, id1, id2, &strenght, heap, NULL, 0, NULL, error);
+//
+//	return strenght;
+//}

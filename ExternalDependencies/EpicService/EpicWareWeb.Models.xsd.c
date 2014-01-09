@@ -1078,8 +1078,8 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
         },  // end of xmlStrings
         
         {  // EpicWareWeb_Models_xsddictionary
-          // 5987bbc0-6eeb-48b6-9eb3-f026f0e2ee29 
-        { 0x5987bbc0, 0x6eeb, 0x48b6, { 0x9e, 0xb3, 0xf0,0x26, 0xf0, 0xe2, 0xee, 0x29 } },
+          // 5d2ae36c-fa5d-4002-a467-e33ca80b6300 
+        { 0x5d2ae36c, 0xfa5d, 0x4002, { 0xa4, 0x67, 0xe3,0x3c, 0xa8, 0x0b, 0x63, 0x00 } },
         (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings,
         66,
         TRUE,
