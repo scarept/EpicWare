@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-const WS_STRING url = WS_STRING_VALUE(L"http://localhost:8733/Design_Time_Addresses/SocialGameService/Service1");
+const WS_STRING url = WS_STRING_VALUE(L"http://wvm074.dei.isep.ipp.pt/LAPR5/WebService.svc?wsdl");
 
 HRESULT hr = ERROR_SUCCESS;
 WS_ERROR* error = NULL;
@@ -18,7 +18,7 @@ WCF::WCF()
 	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
 	WS_HTTP_BINDING_TEMPLATE templ = {};
 	//criação do proxy para o serviço
-	hr = BasicHttpBinding_IService1_CreateServiceProxy(&templ, NULL, 0, &proxy, error);
+	hr = BasicHttpBinding_IWebService_CreateServiceProxy(&templ, NULL, 0, &proxy, error);
 	hr = WsOpenServiceProxy(proxy, &address, NULL, error);
 }
 
@@ -41,7 +41,7 @@ std::vector<Word> WCF::getEveryWord(){
 	std::vector<Word> wordVector;
 
 	//chamada de uma operação do service – getEveryWord. O resultado vem no parâmetro words
-	hr = BasicHttpBinding_IService1_GetEveryWord(proxy, &n, &words, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IWebService_GetEveryWord(proxy, &n, &words, heap, NULL, 0, NULL, error);
 	
 	for (int i = 0; i < n; i++){
 

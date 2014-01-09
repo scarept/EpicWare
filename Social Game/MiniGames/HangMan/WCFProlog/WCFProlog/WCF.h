@@ -5,11 +5,16 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "WebServices.h"
-#include "schemas.microsoft.com.2003.10.Serialization.xsd.h"
-#include "tempuri.org.xsd.h"
-#include "tempuri.org.wsdl.h"
-#include "SocialGameService.xsd.h"
+#include <WebServices.h>
+#include <EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.h>
+#include <EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h>
+#include <EpicService\tempuri.org.xsd.h>
+#include <EpicService\tempuri.org.wsdl.h>
+#include <EpicService\EpicWareWeb.xsd.h>
+#include <EpicService\EpicWareWeb.Models.xsd.h>
+#include <string>
+#include <iostream>
+#include <stdlib.h>
 #include <vector>
 
 class WCF
@@ -20,6 +25,7 @@ public:
 	WCF();
 	~WCF();
 	std::vector<Word> getEveryWord();
+
 };
 
 #endif
