@@ -7,7 +7,10 @@ Estado estado;
 Modelo modelo;
 HangmanLogic s;
 vector<string> categories;
-string language = "Portugues";
+string language = "Português";
+
+GLuint BACKGROUND_TEX = NULL;
+GLuint BACKGROUND_CATEGORY_TEX = NULL;
 
 CHangman::CHangman(){}
 
@@ -20,8 +23,8 @@ void toggleGlutWindowMaximizeBox(char *szWindowTitle)
 	HWND hwndGlut;
 
 	string s = (string)szWindowTitle;
-	std::wstring stemp = std::wstring(s.begin(), s.end());
-	LPCWSTR sw = stemp.c_str();
+	std::string stemp = std::string(s.begin(), s.end());
+	LPCSTR sw = stemp.c_str();
 
 	hwndGlut = FindWindow(NULL, sw);
 
@@ -86,6 +89,64 @@ void Reshape(int width, int height)
 	// Matriz onde são realizadas as tranformacoes dos modelos desenhados
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void drawCategoryBackground(void){
+
+	glPushMatrix();
+
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glBindTexture(GL_TEXTURE_2D, BACKGROUND_CATEGORY_TEX);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0, 1);
+	glVertex2f(0, 0);
+	glTexCoord2f(1, 1);
+	glVertex2f(WIDTH, 0);
+	glTexCoord2f(1, 0);
+	glVertex2f(WIDTH, HEIGHT);
+	glTexCoord2f(0, 0);
+	glVertex2f(0, HEIGHT);
+	glEnd();
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+}
+
+void drawBackground(void){
+
+	glPushMatrix();
+
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glBindTexture(GL_TEXTURE_2D, BACKGROUND_TEX);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0, 1);
+	glVertex2f(0, 0);
+	glTexCoord2f(1, 1);
+	glVertex2f(WIDTH, 0);
+	glTexCoord2f(1, 0);
+	glVertex2f(WIDTH, HEIGHT);
+	glTexCoord2f(0, 0);
+	glVertex2f(0, HEIGHT);
+	glEnd();
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
 }
 
 /*Draw stickman*/
@@ -215,10 +276,12 @@ void drawWordCategory(char *category){
 void drawKeyboard(GLenum mode){
 	GLuint letter[26];
 	int xStart = WIDTH / 2, yStart = (2.0 / 3.0)*HEIGHT;
-	char* prefix = "bt_";
+
+
+	char* prefix = ".\/images\/bt_";
 	char* suffix = ".png";
 	char let[2] = { 'A', 0 };
-	char result[10];
+	char result[50];
 	for (int i = 1; i <= 26; i++){
 		if (strchr(modelo.guesses, (let[0] - 'A' + 'a')) == NULL){
 			strcpy(result, prefix);
@@ -227,7 +290,7 @@ void drawKeyboard(GLenum mode){
 			glPushMatrix();
 			if (mode == GL_SELECT)
 				glLoadName(1000 + i);
-			letter[i - 1] = carrega_texturas(result);
+			letter[i - 1] = loadTransparentTexture(result);
 
 			glBindTexture(GL_TEXTURE_2D, letter[i - 1]);
 
@@ -260,18 +323,43 @@ void drawKeyboard(GLenum mode){
 }
 
 void drawCategoryButtons(GLenum mode){
+	
 	int identifierCounter = 0;
+
+	/*
+	int QUARTER_WIDTH = WIDTH / 4.0;
+	int QUARTER_HEIGHT = HEIGHT / 4.0;
+	int HALF_WIDTH = WIDTH / 2.0;
+	int HALF_HEIGHT = HEIGHT / 2.0;
+	int HALF_QUARTER_WIDTH = WIDTH / 4.0 / 2.0;
+	int HALF_QUARTER_HEIGHT = HEIGHT / 4.0 / 2.0;
+
+	int xStart, xEnd = 0, yStart = 0, yEnd = 0;
+	if (categories.size() < 6){
+		xStart = QUARTER_WIDTH - HALF_QUARTER_WIDTH;
+		yStart = QUARTER_HEIGHT;
+		xEnd = QUARTER_WIDTH + HALF_QUARTER_WIDTH;
+		yEnd = QUARTER_HEIGHT + HALF_QUARTER_HEIGHT;
+	}
+	else{
+	
+	*/
+
 	int xStart = WIDTH / 2.0 - WIDTH / 4.0, xEnd = WIDTH / 2.0 + WIDTH / 4.0, yStart = HEIGHT/2.0 -	categories.size()/2.0 * 0.00625*HEIGHT, yEnd = yStart + 0.0625*HEIGHT;
+	
 	for each (string category in categories){
+		
 		glPushMatrix();
+		
 		if (mode == GL_SELECT)
 			glLoadName(1100 + identifierCounter);
+		
 		glColor3d(1, 1, 1);
 		glBegin(GL_POLYGON);
-		glVertex2f(xStart, yStart);
-		glVertex2f(xEnd, yStart);
-		glVertex2f(xEnd, yEnd);
-		glVertex2f(xStart, yEnd);
+			glVertex2f(xStart, yStart);
+			glVertex2f(xEnd, yStart);
+			glVertex2f(xEnd, yEnd);
+			glVertex2f(xStart, yEnd);
 		glEnd();	
 		glPopMatrix();	
 
@@ -287,8 +375,9 @@ void drawCategoryButtons(GLenum mode){
 }
 
 void drawCategoriesMenu(GLenum mode){
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawCategoryBackground();
 	drawCategoryButtons(mode);
 }
 /*End Buttons*/
@@ -315,7 +404,11 @@ void drawGameScreen(GLenum mode){
 		drawFinalScreen("YOU LOSE!");
 	}
 	else{
+
 		glColor3f(1, 1, 1);
+
+		drawBackground();
+
 		drawText(modelo.category, WIDTH / 2 - strlen(modelo.category) * 80 / 2, HEIGHT / 5, (9.0 / (1.5*strlen(modelo.category))) < 1.0 ? (9.0 / (1.5*strlen(modelo.category))) : 1.0);
 		drawText(modelo.partialWord, WIDTH / 20.0, HEIGHT / 3 + HEIGHT / 20, (9.0 / (1.5*strlen(modelo.partialWord))) < 1.0 ? (9.0 / (1.5*strlen(modelo.partialWord))) : 1.0);
 		drawGallowsPole();
@@ -572,26 +665,38 @@ void Key(unsigned char key, int x, int y)
 
 void CHangman::startGame(int argc, char **argv){
 
-	//Open connection
-	WCF* webService = new WCF();;
+	//Open connection to EpicService
+	WCF* EpicService = new WCF();;
 
 	vector<Word> words;
 
-	words = webService->getEveryWord();
+	try{
 
-	for each (Word w in words){
+		//Retrive words to assert
+		words = EpicService->getEveryWord();
 
-		wprintf(L"%s\n", w.language);
-		wprintf(L"%s\n", w.topic);
-		wprintf(L"%s\n", w.text);
+		for each (Word w in words){
 
-		printf("\n");
+			wprintf(L"%s\n", w.language);
+			wprintf(L"%s\n", w.topic);
+			wprintf(L"%s\n", w.text);
+
+			printf("\n");
+		}
+
+		//Assert words into knowledge base
+		s.assertData(words);
+
+		//Close connection and free heap
+		EpicService->~WCF();
+
+	}catch(PlException plex){
+	
+		cerr << (char*)&plex << "\n";
 	}
 
-	s.assertData(words);
-	
-	//Close connection and free heap
-	webService->~WCF();
+	if (words.size() == 0)
+		exit(0);
 
 	/*---------------------*/
 
@@ -608,16 +713,24 @@ void CHangman::startGame(int argc, char **argv){
 
 	/*cout << modelo.word << endl;
 	cout << modelo.partialWord << endl;*/
+
 	estado.doubleBuffer = GL_TRUE;
 	
 	glutInit(&argc, argv);
-	glutInitWindowPosition(0, 0);
+
+	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WIDTH) / 2,
+		(glutGet(GLUT_SCREEN_HEIGHT) - HEIGHT) / 2);
+
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutInitDisplayMode(((estado.doubleBuffer) ? GLUT_DOUBLE : GLUT_SINGLE) | GLUT_RGB);
 	if (glutCreateWindow("Hangman") == GL_FALSE)
 		exit(1);
 
 	toggleGlutWindowMaximizeBox("Hangman");
+
+	BACKGROUND_TEX = loadOpaqueTexture("background.jpg");
+	BACKGROUND_CATEGORY_TEX = loadOpaqueTexture("background_category.jpg");
+
 	Init();
 
 	//imprime_ajuda();

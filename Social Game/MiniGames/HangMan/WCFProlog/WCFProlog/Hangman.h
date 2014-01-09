@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include <GL/glut.h>
+#include <GLUT\GL\glut.h>
 #include <External images for OpenGL\LoadImages.h>
 
 #ifdef WIN32

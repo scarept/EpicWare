@@ -1,5 +1,6 @@
 #include "HangmanLogic.h"
-#include "SocialGameService.xsd.h"
+#include <EpicService\EpicWareWeb.xsd.h>
+#include <EpicService\EpicWareWeb.Models.xsd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -124,7 +125,7 @@ string HangmanLogic::chooseWord(string topic, string language){
 	string word;
 
 	while (q.next_solution())
-		word = (string)(char *)av[2];
+		word = (char *)av[2];
 
 	return word;
 }
