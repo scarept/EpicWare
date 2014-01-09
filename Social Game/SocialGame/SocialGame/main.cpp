@@ -4,7 +4,7 @@
 #include <GL\glut.h>
 #include <iostream>
 #include "Grafo.h"
-#include "LoadImages.h"
+#include <External images for OpenGL\LoadImages.h>
 
 using namespace std;
 
@@ -217,7 +217,7 @@ void desenhaLogin(GLenum mode){
 	if (mode == GL_SELECT)
 		glLoadName(10);
 	glEnable(GL_TEXTURE_2D); //obrigatorio para ler imagens no soil
-	//GLuint ax = carrega_texturas("menu.png");
+	//GLuint ax = load3D("menu.png");
 
 	glBindTexture(GL_TEXTURE_2D, login.imagemFundo);
 	/* render texturas */
@@ -284,12 +284,12 @@ void escreveTexto(){
 }
 
 void loginInit(){
-	login.imagemFundo = carrega_texturas("background.png");
-	login.loginBoxImg = carrega_texturas("login.png");
+	login.imagemFundo = load3D("background.png");
+	login.loginBoxImg = load3D("login.png");
 	/*
 	glPushMatrix();
-	menu.imagemFundo = carrega_texturas("menu.png");
-	//GLint in = carrega_texturas("menu.png");
+	menu.imagemFundo = load3D("menu.png");
+	//GLint in = load3D("menu.png");
 	glPopMatrix();
 	*/
 }
@@ -297,7 +297,7 @@ void loginInit(){
 void gameInit()
 {
 	//glPushMatrix();
-	//GLuint ax = carrega_texturas("menu.png");
+	//GLuint ax = load3D("menu.png");
 	//glPopMatrix();
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };

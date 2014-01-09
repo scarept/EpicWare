@@ -8,7 +8,9 @@
 #include <vector>
 #include <SOIL\SOIL.h>
 
-GLuint carrega_texturas(char * nomeTextura);
+GLuint load2D(char * nomeTextura);
+
+GLuint load3D(char * nomeTextura);
 
 GLuint loadOpaqueTexture(char * nomeTextura);
 
