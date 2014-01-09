@@ -8,13 +8,28 @@
 %%   Z7 Z8 Z9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %http://prolog.cs.vu.nl/git/contrib/SWAPP.git/blob/7680954c93ffdd2abf715fe6a856c6584c225fa5:/www/examples/tac/ttt.pl
-
+:- dynamic base/2.
 :- dynamic board/1.
 
-%init:-
-   %retractall(board(_)),
-   %assert(board([x,o,x,_Z4,o,_Z6,_Z7,x,_Z9])).
+/*
+base('x').
+base('x').
+base('Z3').
+base('Z4').
+base('o').
+base('Z6').
+base('Z7').
+base('Z8').
+base('Z9').
+*/
+
+init:-
+   findall(X,base(X),Z),
+   convertList(Z,Z2),
+   retractall(board(_)),
+   assert(board(Z2)).
 %:- init.
+
 
 %%%%%
 %%  Generate possible marks on a free spot on the board.
@@ -152,7 +167,21 @@ spy(_,_,_). % do nothing
 %%% Use s to show board.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 c(C) :-
+   init,
    board(B),
    alpha_beta(o,2,B,-200,200,(X,Y),_Value),
    record(o,X,Y),
    board(C).
+
+convertList([],[]).
+convertList([H|T],[H|L]):-(H=='x';H=='o'),!, convertList(T,L).
+convertList([_|T],[A|L]):- convertList(T,L).
+
+
+
+
+
+
+
+
+

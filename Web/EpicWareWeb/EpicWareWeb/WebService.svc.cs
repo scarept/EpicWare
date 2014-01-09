@@ -120,6 +120,19 @@ namespace EpicWareWeb
             return returnList;
         }
 
+        public int getConnectioStrenght(int id1, int id2)
+        {
+            User user = db.users.Find(id1);
+            foreach(Connection conn in user.listConnections)
+            {
+                if(conn.userConnected.userID == id2)
+                {
+                    return conn.strenght;
+                }
+            }
+            return -1;
+        }
+
         //public User teste()
         //{
         //    //User teste = new User();

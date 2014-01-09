@@ -1,4 +1,4 @@
-#include <External images for OpenGL\LoadImages.h>
+#include "Loadimages.h"
 
 GLuint load3D(char * nomeTextura){
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

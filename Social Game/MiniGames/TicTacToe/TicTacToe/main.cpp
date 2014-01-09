@@ -7,7 +7,7 @@
 #include <GL/glut.h>
 #include <vector>
 //#include "SOIL.h"
-#include "LoadImages.h"
+#include <External images for OpenGl\Loadimages.h>
 //#include "LoadExternalFiles.h"
 
 #include <iostream>
@@ -65,12 +65,12 @@ void initGame(){
 	resetMatriz();
 
 	/* carregar imagens */
-	mod.imagem_circle = carrega_texturas("CIRCLE.png");
-	mod.imagem_cruz = carrega_texturas("CRUZ.png");
-	mod.textura_paredes = carrega_texturas("PAREDE.png");
+	mod.imagem_circle = load2D("CIRCLE.png");
+	mod.imagem_cruz = load2D("CRUZ.png");
+	mod.textura_paredes = load2D("PAREDE.png");
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
-		mod.textura_quadrado[i][j] = carrega_texturas("PAREDE.png");
+		mod.textura_quadrado[i][j] = load2D("PAREDE.png");
 		}
 	}
 
@@ -83,11 +83,11 @@ void initGame(){
 void initMenu(void)
 {
 	/*  texturas  menu */
-	//mod.menu = carrega_texturas("menu.png");
-	mod.menu = carrega_texturas("MENU.png");
+	//mod.menu = load2D("menu.png");
+	mod.menu = load2D("MENU.png");
 
-	mod.exit = carrega_texturas("EXIT.png");
-	mod.play = carrega_texturas("PLAY.png");
+	mod.exit = load2D("EXIT.png");
+	mod.play = load2D("PLAY.png");
 }
 
 
@@ -131,6 +131,7 @@ void assertData(string* arr){
 /* FUNÇÕES PROLOG */
 int* fastestWayAvailable(string* arr){
 
+	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
 	char* argv[] = { "", "-s", "tictactoe.pl", NULL };
 
 	PlEngine e(3, argv);
@@ -437,47 +438,47 @@ void clickEventMatrix(GLint hits, GLuint buffer[])
 		for (j = 0; j < names; j++) { /* for each name */
 			if (*ptr == 1){
 				printf("1");
-				mod.textura_quadrado[0][0] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[0][0] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 2){
 				printf("2");
-				mod.textura_quadrado[0][1] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[0][1] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 3){
 				printf("3");
-				mod.textura_quadrado[0][2] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[0][2] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 4){
 				printf("4");
-				mod.textura_quadrado[1][0] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[1][0] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 5){
 				printf("5");
-				mod.textura_quadrado[1][1] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[1][1] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 6){
 				printf("6");
-				mod.textura_quadrado[1][2] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[1][2] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 7){
 				printf("7");
-				mod.textura_quadrado[2][0] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[2][0] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 8){
 				printf("8");
-				mod.textura_quadrado[2][1] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[2][1] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			else if (*ptr == 9){
 				printf("9");
-				mod.textura_quadrado[2][2] = carrega_texturas("CRUZ.png");
+				mod.textura_quadrado[2][2] = load2D("CRUZ.png");
 				glutPostRedisplay();
 			}
 			//else if (*ptr == 4){

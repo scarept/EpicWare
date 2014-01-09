@@ -48,5 +48,7 @@ namespace EpicWareWeb
         [OperationContract]
         IList<int> getAllUsersID();
 
+        [OperationContract]
+        int getConnectioStrenght(int id1, int id2);
     }
 }

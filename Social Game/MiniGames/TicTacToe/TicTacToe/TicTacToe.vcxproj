@@ -41,9 +41,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\Users\Márcio\Dropbox\Faculdade\3º Ano\LAPR5\git\ExternalDependencies;C:\Program Files %28x86%29\swipl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\swipl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\Users\Márcio\Dropbox\Faculdade\3º Ano\LAPR5\git\ExternalDependencies;C:\Program Files %28x86%29\swipl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\swipl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,11 +92,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LoadImages.cpp" />
+    <ClCompile Include="..\..\..\..\ExternalDependencies\External images for OpenGl\LoadImages.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LoadImages.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\External images for OpenGl\Loadimages.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
