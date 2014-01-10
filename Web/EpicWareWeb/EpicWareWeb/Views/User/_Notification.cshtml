@@ -2,12 +2,5 @@
 
 
 <tr style="color:white;">
-    @if (Model.notificationType.type == "FR")
-    {
-        <td>@Model.message</td><td>@Model.time.Hour<span>:</span>@Model.time.Minute</td><td>@Model.read.ToString()</td><td>@Html.ActionLink(@EpicWareWeb.Views.User.User.ver,@Model.notificationType.resultLink)</td>
-    }
-    else if (Model.notificationType.type == "IR")
-    {
-        <td>@Model.message</td><td>@Model.time.Hour<span>:</span>@Model.time.Minute</td><td>@Model.read.ToString()</td><td>@Html.ActionLink(@EpicWareWeb.Views.User.User.ver,@Model.notificationType.resultLink)</td>
-    }
+    <td>@Model.message</td><td>@Model.time.Hour<span>:</span>@Model.time.Minute</td><td>@Model.read.ToString()</td><td>@Html.ActionLink(@EpicWareWeb.Views.User.User.ver,@Model.notificationType.resultLink)</td>
 </tr>
