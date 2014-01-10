@@ -55,13 +55,15 @@ extern "C" {
 //     struct _GetEveryWordResponse;
 //     struct _getAllUsersID;
 //     struct _getAllUsersIDResponse;
+//     struct _getConnectioStrenght;
+//     struct _getConnectioStrenghtResponse;
 
 // The following header files must be included in this order before this one
 
 // #include <WebServices.h>
 // #include "EpicWareWeb.Models.xsd.h"
-// #include "EpicWareWeb.xsd.h"
 // #include "schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h"
+// #include "EpicWareWeb.xsd.h"
 
 ////////////////////////////////////////////////
 // C structure definitions for generated types
@@ -109,7 +111,7 @@ typedef struct _getUserFriendsByUserId
 typedef struct _getUserFriendsByUserIdResponse 
 {
     unsigned int getUserFriendsByUserIdResultCount;
-    _Field_size_opt_(getUserFriendsByUserIdResultCount)struct User** getUserFriendsByUserIdResult; // optional
+    _Field_size_opt_(getUserFriendsByUserIdResultCount)int* getUserFriendsByUserIdResult;
 } _getUserFriendsByUserIdResponse;
 
 // typeDescription: n/a
@@ -142,6 +144,19 @@ typedef struct _getAllUsersIDResponse
     unsigned int getAllUsersIDResultCount;
     _Field_size_opt_(getAllUsersIDResultCount)int* getAllUsersIDResult;
 } _getAllUsersIDResponse;
+
+// typeDescription: n/a
+typedef struct _getConnectioStrenght 
+{
+    int id1;
+    int id2;
+} _getConnectioStrenght;
+
+// typeDescription: n/a
+typedef struct _getConnectioStrenghtResponse 
+{
+    int getConnectioStrenghtResult;
+} _getConnectioStrenghtResponse;
 
 ////////////////////////////////////////////////
 // Global web service descriptions.
@@ -221,6 +236,16 @@ typedef struct _tempuri_org_xsd
         // elementDescription: tempuri_org_xsd.globalElements.getAllUsersIDResponse
         WS_ELEMENT_DESCRIPTION getAllUsersIDResponse;
         
+        // xml element: getConnectioStrenght ("http://tempuri.org/")
+        // c type: _getConnectioStrenght
+        // elementDescription: tempuri_org_xsd.globalElements.getConnectioStrenght
+        WS_ELEMENT_DESCRIPTION getConnectioStrenght;
+        
+        // xml element: getConnectioStrenghtResponse ("http://tempuri.org/")
+        // c type: _getConnectioStrenghtResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getConnectioStrenghtResponse
+        WS_ELEMENT_DESCRIPTION getConnectioStrenghtResponse;
+        
     } globalElements;
     struct // externallyReferencedTypes
     {
@@ -238,6 +263,8 @@ typedef struct _tempuri_org_xsd
         WS_STRUCT_DESCRIPTION GetEveryWordResponse;
         WS_STRUCT_DESCRIPTION getAllUsersID;
         WS_STRUCT_DESCRIPTION getAllUsersIDResponse;
+        WS_STRUCT_DESCRIPTION getConnectioStrenght;
+        WS_STRUCT_DESCRIPTION getConnectioStrenghtResponse;
     } externallyReferencedTypes;
 } _tempuri_org_xsd;
 

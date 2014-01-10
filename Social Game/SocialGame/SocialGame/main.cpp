@@ -1,12 +1,15 @@
 ﻿#define _USE_MATH_DEFINES
-#include <math.h>
-#include <stdlib.h>     
-#include <GL\glut.h>
+#include <math.h>   
+#include <stdlib.h> 
 #include <iostream>
+#include <GL\glut.h>
 #include "Grafo.h"
+#include "DataTypeChange.h"
 #include <External images for OpenGL\LoadImages.h>
-
+#include <WCF\WCF.h>
+#include <EpicService\EpicWareWeb.Models.xsd.h>
 using namespace std;
+
 
 #define BUFSIZE 512
 //funções
@@ -22,7 +25,6 @@ void dawHud();
 #define rad(X)   (double)((X)*M_PI/180)
 
 // luzes e materiais
-
 const GLfloat mat_ambient[][4] = { { 0.33, 0.22, 0.03, 1.0 },	// brass
 { 0.0, 0.0, 0.0 },			// red plastic
 { 0.0215, 0.1745, 0.0215 },	// emerald
@@ -294,7 +296,27 @@ void loginInit(){
 	*/
 }
 
-void gameInit()
+
+
+void userInit(User *utilizador){
+	No user;
+	user.userId = utilizador->userID;
+	//wcharTutilizador->userProfile->name;
+	user.largura = utilizador->userTagsCount;
+	//char * t = (char)utilizador->userProfile->name;
+
+	user.nome = wcharToString(utilizador->userProfile->name);
+		
+	nos[0] = user;
+
+	numNos = 1;
+
+
+	utilizador->listConnections;
+
+}
+
+void gameInit(User *utilizador)
 {
 	//glPushMatrix();
 	//GLuint ax = load3D("menu.png");
@@ -321,7 +343,11 @@ void gameInit()
 	gluQuadricDrawStyle(modelo.quad, GLU_FILL);
 	gluQuadricNormals(modelo.quad, GLU_OUTSIDE);
 
-	leGrafo();
+	userInit(utilizador);
+	nos[0];
+	//enviar user e lista de ints de amigos
+	int lista[] = { 2, 3, 4 };
+	leGrafo(nos[0],lista);
 }
 
 void imprime_ajuda(void)
@@ -677,7 +703,7 @@ void desenhaEsferaNo(float largura, GLenum mode, int userId){
 
 }
 
-void desenhaNomes(float x1, float y1, float z, char *nome){
+void desenhaNomes(float x1, float y1, float z, string nome){
 
 	glPushMatrix();
 
@@ -690,11 +716,12 @@ void desenhaNomes(float x1, float y1, float z, char *nome){
 	int tamanho = 11;
 	//equação para manter sempre no meio o nome
 	glRasterPos3f(0, 0, 1.1);
-
-	while (*nome != '\0'){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *nome);
-		nome++;
+	int length = nome.length();
+	for (int i = 0; i < length; i++)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, nome[i]);
 	}
+
 	/*
 	for (int i = 0; i < tamanho; i++){
 	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *teste);
@@ -901,71 +928,6 @@ void estadoHumor(){
 
 }
 
-void notificacao(){
-
-	material(azul);
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0, 100, 100, 0);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_CULL_FACE);
-
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
-	glVertex2f(70, 4);
-	glVertex2f(100, 4);
-	glVertex2f(100, 10);
-	glVertex2f(70, 10);
-	glEnd();
-
-
-	// Volta a preparar para desenhar 3D
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-
-	//glutSwapBuffers();
-
-}
-
-
-void textoNotificacao(char *mensagem){
-
-	material(cinza); //cor do texto
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0, 100, 100, 0); //escala da janela 2D criada
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_CULL_FACE);
-
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	glRasterPos2f(71, 8);//posição do texto na janela
-	int tamanho = 5;
-	//for (int i = 0; i < tamanho; i++){
-	while (*mensagem != '\0'){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *mensagem);
-		mensagem++;
-	}
-
-	// Volta a preparar para desenhar 3D
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-
-}
 
 
 void display(void)
@@ -1073,14 +1035,15 @@ void keyboard(unsigned char key, int x, int y)
 			break;
 		case 'h':
 		case 'H':
-			//imprime_ajuda();
-			estado.estadoJogo = 1;
-			gameInit();
-			/* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
-			myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
-			glutPostRedisplay();
+		
+			////imprime_ajuda();
+			//estado.estadoJogo = 1;
+			//gameInit();
+			///* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
+			//myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+			//glutPostRedisplay();
 
-			cout << "modo jogo!" << endl;
+			//cout << "modo jogo!" << endl;
 			break;
 		case 'l':
 		case 'L':
@@ -1151,7 +1114,7 @@ void Special(int key, int x, int y){
 		gravaGrafo();
 		break;
 	case GLUT_KEY_F2:
-		leGrafo();
+//		leGrafo();
 		glutPostRedisplay();
 		break;
 
@@ -1382,10 +1345,38 @@ int picking(int x, int y){
 
 	return objid;
 }
+void ss(User * utilizador){
+
+
+}
 
 void userLogin(){
 	/*chama a web service*/
+	/* strings */
+	login.username;
+	login.password;
+	//char *a = "aaa";
 
+	WCF* EpicService = new WCF();
+	User * utilizador;
+	utilizador = EpicService->getUserAutentication(login.username, login.password);
+	if (utilizador!=NULL){
+		cout << "Valido, userID: " << utilizador->userID<< endl;
+		/*chamar initGame*/
+		/*caso o login seja valido, abreo jogo*/
+		estado.estadoJogo = 1;
+		ss(utilizador);
+		gameInit(utilizador);
+		/* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
+		myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		glutPostRedisplay();
+
+
+	}
+	else{
+		cout << "Utilizador invalido" << endl;
+		/*coloca algo a vermelho no meenu*/
+	}
 }
 
 void clickEvent(GLint hits, GLuint buffer[])
@@ -1424,12 +1415,7 @@ void clickEvent(GLint hits, GLuint buffer[])
 				/*carregou no botão de login*/
 				userLogin();
 
-				/*caso o login seja valido, abreo jogo*/
-				estado.estadoJogo = 1;
-				gameInit();
-				/* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
-				myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
-				glutPostRedisplay();
+				
 			}
 			else if (*ptr == 4){
 				/*carregou no botão modo offline*/
@@ -1448,14 +1434,67 @@ void clickEvent(GLint hits, GLuint buffer[])
 	}
 }
 
+
+void textoDescricao(char * texto, int x, int y){
+	glRasterPos2f(x, y);
+
+	int tamanho = login.username.length();
+	while (*texto != '\0'){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *texto);
+		texto++;
+	}
+
+}
+
 void infoUser(int idUserSelect){
+
+	/* conecção de web service */
+
+	for (int i = 0; i < numNos; i++){
+		if (nos[i].userId == idUserSelect){
+
+			float aa = nos[i].x / nos[i].z;
+			float bb = nos[i].y / nos[i].z;
+			cout << "X: " << aa << endl;
+		}
+	}
+
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	/*coordenadas do texto*/
+	int x = 37;
+	int y = 44;
+
+	/* escrever texto */
+	material(cinza);
+	char *nome = "Luis Mendes";
+	textoDescricao(nome, x, y);
+	char *idade = "23 Anos";
+	textoDescricao(idade, x, y + 5);
+	char *humor = "A adorar openGL :\\";
+	textoDescricao(humor, x, y + 10);
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 
 
 }
 
-void janelaInfoUser(int idUserSelect){
-
-
+void janelaFundoInfoUser(){
 
 
 	glMatrixMode(GL_PROJECTION);
@@ -1472,10 +1511,10 @@ void janelaInfoUser(int idUserSelect){
 
 	glBegin(GL_POLYGON);
 	glColor3f(0, 1, 1);
-	glVertex2f(0, 0);
-	glVertex2f(50, 0);
-	glVertex2f(50, 50);
-	glVertex2f(0, 50);
+	glVertex2f(35, 40);
+	glVertex2f(65, 40);
+	glVertex2f(65, 60);
+	glVertex2f(35, 60);
 	glEnd();
 
 	// Making sure we can render 3d again
@@ -1484,9 +1523,17 @@ void janelaInfoUser(int idUserSelect){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	glutSwapBuffers();
+	//glutSwapBuffers();
 
 }
+
+void janelaInfoUser(int idUserSelect){
+
+	janelaFundoInfoUser();
+	infoUser(idUserSelect);
+	glutSwapBuffers();
+}
+
 
 
 void mouse(int btn, int state, int x, int y){

@@ -94,3 +94,104 @@ vector<int> WCF::getAllUsers(void){
 //
 //	return strenght;
 //}
+
+wchar_t * stringToWchar(string texto){
+
+	wchar_t* wCharTexto = new wchar_t[1023];
+	size_t* size = new size_t;
+	size_t sizeInWords = 256;
+
+	const char* cStr;
+	cStr = texto.c_str();
+	mbstowcs_s(size, wCharTexto, sizeInWords, cStr, strlen(cStr) + 1);
+
+	return wCharTexto;
+}
+
+User* WCF::getUserAutentication(string username, string password){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+	User *teste = NULL;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+		
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+		
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+		hr = BasicHttpBinding_IWebService_getUserByAutetication(proxy, wcharUsername, wcharPassword, &teste, heap, NULL, 0, NULL, error);
+	} 
+
+	return teste;
+
+}
+
+/*
+User* WCF::getUserFiends(string username, string password, int idUser){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+	User *teste = NULL;
+
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	//stringw(aa.c_str()).c_str();
+
+	wchar_t* wCharOutput = new wchar_t[1023];
+	size_t* sizeOut = new size_t;
+	size_t sizeInWords = 256;
+
+	const char* cStr;
+	cStr = username.c_str();
+	mbstowcs_s(sizeOut, wCharOutput, sizeInWords, cStr, strlen(cStr) + 1);
+
+	wchar_t* wCharOutput2 = new wchar_t[1023];
+	size_t* sizeOut2 = new size_t;
+	size_t sizeInWords2 = 256;
+
+	const char* cStr2;
+	cStr2 = password.c_str();
+	mbstowcs_s(sizeOut2, wCharOutput2, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+	unsigned int *numero;
+
+	User dd[10];
+
+	hr = BasicHttpBinding_IWebService_getUserFriendsByUserId(proxy,idUser, wCharOutput, wCharOutput2,numero, dd, heap, NULL, 0, NULL, error);
+
+	return teste;
+
+}
+*/

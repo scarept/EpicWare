@@ -132,11 +132,6 @@ typedef struct _EpicWareWeb_Models_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION Tag;
             WS_FIELD_DESCRIPTION* ArrayOfTagFields [1]; 
         } ArrayOfTagdescs; // end of ArrayOfTag
-        struct  // ArrayOfUser
-        {
-            WS_FIELD_DESCRIPTION User;
-            WS_FIELD_DESCRIPTION* ArrayOfUserFields [1]; 
-        } ArrayOfUserdescs; // end of ArrayOfUser
     } globalTypes;  // end of global types
     struct  // XML dictionary
     {
@@ -207,7 +202,6 @@ typedef struct _EpicWareWeb_Models_xsdLocalDefinitions
             WS_XML_STRING ArrayOfNotificationTypeName;  // ArrayOfNotification
             WS_XML_STRING ArrayOfScoreUserTypeName;  // ArrayOfScoreUser
             WS_XML_STRING ArrayOfTagTypeName;  // ArrayOfTag
-            WS_XML_STRING ArrayOfUserTypeName;  // ArrayOfUser
         } xmlStrings;  // end of XML string list
         WS_XML_DICTIONARY dict;
     } dictionary;  // end of XML dictionary
@@ -987,25 +981,6 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
             (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.ArrayOfTagdescs.Tag,
             },
         },    // ArrayOfTag
-        {  // ArrayOfUser
-            {  // field description for User
-            WS_REPEATING_ELEMENT_FIELD_MAPPING,
-            0,
-            0,
-            WS_STRUCT_TYPE,
-            (void*)&EpicWareWeb_Models_xsd.globalTypes.User,
-            WsOffsetOf(ArrayOfUser, User),
-            WS_FIELD_POINTER| WS_FIELD_NILLABLE_ITEM,
-            0,
-            WsOffsetOf(ArrayOfUser, UserCount),
-            (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeName, // User
-            (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
-            0,
-            },    // end of field description for User
-            {  // fields description for ArrayOfUser
-            (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.ArrayOfUserdescs.User,
-            },
-        },    // ArrayOfUser
     }, // end of global types
     {  // dictionary 
         {  // xmlStrings
@@ -1074,14 +1049,13 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
             WS_XML_STRING_DICTIONARY_VALUE("ArrayOfNotification",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 62),
             WS_XML_STRING_DICTIONARY_VALUE("ArrayOfScoreUser",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 63),
             WS_XML_STRING_DICTIONARY_VALUE("ArrayOfTag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 64),
-            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfUser",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 65),
         },  // end of xmlStrings
         
         {  // EpicWareWeb_Models_xsddictionary
-          // 5d2ae36c-fa5d-4002-a467-e33ca80b6300 
-        { 0x5d2ae36c, 0xfa5d, 0x4002, { 0xa4, 0x67, 0xe3,0x3c, 0xa8, 0x0b, 0x63, 0x00 } },
+          // 08dd3849-7b80-426b-be54-86d03e5aaa63 
+        { 0x08dd3849, 0x7b80, 0x426b, { 0xbe, 0x54, 0x86,0xd0, 0x3e, 0x5a, 0xaa, 0x63 } },
         (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings,
-        66,
+        65,
         TRUE,
         },
     },  //  end of dictionary
@@ -1277,17 +1251,6 @@ const _EpicWareWeb_Models_xsd EpicWareWeb_Models_xsd =
         0,
         0,
         },   // end of struct description for Tag
-        {
-        sizeof(ArrayOfUser),
-        __alignof(ArrayOfUser),
-        (WS_FIELD_DESCRIPTION**)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.ArrayOfUserdescs.ArrayOfUserFields,
-        WsCountOf(EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.ArrayOfUserdescs.ArrayOfUserFields),
-        (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfUserTypeName, // ArrayOfUser
-        (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
-        0,
-        0,
-        0,
-        },   // end of struct description for ArrayOfUser
     },  // globalTypes
     {  // globalElements
         {
@@ -1391,12 +1354,6 @@ const _EpicWareWeb_Models_xsd EpicWareWeb_Models_xsd =
             (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
             WS_STRUCT_TYPE,
             (void*)&EpicWareWeb_Models_xsd.globalTypes.Tag,
-        },
-        {
-            (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfUserTypeName, // ArrayOfUser
-            (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
-            WS_STRUCT_TYPE,
-            (void*)&EpicWareWeb_Models_xsd.globalTypes.ArrayOfUser,
         },
     },  // globalElements
 }; // end of _EpicWareWeb_Models_xsd

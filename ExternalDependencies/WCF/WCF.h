@@ -22,6 +22,9 @@ using namespace std;
 class WCF
 {
 private:
+
+	wchar_t * stringToWchar(string texto);
+
 public:
 	
 	WCF();
@@ -30,6 +33,8 @@ public:
 	//vector<int> getFriendsByUser(int);
 	vector<int> getAllUsers(void);
 	//int getConnectionStrenght(int, int);
+	User* WCF::getUserAutentication(string username, string password);
+	User* WCF::getUserFiends(string username, string password, int idUser);
 };
 
 #endif

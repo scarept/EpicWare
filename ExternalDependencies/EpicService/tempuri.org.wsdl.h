@@ -131,6 +131,7 @@ extern "C" {
 //     BasicHttpBinding_IWebService_getUserByAutetication
 //     BasicHttpBinding_IWebService_GetEveryWord
 //     BasicHttpBinding_IWebService_getAllUsersID
+//     BasicHttpBinding_IWebService_getConnectioStrenght
 
 // The following server function tables were generated:
 
@@ -145,8 +146,8 @@ extern "C" {
 
 // #include <WebServices.h>
 // #include "EpicWareWeb.Models.xsd.h"
-// #include "EpicWareWeb.xsd.h"
 // #include "schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h"
+// #include "EpicWareWeb.xsd.h"
 // #include "tempuri.org.xsd.h"
 
 ////////////////////////////////////////////////
@@ -221,7 +222,7 @@ HRESULT WINAPI BasicHttpBinding_IWebService_getUserFriendsByUserId(
     _In_opt_z_ WCHAR* user, 
     _In_opt_z_ WCHAR* pass, 
     _Out_ unsigned int* getUserFriendsByUserIdResultCount, 
-    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) User*** getUserFriendsByUserIdResult, 
+    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) int** getUserFriendsByUserIdResult, 
     _In_ WS_HEAP* _heap,
     _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
     _In_ const ULONG _callPropertyCount,
@@ -262,6 +263,18 @@ HRESULT WINAPI BasicHttpBinding_IWebService_getAllUsersID(
     _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_opt_ WS_ERROR* _error);
 
+// operation: BasicHttpBinding_IWebService_getConnectioStrenght
+HRESULT WINAPI BasicHttpBinding_IWebService_getConnectioStrenght(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id1, 
+    _In_ int id2, 
+    _Out_ int* getConnectioStrenghtResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error);
+
 ////////////////////////////////////////////////
 // Service functions definitions
 ////////////////////////////////////////////////
@@ -293,7 +306,7 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getUserFriendsByUserIdCa
     _In_opt_z_ WCHAR* user, 
     _In_opt_z_ WCHAR* pass, 
     _Out_ unsigned int* getUserFriendsByUserIdResultCount, 
-    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) User*** getUserFriendsByUserIdResult, 
+    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) int** getUserFriendsByUserIdResult, 
     _In_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_ WS_ERROR* _error);
 
@@ -319,6 +332,14 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getAllUsersIDCallback) (
     _In_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_ WS_ERROR* _error);
 
+typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getConnectioStrenghtCallback) (
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ int id1, 
+    _In_ int id2, 
+    _Out_ int* getConnectioStrenghtResult, 
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error);
+
 // binding: BasicHttpBinding_IWebService
 typedef struct BasicHttpBinding_IWebServiceFunctionTable 
 {
@@ -329,6 +350,7 @@ typedef struct BasicHttpBinding_IWebServiceFunctionTable
     BasicHttpBinding_IWebService_getUserByAuteticationCallback BasicHttpBinding_IWebService_getUserByAutetication;
     BasicHttpBinding_IWebService_GetEveryWordCallback BasicHttpBinding_IWebService_GetEveryWord;
     BasicHttpBinding_IWebService_getAllUsersIDCallback BasicHttpBinding_IWebService_getAllUsersID;
+    BasicHttpBinding_IWebService_getConnectioStrenghtCallback BasicHttpBinding_IWebService_getConnectioStrenght;
 } BasicHttpBinding_IWebServiceFunctionTable;
 
 ////////////////////////////////////////////////
@@ -423,6 +445,18 @@ typedef struct _tempuri_org_wsdl
         // messageDescription: tempuri_org_wsdl.messages.IWebService_getAllUsersID_OutputMessage
         WS_MESSAGE_DESCRIPTION IWebService_getAllUsersID_OutputMessage;
         
+        // message: IWebService_getConnectioStrenght_InputMessage
+        // c type: _getConnectioStrenght
+        // action: "http://tempuri.org/IWebService/getConnectioStrenght"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getConnectioStrenght_InputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getConnectioStrenght_InputMessage;
+        
+        // message: IWebService_getConnectioStrenght_OutputMessage
+        // c type: _getConnectioStrenghtResponse
+        // action: "http://tempuri.org/IWebService/getConnectioStrenghtResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getConnectioStrenght_OutputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getConnectioStrenght_OutputMessage;
+        
     } messages;
     struct // contracts
     {
@@ -449,6 +483,9 @@ typedef struct _tempuri_org_wsdl
         // operation: BasicHttpBinding_IWebService_getAllUsersID
         //     input message: IWebService_getAllUsersID_InputMessage
         //     output message: IWebService_getAllUsersID_OutputMessage
+        // operation: BasicHttpBinding_IWebService_getConnectioStrenght
+        //     input message: IWebService_getConnectioStrenght_InputMessage
+        //     output message: IWebService_getConnectioStrenght_OutputMessage
         // contractDescription: tempuri_org_wsdl.contracts.BasicHttpBinding_IWebService
         WS_CONTRACT_DESCRIPTION BasicHttpBinding_IWebService;
         
