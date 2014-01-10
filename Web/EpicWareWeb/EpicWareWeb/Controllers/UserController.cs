@@ -381,6 +381,21 @@ namespace EpicWareWeb.Controllers
             return View(user);
         }
 
+        /* FRINDS SUGESTION */
+        // Based on frinds of friends
+        [Authorize]
+        public ActionResult FriendsSugestion()
+        {
+            User userAuth = UserAutenticated();
+            ConnectionController ctrConn = new ConnectionController();
+            List<User> sugestionFriends = new List<User>();
+            foreach(Connection conn in userAuth.listConnections)
+            {
+                List<User> frindsOfFriend = ctrConn.noCommonFriends(conn.userConnected);
+                sugestionFriends.AddRange(frindsOfFriend);
+            }
+            return View(sugestionFriends);
+        }
 
 
         /* FRIEND REQUEST*/
