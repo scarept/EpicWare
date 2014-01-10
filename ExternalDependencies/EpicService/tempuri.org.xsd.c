@@ -66,6 +66,17 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION getAllUsersIDResult;
             WS_FIELD_DESCRIPTION* _getAllUsersIDResponseFields [1]; 
         } _getAllUsersIDResponsedescs; // end of _getAllUsersIDResponse
+        struct  // _getConnectioStrenght
+        {
+            WS_FIELD_DESCRIPTION id1;
+            WS_FIELD_DESCRIPTION id2;
+            WS_FIELD_DESCRIPTION* _getConnectioStrenghtFields [2]; 
+        } _getConnectioStrenghtdescs; // end of _getConnectioStrenght
+        struct  // _getConnectioStrenghtResponse
+        {
+            WS_FIELD_DESCRIPTION getConnectioStrenghtResult;
+            WS_FIELD_DESCRIPTION* _getConnectioStrenghtResponseFields [1]; 
+        } _getConnectioStrenghtResponsedescs; // end of _getConnectioStrenghtResponse
     } globalElements;  // end of global elements
     struct  // XML dictionary
     {
@@ -103,6 +114,11 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_XML_STRING _getAllUsersIDResponsegetAllUsersIDResultLocalName;  // int
             WS_XML_STRING _getAllUsersIDResponsegetAllUsersIDResultNamespace;  // http://schemas.microsoft.com/2003/10/Serialization/Arrays
             WS_XML_STRING _getAllUsersIDResponsegetAllUsersIDResultWrapperName;  // getAllUsersIDResult
+            WS_XML_STRING _getConnectioStrenghtTypeName;  // getConnectioStrenght
+            WS_XML_STRING _getConnectioStrenghtid1LocalName;  // id1
+            WS_XML_STRING _getConnectioStrenghtid2LocalName;  // id2
+            WS_XML_STRING _getConnectioStrenghtResponseTypeName;  // getConnectioStrenghtResponse
+            WS_XML_STRING _getConnectioStrenghtResponsegetConnectioStrenghtResultLocalName;  // getConnectioStrenghtResult
         } xmlStrings;  // end of XML string list
         WS_XML_DICTIONARY dict;
     } dictionary;  // end of XML dictionary
@@ -341,6 +357,50 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getAllUsersIDResponsedescs.getAllUsersIDResult,
             },
         },    // _getAllUsersIDResponse
+        {  // _getConnectioStrenght
+            {  // field description for id1
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtid1LocalName, // id1
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getConnectioStrenght, id1),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id1
+            {  // field description for id2
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtid2LocalName, // id2
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getConnectioStrenght, id2),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id2
+            {  // fields description for _getConnectioStrenght
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtdescs.id1,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtdescs.id2,
+            },
+        },    // _getConnectioStrenght
+        {  // _getConnectioStrenghtResponse
+            {  // field description for getConnectioStrenghtResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtResponsegetConnectioStrenghtResultLocalName, // getConnectioStrenghtResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getConnectioStrenghtResponse, getConnectioStrenghtResult),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for getConnectioStrenghtResult
+            {  // fields description for _getConnectioStrenghtResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtResponsedescs.getConnectioStrenghtResult,
+            },
+        },    // _getConnectioStrenghtResponse
     }, // end of global elements
     {  // dictionary 
         {  // xmlStrings
@@ -376,13 +436,18 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("int",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 29),
             WS_XML_STRING_DICTIONARY_VALUE("http://schemas.microsoft.com/2003/10/Serialization/Arrays",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 30),
             WS_XML_STRING_DICTIONARY_VALUE("getAllUsersIDResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 31),
+            WS_XML_STRING_DICTIONARY_VALUE("getConnectioStrenght",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 32),
+            WS_XML_STRING_DICTIONARY_VALUE("id1",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 33),
+            WS_XML_STRING_DICTIONARY_VALUE("id2",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 34),
+            WS_XML_STRING_DICTIONARY_VALUE("getConnectioStrenghtResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 35),
+            WS_XML_STRING_DICTIONARY_VALUE("getConnectioStrenghtResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 36),
         },  // end of xmlStrings
         
         {  // tempuri_org_xsddictionary
-          // e626bcce-97af-4048-b979-06ea65589f2f 
-        { 0xe626bcce, 0x97af, 0x4048, { 0xb9, 0x79, 0x06,0xea, 0x65, 0x58, 0x9f, 0x2f } },
+          // abe6af18-04a7-4474-a73f-ebe2728697b0 
+        { 0xabe6af18, 0x04a7, 0x4474, { 0xa7, 0x3f, 0xeb,0xe2, 0x72, 0x86, 0x97, 0xb0 } },
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings,
-        32,
+        37,
         TRUE,
         },
     },  //  end of dictionary
@@ -474,6 +539,18 @@ const _tempuri_org_xsd tempuri_org_xsd =
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
             WS_STRUCT_TYPE,
             (void*)&tempuri_org_xsd.externallyReferencedTypes.getAllUsersIDResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtTypeName, // getConnectioStrenght
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getConnectioStrenght,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtResponseTypeName, // getConnectioStrenghtResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getConnectioStrenghtResponse,
         },
     },  // globalElements
     {  // begin of externallyReferencedTypes
@@ -631,5 +708,27 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         0,
         },   // end of struct description for _getAllUsersIDResponse
+        {
+        sizeof(_getConnectioStrenght),
+        __alignof(_getConnectioStrenght),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtdescs._getConnectioStrenghtFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtdescs._getConnectioStrenghtFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtTypeName, // getConnectioStrenght
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getConnectioStrenght
+        {
+        sizeof(_getConnectioStrenghtResponse),
+        __alignof(_getConnectioStrenghtResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtResponsedescs._getConnectioStrenghtResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtResponsedescs._getConnectioStrenghtResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtResponseTypeName, // getConnectioStrenghtResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getConnectioStrenghtResponse
     },  // end of externallyReferencedTypes;
 }; // end of _tempuri_org_xsd

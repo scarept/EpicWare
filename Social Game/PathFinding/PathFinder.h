@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "WCF.h"
+#include <WCF/WCF.h>
 #include <iostream>
 #include <SWI-Prolog.h>
 #include <SWI-Stream.h>
