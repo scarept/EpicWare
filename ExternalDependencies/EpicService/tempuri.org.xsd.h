@@ -62,8 +62,8 @@ extern "C" {
 
 // #include <WebServices.h>
 // #include "EpicWareWeb.Models.xsd.h"
-// #include "EpicWareWeb.xsd.h"
 // #include "schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h"
+// #include "EpicWareWeb.xsd.h"
 
 ////////////////////////////////////////////////
 // C structure definitions for generated types
@@ -111,7 +111,7 @@ typedef struct _getUserFriendsByUserId
 typedef struct _getUserFriendsByUserIdResponse 
 {
     unsigned int getUserFriendsByUserIdResultCount;
-    _Field_size_opt_(getUserFriendsByUserIdResultCount)struct User** getUserFriendsByUserIdResult; // optional
+    _Field_size_opt_(getUserFriendsByUserIdResultCount)int* getUserFriendsByUserIdResult;
 } _getUserFriendsByUserIdResponse;
 
 // typeDescription: n/a

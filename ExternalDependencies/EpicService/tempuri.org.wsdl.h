@@ -146,8 +146,8 @@ extern "C" {
 
 // #include <WebServices.h>
 // #include "EpicWareWeb.Models.xsd.h"
-// #include "EpicWareWeb.xsd.h"
 // #include "schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h"
+// #include "EpicWareWeb.xsd.h"
 // #include "tempuri.org.xsd.h"
 
 ////////////////////////////////////////////////
@@ -222,7 +222,7 @@ HRESULT WINAPI BasicHttpBinding_IWebService_getUserFriendsByUserId(
     _In_opt_z_ WCHAR* user, 
     _In_opt_z_ WCHAR* pass, 
     _Out_ unsigned int* getUserFriendsByUserIdResultCount, 
-    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) User*** getUserFriendsByUserIdResult, 
+    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) int** getUserFriendsByUserIdResult, 
     _In_ WS_HEAP* _heap,
     _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
     _In_ const ULONG _callPropertyCount,
@@ -306,7 +306,7 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getUserFriendsByUserIdCa
     _In_opt_z_ WCHAR* user, 
     _In_opt_z_ WCHAR* pass, 
     _Out_ unsigned int* getUserFriendsByUserIdResultCount, 
-    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) User*** getUserFriendsByUserIdResult, 
+    _Outptr_opt_result_buffer_(*getUserFriendsByUserIdResultCount) int** getUserFriendsByUserIdResult, 
     _In_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_ WS_ERROR* _error);
 

@@ -58,7 +58,6 @@ extern "C" {
 //     struct Country;
 //     struct ArrayOfTag;
 //     struct Tag;
-//     struct ArrayOfUser;
 //     struct User;
 //     struct Language;
 //     struct ArrayOfConnection;
@@ -76,7 +75,6 @@ extern "C" {
 //     struct Country;
 //     struct ArrayOfTag;
 //     struct Tag;
-//     struct ArrayOfUser;
 
 // The following header files must be included in this order before this one
 
@@ -237,13 +235,6 @@ typedef struct ArrayOfTag
     _Field_size_(TagCount)struct Tag** Tag; // optional
 } ArrayOfTag;
 
-// typeDescription: EpicWareWeb_Models_xsd.globalTypes.ArrayOfUser
-typedef struct ArrayOfUser 
-{
-    unsigned int UserCount;
-    _Field_size_(UserCount)struct User** User; // optional
-} ArrayOfUser;
-
 ////////////////////////////////////////////////
 // Global web service descriptions.
 ////////////////////////////////////////////////
@@ -354,12 +345,6 @@ typedef struct _EpicWareWeb_Models_xsd
         // typeDescription: EpicWareWeb_Models_xsd.globalTypes.Tag
         WS_STRUCT_DESCRIPTION Tag;
         
-        // xml type: ArrayOfUser ("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models")
-        // c type: ArrayOfUser
-        // WS_TYPE: WS_STRUCT_TYPE
-        // typeDescription: EpicWareWeb_Models_xsd.globalTypes.ArrayOfUser
-        WS_STRUCT_DESCRIPTION ArrayOfUser;
-        
     } globalTypes;
     struct // globalElements
     {
@@ -447,11 +432,6 @@ typedef struct _EpicWareWeb_Models_xsd
         // c type: Tag
         // elementDescription: EpicWareWeb_Models_xsd.globalElements.Tag
         WS_ELEMENT_DESCRIPTION Tag;
-        
-        // xml element: ArrayOfUser ("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models")
-        // c type: ArrayOfUser
-        // elementDescription: EpicWareWeb_Models_xsd.globalElements.ArrayOfUser
-        WS_ELEMENT_DESCRIPTION ArrayOfUser;
         
     } globalElements;
 } _EpicWareWeb_Models_xsd;
