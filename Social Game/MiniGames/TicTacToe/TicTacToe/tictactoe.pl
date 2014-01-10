@@ -1,27 +1,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Prolog TicTacToe alpha-beta expert
-%% Design to play against human (Java GUI)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  The empty Tac Tac Toe board
 %%   Z1 Z2 Z3
 %%   Z4 Z5 Z6   ~   [Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9]
 %%   Z7 Z8 Z9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%http://prolog.cs.vu.nl/git/contrib/SWAPP.git/blob/7680954c93ffdd2abf715fe6a856c6584c225fa5:/www/examples/tac/ttt.pl
-:- dynamic base/2.
+%Adapted from L. Sterling and E. Shapiro, The Art of Prolog, MIT Press, 1986.
+%ADAPTED FOR LAPR5 PROJECT: http://prolog.cs.vu.nl/git/contrib/SWAPP.git/blob/7680954c93ffdd2abf715fe6a856c6584c225fa5:/www/examples/tac/ttt.pl
+:- dynamic base/1.
 :- dynamic board/1.
-
-/*
-base('x').
-base('x').
-base('Z3').
-base('Z4').
-base('o').
-base('Z6').
-base('Z7').
-base('Z8').
-base('Z9').
-*/
 
 init:-
    findall(X,base(X),Z),
@@ -107,9 +95,7 @@ value(Board,E) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % using minimax procedure with alpha-beta cutoff.
-% Computer (o) searches for best tic tac toe move,
-% Human player is x.
-% Adapted from L. Sterling and E. Shapiro, The Art of Prolog, MIT Press, 1986.
+% Computer (o) searches for best tic tac toe move.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 :- assert(lookahead(2)).
@@ -166,8 +152,9 @@ spy(_,_,_). % do nothing
 %%% supply coordinates. Then call c (computer plays).
 %%% Use s to show board.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-c(C) :-
+c(X,Y) :- %base(B).
    init,
+   retractall(base(_)),
    board(B),
    alpha_beta(o,2,B,-200,200,(X,Y),_Value),
    record(o,X,Y),
