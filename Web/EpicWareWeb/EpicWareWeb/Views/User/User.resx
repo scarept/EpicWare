@@ -264,4 +264,28 @@
   <data name="novopedidointroducao" xml:space="preserve">
     <value>Novo pedido de introdução</value>
   </data>
+  <data name="fraceite" xml:space="preserve">
+    <value>aceitou o seu pedido de amizade.</value>
+  </data>
+  <data name="de" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="introReqNotMiddleAceept" xml:space="preserve">
+    <value>Pedido de introdução aceite e enviado ao amigo</value>
+  </data>
+  <data name="oseuamigo" xml:space="preserve">
+    <value>O seu amigo</value>
+  </data>
+  <data name="para" xml:space="preserve">
+    <value>para</value>
+  </data>
+  <data name="paraSerSeuAmigo" xml:space="preserve">
+    <value>para ser seu amigo</value>
+  </data>
+  <data name="recomendou" xml:space="preserve">
+    <value>recomendou</value>
+  </data>
+  <data name="rejeitouIR" xml:space="preserve">
+    <value>rejeitou pedido de introdução a</value>
+  </data>
 </root>

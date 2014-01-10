@@ -467,7 +467,7 @@ namespace EpicWareWeb.Controllers
 
             User userAuth = UserAutenticated();
             User user = fR.user1;
-            
+
             Connection conn1 = new Connection();
             Connection conn2 = new Connection();
 
@@ -490,6 +490,17 @@ namespace EpicWareWeb.Controllers
             /* Save connections on all users and remove FrindRequest*/
             userAuth.listConnections.Add(conn1);
             user.listConnections.Add(conn2);
+
+            /* Create Notification */
+            Notification note = new Notification();
+            note.message = userAuth.userProfile.nickname + EpicWareWeb.Views.User.User.fraceite;
+            note.time = DateTime.Now;
+            note.read = false;
+            NotificationType nTyp = new NotificationType();
+            nTyp.type = "FA"; // FRAccept
+            nTyp.resultLink = "~/User/Profile/" + userAuth.userID;
+            note.notificationType = nTyp;
+            user.notifications.Add(note);
 
             if (ModelState.IsValid)
             {
@@ -552,7 +563,7 @@ namespace EpicWareWeb.Controllers
             /* Create Notification */
             Notification note = new Notification();
             note.notificationType = db.notificationsType.Find(2); // IR type
-            note.message = @EpicWareWeb.Views.User.User.novopedidointroducao + " : " + UserAutenticated().userProfile.nickname;
+            note.message = @EpicWareWeb.Views.User.User.oseuamigo + " <b>" + introFR.userB.userProfile.nickname + "</b> " + EpicWareWeb.Views.User.User.recomendou + " <b>" + introFR.userA.userProfile.nickname + "</b> " + EpicWareWeb.Views.User.User.paraSerSeuAmigo;
             note.time = DateTime.Now;
             note.read = false;
             userFriend.notifications.Add(note);
@@ -608,6 +619,21 @@ namespace EpicWareWeb.Controllers
             IntroFriendRequest intro = db.introes.Find(id);
             intro.messageBC = msgBC;
             intro.sendedBC = true;
+
+            /* Create Notification UserA */
+            Notification note = new Notification();
+            NotificationType nTyp = new NotificationType();
+            note.message = @EpicWareWeb.Views.User.User.introReqNotMiddleAceept + ". "+ EpicWareWeb.Views.User.User.de + ": <b>" + intro.userB.userProfile.nickname + "</b> " 
+            + EpicWareWeb.Views.User.User.para + ": <b>" + intro.userC.userProfile.nickname + "</b>";
+            note.read = false;
+            note.time = DateTime.Now;
+            //nTyp.type = "IRM";
+            nTyp.resultLink = "~/User/Profile/" + intro.userA.userID;
+            note.notificationType = nTyp;
+            intro.userA.notifications.Add(note);
+
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(intro).State = EntityState.Modified;
@@ -623,8 +649,22 @@ namespace EpicWareWeb.Controllers
         public PartialViewResult RejectMiddleIntroAjax(int id)
         {
             IntroFriendRequest intro = db.introes.Find(id);
+
+            /* Create Notification */
+            Notification note = new Notification();
+            note.message = intro.userB.userProfile.nickname + " " + EpicWareWeb.Views.User.User.rejeitouIR + " " + intro.userC.userProfile.nickname;
+            note.read = false;
+            note.time = DateTime.Now;
+
+            NotificationType nTyp = new NotificationType();
+            nTyp.resultLink = "~/User/Profile/"+intro.userA.userID;
+            note.notificationType = nTyp;
+            User user = intro.userA;
+            user.notifications.Add(note);
+           
             if (ModelState.IsValid)
             {
+                db.Entry(user).State = EntityState.Modified;
                 db.introes.Remove(intro);
                 db.SaveChanges();
             }
@@ -701,10 +741,15 @@ namespace EpicWareWeb.Controllers
         public ActionResult ListNotifications()
         {
             User user = UserAutenticated();
+            List<Notification> send = new List<Notification>(); 
             foreach(Notification item in user.notifications)
             {
-                item.read = true;
-            }
+                if (!item.read)
+                {
+                    item.read = true;
+                    //send.Add(item); Mostra todas e diz quais foram lidas. Descomentar para so mostrar nao lidas
+                }
+             }
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;

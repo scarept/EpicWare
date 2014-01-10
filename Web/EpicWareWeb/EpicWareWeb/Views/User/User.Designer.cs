@@ -133,6 +133,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to de.
+        /// </summary>
+        public static string de {
+            get {
+                return ResourceManager.GetString("de", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destino.
         /// </summary>
         public static string destino {
@@ -183,6 +192,15 @@ namespace EpicWareWeb.Views.User {
         public static string forca {
             get {
                 return ResourceManager.GetString("forca", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to aceitou o seu pedido de amizade..
+        /// </summary>
+        public static string fraceite {
+            get {
+                return ResourceManager.GetString("fraceite", resourceCulture);
             }
         }
         
@@ -255,6 +273,15 @@ namespace EpicWareWeb.Views.User {
         public static string introReq {
             get {
                 return ResourceManager.GetString("introReq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedido de introdução aceite e enviado ao amigo.
+        /// </summary>
+        public static string introReqNotMiddleAceept {
+            get {
+                return ResourceManager.GetString("introReqNotMiddleAceept", resourceCulture);
             }
         }
         
@@ -376,11 +403,38 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O seu amigo.
+        /// </summary>
+        public static string oseuamigo {
+            get {
+                return ResourceManager.GetString("oseuamigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to País.
         /// </summary>
         public static string pais {
             get {
                 return ResourceManager.GetString("pais", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to para.
+        /// </summary>
+        public static string para {
+            get {
+                return ResourceManager.GetString("para", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to para ser seu amigo.
+        /// </summary>
+        public static string paraSerSeuAmigo {
+            get {
+                return ResourceManager.GetString("paraSerSeuAmigo", resourceCulture);
             }
         }
         
@@ -412,11 +466,29 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to recomendou.
+        /// </summary>
+        public static string recomendou {
+            get {
+                return ResourceManager.GetString("recomendou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rejeitar.
         /// </summary>
         public static string reject {
             get {
                 return ResourceManager.GetString("reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rejeitou pedido de introdução a.
+        /// </summary>
+        public static string rejeitouIR {
+            get {
+                return ResourceManager.GetString("rejeitouIR", resourceCulture);
             }
         }
         
