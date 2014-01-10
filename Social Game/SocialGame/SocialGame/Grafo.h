@@ -4,6 +4,10 @@
 #define _MAX_NOS_GRAFO 100
 #define _MAX_ARCOS_GRAFO 200
 
+
+#include <iostream>
+using namespace std;
+
 #define NORTE_SUL	0
 #define ESTE_OESTE	1
 #define PLANO		2
@@ -13,7 +17,7 @@ typedef struct No{
 	char * tags;
 	char * estadoHumor;
 	int userId;
-	char * nome;
+	string nome;
 }No;
 
 typedef struct Arco{

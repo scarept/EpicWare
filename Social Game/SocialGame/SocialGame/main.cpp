@@ -4,6 +4,7 @@
 #include <iostream>
 #include <GL\glut.h>
 #include "Grafo.h"
+#include "DataTypeChange.h"
 #include <External images for OpenGL\LoadImages.h>
 #include <WCF\WCF.h>
 #include <EpicService\EpicWareWeb.Models.xsd.h>
@@ -295,42 +296,21 @@ void loginInit(){
 	*/
 }
 
-char* wcharToChar(wchar_t *texto){
-	int i = 0;
-	char *retorno="";
-	const int tamanho = wcslen(texto);
-	char lista[60];
-	//retorno = "a";
-//	char lista[tamanho];
-	string aa;
-	aa = *texto;
-	while (texto[i] != '\0'){
-		char letra = texto[i];
-		lista[i] = letra;
-		i++;
-	}
-
-	retorno = lista;
-
-	return lista;
-}
 
 
 void userInit(User *utilizador){
 	No user;
 	user.userId = utilizador->userID;
-	utilizador->userProfile->name;
+	//wcharTutilizador->userProfile->name;
 	user.largura = utilizador->userTagsCount;
 	//char * t = (char)utilizador->userProfile->name;
 
-
-	user.nome = wcharToChar(utilizador->userProfile->name);
-	
+	user.nome = wcharToString(utilizador->userProfile->name);
+		
 	nos[0] = user;
 
 	numNos = 1;
 
-	User pp[10];
 
 	utilizador->listConnections;
 
@@ -723,7 +703,7 @@ void desenhaEsferaNo(float largura, GLenum mode, int userId){
 
 }
 
-void desenhaNomes(float x1, float y1, float z, char *nome){
+void desenhaNomes(float x1, float y1, float z, string nome){
 
 	glPushMatrix();
 
@@ -736,11 +716,12 @@ void desenhaNomes(float x1, float y1, float z, char *nome){
 	int tamanho = 11;
 	//equação para manter sempre no meio o nome
 	glRasterPos3f(0, 0, 1.1);
-
-	while (*nome != '\0'){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *nome);
-		nome++;
+	int length = nome.length();
+	for (int i = 0; i < length; i++)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, nome[i]);
 	}
+
 	/*
 	for (int i = 0; i < tamanho; i++){
 	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *teste);
