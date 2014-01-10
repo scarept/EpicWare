@@ -16,9 +16,11 @@
 <div style="align-content:center">
     <table width="600">
         <tr>
+            @using (Html.BeginForm("DownloadGame", "User", FormMethod.Get)) {
             <td width="300">
-                <button type="button" class="btn btn-lg btn-primary" style="width:200px;">Download Game</button>
+                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">Download Game</button>
             </td>
+            }
             <td rowspan="3" width="300"><img src="~/Images/EpicWare%20Logos/EpicWare%20Logo.png" /></td>
         </tr>
         <tr>

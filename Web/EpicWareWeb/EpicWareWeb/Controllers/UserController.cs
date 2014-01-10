@@ -758,6 +758,21 @@ namespace EpicWareWeb.Controllers
             return View(user.notifications);
         }
 
+        /* DOWNLOAD GAME */
+        [HttpGet]
+        public RedirectResult DownloadGame()
+        {
+            if(ModelState.IsValid)
+            {
+                Download dw = new Download();
+                dw.time = DateTime.Now;
+                db.downloads.Add(dw);
+                db.SaveChanges();
+            }
+            return RedirectPermanent("~/DownloadGame/game.exe");
+        }
+
+
         /* AUX METHODS */
 
         public User UserAutenticated()
