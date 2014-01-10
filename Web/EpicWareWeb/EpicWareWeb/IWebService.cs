@@ -37,7 +37,7 @@ namespace EpicWareWeb
         User getUserByID(int id, string user, string pass);
 
         [OperationContract]
-        IList<User> getUserFriendsByUserId(int id, string user, string pass);
+        IList<int> getUserFriendsByUserId(int id, string user, string pass);
 
         [OperationContract]
         User getUserByAutetication(string user, string password);

@@ -50,15 +50,15 @@ namespace EpicWareWeb
             
         }
 
-        public IList<User> getUserFriendsByUserId(int id,string user, string pass)
+        public IList<int> getUserFriendsByUserId(int id,string user, string pass)
         {
             if(Membership.ValidateUser(user,pass)){
                 User userTmp = db.users.Find(id);
-                List<User> returnList = new List<User>(); ;
+                List<int> returnList = new List<int>(); ;
                 foreach(Connection conn in userTmp.listConnections)
                 {
                     if(conn.userConnected.active)
-                        returnList.Add(removeProxyUser(conn.userConnected));
+                        returnList.Add(conn.userConnected.userID);
                 }
                 return returnList;
             }else{
