@@ -147,23 +147,24 @@ void distribuicaoRadial(No no_inicio, int amigosDiretos[]){
 	}
 }
 
-void leGrafo(){
+void leGrafo(No  user1, int * listaNos){
 
-	No user;
+	No user = nos[0];
+	//No user;
 	user.x = 0;
 	user.y = 0;
 	user.z = 6;
 	user.largura = 2;
-	user.userId = 1;
+	//user.userId = 1;
 	user.nome = "Eu";
 
 	nos[0] = user;
 
-	numNos = 1;
-	numArcos = 0;
+	//numNos = 1;
+	//numArcos = 0;
 
-	int amigos[] = { 11, 2, 3,4,5,6,7,8,9,10,11,12 };
-	distribuicaoRadial(user, amigos);
+	//int amigos[] = { 11, 2, 3,4,5,6,7,8,9,10,11,12 };
+	distribuicaoRadial(user, listaNos);
 
 
 

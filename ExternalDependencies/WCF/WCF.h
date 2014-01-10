@@ -30,6 +30,7 @@ public:
 	//vector<int> getFriendsByUser(int);
 	vector<int> getAllUsers(void);
 	//int getConnectionStrenght(int, int);
+	User* WCF::getUserAutentication(string username, string password);
 };
 
 #endif

@@ -94,3 +94,42 @@ vector<int> WCF::getAllUsers(void){
 //
 //	return strenght;
 //}
+
+
+User* WCF::getUserAutentication(string username, string password){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+	User *teste = NULL;
+
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	//stringw(aa.c_str()).c_str();
+
+	wchar_t* wCharOutput = new wchar_t[1023];
+	size_t* sizeOut = new size_t;
+	size_t sizeInWords = 256;
+
+	const char* cStr;
+	cStr = username.c_str();
+	mbstowcs_s(sizeOut, wCharOutput, sizeInWords, cStr, strlen(cStr) + 1);
+
+	wchar_t* wCharOutput2 = new wchar_t[1023];
+	size_t* sizeOut2 = new size_t;
+	size_t sizeInWords2 = 256;
+
+	const char* cStr2;
+	cStr2 = password.c_str();
+	mbstowcs_s(sizeOut2, wCharOutput2, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+	hr = BasicHttpBinding_IWebService_getUserByAutetication(proxy, wCharOutput, wCharOutput2, &teste, heap, NULL, 0, NULL, error);
+
+	return teste;
+
+}
