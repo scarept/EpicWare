@@ -30,11 +30,10 @@ public:
 	WCF();
 	~WCF();
 	vector<Word> getEveryWord();
-	//vector<int> getFriendsByUser(int);
 	vector<int> getAllUsers(void);
 	//int getConnectionStrenght(int, int);
-	User* WCF::getUserAutentication(string username, string password);
-	User* WCF::getUserFiends(string username, string password, int idUser);
+	User* getUserAutentication(string username, string password);
+	vector<int> getUserFiends(string username, string password, int idUser);
 };
 
 #endif

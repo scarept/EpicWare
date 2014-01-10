@@ -15,7 +15,7 @@ WCF::WCF()
 	//endereço do serviço
 	address.url = url;
 
-	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
+	hr = WsCreateHeap(4096, 512, NULL, 0, &heap, error);
 	WS_HTTP_BINDING_TEMPLATE templ = {};
 	//criação do proxy para o serviço
 	hr = BasicHttpBinding_IWebService_CreateServiceProxy(&templ, NULL, 0, &proxy, error);
@@ -53,24 +53,6 @@ std::vector<Word> WCF::getEveryWord(){
 	return wordVector;
 }
 
-//vector<int> WCF::getFriendsByUser(int userID){
-//
-//	//Numero de palavras retornadas
-//	unsigned int n = 0;
-//	int *ids;
-//	vector<int> friendsVector;
-//
-//	//chamada de uma operação do service – getEveryWord. O resultado vem no parâmetro words
-//	hr = BasicHttpBinding_ISWebService_getUserConnected(proxy, userID, &n, &ids, heap, NULL, 0, NULL, error);
-//
-//	for (int i = 0; i < n; i++){
-//		friendsVector.push_back(*ids);
-//		ids = ids + 1;
-//	}
-//
-//	return friendsVector;
-//}
-
 vector<int> WCF::getAllUsers(void){
 	unsigned int n = 0;
 	int *ids;
@@ -94,19 +76,6 @@ vector<int> WCF::getAllUsers(void){
 //
 //	return strenght;
 //}
-
-wchar_t * stringToWchar(string texto){
-
-	wchar_t* wCharTexto = new wchar_t[1023];
-	size_t* size = new size_t;
-	size_t sizeInWords = 256;
-
-	const char* cStr;
-	cStr = texto.c_str();
-	mbstowcs_s(size, wCharTexto, sizeInWords, cStr, strlen(cStr) + 1);
-
-	return wCharTexto;
-}
 
 User* WCF::getUserAutentication(string username, string password){
 	unsigned int n = 0;
@@ -152,46 +121,29 @@ User* WCF::getUserAutentication(string username, string password){
 
 }
 
-/*
-User* WCF::getUserFiends(string username, string password, int idUser){
+vector<int> WCF::getUserFiends(string username, string password, int idUser){
 	unsigned int n = 0;
 	int *ids;
-	vector<int> users;
-	User *teste = NULL;
+	vector<int> friends;
+	username = "martinsmas";
+	password = "1812310";
 
-	if (username == ""){
-		username = "Halsahaf";
+	/*String conversion*/
+	wchar_t *userN = new wchar_t[1024];
+	wchar_t *passW = new wchar_t[1024];
+	size_t *size = new size_t;
+	
+	try{
+		mbstowcs_s(size, userN, 256, username.c_str(), username.length());
+		mbstowcs_s(size, passW, 256, password.c_str(), password.length());
 	}
-
-	if (password == ""){
-		password = "123456";
+	catch (exception &ex){
+		cout << ex.what() << endl;
 	}
-
-	//stringw(aa.c_str()).c_str();
-
-	wchar_t* wCharOutput = new wchar_t[1023];
-	size_t* sizeOut = new size_t;
-	size_t sizeInWords = 256;
-
-	const char* cStr;
-	cStr = username.c_str();
-	mbstowcs_s(sizeOut, wCharOutput, sizeInWords, cStr, strlen(cStr) + 1);
-
-	wchar_t* wCharOutput2 = new wchar_t[1023];
-	size_t* sizeOut2 = new size_t;
-	size_t sizeInWords2 = 256;
-
-	const char* cStr2;
-	cStr2 = password.c_str();
-	mbstowcs_s(sizeOut2, wCharOutput2, sizeInWords, cStr2, strlen(cStr2) + 1);
-
-	unsigned int *numero;
-
-	User dd[10];
-
-	hr = BasicHttpBinding_IWebService_getUserFriendsByUserId(proxy,idUser, wCharOutput, wCharOutput2,numero, dd, heap, NULL, 0, NULL, error);
-
-	return teste;
-
+	hr = BasicHttpBinding_IWebService_getUserFriendsByUserId(proxy, idUser, userN, passW, &n, &ids, heap, NULL, 0, NULL, error);
+	for (int i = 0; i < n; i++){
+		friends.push_back(*ids);
+		ids++;
+	}
+	return friends;
 }
-*/
