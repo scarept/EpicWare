@@ -349,6 +349,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sem informação disponivel.
+        /// </summary>
+        public static string no_info {
+            get {
+                return ResourceManager.GetString("no_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sem pedidos Pendentes.
         /// </summary>
         public static string noPending {
@@ -561,6 +570,15 @@ namespace EpicWareWeb.Views.User {
         public static string tagconn {
             get {
                 return ResourceManager.GetString("tagconn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tamanho da rede.
+        /// </summary>
+        public static string tam_rede {
+            get {
+                return ResourceManager.GetString("tam_rede", resourceCulture);
             }
         }
         

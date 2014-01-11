@@ -294,4 +294,10 @@
   <data name="tagcloudRelacao" xml:space="preserve">
     <value>Nuvem de tags de relações</value>
   </data>
+  <data name="no_info" xml:space="preserve">
+    <value>Sem informação disponivel</value>
+  </data>
+  <data name="tam_rede" xml:space="preserve">
+    <value>Tamanho da rede</value>
+  </data>
 </root>
