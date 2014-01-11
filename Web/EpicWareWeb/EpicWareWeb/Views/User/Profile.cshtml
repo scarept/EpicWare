@@ -25,20 +25,17 @@
             @Html.Partial("_ProfileInfoUserPartial")
             
             <br /><br />
-                
-            @*@foreach (var com in @Model.comments)
-            {
-                @Html.Partial("_ProfileCommentPartial",com)
-            }*@
-            @*<span style="color:white; font-size:14px;">
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-            </span>*@
+            <table style="color:white; font-size:14px;">
+                <tr>
+                    <td width="500" align="left" style="padding-left:0px;">
+                        <div class="alert alert-normal"><b>@EpicWareWeb.Views.User.User.tam_rede:</b> @ViewBag.networkSize</div>
+                    </td>
+                </tr>
+            </table>
+           
+            <br />    
+            
+
         </div>
     </div>
 </div>

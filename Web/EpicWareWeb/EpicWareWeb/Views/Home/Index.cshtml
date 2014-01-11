@@ -79,7 +79,7 @@
                     <td>
                         @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
                         {
-                            output2.AppendFormat(@"<span class="" tag{0}"">", tagCloud.GetRankForTag(tag));
+                            output2.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
                             output2.Append(tag.Tag);
                             output2.Append("</span>&nbsp;");
                         }
