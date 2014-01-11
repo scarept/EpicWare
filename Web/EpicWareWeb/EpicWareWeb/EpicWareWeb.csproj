@@ -247,6 +247,7 @@
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Download.cs" />
+    <Compile Include="Models\EventRelationsEntities.cs" />
     <Compile Include="Models\EventsEntities.cs" />
     <Compile Include="Models\FriendRequest.cs" />
     <Compile Include="Models\Game.cs" />
@@ -269,6 +270,8 @@
     <Compile Include="Models\TagCloudCounter.cs" />
     <Compile Include="Models\TagConnection.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserEntities.cs" />
+    <Compile Include="Models\UserRelationsEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Shared\Shared.Designer.cs">
       <DependentUpon>Shared.resx</DependentUpon>
