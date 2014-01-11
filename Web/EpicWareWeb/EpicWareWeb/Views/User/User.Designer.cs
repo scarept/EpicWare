@@ -608,5 +608,14 @@ namespace EpicWareWeb.Views.User {
                 return ResourceManager.GetString("ver", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ver amigos.
+        /// </summary>
+        public static string veramigos {
+            get {
+                return ResourceManager.GetString("veramigos", resourceCulture);
+            }
+        }
     }
 }

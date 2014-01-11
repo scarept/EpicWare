@@ -1,0 +1,13 @@
+﻿@model IEnumerable<EpicWareWeb.Models.Connection>
+@{
+    ViewBag.Title = "FrindsList";
+}
+
+<h2>FrindsList</h2>
+@*PERCORRE TODAS AS CONEXÕES E CHAMA UMA PARTIAL COM O USERCONNECTED*@
+<table width="500">
+    @foreach (EpicWareWeb.Models.Connection conn in Model)
+    {
+        @Html.Partial("_FriendsList", conn.userConnected)
+    }
+</table>

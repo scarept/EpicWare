@@ -7187,3 +7187,17 @@ button#btLupa{
     background: transparent;
     border: none;
 }
+a.noStyle:link, a.noStyle:visited, a.noStyle:active
+{
+    background: transparent;
+	text-decoration: none;
+    color:white;
+    border:none;
+}
+a.noStyle:hover
+{
+    background: transparent;
+    text-decoration: none;
+    color:white;
+    border:none;
+}

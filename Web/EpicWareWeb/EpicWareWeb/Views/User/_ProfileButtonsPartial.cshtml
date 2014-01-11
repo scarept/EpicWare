@@ -62,7 +62,16 @@ else if (!ctrConn.isFriends(userProf))
     </td>
 </tr>
 }
-
+<tr>
+    <td>
+    @using (Html.BeginForm("FriendsList", "User", new { id = userProf.userID },FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.veramigos</span></button>
+    }
+    </td>
+</tr>
 
 
     

@@ -446,6 +446,16 @@ namespace EpicWareWeb.Controllers
         }
 
 
+        /* FRINDS LIST */
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FriendsList(int id = 0)
+        {
+            User user = db.users.Find(id);
+            return View(user.listConnections);
+        }
+
         /* FRIEND REQUEST*/
 
         //[HttpPost]
@@ -561,7 +571,7 @@ namespace EpicWareWeb.Controllers
             note.read = false;
             NotificationType nTyp = new NotificationType();
             nTyp.type = "FA"; // FRAccept
-            nTyp.resultLink = "~/User/Profile/" + userAuth.userID;
+            nTyp.resultLink = "/LAPR5/User/Profile/" + userAuth.userID;
             note.notificationType = nTyp;
             user.notifications.Add(note);
 
@@ -691,7 +701,7 @@ namespace EpicWareWeb.Controllers
             note.read = false;
             note.time = DateTime.Now;
             //nTyp.type = "IRM";
-            nTyp.resultLink = "~/User/Profile/" + intro.userA.userID;
+            nTyp.resultLink = "/LAPR5/User/Profile/" + intro.userA.userID;
             note.notificationType = nTyp;
             intro.userA.notifications.Add(note);
 
@@ -720,7 +730,7 @@ namespace EpicWareWeb.Controllers
             note.time = DateTime.Now;
 
             NotificationType nTyp = new NotificationType();
-            nTyp.resultLink = "~/User/Profile/"+intro.userA.userID;
+            nTyp.resultLink = "/LAPR5/User/Profile/"+intro.userA.userID;
             note.notificationType = nTyp;
             User user = intro.userA;
             user.notifications.Add(note);
