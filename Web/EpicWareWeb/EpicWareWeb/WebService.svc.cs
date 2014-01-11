@@ -179,7 +179,7 @@ namespace EpicWareWeb
             user.language = tmp.language;
             user.missions = tmp.missions;
             user.mood = tmp.mood;
-            user.notifications = tmp.notifications;
+            user.notifications = removeProxyNotifications(tmp.notifications);
             user.scores = tmp.scores;
             user.userID = tmp.userID;
             user.UserProfileID = tmp.UserProfileID;
@@ -199,6 +199,31 @@ namespace EpicWareWeb
             user.userProfile.profileID = tmp.userProfile.profileID;
             user.userProfile.twitterProfile = tmp.userProfile.twitterProfile;
             return user;
+        }
+
+        private List<Notification> removeProxyNotifications(List<Notification> listNote)
+        {
+            List<Notification> returnList = new List<Notification>();
+            foreach(Notification tmp in listNote)
+            {
+                Notification note = new Notification();
+                NotificationType nTyp = new NotificationType();
+                note.message = tmp.message;
+                note.notificationID = note.notificationID;
+                note.read = tmp.read;
+                note.time = tmp.time;
+
+                nTyp.notificationTypeID = tmp.notificationType.notificationTypeID;
+                nTyp.resultLink = tmp.notificationType.resultLink;
+                nTyp.type = tmp.notificationType.type;
+
+                note.notificationType = nTyp;
+
+                returnList.Add(note);
+            }
+
+
+            return returnList;
         }
     }
 }
