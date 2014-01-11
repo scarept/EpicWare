@@ -7163,3 +7163,27 @@ td.visible-print {
   color: #5D5D5D;
 }
 
+<<<<<<< HEAD
+        /* _NavBarPartial */
+    #pesquisa{
+        width: 175px;
+    }
+    #lupa{
+        vertical-align:central;
+    }
+
+a#aPesquisa:link, a#aPesquisa:visited, a#aPesquisa:active
+{
+    background: transparent;
+	
+}
+a#aPesquisa:hover
+{
+    background: transparent;
+}
+button#btLupa{
+    background: transparent;
+    border: none;
+}
+=======
+>>>>>>> 764498061293c96afb3dac2941691098905d0c38

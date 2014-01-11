@@ -288,4 +288,10 @@
   <data name="rejeitouIR" xml:space="preserve">
     <value>rejeitou pedido de introdução a</value>
   </data>
+  <data name="tagcloudGeral" xml:space="preserve">
+    <value>Nuvem de tags de utilizador</value>
+  </data>
+  <data name="tagcloudRelacao" xml:space="preserve">
+    <value>Nuvem de tags de relações</value>
+  </data>
 </root>

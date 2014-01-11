@@ -43,3 +43,45 @@
     </div>
 </div>
 
+<br />
+<img src="~/Images/Logos/tagcloud.png" width="80px" height="50px" />
+@{
+    var output = new System.Text.StringBuilder();
+    output.Append(@"<div class="" tagcloud"">");
+    using (var modelo = new EpicWareWeb.Models.UserEntities())
+    {
+        EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud(Model.userID);
+        <span>@EpicWareWeb.Views.User.User.tagcloud :</span>
+        foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+        {
+            output.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
+            output.Append(tag.Tag);
+            output.Append("</span>&nbsp;");
+        }
+    }
+    output.Append("</div>");
+}
+@Html.Raw(output.ToString())
+
+
+@{
+    var output2 = new System.Text.StringBuilder();
+    output2.Append(@"<div class="" tagcloud"">");
+    using (var modelo = new EpicWareWeb.Models.UserRelationsEntities())
+    {
+        EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud(Model.userID);
+        <span>@EpicWareWeb.Views.User.User.tagcloudRelacao :</span>
+        foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+        {
+            output2.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
+            output2.Append(tag.Tag);
+            output2.Append("</span>&nbsp;");
+        }
+    }
+    output2.Append("</div>");
+}
+@Html.Raw(output2.ToString())
+
+
+
+

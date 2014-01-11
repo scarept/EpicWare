@@ -538,6 +538,24 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nuvem de tags de utilizador.
+        /// </summary>
+        public static string tagcloudGeral {
+            get {
+                return ResourceManager.GetString("tagcloudGeral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nuvem de tags de relações.
+        /// </summary>
+        public static string tagcloudRelacao {
+            get {
+                return ResourceManager.GetString("tagcloudRelacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tag da Relação.
         /// </summary>
         public static string tagconn {

@@ -19,12 +19,18 @@ util = teste.UserAutenticated();
             <div class="container">
                 <table width="1000">
                     <tr>
-                        <td align="left"><span style="padding-top:inherit"><a href="@Url.Action("Index", "Home")"><img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
+                        <td align="left"><span style="padding-top:inherit"><a href="~/"> <img src="~/Images/EpicWare%20Logos/EpicWare.png" width="180" height="30" /></a>
                             </span>
                         </td>
                         <td>
-                            @*<img src="" width="25" height="25" />*@
-                        </td>
+                            @using (@Html.BeginForm("Search","Home"))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                @*@Html.TextBox("pesquisa")<a id="aPesquisa" href="@Url.Action("Search", "Home")"><span id="lupa">&nbsp;&nbsp;&nbsp;<img src="~/Images/Buttons/lupa.png" width="22" height="22" /></span></a>*@
+                                @Html.TextBox("pesquisa") <button id="btLupa" type="submit"><img src="~/Images/Buttons/lupa.png" width="22" height="22" /></button> 
+                            }   
+</td>
                         <td style="color:white; text-align:right;">
                               <div id="notifications"></div>
                         </td>
