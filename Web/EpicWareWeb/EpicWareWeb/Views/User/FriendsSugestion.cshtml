@@ -5,4 +5,38 @@
 
 @*MODELO CONTEM TODOS OS USERS(LISTA) QUE SÃO AS SUGESTÕES DE AMIGOS PARA O UTILIZADOR*@
 
-<h2>FriendsSugestion</h2>
+<h2>@EpicWareWeb.Views.User.User.friendsSugestion</h2>
+
+<table>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>
+                <table cellpadding="15" cellspacing="15">
+                    <tr>
+                        <td rowspan="2">
+                            <a class="noStyle" href="@Url.Action("Profile", "User", new { id = u.userID})">
+                                <img src="@u.userProfile.pathImg" width="50" height="50" alt="img" />
+                            </a>
+                        </td>
+                        <td align="center">
+                            <a class="noStyle" href="@Url.Action("Profile", "User", new { id = u.userID})">
+                                <span style="font-size:14px; color:white;">@u.userProfile.name @u.userProfile.lastName (@u.userProfile.nickname)</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @using (Html.BeginForm("AddFriend", "User", new { id = u.userID }, FormMethod.Get))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.adicionar_amigo</span></button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
+</table>

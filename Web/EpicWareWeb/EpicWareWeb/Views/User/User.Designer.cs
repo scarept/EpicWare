@@ -214,6 +214,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sugestão de amigos.
+        /// </summary>
+        public static string friendsSugestion {
+            get {
+                return ResourceManager.GetString("friendsSugestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Género.
         /// </summary>
         public static string genero {
