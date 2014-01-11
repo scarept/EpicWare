@@ -392,19 +392,37 @@ namespace EpicWareWeb.Controllers
             if (user.userID == UserAutenticated().userID)
             {
                 //Size of network 3º level
-                int count = 0;
-                count += user.listConnections.Count();
-
+                List<int> users = new List<int>();
+                
                 ConnectionController ctrConn = new ConnectionController();
+                
                 foreach (Connection conn in user.listConnections)
                 {
-                    count += ctrConn.noCommonConnections(conn.userConnected).Count();
-                    foreach (Connection conn2 in conn.userConnected.listConnections)
+                    users.Add(conn.userConnected.userID);
+
+                    List<Connection> frindsOfFriends = ctrConn.noCommonConnections(conn.userConnected);
+
+                    foreach (Connection conn2 in frindsOfFriends)
                     {
-                        count += ctrConn.noCommonConnections(conn2.userConnected).Count();
+                        if (!users.Contains(conn2.userConnected.userID))
+                        {
+                            users.Add(conn2.userConnected.userID);
+                        }
+
+                        List<Connection> frindsOfFriendsOfFriends = ctrConn.noCommonConnections(conn2.userConnected);
+
+                        foreach (Connection conn3 in frindsOfFriendsOfFriends)
+                        {
+                            if (!users.Contains(conn3.userConnected.userID))
+                            {
+                                users.Add(conn3.userConnected.userID);
+                            }
+                        }
+
+                        
                     }
                 }
-                ViewBag.networkSize = count;
+                ViewBag.networkSize = users.Count();
             }
 
             
