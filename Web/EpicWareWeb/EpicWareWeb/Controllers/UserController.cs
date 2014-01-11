@@ -373,11 +373,27 @@ namespace EpicWareWeb.Controllers
             if (id == 0)
             {
                 user = UserAutenticated();
+
             }
             else
             {
                 user = db.users.Find(id);
             }
+            if (user.userID == UserAutenticated().userID)
+            {
+                //Size of network 3º level
+                int count = 0;
+                count += user.listConnections.Count();
+
+                ConnectionController ctrConn = new ConnectionController();
+                foreach (Connection conn in user.listConnections)
+                {
+                    count += ctrConn.noCommonConnections(conn.userConnected).Count();
+                }
+                ViewBag.networkSize = count;
+            }
+
+            
             return View(user);
         }
 
