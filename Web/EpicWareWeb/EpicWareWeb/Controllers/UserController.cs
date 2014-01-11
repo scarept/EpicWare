@@ -175,10 +175,10 @@ namespace EpicWareWeb.Controllers
                 string extention = ext.ElementAt(ext.Count() - 1);
 
                 string pic = userAuth.userID + "." + extention;
-                string path = Path.Combine(Server.MapPath("~/Images/Profiles/"), pic);
+                string path = Path.Combine(Server.MapPath("/LAPR5/Images/Profiles/"), pic);
 
                 file.SaveAs(path);
-                userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
+                userAuth.userProfile.pathImg = "/LAPR5/Images/Profiles/" + pic;
             }
 
             if (ModelState.IsValid)
@@ -224,8 +224,13 @@ namespace EpicWareWeb.Controllers
 
             /* PHONE */
             string phone = collection.Get("profile.phoneNumber");
-            int phoneNumber = Convert.ToInt32(phone);
-            userAuth.userProfile.phoneNumber = phoneNumber;
+            try
+            {
+                int phoneNumber = Convert.ToInt32(phone);
+                userAuth.userProfile.phoneNumber = phoneNumber;
+            }catch(Exception)
+            {}
+            
 
             /* USERTAGS */
             string tags = collection.Get("tags");
@@ -268,21 +273,26 @@ namespace EpicWareWeb.Controllers
                 string extention = ext.ElementAt(ext.Count() - 1);
                 
                 string pic = userAuth.userID + "." + extention;
-                string path = Path.Combine(Server.MapPath("~/Images/Profiles/"), pic);
+                string path = Path.Combine(Server.MapPath("/LAPR5/Images/Profiles/"), pic);
 
-                file.SaveAs(path);
-                userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
+                try
+                {
+                    file.SaveAs(path);
+                }
+                catch (Exception) { }
+                
+                userAuth.userProfile.pathImg = "/LAPR5/Images/Profiles/" + pic;
             }
             else
             {
-                userAuth.userProfile.pathImg = "/Images/Profiles/default.gif";
+                userAuth.userProfile.pathImg = "/LAPR5/Images/Profiles/default.gif";
             }
 
             if (ModelState.IsValid)
             {
                 db.Entry(userAuth).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Profile","User");
             }
             
             return View();
@@ -382,15 +392,37 @@ namespace EpicWareWeb.Controllers
             if (user.userID == UserAutenticated().userID)
             {
                 //Size of network 3º level
-                int count = 0;
-                count += user.listConnections.Count();
-
+                List<int> users = new List<int>();
+                
                 ConnectionController ctrConn = new ConnectionController();
+                
                 foreach (Connection conn in user.listConnections)
                 {
-                    count += ctrConn.noCommonConnections(conn.userConnected).Count();
+                    users.Add(conn.userConnected.userID);
+
+                    List<Connection> frindsOfFriends = ctrConn.noCommonConnections(conn.userConnected);
+
+                    foreach (Connection conn2 in frindsOfFriends)
+                    {
+                        if (!users.Contains(conn2.userConnected.userID))
+                        {
+                            users.Add(conn2.userConnected.userID);
+                        }
+
+                        List<Connection> frindsOfFriendsOfFriends = ctrConn.noCommonConnections(conn2.userConnected);
+
+                        foreach (Connection conn3 in frindsOfFriendsOfFriends)
+                        {
+                            if (!users.Contains(conn3.userConnected.userID))
+                            {
+                                users.Add(conn3.userConnected.userID);
+                            }
+                        }
+
+                        
+                    }
                 }
-                ViewBag.networkSize = count;
+                ViewBag.networkSize = users.Count();
             }
 
             
