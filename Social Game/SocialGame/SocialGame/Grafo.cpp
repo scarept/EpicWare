@@ -118,53 +118,105 @@ void ligacaoNos(int noi, int nof){
 
 }
 
-void distribuicaoRadial(No no_inicio, int amigosDiretos[]){
-	//definir no inicio do ficheiro
-	float pi = 3.14;
-	float raio = 7;
-	float altura = -2;
+bool testaExistencia(int idUser){
 
-	int tamanho = amigosDiretos[0];
-	double alpha = 360 / tamanho; //numero de amigos exepto a primeira posição que é o numero de elementos (ou seja não se contabiliza o zero)
-	alpha = degToRad(alpha);
-	for (int i = 1; i <= tamanho; i++){
-
+	bool resultado = false;
+	for (int i = 0; i < numNos; i++){
+		if (nos[i].userId != idUser){
+			resultado = false;
 		
-		float x = raio * ((cos(i*alpha)));
-		float y = raio * (sin(i*alpha));
+		}
+		else{
 
-		nos[numNos].nome = "Amigo";
-		nos[numNos].userId = amigosDiretos[i];
-		nos[numNos].x = x + no_inicio.x;
-		nos[numNos].y = y + no_inicio.y;
-		nos[numNos].z = no_inicio.z + altura;
-		/* função que conta o numero de tags MUDAR*/
-		nos[numNos].largura= 2;
+			return resultado = true;
+		}
 
-		numNos = numNos + 1;
-
-		ligacaoNos(no_inicio.userId, amigosDiretos[i]);
 	}
+	return resultado;
 }
 
-void leGrafo(No  user1, int * listaNos){
+int contaDiferentes(vector<int> amigosDiretos){
 
-	No user = nos[0];
-	//No user;
-	user.x = 0;
-	user.y = 0;
-	user.z = 6;
-	user.largura = 2;
-	//user.userId = 1;
-	user.nome = "Eu";
+	int resultado=0;
+	int tamanho = amigosDiretos.size();
+	for (int i = 0; i < numNos; i++){
+		for (int j = 0; j < tamanho;j++){
+			if (amigosDiretos[j] == nos[i].userId){
+				resultado++;
+			}
+		}
+	}
+	resultado = tamanho - resultado;
+	return resultado;
+}
 
-	nos[0] = user;
+void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
+	//definir no inicio do ficheiro
+	nivel = nivel + 1;
+	float pi = 3.14;
+	float raio = 14/nivel;
+	float altura = -2-nivel;
+	
+	double alpha;
 
+	int tamanhoLista = amigosDiretos.size();
+	int tamanho = contaDiferentes(amigosDiretos);
+
+	if (tamanho != 0){
+		alpha = 360 / tamanho;
+		alpha = degToRad(alpha);
+	}
+	for (int i = 0; i < tamanhoLista; i++){
+
+		if (testaExistencia(amigosDiretos[i]) == false){
+			float x = raio * ((cos(i*alpha)));
+			float y = raio * (sin(i*alpha));
+
+			nos[numNos].nome = "Amigo";
+			nos[numNos].userId = amigosDiretos[i];
+			nos[numNos].x = x + no_inicio.x;
+			nos[numNos].y = y + no_inicio.y;
+			nos[numNos].z = no_inicio.z + altura;
+			/* função que conta o numero de tags MUDAR*/
+			nos[numNos].largura = 2;
+
+			numNos = numNos + 1;
+
+			ligacaoNos(no_inicio.userId, amigosDiretos[i]);
+		}
+		else{
+			/* caso o nó já exista, e apenas é necessario a ligação */
+			ligacaoNos(no_inicio.userId, amigosDiretos[i]);
+		}
+	}
+
+}
+
+
+void leGrafo(No  user1, vector<int> listaNos, int nivel, int posActual){
+	No user;
+	if (nivel == 1){
+		user = nos[0];
+		//No user;
+		user.x = 0;
+		user.y = 0;
+		user.z = 8;
+		user.largura = 2;
+		//user.userId = 1;
+		user.nome = "Eu";
+
+		nos[0] = user;
+	}
+	else{
+		user = nos[posActual];
+
+	
+	}
 	//numNos = 1;
 	//numArcos = 0;
 
 	//int amigos[] = { 11, 2, 3,4,5,6,7,8,9,10,11,12 };
-	distribuicaoRadial(user, listaNos);
+	distribuicaoRadial(user, listaNos, nivel);
 
 
 
