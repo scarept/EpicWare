@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201401101743509_updTags.Designer.cs">
       <DependentUpon>201401101743509_updTags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401110052480_teste.cs" />
+    <Compile Include="Migrations\201401110052480_teste.Designer.cs">
+      <DependentUpon>201401110052480_teste.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -1138,6 +1142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401101743509_updTags.resx">
       <DependentUpon>201401101743509_updTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401110052480_teste.resx">
+      <DependentUpon>201401110052480_teste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>ResXFileCodeGenerator</Generator>
