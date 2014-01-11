@@ -31,9 +31,9 @@ public:
 	~WCF();
 	vector<Word> getEveryWord();
 	vector<int> getAllUsers(void);
-	//int getConnectionStrenght(int, int);
-	User* getUserAutentication(string username, string password);
-	vector<int> getUserFiends(string username, string password, int idUser);
+	int getConnectionStrenght(int, int);
+	User* getUserAutentication(string username, string password); /*Alterar no cpp*/
+	vector<int> getUserFiends(string username, string password, int idUser); /*Alterar no cpp*/
 };
 
 #endif

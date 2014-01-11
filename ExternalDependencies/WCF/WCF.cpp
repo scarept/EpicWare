@@ -68,14 +68,14 @@ vector<int> WCF::getAllUsers(void){
 	return users;
 }
 
-//int WCF::getConnectionStrenght(int id1, int id2){
-//	unsigned int n = 0;
-//	int strenght;
-//
-//	hr = BasicHttpBinding_IWebService_getConnectionStrenght(proxy, id1, id2, &strenght, heap, NULL, 0, NULL, error);
-//
-//	return strenght;
-//}
+int WCF::getConnectionStrenght(int id1, int id2){
+	unsigned int n = 0;
+	int strenght;
+
+	hr = BasicHttpBinding_IWebService_getConnectioStrenght(proxy, id1, id2, &strenght, heap, NULL, 0, NULL, error);
+
+	return strenght;
+}
 
 User* WCF::getUserAutentication(string username, string password){
 	unsigned int n = 0;
