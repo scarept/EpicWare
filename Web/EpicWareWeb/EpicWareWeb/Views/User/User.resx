@@ -297,6 +297,9 @@
   <data name="no_info" xml:space="preserve">
     <value>Sem informação disponivel</value>
   </data>
+  <data name="friendsSugestion" xml:space="preserve">
+    <value>Sugestão de amigos</value>
+  </data>
   <data name="tam_rede" xml:space="preserve">
     <value>Tamanho da rede</value>
   </data>
