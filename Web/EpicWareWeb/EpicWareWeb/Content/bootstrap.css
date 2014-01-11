@@ -7134,3 +7134,25 @@ td.visible-print {
 .alert-normal .alert-link {
   color: #5D5D5D;
 }
+
+        /* _NavBarPartial */
+    #pesquisa{
+        width: 175px;
+    }
+    #lupa{
+        vertical-align:central;
+    }
+
+a#aPesquisa:link, a#aPesquisa:visited, a#aPesquisa:active
+{
+    background: transparent;
+	
+}
+a#aPesquisa:hover
+{
+    background: transparent;
+}
+button#btLupa{
+    background: transparent;
+    border: none;
+}
