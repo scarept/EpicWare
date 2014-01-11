@@ -1,4 +1,14 @@
 ﻿@model EpicWareWeb.Models.User
+@{
+    int count = 0;
+    foreach (EpicWareWeb.Models.Notification item in Model.notifications)
+    {
+        if (!item.read)
+        {
+            count++;
+        }
+    }
+}
 @using (Html.BeginForm("ListNotifications","User")){
-    <input type="submit" value="@EpicWareWeb.Views.User.User.notificacoes : @Model.notifications.Count()" />
+    <input type="submit" value="@EpicWareWeb.Views.User.User.notificacoes : @count" />
 }           

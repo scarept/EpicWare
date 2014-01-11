@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://wvm074.dei.isep.ipp.pt/LAPR5/WebService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EpicWareWeb.Models" />
-  <xs:import schemaLocation="http://wvm074.dei.isep.ipp.pt/LAPR5/WebService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/EpicWareWeb" />
-  <xs:import schemaLocation="http://wvm074.dei.isep.ipp.pt/LAPR5/WebService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://wvm074.dei.isep.ipp.pt/LAPR5/WebService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://wvm074.dei.isep.ipp.pt/LAPR5/WebService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/EpicWareWeb" />
   <xs:element name="getNumberUsers">
     <xs:complexType>
       <xs:sequence />
@@ -55,7 +55,7 @@
   <xs:element name="getUserFriendsByUserIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/EpicWareWeb.Models" minOccurs="0" name="getUserFriendsByUserIdResult" nillable="true" type="q2:ArrayOfUser" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="getUserFriendsByUserIdResult" nillable="true" type="q2:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -95,6 +95,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="getAllUsersIDResult" nillable="true" type="q5:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getConnectioStrenght">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id1" type="xs:int" />
+        <xs:element minOccurs="0" name="id2" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getConnectioStrenghtResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getConnectioStrenghtResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
