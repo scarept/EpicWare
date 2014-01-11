@@ -175,10 +175,10 @@ namespace EpicWareWeb.Controllers
                 string extention = ext.ElementAt(ext.Count() - 1);
 
                 string pic = userAuth.userID + "." + extention;
-                string path = Path.Combine(Server.MapPath("~/Images/Profiles/"), pic);
+                string path = Path.Combine(Server.MapPath("/LAPR5/Images/Profiles/"), pic);
 
                 file.SaveAs(path);
-                userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
+                userAuth.userProfile.pathImg = "/LAPR5/Images/Profiles/" + pic;
             }
 
             if (ModelState.IsValid)
@@ -224,8 +224,13 @@ namespace EpicWareWeb.Controllers
 
             /* PHONE */
             string phone = collection.Get("profile.phoneNumber");
-            int phoneNumber = Convert.ToInt32(phone);
-            userAuth.userProfile.phoneNumber = phoneNumber;
+            try
+            {
+                int phoneNumber = Convert.ToInt32(phone);
+                userAuth.userProfile.phoneNumber = phoneNumber;
+            }catch(Exception)
+            {}
+            
 
             /* USERTAGS */
             string tags = collection.Get("tags");
@@ -268,21 +273,26 @@ namespace EpicWareWeb.Controllers
                 string extention = ext.ElementAt(ext.Count() - 1);
                 
                 string pic = userAuth.userID + "." + extention;
-                string path = Path.Combine(Server.MapPath("~/Images/Profiles/"), pic);
+                string path = Path.Combine(Server.MapPath("/LAPR5/Images/Profiles/"), pic);
 
-                file.SaveAs(path);
-                userAuth.userProfile.pathImg = "/Images/Profiles/" + pic;
+                try
+                {
+                    file.SaveAs(path);
+                }
+                catch (Exception) { }
+                
+                userAuth.userProfile.pathImg = "/LAPR5/Images/Profiles/" + pic;
             }
             else
             {
-                userAuth.userProfile.pathImg = "/Images/Profiles/default.gif";
+                userAuth.userProfile.pathImg = "/LAPR5/Images/Profiles/default.gif";
             }
 
             if (ModelState.IsValid)
             {
                 db.Entry(userAuth).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Profile","User");
             }
             
             return View();
@@ -389,6 +399,10 @@ namespace EpicWareWeb.Controllers
                 foreach (Connection conn in user.listConnections)
                 {
                     count += ctrConn.noCommonConnections(conn.userConnected).Count();
+                    foreach (Connection conn2 in conn.userConnected.listConnections)
+                    {
+                        count += ctrConn.noCommonConnections(conn2.userConnected).Count();
+                    }
                 }
                 ViewBag.networkSize = count;
             }
