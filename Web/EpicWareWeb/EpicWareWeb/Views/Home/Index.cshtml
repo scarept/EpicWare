@@ -54,7 +54,7 @@
         EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud();
         foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
         {
-        output.AppendFormat(@"<div class="" tag{0}"">",tagCloud.GetRankForTag(tag));
+        output.AppendFormat(@"<div class=""tag{0}"">",tagCloud.GetRankForTag(tag));
             output.Append(tag.Tag);
             output.Append("</div>");
         }
