@@ -39,12 +39,8 @@
     </table>
     
 
-
-
-
-
-
-
+     <br />
+    <img src="~/Images/Logos/tagcloud.png" width="80px" height="50px"/>
     @{
     var output = new System.Text.StringBuilder();
     output.Append(@"<div class="" tagcloud"">
@@ -54,12 +50,12 @@
         EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud();
         foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
         {
-        output.AppendFormat(@"<div class=""tag{0}"">",tagCloud.GetRankForTag(tag));
+        output.AppendFormat(@"<span class=""tag{0}"">",tagCloud.GetRankForTag(tag));
             output.Append(tag.Tag);
-            output.Append("</div>");
+            output.Append("</span>&nbsp;");
         }
         }
-        output.Append("</div>");
+    output.Append("</div>");
     }
-    @Html.Raw(output.ToString());
+    @Html.Raw(output.ToString())
 </div>

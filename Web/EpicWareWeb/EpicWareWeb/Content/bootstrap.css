@@ -7125,6 +7125,34 @@ td.visible-print {
   border-color: #EEEEEE;
 }
 
+/*
+------------------------------
+  Tag Cloud
+------------------------------
+*/
+
+.tag1{font-size: 1.5em;
+      color:white;
+}
+.tag2{font-size: 1.7em;
+      color:white;
+}
+.tag3{font-size: 1.9em;
+      color:white;
+}
+.tag4{font-size: 2.1em;
+      color:white;
+}
+.tag5{font-size: 2.3em;
+      color:white;
+}
+.tag6{font-size: 2.5em;
+      color:white;
+}
+.tag7{font-size: 2.7em;
+      color:white;
+}
+
 
 .alert-normal hr {
   border-top-color: #EAEAEA;
@@ -7135,6 +7163,7 @@ td.visible-print {
   color: #5D5D5D;
 }
 
+<<<<<<< HEAD
         /* _NavBarPartial */
     #pesquisa{
         width: 175px;
@@ -7156,3 +7185,5 @@ button#btLupa{
     background: transparent;
     border: none;
 }
+=======
+>>>>>>> 764498061293c96afb3dac2941691098905d0c38
