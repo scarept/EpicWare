@@ -25,21 +25,78 @@
             @Html.Partial("_ProfileInfoUserPartial")
             
             <br /><br />
-                
-            @*@foreach (var com in @Model.comments)
-            {
-                @Html.Partial("_ProfileCommentPartial",com)
-            }*@
-            @*<span style="color:white; font-size:14px;">
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-                About me: SiteGround provides superior WordPress hosting focused on speed, security and customer service. We take care of WordPress sites security with unique server-level customizations, WP auto-updates, and daily backups. We make them faster by regularly upgrading our hardware, offering free CDN with Railgun and developing our SuperCacher that speeds sites up to 100 times! And last but not least, we provide real WordPress help 24/7! Learn more about SiteGround WordPress hosting
-            </span>*@
+            <table style="color:white; font-size:14px;">
+                <tr>
+                    <td width="500" align="left" style="padding-left:0px;">
+                        <div class="alert alert-normal"><b>@EpicWareWeb.Views.User.User.tam_rede:</b> @ViewBag.networkSize</div>
+                    </td>
+                </tr>
+            </table>
+           
+            <br />    
+            
+
         </div>
     </div>
 </div>
+
+<br />
+<img src="~/Images/Logos/tagcloud.png" width="80px" height="50px" />
+@{
+    var output = new System.Text.StringBuilder();
+    output.Append(@"<div class="" tagcloud"">");
+    using (var modelo = new EpicWareWeb.Models.UserEntities())
+    {
+        EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud(Model.userID);
+        <table width="1000">
+            <tr>
+                <td>
+                    <span style="font-size:14px; color:white;">@EpicWareWeb.Views.User.User.tagcloudGeral :</span>
+                </td>
+                <td>
+                    @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+                    {
+                        output.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
+                        output.Append(tag.Tag);
+                        output.Append("</span>&nbsp;");
+                    }
+                </td>
+            </tr>
+        </table>
+        
+        
+    }
+    output.Append("</div>");
+}
+@Html.Raw(output.ToString())
+
+
+@{
+    var output2 = new System.Text.StringBuilder();
+    output2.Append(@"<div class="" tagcloud"">");
+    using (var modelo = new EpicWareWeb.Models.UserRelationsEntities())
+    {
+        EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud(Model.userID);
+        <table width="1000">
+            <tr>
+                <td>
+                    <span style="font-size:14px; color:white;">@EpicWareWeb.Views.User.User.tagcloudRelacao :</span>
+                </td>
+                <td>
+                    @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+                    {
+                    output2.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
+                        output2.Append(tag.Tag);
+                        output2.Append("</span>&nbsp;");
+                    }
+                </td>
+            </tr>
+        </table>  
+    }
+    output2.Append("</div>");
+}
+@Html.Raw(output2.ToString())
+
+
+
 

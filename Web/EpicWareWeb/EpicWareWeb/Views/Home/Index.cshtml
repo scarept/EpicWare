@@ -43,19 +43,51 @@
     <img src="~/Images/Logos/tagcloud.png" width="80px" height="50px"/>
     @{
     var output = new System.Text.StringBuilder();
-    output.Append(@"<div class="" tagcloud"">
-        ");
+    output.Append(@"<div class="" tagcloud"">");
     using (var modelo = new EpicWareWeb.Models.EventsEntities())
         {
         EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud();
-        foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
-        {
-        output.AppendFormat(@"<span class=""tag{0}"">",tagCloud.GetRankForTag(tag));
-            output.Append(tag.Tag);
-            output.Append("</span>&nbsp;");
+        <table width="1000">
+                <tr>
+                    <td><span style ="font-size:14px; color:white;">@EpicWareWeb.Views.User.User.tagcloudGeral :</span></td>
+                    <td>
+                        @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+                        {
+                            output.AppendFormat(@"<span class=""tag{0}"">",tagCloud.GetRankForTag(tag));
+                            output.Append(tag.Tag);
+                            output.Append("</span>&nbsp;");
+                        }
+
+                    </td>
+                </tr>
+         </table>   
         }
-        }
-    output.Append("</div>");
+        output.Append("</div>");
     }
     @Html.Raw(output.ToString())
+
+
+    @{
+        var output2 = new System.Text.StringBuilder();
+        output2.Append(@"<div class="" tagcloud"">");
+        using (var modelo = new EpicWareWeb.Models.EventRelationsEntities())
+        {
+            EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud();
+            <table width="1000">
+                <tr>
+                    <td><span style="font-size:14px; color:white;">@EpicWareWeb.Views.User.User.tagcloudRelacao :</span></td>
+                    <td>
+                        @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+                        {
+                            output2.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
+                            output2.Append(tag.Tag);
+                            output2.Append("</span>&nbsp;");
+                        }
+                    </td>
+                </tr>
+            </table>
+        }
+        output2.Append("</div>");
+    }
+    @Html.Raw(output2.ToString())
 </div>

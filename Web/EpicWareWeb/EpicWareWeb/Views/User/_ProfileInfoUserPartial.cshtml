@@ -11,6 +11,12 @@
             <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.humor:</b>@Model.mood.name</div>@*Bombastico :D</div>*@
         </td>
         }
+        else
+        {
+            <td width="500" align="right" style="padding-right:0px;">
+            <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.humor:</b>@EpicWareWeb.Views.User.User.no_info</div>@*Bombastico :D</div>*@
+        </td>
+        }
     </tr>
     <tr>
         @if (!(Model.userProfile.gender == null)) {
@@ -27,10 +33,22 @@
                 </td>
             }
         }
+        else
+        {
+            <td width="500" align="left" style="padding-left:0px;">
+                    <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.genero:</b> @EpicWareWeb.Views.User.User.no_info</div>@*Macho</div>*@
+                </td>
+        }
         @if (!(Model.userProfile.birthday == null)) { 
         <td width="500" align="right" style="padding-right:0px;">
             <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.aniversario:</b> @Model.userProfile.birthday.Day/@Model.userProfile.birthday.Month/@Model.userProfile.birthday.Year</div>@*20/07/1991</div>*@
         </td>
+        }
+        else
+        {
+           <td width="500" align="right" style="padding-right:0px;">
+                <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.aniversario:</b> @EpicWareWeb.Views.User.User.no_info</div>@*20/07/1991</div>*@
+           </td> 
         }
     </tr>
     <tr>
@@ -39,9 +57,9 @@
             <td width="500" align="left" style="padding-left:0px;">
                 <div class="alert alert-info">
                     <b>@EpicWareWeb.Views.User.User.social:</b> 
-                    @if (Model.userProfile.facebookProfile != null){<a href=@Model.userProfile.facebookProfile><img src="~/Images/Logos/glyphicons_social_17_linked_in.png" /></a>}
-                    @if (Model.userProfile.linkedinProfile != null){<a href=@Model.userProfile.linkedinProfile><img src="~/Images/Logos/glyphicons_social_30_facebook.png" /></a>}
-                    @if (Model.userProfile.twitterProfile != null){<a href=@Model.userProfile.twitterProfile><img src="~/Images/Logos/glyphicons_social_31_twitter.png" /></a>}
+                    @if (Model.userProfile.facebookProfile != null && Model.userProfile.facebookProfile != ""){<a href=@Model.userProfile.facebookProfile><img src="~/Images/Logos/glyphicons_social_30_facebook.png" /></a>}
+                    @if (Model.userProfile.linkedinProfile != null && Model.userProfile.linkedinProfile != ""){<a href=@Model.userProfile.linkedinProfile><img src="~/Images/Logos/glyphicons_social_17_linked_in.png" /></a>}
+                    @if (Model.userProfile.twitterProfile != null && Model.userProfile.twitterProfile != ""){<a href=@Model.userProfile.twitterProfile><img src="~/Images/Logos/glyphicons_social_31_twitter.png" /></a>}
                     
                 </div>
             </td>
@@ -50,6 +68,12 @@
         <td width="500" align="right" style="padding-right:0px;">
             <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @Model.userProfile.country.name</div>@*Portugal</div>*@
         </td>
+        }
+        else
+        {
+            <td width="500" align="right" style="padding-right:0px;">
+                <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @EpicWareWeb.Views.User.User.no_info</div>@*Portugal</div>*@
+            </td>
         }
     </tr>
 </table> 

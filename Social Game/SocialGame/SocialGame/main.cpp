@@ -211,7 +211,7 @@ void desenhaBtnLogin(GLenum mode){
 }
 
 void desenhaLogin(GLenum mode){
-
+	
 	desenhaBtnLogin(mode);
 
 	/* carregar fundo */
@@ -299,6 +299,7 @@ void loginInit(){
 
 
 void userInit(User *utilizador){
+//void userInit(){
 	No user;
 	user.userId = utilizador->userID;
 	//wcharTutilizador->userProfile->name;
@@ -314,9 +315,93 @@ void userInit(User *utilizador){
 
 	utilizador->listConnections;
 
+	//user.userId = 9;
+	//nos[0] = user;
+	//numNos = 1;
+
+}
+
+void constroiAmigos(){
+	//int listaNivel1[] = {2,1,2};
+	//int listaNivel2[] = { 2, 4};
+
+	int posAtual = 0;
+
+	//int lista2[] = { 3, 3, 4,5 };
+
+	//int lista3[] = { 2, 7, 6 };
+
+	login.username = "Halsahaf";
+	login.password = "123456";
+	/*
+	WCF* EpicService = new WCF();
+	//User * utilizador;
+	vector<int> teste;
+	teste = EpicService->getUserFiends(login.username, login.password, nos[0].userId);
+	*/
+	//teste = EpicService->getUserFiends(login.username, login.password, 1);
+	//teste[0];
+	
+	int listaSizeInt = 0;
+	int size = 0;
+	int oldsize = 0;
+	int nosNivel = 0;
+	//for (int i = 0; i < 2; i++){
+		//int lista[] = { 2, 1, 2 };
+		WCF* EpicService = new WCF();
+		vector<int> lista;
+		lista = EpicService->getUserFiends(login.username, login.password, nos[0].userId);
+		
+		leGrafo(nos[posAtual], lista, 1,posAtual);
+
+		/* webservice que retorna amigos para uam lista*/
+		size = size + lista.size();
+		nosNivel = size - oldsize;
+
+		
+
+		for (int j = 0; j < nosNivel; j++){
+			posAtual++;
+			WCF* EpicService2 = new WCF();
+			vector<int> lista2;
+			//nos[1];
+			int aa = nos[posAtual].userId;
+			lista2 = EpicService2->getUserFiends(login.username, login.password, nos[posAtual].userId);
+			//if (j == 0){
+				leGrafo(nos[posAtual], lista2, 2, posAtual);
+			//}
+			//else {
+			//	leGrafo(nos[posAtual], lista3, i + 2, posAtual);
+			//}
+				listaSizeInt = lista2.size();
+		}
+
+		size = size + listaSizeInt;
+		nosNivel = size - nosNivel;
+
+		for (int k = 0; k < nosNivel; k++){
+			posAtual++;
+			WCF* EpicService3 = new WCF();
+			vector<int> lista3;
+			lista3 = EpicService3->getUserFiends(login.username, login.password, nos[posAtual].userId);
+			//if (j == 0){
+			leGrafo(nos[posAtual], lista3, 3, posAtual);
+			//}
+			//else {
+			//	leGrafo(nos[posAtual], lista3, i + 2, posAtual);
+			//}
+
+		}
+
+
+	//}
+
+	//leGrafo(nos[2], lista3, 2,2);
+
 }
 
 void gameInit(User *utilizador)
+//void gameInit()
 {
 	//glPushMatrix();
 	//GLuint ax = load3D("menu.png");
@@ -344,10 +429,11 @@ void gameInit(User *utilizador)
 	gluQuadricNormals(modelo.quad, GLU_OUTSIDE);
 
 	userInit(utilizador);
-	nos[0];
+	//userInit();
+	//nos[0];
 	//enviar user e lista de ints de amigos
-	int lista[] = { 2, 3, 4 };
-	leGrafo(nos[0],lista);
+	constroiAmigos();
+
 }
 
 void imprime_ajuda(void)
@@ -1356,7 +1442,14 @@ void userLogin(){
 	login.username;
 	login.password;
 	//char *a = "aaa";
-
+	/*
+		estado.estadoJogo = 1;
+	
+		gameInit();
+		
+		myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		glutPostRedisplay();
+*/
 	WCF* EpicService = new WCF();
 	User * utilizador;
 	utilizador = EpicService->getUserAutentication(login.username, login.password);

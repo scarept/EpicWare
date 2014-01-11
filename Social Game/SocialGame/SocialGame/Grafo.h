@@ -6,6 +6,7 @@
 
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #define NORTE_SUL	0
@@ -58,6 +59,6 @@ void listArcos();
 Arco criaArco(int, int, float, float);
 
 void gravaGrafo();
-void leGrafo(No noAtual, int * listaNos);
+void leGrafo(No noAtual, vector<int> listaNos, int nivel, int posActual);
 
 #endif

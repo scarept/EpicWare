@@ -125,8 +125,8 @@ vector<int> WCF::getUserFiends(string username, string password, int idUser){
 	unsigned int n = 0;
 	int *ids;
 	vector<int> friends;
-	username = "martinsmas";
-	password = "1812310";
+	//username = "martinsmas";
+	//password = "1812310";
 
 	/*String conversion*/
 	wchar_t *userN = new wchar_t[1024];
