@@ -198,10 +198,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IWebService.cs" />
-    <Compile Include="Migrations\201312220002456_newDBEpic2.cs" />
-    <Compile Include="Migrations\201312220002456_newDBEpic2.Designer.cs">
-      <DependentUpon>201312220002456_newDBEpic2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201312220009168_addTag.cs" />
     <Compile Include="Migrations\201312220009168_addTag.Designer.cs">
       <DependentUpon>201312220009168_addTag.cs</DependentUpon>
@@ -241,6 +237,10 @@
     <Compile Include="Migrations\201401110052480_teste.cs" />
     <Compile Include="Migrations\201401110052480_teste.Designer.cs">
       <DependentUpon>201401110052480_teste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401121317398_updSomeRequireds.cs" />
+    <Compile Include="Migrations\201401121317398_updSomeRequireds.Designer.cs">
+      <DependentUpon>201401121317398_updSomeRequireds.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -1126,9 +1126,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201312220002456_newDBEpic2.resx">
-      <DependentUpon>201312220002456_newDBEpic2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312220009168_addTag.resx">
       <DependentUpon>201312220009168_addTag.cs</DependentUpon>
     </EmbeddedResource>
@@ -1158,6 +1155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401110052480_teste.resx">
       <DependentUpon>201401110052480_teste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401121317398_updSomeRequireds.resx">
+      <DependentUpon>201401121317398_updSomeRequireds.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

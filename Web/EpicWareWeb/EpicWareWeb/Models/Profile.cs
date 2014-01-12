@@ -31,12 +31,10 @@ namespace EpicWareWeb.Models
 
         [DataMember]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "dataNascimento")]
         public DateTime birthday { get; set; }
 
         [DataMember]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "pais")]
         public virtual Country country { get; set; }
 
@@ -58,7 +56,6 @@ namespace EpicWareWeb.Models
         public string twitterProfile { get; set; }
 
         [DataMember]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "genero")]
         public string gender { get; set; }
 
