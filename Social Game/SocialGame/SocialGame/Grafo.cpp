@@ -172,13 +172,14 @@ void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
 			float x = raio * ((cos(i*alpha)));
 			float y = raio * (sin(i*alpha));
 
-			nos[numNos].nome = "Amigo";
+			nos[numNos].nome = "ND";
 			nos[numNos].userId = amigosDiretos[i];
 			nos[numNos].x = x + no_inicio.x;
 			nos[numNos].y = y + no_inicio.y;
 			nos[numNos].z = no_inicio.z + altura;
 			/* função que conta o numero de tags MUDAR*/
-			nos[numNos].largura = 2;
+			nos[numNos].largura = 1;
+			nos[numNos].nivel = nivel;
 
 			numNos = numNos + 1;
 
@@ -204,6 +205,7 @@ void leGrafo(No  user1, vector<int> listaNos, int nivel, int posActual){
 		user.largura = 2;
 		//user.userId = 1;
 		user.nome = "Eu";
+		user.nivel = nivel;
 
 		nos[0] = user;
 	}

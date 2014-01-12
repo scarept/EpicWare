@@ -147,3 +147,140 @@ vector<int> WCF::getUserFiends(string username, string password, int idUser){
 	}
 	return friends;
 }
+
+UserData* WCF::getUserById(string username, string password, int idUser){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+	User *teste = NULL;
+
+	UserData *utilizador = NULL;
+
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+		hr = BasicHttpBinding_IWebService_getUserData(proxy, idUser,wcharUsername, wcharPassword, &utilizador, heap, NULL, 0, NULL, error);
+	}
+
+	return utilizador;
+
+}
+
+int WCF::getConnectioStrenght(string username, string password, int idUser1, int idUser2){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+	User *teste = NULL;
+	int resultado = NULL;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+		
+		hr = BasicHttpBinding_IWebService_getConnectioStrenght(proxy, idUser1,idUser2, &resultado, heap, NULL, 0, NULL, error);
+	}
+
+	return resultado;
+
+}
+
+int WCF::getNumberTagsForUserId(string username, string password, int idUser){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+	User *teste = NULL;
+	int resultado = NULL;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+		
+		hr = BasicHttpBinding_IWebService_getNumberTagsForUserId(proxy, idUser, wcharUsername, wcharPassword,&resultado, heap, NULL, 0, NULL, error);
+	}
+
+	return resultado;
+
+}

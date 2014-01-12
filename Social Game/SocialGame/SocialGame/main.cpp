@@ -16,6 +16,8 @@ using namespace std;
 void myReshape(int w, int h);
 void escreveTexto();
 void dawHud();
+void janelaInfoUser(int idUser);
+void menu(int item);
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
@@ -69,6 +71,16 @@ typedef	GLdouble Vertice[3];
 typedef	GLdouble Vector[4];
 
 
+typedef struct pickingPesquisa{
+	GLdouble x1;
+	GLdouble x2;
+	GLdouble y1;
+	GLdouble y2;
+	string nomeElem;
+
+}pickingPesquisa;
+
+vector<pickingPesquisa> listaElementosPicking;
 
 typedef struct Camera{
 	GLfloat fov;
@@ -88,6 +100,10 @@ typedef struct Estado{
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
 	GLint		estadoJogo; // 0 - login; 1- Jogo 3D; 2- menu
+	bool searchSelected;
+	string  searchText;
+	bool addFriendBox;
+	int lastSelected;
 }Estado;
 
 typedef struct Login{
@@ -132,6 +148,7 @@ void initEstado(){
 	estado.light = GL_FALSE;
 	estado.apresentaNormais = GL_FALSE;
 	estado.lightViewer = 1;
+	estado.searchSelected = false;
 }
 
 void initModelo(){
@@ -400,6 +417,45 @@ void constroiAmigos(){
 
 }
 
+void preencheInfoAmigos(){
+
+	int tamanho = numNos;
+	UserData * utilizador;
+	WCF* EpicService = new WCF();
+	for (int i = 0; i < tamanho; i++){
+		
+		utilizador = NULL;
+		utilizador = EpicService->getUserById(login.username, login.password, nos[i].userId);
+		if (utilizador != NULL){
+			nos[i].nome = wcharToString(utilizador->firstName);
+			//nos[i].largura = utilizador->userTagsCount;
+		}
+		
+		int nTags = EpicService->getNumberTagsForUserId(login.username, login.password, nos[i].userId);
+		if (nTags!=NULL){
+			nos[i].largura = nTags;
+		}
+		else{
+			nos[i].largura = 0;
+		}
+	}
+
+}
+
+void preencheInfoLigacao(){
+	int tamanho = numArcos;
+	WCF* EpicService = new WCF();
+	for (int i = 0; i < tamanho; i++){
+		int forcalig = EpicService->getConnectioStrenght(login.username, login.password, arcos[i].noi, arcos[i].nof);
+		if (forcalig != NULL){
+			arcos[i].forcaLig = forcalig;
+		}
+		else{
+			arcos[i].forcaLig = 1;
+		}
+	}
+}
+
 void gameInit(User *utilizador)
 //void gameInit()
 {
@@ -433,8 +489,13 @@ void gameInit(User *utilizador)
 	//nos[0];
 	//enviar user e lista de ints de amigos
 	constroiAmigos();
+	preencheInfoAmigos();
+	preencheInfoLigacao();
+
 
 }
+
+
 
 void imprime_ajuda(void)
 {
@@ -744,46 +805,65 @@ void desenhaLigacao(Arco arco, GLenum mode){
 	//nof = &nos[arco.nof];
 	noi = procuraNo(arco.noi);
 	nof = procuraNo(arco.nof);
+	if (noi->nivel <= nof->nivel){
+			//material(cinza);
+		if (noi->nivel >= 2){
+			material(cinza);
+		}
+		else {
+			material(red_plastic);
+		}
 
-	//material(cinza);
-	material(red_plastic);
 
-	glPushMatrix();
+		glPushMatrix();
 
-	if (mode == GL_SELECT){
-		glLoadName(-1);
+		if (mode == GL_SELECT){
+			glLoadName(-1);
 
-		//mover para o n� inicial para coem�ar a desenhar
-		glTranslatef(noi->x, noi->y, noi->z);
-		catetoOposto = nof->z - noi->z;
-		//base do triangulo
-		tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));
-		//distancia entre os 2 n�s
-		distanciaLig = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2) + pow((nof->z - noi->z), 2));
-		angInclinacao = radToDeg(atan2(catetoOposto, tamanhoCA));
-		//Angulo de rotacao dos zz
-		angOrientacao = radToDeg(atan2(nof->y - noi->y, nof->x - noi->x));
-		glRotated(angOrientacao, 0, 0, 1);
-		//Angulo de rotacao dos yy
-		glRotated(angInclinacao - 90, 0, -1, 0);
-		//a largura da liga��o pode variar, mas apenas est� presente a for�a de liga��o definida pelo utilizador actual.
-		gluCylinder(obj, arco.forcaLig / 5, arco.forcaLig / 5, distanciaLig, 30, 30);//30 numero de vertices
+			//mover para o n� inicial para coem�ar a desenhar
+			glTranslatef(noi->x, noi->y, noi->z);
+			catetoOposto = nof->z - noi->z;
+			//base do triangulo
+			tamanhoCA = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2));
+			//distancia entre os 2 n�s
+			distanciaLig = sqrt(pow((nof->x - noi->x), 2) + pow((nof->y - noi->y), 2) + pow((nof->z - noi->z), 2));
+			angInclinacao = radToDeg(atan2(catetoOposto, tamanhoCA));
+			//Angulo de rotacao dos zz
+			angOrientacao = radToDeg(atan2(nof->y - noi->y, nof->x - noi->x));
+			glRotated(angOrientacao, 0, 0, 1);
+			//Angulo de rotacao dos yy
+			glRotated(angInclinacao - 90, 0, -1, 0);
+			//a largura da liga��o pode variar, mas apenas est� presente a for�a de liga��o definida pelo utilizador actual.
+			gluCylinder(obj, arco.forcaLig / 10, arco.forcaLig / 10, distanciaLig, 30, 30);//30 numero de vertices
+		}
+		glPopMatrix();
 	}
-	glPopMatrix();
-
 
 
 }
 
 void desenhaEsferaNo(float largura, GLenum mode, int userId){
-
+	/*
+	if (largura == 0){
+		largura = 1;
+	}
+	*/
+	largura = (largura / 2.0);
+	double teste = 0.1*largura + 0.6;
+	teste = teste / 1.5;
+	if (teste<0.6){
+		teste = 0.6;
+	}
+	if (teste>2){
+		teste = 2;
+	}
 
 	glPushMatrix();
 	if (mode == GL_SELECT){
 		glLoadName(userId);
 		material(preto);
 		//glColor3f(0.0, 1.0, 0.0);
-		glutSolidSphere(largura / 2, 20, 20);
+		glutSolidSphere(teste, 20, 20);
 	}
 	glPopMatrix();
 
@@ -795,7 +875,7 @@ void desenhaNomes(float x1, float y1, float z, string nome){
 
 	material(brass);
 
-	char *teste = "Luis Mendes";
+	//char *teste = "Luis Mendes";
 	/* escrever texto */
 	//como é feito antes um translate para o local certo onde foi desenhado o nó, basta alterar as coordenadas do z para ser visivel o texto
 
@@ -805,7 +885,7 @@ void desenhaNomes(float x1, float y1, float z, string nome){
 	int length = nome.length();
 	for (int i = 0; i < length; i++)
 	{
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, nome[i]);
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, nome[i]);
 	}
 
 	/*
@@ -960,6 +1040,8 @@ void miniMapa(){
 	glLoadIdentity();
 	glDisable(GL_CULL_FACE);
 
+	material(red_plastic);
+
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	glBegin(GL_POLYGON);
@@ -1011,8 +1093,181 @@ void estadoHumor(){
 	glPopMatrix();
 
 	//glutSwapBuffers();
+}
+
+void textoPesquisa(){
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 25;
+	novoBtn.x2 = 65;
+	novoBtn.y1 = 93;
+	novoBtn.y2 = 98;
+	novoBtn.nomeElem = "textoPesquisa";
+
+	listaElementosPicking.push_back(novoBtn);
+
+	material(cinza);
+
+	glRasterPos2f(25, 97);
+	int tamanho = estado.searchText.length();
+	for (int i = 0; i < tamanho; i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, estado.searchText[i]);
+	}
+
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+	//glutSwapBuffers();
 
 }
+
+void pesquisa(){
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+	/*
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 25;
+	novoBtn.x2 = 75;
+	novoBtn.y1 = 93;
+	novoBtn.y2 = 98;
+	novoBtn.nomeElem = "textoPesquisa";
+
+	listaElementosPicking.push_back(novoBtn);
+	*/
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(25, 93);
+	glVertex2f(75, 93);
+	glVertex2f(75, 98);
+	glVertex2f(25, 98);
+	glEnd();
+
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+	//glutSwapBuffers();
+
+}
+
+void pesquisaBtn(){
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	//glPushMatrix();
+
+	material(cinza);
+
+	//int pos = listaElementosPicking.size();
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 65;
+	novoBtn.x2 = 74;
+	novoBtn.y1 = 94;
+	novoBtn.y2 = 97;
+	novoBtn.nomeElem = "pesquisaBtn";
+
+	listaElementosPicking.push_back(novoBtn);
+
+	glLoadName(100);
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(65, 94);
+	glVertex2f(74, 94);
+	glVertex2f(74, 97);
+	glVertex2f(65, 97);
+	glEnd();
+
+
+
+
+
+	//glPopMatrix();
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+	//glutSwapBuffers();
+
+}
+
+//void textoPesquisa(GLenum mode){
+//
+//	glMatrixMode(GL_PROJECTION);
+//	glPushMatrix();
+//	glLoadIdentity();
+//	gluOrtho2D(0, 100, 100, 0);
+//	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+//	glMatrixMode(GL_MODELVIEW);
+//	glPushMatrix();
+//	glLoadIdentity();
+//	glDisable(GL_CULL_FACE);
+//
+//	glClear(GL_DEPTH_BUFFER_BIT);
+//
+//	/* texto de pesquisa*/
+//	material(cinza);
+//	if (mode == GL_SELECT){
+//		glLoadName(101);
+//
+//		glRasterPos2f(26, 94);
+//		int tamanho = login.username.length();
+//		for (int i = 0; i < tamanho; i++){
+//			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, login.username[i]);
+//		}
+//	}
+//
+//	// Making sure we can render 3d again
+//	glMatrixMode(GL_PROJECTION);
+//	glPopMatrix();
+//	glMatrixMode(GL_MODELVIEW);
+//	glPopMatrix();
+//
+//	//glutSwapBuffers();
+//
+//}
 
 
 
@@ -1027,7 +1282,7 @@ void display(void)
 		glFlush();
 
 	}
-	else if (estado.estadoJogo == 1){
+	else if (estado.estadoJogo == 1 || estado.estadoJogo == 2){
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
@@ -1045,6 +1300,16 @@ void display(void)
 		/* HUD */
 		miniMapa();
 		estadoHumor();
+		pesquisa();
+		textoPesquisa();
+		//
+		pesquisaBtn();
+
+		//if (estado.addFriendBox==true){
+		//	janelaInfoUser(9);
+		//}
+
+	//	textoPesquisa(GL_SELECT);
 		//		notificacao();
 		//		textoNotificacao();
 
@@ -1114,6 +1379,41 @@ void keyboard(unsigned char key, int x, int y)
 
 	}
 	else if (estado.estadoJogo == 1){
+		if (estado.searchSelected == true){
+			switch (key)
+			{
+			case 8:
+				if (estado.searchSelected == true) {
+					//se já estiver algo escrito
+					if (estado.searchText != "") {
+						estado.searchText = estado.searchText.substr(0, estado.searchText.size() - 1);
+						//glutPostRedisplay();
+						break;
+					}
+				}
+
+
+			default:
+				if (estado.searchSelected == true) {
+					estado.searchText = estado.searchText += key;
+					//cout << key << endl;
+				}
+
+
+			}
+
+
+			/* chama  a função que escreve bno ecra */
+			textoPesquisa();
+
+			glutPostRedisplay();
+
+
+
+		}
+		else {
+		
+		
 		switch (key)
 		{
 		case 27:
@@ -1190,6 +1490,9 @@ void keyboard(unsigned char key, int x, int y)
 			glutPostRedisplay();
 			break;
 		}
+	}
+
+
 	}
 }
 
@@ -1356,6 +1659,94 @@ void motionDrag(int x, int y){
 
 }
 
+//pesquisaBtn(GL_SELECT);
+
+No* pesquisaPorNome(string nome){
+
+	//No *noReturn;
+
+	for (int i = 0; i < numNos; i++){
+		if (nos[i].nome == nome){
+			//*noReturn = nos[i];
+			return &nos[i];
+		
+		}
+	}
+	return NULL;
+}
+
+void enviaPedidoNotificãcao(int idUserDestino){
+	//int idorigem = login.
+
+
+}
+
+void trataEvento(string nomeBtn){
+
+
+	if (nomeBtn == "pesquisaBtn"){
+		cout << "a efectuar pesquisa" << endl;
+		estado.searchSelected = false;
+		No *retorno = pesquisaPorNome(estado.searchText);
+		if (retorno != NULL){
+			/* chamar a camara e alterar a sua posição */
+			cout << "Não null: " << retorno->userId << endl;
+			
+		}
+
+	}
+	else if (nomeBtn == "textoPesquisa"){
+		estado.searchSelected = true;
+		return;
+	}
+	
+	if (estado.addFriendBox == true){
+		if (nomeBtn == "adicionarAmigo"){
+
+			cout << "Adicionou amigo" << endl;
+			cout << "Id ultimo selecionado: " << estado.lastSelected << endl;
+			enviaPedidoNotificãcao(estado.lastSelected);
+			glutPostRedisplay();
+		}
+	}
+
+	estado.searchSelected = false;
+}
+
+bool picking2(int x, int y){
+
+	GLint view[4];
+	glGetIntegerv(GL_VIEWPORT, view);
+
+//	view[3];//y
+//	view[2];//x
+
+	int size = view[3];
+	double yNovo = y;
+
+	int tamanho = listaElementosPicking.size();
+
+	for (int i = 0; i < tamanho; i++){
+			
+		GLfloat xtest1 = (listaElementosPicking[i].x1 * view[2]) / 100;
+		GLfloat xtest2 = (listaElementosPicking[i].x2 * view[2]) / 100;
+		GLfloat ytest1 = (listaElementosPicking[i].y1 * view[3]) / 100;
+		GLfloat ytest2 = (listaElementosPicking[i].y2 * view[3]) / 100;
+
+		if (x > xtest1 && x < xtest2){
+			if (yNovo > ytest1 && yNovo < ytest2){
+				cout << "entrou" << endl;
+				trataEvento(listaElementosPicking[i].nomeElem);
+				return true;
+			}
+		}
+	
+		estado.searchSelected = false;
+	}
+
+	return false;
+}
+
 int picking(int x, int y){
 	int i, n, objid = -1;
 	double zmin = 10.0;
@@ -1383,6 +1774,13 @@ int picking(int x, int y){
 	setCamera();
 	//desenhaEixos();
 	drawGraph(GL_SELECT);
+	
+	/*
+	if (x > 600 && y >= 600){
+		cout << "btn psquisa" << endl;
+	}
+	*/
+//	textoPesquisa(GL_SELECT);
 
 	//glMatrixMode(GL_PROJECTION);
 
@@ -1431,10 +1829,7 @@ int picking(int x, int y){
 
 	return objid;
 }
-void ss(User * utilizador){
 
-
-}
 
 void userLogin(){
 	/*chama a web service*/
@@ -1458,7 +1853,7 @@ void userLogin(){
 		/*chamar initGame*/
 		/*caso o login seja valido, abreo jogo*/
 		estado.estadoJogo = 1;
-		ss(utilizador);
+		//ss(utilizador);
 		gameInit(utilizador);
 		/* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
 		myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
@@ -1528,17 +1923,27 @@ void clickEvent(GLint hits, GLuint buffer[])
 }
 
 
-void textoDescricao(char * texto, int x, int y){
+void textoDescricao(string texto, int x, int y){
 	glRasterPos2f(x, y);
 
-	int tamanho = login.username.length();
-	while (*texto != '\0'){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *texto);
-		texto++;
+	int tamanho = texto.size();
+	for (int i = 0; i < tamanho;i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, texto[i]);
 	}
 
 }
 
+
+No * infoByNoId(int idUser){
+
+	int tamanho = numNos;
+	for (int i = 0; i < tamanho; i++){
+		if (nos[i].userId == idUser){
+			return &nos[i];
+		}
+	}
+	return NULL;
+}
 void infoUser(int idUserSelect){
 
 	/* conecção de web service */
@@ -1572,11 +1977,13 @@ void infoUser(int idUserSelect){
 	/* escrever texto */
 	material(cinza);
 	char *nome = "Luis Mendes";
-	textoDescricao(nome, x, y);
-	char *idade = "23 Anos";
-	textoDescricao(idade, x, y + 5);
-	char *humor = "A adorar openGL :\\";
-	textoDescricao(humor, x, y + 10);
+	No *no;
+	no = infoByNoId(idUserSelect);
+	textoDescricao(no->nome, x, y);
+	//char *idade = "23 Anos";
+	//textoDescricao(idade, x, y + 5);
+	//char *humor = "A adorar openGL :\\";
+	//textoDescricao(humor, x, y + 10);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -1620,14 +2027,74 @@ void janelaFundoInfoUser(){
 
 }
 
+void adicionaAmigo(){
+
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		gluOrtho2D(0, 100, 100, 0);
+		//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+		glDisable(GL_CULL_FACE);
+
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		pickingPesquisa novoBtn;
+		novoBtn.x1 = 55;
+		novoBtn.x2 = 64;
+		novoBtn.y1 = 54;
+		novoBtn.y2 = 59;
+		novoBtn.nomeElem = "adicionarAmigo";
+
+		listaElementosPicking.push_back(novoBtn);
+
+		material(preto);
+		glBegin(GL_POLYGON);
+		glColor3f(0, 1, 1);
+		glVertex2f(55, 54);
+		glVertex2f(64, 54);
+		glVertex2f(64, 59);
+		glVertex2f(55, 59);
+		glEnd();
+
+		// Making sure we can render 3d again
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
+
+		//glutSwapBuffers();
+
+}
+
+bool idFriend(int idUserSelect){
+
+	for (int i = 0; i < numNos; i++){
+		if (nos[i].userId == idUserSelect){
+			if (nos[i].nivel>2){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 void janelaInfoUser(int idUserSelect){
 
+	//bool notFriend = true;
 	janelaFundoInfoUser();
 	infoUser(idUserSelect);
+	estado.addFriendBox = idFriend(idUserSelect);
+	if (estado.addFriendBox == true){
+		adicionaAmigo();
+	}
 	glutSwapBuffers();
 }
 
-
+void menu(int item)
+{}
 
 void mouse(int btn, int state, int x, int y){
 
@@ -1659,7 +2126,14 @@ void mouse(int btn, int state, int x, int y){
 	else if (estado.estadoJogo == 1){ // se estiver no jogo 3D tem outro tipo de picking
 		switch (btn) {
 		case GLUT_RIGHT_BUTTON:
-			/*
+
+			//if (glutGetMenu() == true){
+			//	glutDestroyMenu(glutGetMenu());
+			//}
+		
+
+
+						/*
 			glPushMatrix();
 			glEnable(GL_DEPTH_TEST);
 			glEnable(GL_CULL_FACE);
@@ -1693,7 +2167,7 @@ void mouse(int btn, int state, int x, int y){
 
 			*/
 
-
+			estado.addFriendBox = false;
 			if (state == GLUT_DOWN){
 				estado.xMouse = x;
 				estado.yMouse = y;
@@ -1707,83 +2181,117 @@ void mouse(int btn, int state, int x, int y){
 				glutMotionFunc(NULL);
 				cout << "Left up\n";
 			}
-
+			
 			break;
 		case GLUT_LEFT_BUTTON:
+
 			if (state == GLUT_DOWN){
-				int idUserSelect = picking(x, y);
-				if (idUserSelect >= 0){
-					cout << "UserId: " << idUserSelect << endl;
+				//int idUserSelect = 0;
+				bool t = picking2(x, y);
+				if (t == true){
 
-					janelaInfoUser(idUserSelect);
-
-
-
-					/*
-
-					glMatrixMode(GL_MODELVIEW);
-					glLoadIdentity();
-					glMatrixMode(GL_PROJECTION);
-					glLoadIdentity();
-					gluOrtho2D(-100, 100, -100, 100);
-					glDisable(GL_DEPTH_TEST);
-					glDisable(GL_CULL_FACE);
-					glDisable(GL_TEXTURE_2D);
-					glDisable(GL_LIGHTING);
-
-					glPushMatrix();
-
-					glBegin(GL_POLYGON);
-					glColor3f(0, 1, 1);
-					glVertex2f(0, 0);
-					glVertex2f(100, 0);
-					glVertex2f(100, 100);
-					glVertex2f(0, 100);
-					glEnd();
-
-					glPopMatrix();
-
-
-					glEnable(GL_DEPTH_TEST);
-					glutSwapBuffers();
-
-
-
-					*/
-
-
-
-
-
-
-
-
-					/*
-					glPushMatrix();
-					glDisable(GL_DEPTH_TEST);
-					glDisable(GL_CULL_FACE);
-					glDisable(GL_TEXTURE_2D);
-					glDisable(GL_LIGHTING);
-
-					glMatrixMode(GL_PROJECTION);
-					glLoadIdentity();
-					gluOrtho2D(-100, 100, -100, 100);
-
-					glMatrixMode(GL_MODELVIEW);
-					glLoadIdentity();
-					glColor3f(1, 1, 1);
-					glBegin(GL_QUADS);
-					glVertex3f(20.0f, 20.0f, 0.0f);
-					glVertex3f(20.0f, -20.0f, 0.0f);
-					glVertex3f(-20.0f, -20.0f, 0.0f);
-					glVertex3f(-20.0f, 20.0f, 0.0f);
-					glEnd();
-
-					glutSwapBuffers();
-					glPopMatrix();
-					*/
-					//glutPostRedisplay();
 				}
+				else if (t != true){
+					estado.lastSelected = picking(x, y);
+
+					//bool t = picking2(x, y);
+
+
+					//if (glutGetMenu() == true){
+					//	glutDestroyMenu(glutGetMenu());
+					//}
+
+					if (estado.lastSelected >= 0){
+						cout << "UserId: " << estado.lastSelected << endl;
+
+						//estado.addFriendBox = true;
+
+						cout << "ASDSA" << endl;
+
+						janelaInfoUser(estado.lastSelected);
+
+
+						//glutCreateMenu(menu);
+						//// Add menu items
+						//glutAddMenuEntry("Show Front", 1);
+						//glutAddMenuEntry("Show Back", 2);
+
+						//// Associate a mouse button with menu
+						//glutAttachMenu(GLUT_LEFT_BUTTON);
+
+						//glutPostRedisplay();
+						//glutSetMenu(glutGetMenu());
+
+						//glutPostRedisplay(glutGetMenu());
+
+
+						/*
+
+						glMatrixMode(GL_MODELVIEW);
+						glLoadIdentity();
+						glMatrixMode(GL_PROJECTION);
+						glLoadIdentity();
+						gluOrtho2D(-100, 100, -100, 100);
+						glDisable(GL_DEPTH_TEST);
+						glDisable(GL_CULL_FACE);
+						glDisable(GL_TEXTURE_2D);
+						glDisable(GL_LIGHTING);
+
+						glPushMatrix();
+
+						glBegin(GL_POLYGON);
+						glColor3f(0, 1, 1);
+						glVertex2f(0, 0);
+						glVertex2f(100, 0);
+						glVertex2f(100, 100);
+						glVertex2f(0, 100);
+						glEnd();
+
+						glPopMatrix();
+
+
+						glEnable(GL_DEPTH_TEST);
+						glutSwapBuffers();
+
+
+
+						*/
+
+
+
+
+
+
+
+
+						/*
+						glPushMatrix();
+						glDisable(GL_DEPTH_TEST);
+						glDisable(GL_CULL_FACE);
+						glDisable(GL_TEXTURE_2D);
+						glDisable(GL_LIGHTING);
+
+						glMatrixMode(GL_PROJECTION);
+						glLoadIdentity();
+						gluOrtho2D(-100, 100, -100, 100);
+
+						glMatrixMode(GL_MODELVIEW);
+						glLoadIdentity();
+						glColor3f(1, 1, 1);
+						glBegin(GL_QUADS);
+						glVertex3f(20.0f, 20.0f, 0.0f);
+						glVertex3f(20.0f, -20.0f, 0.0f);
+						glVertex3f(-20.0f, -20.0f, 0.0f);
+						glVertex3f(-20.0f, 20.0f, 0.0f);
+						glEnd();
+
+						glutSwapBuffers();
+						glPopMatrix();
+						*/
+						//glutPostRedisplay();
+					}
+				}
+
 				//estado.eixoTranslaccao = picking(x, y);
 				//if (estado.eixoTranslaccao)
 				//glutMotionFunc(motionDrag);
@@ -1805,6 +2313,18 @@ void mouse(int btn, int state, int x, int y){
 			break;
 		}
 	}
+	//else if (estado.estadoJogo == 2){ // se estiver no jogo 3D tem outro tipo de picking
+	//	switch (btn) {
+	//	case GLUT_RIGHT_BUTTON:
+
+	//		estado.estadoJogo = 1;
+	//		estado.searchSelected = false;
+
+	//		estado.searchText;
+	//		cout << estado.searchText << endl;
+	//		break;
+	//	}
+	//}
 }
 
 void dawHud(){

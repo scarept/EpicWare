@@ -34,6 +34,9 @@ public:
 	int getConnectionStrenght(int, int);
 	User* getUserAutentication(string username, string password); /*Alterar no cpp*/
 	vector<int> getUserFiends(string username, string password, int idUser); /*Alterar no cpp*/
+	UserData* WCF::getUserById(string username, string password, int idUser);/* alterar cpp */
+	int WCF::getConnectioStrenght(string username, string password, int idUser1, int idUser2);
+	int WCF::getNumberTagsForUserId(string username, string password, int idUser);
 };
 
 #endif

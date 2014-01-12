@@ -19,6 +19,7 @@ typedef struct No{
 	char * estadoHumor;
 	int userId;
 	string nome;
+	int nivel;
 }No;
 
 typedef struct Arco{
