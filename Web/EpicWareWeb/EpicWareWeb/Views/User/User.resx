@@ -303,7 +303,6 @@
   <data name="tam_rede" xml:space="preserve">
     <value>Tamanho da rede</value>
   </data>
-<<<<<<< HEAD
   <data name="download" xml:space="preserve">
     <value>Download Jogo</value>
   </data>
@@ -318,9 +317,8 @@
   </data>
   <data name="scores" xml:space="preserve">
     <value>Tabela de Resultados</value>
-=======
+  </data>
   <data name="veramigos" xml:space="preserve">
     <value>Ver amigos</value>
->>>>>>> 2162f5d76ee5cc45424d877364cf0260c19270a2
   </data>
 </root>
