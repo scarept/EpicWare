@@ -124,6 +124,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mudar Password.
+        /// </summary>
+        public static string changePass {
+            get {
+                return ResourceManager.GetString("changePass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tem a certeza que pretende desativar a conta de utilizador?.
         /// </summary>
         public static string confirmDesativarConta {
@@ -642,15 +651,6 @@ namespace EpicWareWeb.Views.User {
         public static string rejeitouIR {
             get {
                 return ResourceManager.GetString("rejeitouIR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string remover {
-            get {
-                return ResourceManager.GetString("remover", resourceCulture);
             }
         }
         

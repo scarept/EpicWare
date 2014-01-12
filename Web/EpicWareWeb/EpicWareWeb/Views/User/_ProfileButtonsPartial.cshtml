@@ -15,6 +15,14 @@
             <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.edit_perfil</span></button>
         }
     </td>
+     <td>
+         @using (Html.BeginForm("Manage", "Account", FormMethod.Get))
+         {
+             @Html.AntiForgeryToken()
+             @Html.ValidationSummary(true)
+             <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.changePass</span></button>
+         }
+     </td>
 </tr>
 }
 //caso 2: não sao amigos mas ja existe um convite do visitante para o visitado
