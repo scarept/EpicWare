@@ -165,84 +165,7 @@ void initModelo(){
 	modelo.g_pos_luz2[3] = 0.0;
 }
 
-void notificacao(){
-	
-	material(azul);
 
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0, 100, 100, 0);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_CULL_FACE);
-
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
-	glVertex2f(70, 4);
-	glVertex2f(100, 4);
-	glVertex2f(100, 10);
-	glVertex2f(70, 10);
-	glEnd();
-
-
-	// Volta a preparar para desenhar 3D
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-
-	//glutSwapBuffers();
-
-}
-
-
-void textoNotificacao(char *mensagem){
-
-	material(cinza); //cor do texto
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	gluOrtho2D(0, 100, 100, 0); //escala da janela 2D criada
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_CULL_FACE);
-
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	glRasterPos2f(71, 8);//posição do texto na janela
-	int tamanho = 5;
-	//for (int i = 0; i < tamanho; i++){
-	while (*mensagem != '\0'){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *mensagem);
-		mensagem++;
-	}
-
-	// Volta a preparar para desenhar 3D
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-
-}
-
-
-void eventoNotificacao(){
-/*criar aqui um apontador para char com o texto que querem*/
-char *mensagem = ....
-
-void notificacao();
-void textoNotificacao(mensagem);
-
-glutSwapBuffers();
-
-
-}
 
 void desenhaBtnLogin(GLenum mode){
 	/* funções botões */
@@ -721,6 +644,87 @@ void desenhaNormal(GLdouble x, GLdouble y, GLdouble z, GLdouble normal[], tipo_m
 	glEnable(GL_LIGHTING);
 
 }
+
+/* notificações do social game */
+void notificacao(){
+
+	material(azul);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(70, 4);
+	glVertex2f(100, 4);
+	glVertex2f(100, 10);
+	glVertex2f(70, 10);
+	glEnd();
+
+
+	// Volta a preparar para desenhar 3D
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+	//glutSwapBuffers();
+
+}
+
+
+void textoNotificacao(string mensagem){
+
+	material(cinza); //cor do texto
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0); //escala da janela 2D criada
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glRasterPos2f(71, 8);//posição do texto na janela
+	int tamanho = mensagem.size();
+	//for (int i = 0; i < tamanho; i++){
+	for (int i = 0; i < tamanho; i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, mensagem[i]);
+
+	}
+
+	// Volta a preparar para desenhar 3D
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+}
+
+
+void eventoNotificacao(){
+	/*criar aqui um apontador para char com o texto que querem*/
+	string mensagem = "teste";
+
+	void notificacao();
+	//void textoNotificacao(mensagem);
+
+	glutSwapBuffers();
+
+
+}
+
 
 void desenhaParede(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf){
 	/*
