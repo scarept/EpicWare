@@ -133,6 +133,31 @@ namespace EpicWareWeb
             return -1;
         }
 
+        public int getNumberTagsForUserId(int id, string user, string pass)
+        {
+            if (Membership.ValidateUser(user, pass))
+            {
+                return db.users.Find(id).userTags.Count();
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public int getStrenghtConnection(int id1, int id2, string user, string pass)
+        {
+            User user1 = db.users.Find(id1);
+            foreach (Connection conn in user1.listConnections)
+            {
+                if (conn.userConnected.userID == id2)
+                {
+                    return conn.strenght;
+                }
+            }
+            return -1;
+        }
+
         //public User teste()
         //{
         //    //User teste = new User();
@@ -225,6 +250,8 @@ namespace EpicWareWeb
 
             return returnList;
         }
+
+
     }
 }
 
