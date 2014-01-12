@@ -5,52 +5,38 @@
     string rejectAJX = "intro_"+@intro.introFriendRequestID;
     string idDivTextArea = "txa" + @intro.introFriendRequestID;
 }
+<br />
+<br />
 <div id="@rejectAJX">
-    <table width="500" style="color:white;">
+    <table width="800" cellpadding="20" cellspacing="20">
         <tr>
-            <td>@EpicWareWeb.Views.User.User.origem: </td>
-            <td>@intro.userA.userProfile.nickname</td>
-        </tr>
-        <tr>
-            <td>@EpicWareWeb.Views.User.User.destino: </td><td>@intro.userC.userProfile.nickname</td>
-        </tr>
-        <tr>
-            <td rowspan="3" colspan="2">@intro.messageAB</td>
-        </tr>
-        <tr>
-            <td>
+            <td width="200"><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.origem:</b> @intro.userA.userProfile.nickname</span></td>
+            <td rowspan="3" colspan="2"><span style="font-size:14px; color:white;">@intro.messageAB</span></td>
+            <td width="200">
                 @if (intro.sendedBC)
                 {
-                    <span style="color:orange;">@EpicWareWeb.Views.User.User.introEnviada</span>
+                    <span style="font-size:14px; color:orange;"><b>@EpicWareWeb.Views.User.User.introEnviada</b></span>
                 }
                 else
                 {
                     using (Ajax.BeginForm("ResponseMiddleIntroAjax", new { id = intro.introFriendRequestID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = @idDivTextArea }))
                     {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
-                    <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button>
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button>
+                    }
+
+                    using (Ajax.BeginForm("RejectMiddleIntroAjax", new { id = intro.introFriendRequestID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = @rejectAJX }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <button type="submit" class="btn btn-warning">@EpicWareWeb.Views.User.User.reject</button>
                     }
                 }
             </td>
-            <td>
-                @if (intro.sendedBC)
-                {
-
-                }
-                else
-                {
-                    using (Ajax.BeginForm("RejectMiddleIntroAjax", new { id = intro.introFriendRequestID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = @rejectAJX })){
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
-                    <button type="submit" class="btn btn-warning">@EpicWareWeb.Views.User.User.reject</button>
-                } 
-                }
-                
-                
-                
-            </td>
-            
+        </tr>
+        <tr>
+            <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.destino:</b> @intro.userC.userProfile.nickname</span></td>
         </tr>
     </table>
 </div>
