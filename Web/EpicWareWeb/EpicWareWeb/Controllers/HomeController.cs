@@ -13,7 +13,7 @@ namespace EpicWareWeb.Controllers
         DataContext db = new DataContext();
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            //ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
             
             /*View Bag whit number of active users on website*/
             List<User> users = db.users.ToList();

@@ -1,5 +1,4 @@
 ﻿@model EpicWareWeb.Models.Connection
-
 <table width="500">
     <tr>
         <td width="75">
@@ -9,7 +8,6 @@
         <td width="100">
             @using (Ajax.BeginForm("RequestIntroAjax", new { id1 = Model.Owner.userID, id2 = Model.userConnected.userID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials" }))
             {
-                @*<input type="submit" value="Pedir introdução" />*@
                 <button type="submit" class="btn btn-info">@EpicWareWeb.Views.User.User.pedir_intro</button>
             }
         </td>

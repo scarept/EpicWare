@@ -3,7 +3,6 @@
     EpicWareWeb.Models.User toIntro = (EpicWareWeb.Models.User)ViewBag.userConnectedVB;
 }
 <h2>@EpicWareWeb.Views.User.User.pedido1 @friend.userProfile.nickname @EpicWareWeb.Views.User.User.pedido2 @toIntro.userProfile.nickname</h2>
-
 @using (Ajax.BeginForm("IntrodutionRequest", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials"} ))
 {
      @Html.AntiForgeryToken()

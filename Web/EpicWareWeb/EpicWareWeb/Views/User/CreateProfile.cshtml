@@ -1,10 +1,10 @@
 ﻿@model EpicWareWeb.Models.User
 
 @{
-    ViewBag.Title = "EditProfile";
+    ViewBag.Title = EpicWareWeb.Views.User.User.create_perfil;
  }
 
-<h2>EditProfile</h2>
+<h2>EpicWareWeb.Views.User.User.create_perfil</h2>
 
 <table>
     <tr>
@@ -16,8 +16,6 @@
                 EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
 
                 <fieldset>
-                    <legend>Profile</legend>
-
                     @* Aniversário *@
                     <div class="editor-label">
                         @Html.LabelFor(model => model.userProfile.birthday)
@@ -100,7 +98,7 @@
                     </div>
                     <div>
                         
-                            <button type="submit" value="Adicionar">Adicionar</button>
+                            <button type="submit" value="Adicionar">@EpicWareWeb.Views.User.User.adicionar</button>
                     </div>
                     }
                     <div id="tagsList">
@@ -115,12 +113,6 @@
     </tr>
 </table> 
 
-
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 <script type="text/javascript">
 
     $(function () {
@@ -128,11 +120,7 @@
     });
 
 </script>
-<script type="text/javascript">
-    $(function insertTag() {
-        alert("Putas");
-    })
-</script>
+
 
 
 

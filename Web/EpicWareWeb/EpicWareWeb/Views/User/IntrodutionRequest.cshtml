@@ -1,12 +1,10 @@
 ﻿@model IEnumerable<EpicWareWeb.Models.Connection>
 
+@{
+  ViewBag.Title = @EpicWareWeb.Views.User.User.introReq;
+}
 
-    @{
-        ViewBag.Title = @EpicWareWeb.Views.User.User.introReq;
-
-    }
-
-    <h2>@EpicWareWeb.Views.User.User.introReq</h2>
+<h2>@EpicWareWeb.Views.User.User.introReq</h2>
 <div id="partials">
     @foreach (var item in Model)
     {

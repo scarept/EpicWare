@@ -3,10 +3,7 @@
     int count = 0;
     foreach (EpicWareWeb.Models.Notification item in Model.notifications)
     {
-        if (!item.read)
-        {
-            count++;
-        }
+        if (!item.read){count++;}
     }
 }
 @using (Html.BeginForm("ListNotifications","User")){

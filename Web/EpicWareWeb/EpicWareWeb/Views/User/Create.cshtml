@@ -1,7 +1,7 @@
 ﻿@model EpicWareWeb.Models.User
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = EpicWareWeb.Views.User.User.create;
     EpicWareWeb.Models.RegisterModel reg_mod = new EpicWareWeb.Models.RegisterModel();
     
 }
@@ -13,8 +13,6 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>User</legend>
-
         <div>
             @Html.LabelFor(model => model.userProfile.nickname)
             @Html.TextBoxFor(model => reg_mod.UserName)

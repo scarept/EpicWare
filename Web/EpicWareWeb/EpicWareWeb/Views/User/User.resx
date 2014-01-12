@@ -330,7 +330,6 @@
   <data name="adicionar" xml:space="preserve">
     <value>Adicionar</value>
   </data>
-
   <data name="remover" xml:space="preserve">
     <value />
   </data>
@@ -342,6 +341,32 @@
   </data>
   <data name="pedido2" xml:space="preserve">
     <value>ao seu amigo</value>
-
+  </data>
+  <data name="create_perfil" xml:space="preserve">
+    <value>Criar Perfil</value>
+  </data>
+  <data name="erro" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="erro_msg" xml:space="preserve">
+    <value>Um erro ocorreu enquanto processavamos o seu pedido.</value>
+  </data>
+  <data name="friend_list" xml:space="preserve">
+    <value>Todos os amigos</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>EpicWare</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="reativar" xml:space="preserve">
+    <value>Reativar</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Resultados da Pesquisa</value>
+  </data>
+  <data name="sugerir_amigos" xml:space="preserve">
+    <value>Sugerir Amigos</value>
   </data>
 </root>

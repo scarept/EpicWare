@@ -7206,3 +7206,8 @@ button.noStyle
     background: none;
     border:none;
 }
+
+
+tabelaCloud{
+    table-layout:fixed;
+}

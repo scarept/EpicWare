@@ -1,5 +1,4 @@
 ﻿@model EpicWareWeb.Models.User
-
 <tr>
     <td rowspan=3 align="right">
         <a class="noStyle" href="@Url.Action("Profile", "User", new { id = Model.userID})"><img width="75" height="75" src="@Model.userProfile.pathImg" alt="No Image" /></a>
@@ -20,9 +19,7 @@
                 {<a href=@Model.userProfile.linkedinProfile><img src="~/Images/Logos/glyphicons_social_17_linked_in.png" /></a>}
                 @if (Model.userProfile.twitterProfile != null && Model.userProfile.twitterProfile != "")
                 {<a href=@Model.userProfile.twitterProfile><img src="~/Images/Logos/glyphicons_social_31_twitter.png" /></a>}
-
             </div>
         </td>
         }
-    
 </tr>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = EpicWareWeb.Views.User.User.home;
 }
 
 <div style="align-content:center">
@@ -76,25 +76,25 @@
     var output = new System.Text.StringBuilder();
     output.Append(@"<div class="" tagcloud"">");
     using (var modelo = new EpicWareWeb.Models.EventsEntities())
-        {
+    {
         EpicWareWeb.Models.TagCloudCounter tagCloud = modelo.GetTagCloud();
-        <table width="1000">
-                <tr>
-                    <td><span style ="font-size:14px; color:white;">@EpicWareWeb.Views.User.User.tagcloudGeral :</span></td>
-                    <td>
-                        @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
-                        {
-                            output.AppendFormat(@"<span class=""tag{0}"">",tagCloud.GetRankForTag(tag));
-                            output.Append(tag.Tag);
-                            output.Append("</span>&nbsp;");
-                        }
+        <table width="1000" class="tabelaCloud">
+            <tr>
+                <td><span style="font-size:14px; color:white;">@EpicWareWeb.Views.User.User.tagcloudGeral :</span></td>
+                <td>
+                    @foreach (EpicWareWeb.Models.TagCloud tag in tagCloud.TagClouds)
+                    {
+                        output.AppendFormat(@"<span class=""tag{0}"">", tagCloud.GetRankForTag(tag));
+                        output.Append(tag.Tag);
+                        output.Append("</span>&nbsp;");
+                    }
 
-                    </td>
-                </tr>
-         </table>   
-        }
-        output.Append("</div>");
+                </td>
+            </tr>
+        </table>
     }
+    output.Append("</div>");
+}
     @Html.Raw(output.ToString())
 
 
