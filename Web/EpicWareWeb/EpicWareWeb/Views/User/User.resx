@@ -327,4 +327,7 @@
   <data name="txtBxPesquisa" xml:space="preserve">
     <value>Nome | Nickname | Tag</value>
   </data>
+  <data name="adicionar" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
 </root>
