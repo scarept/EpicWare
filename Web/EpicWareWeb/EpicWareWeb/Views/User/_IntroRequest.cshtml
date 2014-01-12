@@ -1,30 +1,25 @@
 ﻿@model EpicWareWeb.Models.IntroFriendRequest
 
-<table width="500">
+<table width="500" cellpadding="15" cellspacing="15">
     <tr>
-        <td>@EpicWareWeb.Views.User.User.sugestedby: </td><td>@Model.userB.userProfile.nickname</td>
-    </tr>
-    <tr>
-        <td colspan="2">@Model.sendedBC</td>
-    </tr>
-    <tr>
-        <td rowspan=3>
-            <img src="@Model.userA.userProfile.pathImg" alt="No Image" />
+        <td rowspan=2>
+            <img src="@Model.userA.userProfile.pathImg" alt="No Image" width="50" height="50" />
+        </td>
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.name:</b> @Model.userA.userProfile.name</span></td>
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.lastname:</b> @Model.userA.userProfile.lastName</span></td>
+        <td rowspan="2">
+            @using (Html.BeginForm("AcceptIntroFR", "User"))
+            {
+                <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button>
+            }
+            @using (Html.BeginForm("RejectIntroFR", "User"))
+            {
+                <button type="submit" class="btn btn-warning">@EpicWareWeb.Views.User.User.reject</button>
+            }
         </td>
     </tr>
     <tr>
-        <td>@EpicWareWeb.Views.User.User.name: @Model.userA.userProfile.name</td>
-        <td>@EpicWareWeb.Views.User.User.lastname: @Model.userA.userProfile.lastName</td>
-    </tr>
-    <tr>
-        <td></td>
-        @using (Html.BeginForm("AcceptIntroFR", "User"))
-        {
-            <td><button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button></td>
-        }
-        @using (Html.BeginForm("RejectIntroFR", "User"))
-        {
-            <td><button type="submit" class="btn btn-warning">@EpicWareWeb.Views.User.User.reject</button></td>
-        }
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.sugestedby:</b> @Model.userB.userProfile.nickname</span></td>
+        <td><span style="font-size:14px; color:white;">@Model.sendedBC</span></td>
     </tr>
 </table>

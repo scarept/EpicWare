@@ -1,27 +1,27 @@
 ﻿ @model EpicWareWeb.Models.FriendRequest
 
-<table width="500">
+<table width="500" cellpadding="15" cellspacing="15">
     <tr>
-        <td rowspan =3>
-            <img src="@Model.user1.userProfile.pathImg" alt="No Image" />
+        <td rowspan =2>
+            <img src="@Model.user1.userProfile.pathImg" alt="No Image" width="50" height="50"/>
         </td>
-    </tr>
-    <tr>
-        <td>@EpicWareWeb.Views.User.User.name: @Model.user1.userProfile.name</td><td>@EpicWareWeb.Views.User.User.lastname: @Model.user1.userProfile.lastName</td>
-    </tr>    
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.name:</b> @Model.user1.userProfile.name</span></td>
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.lastname:</b> @Model.user1.userProfile.lastName</span></td>
+        <td rowspan="2">
+            @using (Html.BeginForm("AcceptFR", "User"))
+            {
+                @Html.HiddenFor(model => model.friendRequestID)
+                <button type="submit" class="btn btn-success" style="width:100px">@EpicWareWeb.Views.User.User.accept</button>
+            }
+            @using (Html.BeginForm("RejectFR", "User"))
+            {
+                @Html.HiddenFor(model => model.friendRequestID)
+                <button type="submit" class="btn btn-danger" style="width:100px">@EpicWareWeb.Views.User.User.reject</button>
+            }
+        </td>
+    </tr>   
     <tr>    
-        <td>@EpicWareWeb.Views.User.User.forca: @Model.strenght</td><td>@EpicWareWeb.Views.User.User.tagconn: @Model.tagConnection.tag</td>
-    </tr>
-    <tr><td></td>
-        @using (Html.BeginForm("AcceptFR", "User"))
-        {
-            @Html.HiddenFor(model => model.friendRequestID)
-            <td><button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.accept</button></td>
-        }
-        @using (Html.BeginForm("RejectFR", "User"))
-        {
-            @Html.HiddenFor(model => model.friendRequestID)
-            <td><button type="submit" class="btn btn-danger">@EpicWareWeb.Views.User.User.reject</button></td>
-        }
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.forca:</b> @Model.strenght</span></td>
+        <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.tagconn:</b> @Model.tagConnection.tag</span></td>
     </tr>
 </table>

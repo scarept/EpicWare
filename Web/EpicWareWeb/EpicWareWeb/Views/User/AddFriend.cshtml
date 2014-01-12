@@ -1,37 +1,29 @@
 ﻿@model EpicWareWeb.Models.User
 @{
     EpicWareWeb.Models.Connection conn = new EpicWareWeb.Models.Connection();
-    Layout = null;
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AddFriend</title>
-</head>
-<body>
-    <h3>Defina a Força e Tag de Conecção</h3>
+    <h2>@EpicWareWeb.Views.User.User.forca_tag</h2>
     <div>
 @using (Html.BeginForm())
 { 
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.userID)
-    <table >
+    <table>
         <tr>
-            <td>@EpicWareWeb.Views.User.User.forca</td><td>@Html.TextBoxFor(model => conn.strenght)</td>
+            <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.forca</b></span></td>
+            <td>@Html.TextBoxFor(model => conn.strenght)</td>
         </tr>
         <tr>
-            <td>@EpicWareWeb.Views.User.User.tagconn</td><td>@Html.DropDownList("tagSelect", (SelectList)ViewBag.tagConnections)</td>
+            <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.tagconn</b></span></td>
+            <td>@Html.DropDownList("tagSelect", (SelectList)ViewBag.tagConnections)</td>
         </tr>
         <tr>
-            <td><button type="submit" class="btn btn-sucess">@EpicWareWeb.Views.User.User.adicionar_amigo</button></td>
+            <td colspan="2"><button type="submit" class="btn btn-sucess">@EpicWareWeb.Views.User.User.adicionar_amigo</button></td>
         </tr>       
     </table>
 }
        
     </div>
-</body>
-</html>

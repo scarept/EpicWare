@@ -214,6 +214,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Defina a Força e Tag de Conecção.
+        /// </summary>
+        public static string forca_tag {
+            get {
+                return ResourceManager.GetString("forca_tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to aceitou o seu pedido de amizade..
         /// </summary>
         public static string fraceite {
@@ -480,6 +489,24 @@ namespace EpicWareWeb.Views.User {
         public static string paraSerSeuAmigo {
             get {
                 return ResourceManager.GetString("paraSerSeuAmigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedido de introdução a.
+        /// </summary>
+        public static string pedido1 {
+            get {
+                return ResourceManager.GetString("pedido1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ao seu amigo.
+        /// </summary>
+        public static string pedido2 {
+            get {
+                return ResourceManager.GetString("pedido2", resourceCulture);
             }
         }
         
