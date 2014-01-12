@@ -23,6 +23,20 @@ namespace EpicWareWeb
         public string language;
     }
 
+    [Serializable]
+    [DataContract]
+    public struct UserData
+    {
+        [DataMember]
+        public string firstName;
+
+        [DataMember]
+        public string lastName;
+
+        [DataMember]
+        public int numberOfUserTags;
+    }
+
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IWebService" in both code and config file together.
     [ServiceContract]
     public interface IWebService
@@ -56,5 +70,8 @@ namespace EpicWareWeb
 
         [OperationContract]
         int getStrenghtConnection(int id1, int id2, string user, string pass);
+
+        [OperationContract]
+        UserData getUserData(int id, string user, string pass);
     }
 }
