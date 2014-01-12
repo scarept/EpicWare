@@ -1,0 +1,28 @@
+﻿@model EpicWareWeb.Models.User
+
+<tr>
+    <td rowspan=3 align="right">
+        <a class="noStyle" href="@Url.Action("Profile", "User", new { id = Model.userID})"><img width="75" height="75" src="@Model.userProfile.pathImg" alt="No Image" /></a>
+</td>
+</tr>
+<tr>
+    <td style="font-size:16px; color:white;" align="left"><a class="noStyle" href="@Url.Action("Profile", "User", new { id = Model.userID})">@Model.userProfile.name @Model.userProfile.lastName (@Model.userProfile.nickname)</a></td>
+</tr>
+<tr>
+    @if (!(Model.userProfile.facebookProfile == null && Model.userProfile.linkedinProfile == null && Model.userProfile.twitterProfile == null))
+        {
+        <td width="250" height="40" align="left" style="padding-left:0px;">
+            <div class="alert alert-info">
+                <b>@EpicWareWeb.Views.User.User.social:</b>
+                @if (Model.userProfile.facebookProfile != null && Model.userProfile.facebookProfile != "")
+                {<a href=@Model.userProfile.facebookProfile><img src="~/Images/Logos/glyphicons_social_30_facebook.png" /></a>}
+                @if (Model.userProfile.linkedinProfile != null && Model.userProfile.linkedinProfile != "")
+                {<a href=@Model.userProfile.linkedinProfile><img src="~/Images/Logos/glyphicons_social_17_linked_in.png" /></a>}
+                @if (Model.userProfile.twitterProfile != null && Model.userProfile.twitterProfile != "")
+                {<a href=@Model.userProfile.twitterProfile><img src="~/Images/Logos/glyphicons_social_31_twitter.png" /></a>}
+
+            </div>
+        </td>
+        }
+    
+</tr>

@@ -440,7 +440,14 @@ namespace EpicWareWeb.Controllers
             foreach(Connection conn in userAuth.listConnections)
             {
                 List<User> frindsOfFriend = ctrConn.noCommonFriends(conn.userConnected);
-                sugestionFriends.AddRange(frindsOfFriend);
+                foreach(User user in frindsOfFriend)
+                {
+                    if (!sugestionFriends.Contains(user) && user != userAuth)
+                    {
+                        sugestionFriends.Add(user);
+                    }
+                }
+                
             }
             return View(sugestionFriends);
         }

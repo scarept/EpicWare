@@ -95,7 +95,7 @@ namespace EpicWareWeb.Controllers
 
             foreach(string item in txtA)
             {
-                if (txtFirstName.Contains(item) || txtLasttName.Contains(item))
+                if (txtFirstName.Contains(item) || txtLasttName.Contains(item) || user.userProfile.nickname.Contains(item))
                 {
                     return true;
                 }
