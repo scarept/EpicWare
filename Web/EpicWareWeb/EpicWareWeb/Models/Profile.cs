@@ -15,17 +15,14 @@ namespace EpicWareWeb.Models
         public int profileID { get; set; }
 
         [DataMember]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "nome")]
         public string name { get; set; }
 
         [DataMember]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "ultNome")]
         public string lastName { get; set; }
 
         [DataMember]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "nickname")]
         public string nickname { get; set; }
 
