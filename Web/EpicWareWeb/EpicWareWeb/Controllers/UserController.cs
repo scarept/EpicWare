@@ -823,9 +823,13 @@ namespace EpicWareWeb.Controllers
         [HttpPost]
         public PartialViewResult insertTag(string tags)
         {
+            User user = UserAutenticated();
+            if (tags == null || tags.Replace(" ", "") == "")
+            {
+                return PartialView("_TagsUser", user.userTags);
+            }
             Tag tag = new Tag();
             tag.tag = tags;
-            User user = UserAutenticated();
             user.userTags.Add(tag);
             if (ModelState.IsValid)
             {
