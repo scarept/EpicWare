@@ -151,6 +151,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download Jogo.
+        /// </summary>
+        public static string download {
+            get {
+                return ResourceManager.GetString("download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar.
         /// </summary>
         public static string edit {
@@ -291,6 +300,15 @@ namespace EpicWareWeb.Views.User {
         public static string introReqNotMiddleAceept {
             get {
                 return ResourceManager.GetString("introReqNotMiddleAceept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pedidos de Introdutor.
+        /// </summary>
+        public static string intros {
+            get {
+                return ResourceManager.GetString("intros", resourceCulture);
             }
         }
         
@@ -466,6 +484,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pedidos Pendentes.
+        /// </summary>
+        public static string pendentes {
+            get {
+                return ResourceManager.GetString("pendentes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perfil.
         /// </summary>
         public static string perfil {
@@ -493,6 +520,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registar.
+        /// </summary>
+        public static string registar {
+            get {
+                return ResourceManager.GetString("registar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rejeitar.
         /// </summary>
         public static string reject {
@@ -507,6 +543,15 @@ namespace EpicWareWeb.Views.User {
         public static string rejeitouIR {
             get {
                 return ResourceManager.GetString("rejeitouIR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabela de Resultados.
+        /// </summary>
+        public static string scores {
+            get {
+                return ResourceManager.GetString("scores", resourceCulture);
             }
         }
         

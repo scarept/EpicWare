@@ -303,4 +303,19 @@
   <data name="tam_rede" xml:space="preserve">
     <value>Tamanho da rede</value>
   </data>
+  <data name="download" xml:space="preserve">
+    <value>Download Jogo</value>
+  </data>
+  <data name="intros" xml:space="preserve">
+    <value>Pedidos de Introdutor</value>
+  </data>
+  <data name="pendentes" xml:space="preserve">
+    <value>Pedidos Pendentes</value>
+  </data>
+  <data name="registar" xml:space="preserve">
+    <value>Registar</value>
+  </data>
+  <data name="scores" xml:space="preserve">
+    <value>Tabela de Resultados</value>
+  </data>
 </root>

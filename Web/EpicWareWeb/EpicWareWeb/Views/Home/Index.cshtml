@@ -18,21 +18,39 @@
         <tr>
             @using (Html.BeginForm("DownloadGame", "User", FormMethod.Get)) {
             <td width="300">
-                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">Download Game</button>
+                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.download</button>
             </td>
             }
             <td rowspan="3" width="300"><img src="~/Images/EpicWare%20Logos/EpicWare%20Logo.png" /></td>
+            @using (Html.BeginForm("ListFriendRequest", "User", FormMethod.Get))
+            {
+            <td width="300">
+                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.pendentes</button>
+            </td>
+            }
         </tr>
         <tr>
             <td width="300">
-                <button type="button" class="btn btn-lg btn-primary" style="width:200px;">View ScoreBoards</button>
+                <button type="button" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.scores</button>
             </td>
+            @using (Html.BeginForm("ListIntrosFriendRequestMiddle", "User", FormMethod.Get))
+            {
+            <td width="300">
+               <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.intros</button>
+            </td>
+            }
         </tr>
         <tr>
             @using (Html.BeginForm("Create","User",FormMethod.Get)) 
             { 
             <td width="300">
-                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">Registar</button>
+                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.registar</button>
+            </td>
+            }
+            @using (Html.BeginForm("FriendsSugestion", "User", FormMethod.Get))
+            {
+            <td width="300">
+                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.friendsSugestion</button>
             </td>
             }
         </tr>
