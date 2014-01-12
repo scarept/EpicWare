@@ -117,7 +117,121 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ativo" xml:space="preserve">
+    <value>Ativo</value>
+  </data>
+  <data name="conexoes" xml:space="preserve">
+    <value>Conexões</value>
+  </data>
+  <data name="confirmaPassword" xml:space="preserve">
+    <value>Confirmar Password</value>
+  </data>
+  <data name="datahora" xml:space="preserve">
+    <value>Data e Hora</value>
+  </data>
+  <data name="dataNascimento" xml:space="preserve">
+    <value>Data de Nascimento (mm/dd/aaaa)</value>
+  </data>
+  <data name="descricao" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="estadoHumor" xml:space="preserve">
+    <value>Estado de Humor</value>
+  </data>
+  <data name="facebookPofile" xml:space="preserve">
+    <value>Link do Perfil do Facebook</value>
+  </data>
+  <data name="forca" xml:space="preserve">
+    <value>Força</value>
+  </data>
+  <data name="genero" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="jogo" xml:space="preserve">
+    <value>Jogo</value>
+  </data>
+  <data name="lida" xml:space="preserve">
+    <value>Lida</value>
+  </data>
+  <data name="linguagem" xml:space="preserve">
+    <value>Linguagem</value>
+  </data>
+  <data name="linkedinPofile" xml:space="preserve">
+    <value>Link do Perfil do LinkedIn</value>
+  </data>
+  <data name="messageAB" xml:space="preserve">
+    <value>Mensagem de Pedido de Introdução</value>
+  </data>
+  <data name="messageBC" xml:space="preserve">
+    <value>Pedido de Introdução ao Destino</value>
+  </data>
+  <data name="missoes" xml:space="preserve">
+    <value>Missões</value>
+  </data>
+  <data name="nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="nivel" xml:space="preserve">
+    <value>Nível</value>
+  </data>
+  <data name="nome" xml:space="preserve">
+    <value>Primeiro Nome</value>
+  </data>
+  <data name="notificacao" xml:space="preserve">
+    <value>Notificação</value>
+  </data>
+  <data name="notificacoes" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
+  <data name="novaPassword" xml:space="preserve">
+    <value>Nova Password</value>
+  </data>
+  <data name="numTelefone" xml:space="preserve">
+    <value>Número de Telefone</value>
+  </data>
+  <data name="pais" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Palavra-Passe</value>
+  </data>
+  <data name="pathImg" xml:space="preserve">
+    <value>Imagem de Perfil</value>
+  </data>
+  <data name="pontoacoes" xml:space="preserve">
+    <value>Pontoações</value>
+  </data>
+  <data name="pontos" xml:space="preserve">
+    <value>Pontos</value>
+  </data>
   <data name="remember" xml:space="preserve">
     <value>Lembrar-me?</value>
+  </data>
+  <data name="tag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="tagConexao" xml:space="preserve">
+    <value>Tag de Conexão</value>
+  </data>
+  <data name="tipoNotificação" xml:space="preserve">
+    <value>Tipo de Notificação</value>
+  </data>
+  <data name="twitterPofile" xml:space="preserve">
+    <value>Link do Perfil do Twitter</value>
+  </data>
+  <data name="ultNome" xml:space="preserve">
+    <value>Ultimo Nome</value>
+  </data>
+  <data name="usertags" xml:space="preserve">
+    <value>Tag's de Utilizador</value>
+  </data>
+  <data name="utilizador" xml:space="preserve">
+    <value>Utilizador</value>
+  </data>
+  <data name="utilizadorConectado" xml:space="preserve">
+    <value>Utilizador Conectado</value>
   </data>
 </root>

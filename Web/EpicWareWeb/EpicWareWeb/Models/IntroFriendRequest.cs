@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
@@ -26,9 +27,11 @@ namespace EpicWareWeb.Models
         public bool sendedBC { get; set; }
 
         [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "messageAB")]
         public string messageAB { get; set; }
 
         [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "messageBC")]
         public string messageBC { get; set; }
     }
 }
