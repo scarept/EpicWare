@@ -478,6 +478,7 @@ namespace EpicWareWeb.Controllers
         public ActionResult AddFriend(int id = 0)
         {
             fillDropDownListTagConnection();
+            fillDropDownListStrenght();
             User user = db.users.Find(id);
             return View(user);
         }
@@ -485,7 +486,7 @@ namespace EpicWareWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult AddFriend(string tagSelect, FormCollection collection)
+        public ActionResult AddFriend(string tagSelect,string forcaSelect, FormCollection collection)
         {
             User userAuth = UserAutenticated();
             User user = db.users.Find(Convert.ToInt32(collection.Get("userID")));
@@ -494,8 +495,7 @@ namespace EpicWareWeb.Controllers
             FriendRequest fR = new FriendRequest();
 
             /* Strenght */
-            string força = collection.Get("conn.strenght");
-            int forçaInt = Convert.ToInt32(força);
+            int forçaInt = Convert.ToInt32(forcaSelect);
             fR.strenght = forçaInt;
 
             /* Tag Connection */
@@ -962,6 +962,18 @@ namespace EpicWareWeb.Controllers
                            select d;
             var selectTag = new SelectList(moodQuery, "moodID", "name", selectedMood);
             ViewBag.moods = selectTag;
+        }
+
+        private void fillDropDownListStrenght(object selectedMood = null)
+        {
+            List<int> strenghtList = new List<int>();
+            strenghtList.Add(1);
+            strenghtList.Add(2);
+            strenghtList.Add(3);
+            strenghtList.Add(4);
+            strenghtList.Add(5);
+            var selectList = new SelectList(strenghtList);
+            ViewBag.strenghts = selectList;
         }
 
     }

@@ -12,8 +12,8 @@
     @Html.HiddenFor(model => model.userID)
     <table>
         <tr>
-            <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.forca</b></span></td>
-            <td>@Html.TextBoxFor(model => conn.strenght)</td>
+            <td><span style="font-size:14px; color:white;"><b>@Html.LabelFor(model => conn.strenght)</b></span></td>
+            <td>@Html.DropDownList("forcaSelect", (SelectList)ViewBag.strenghts)</td>
         </tr>
         <tr>
             <td><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.tagconn</b></span></td>
