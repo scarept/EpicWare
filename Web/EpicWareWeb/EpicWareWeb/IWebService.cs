@@ -50,5 +50,11 @@ namespace EpicWareWeb
 
         [OperationContract]
         int getConnectioStrenght(int id1, int id2);
+
+        [OperationContract]
+        int getNumberTagsForUserId(int id, string user, string pass);
+
+        [OperationContract]
+        int getStrenghtConnection(int id1, int id2, string user, string pass);
     }
 }
