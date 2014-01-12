@@ -306,4 +306,10 @@
   <data name="veramigos" xml:space="preserve">
     <value>Ver amigos</value>
   </data>
+  <data name="resultadosPesquisa" xml:space="preserve">
+    <value>Resultado da Pesquisa</value>
+  </data>
+  <data name="txtBxPesquisa" xml:space="preserve">
+    <value>Nome | Nickname | Tag</value>
+  </data>
 </root>

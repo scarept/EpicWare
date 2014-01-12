@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<EpicWareWeb.Models.User>
 @{
-    ViewBag.Title = "Search";
-    Model.ElementAt(0);
+    ViewBag.Title = @EpicWareWeb.Views.User.User.resultadosPesquisa;
 }
 
 <h2>Search</h2>
 @*UTILIZADORES DO RESULTADO DA PESQUISA*@
+<table width="500">
+    @foreach (EpicWareWeb.Models.User user in Model)
+    {
+        @Html.Partial("_SearchList", user)
+    }
+</table>

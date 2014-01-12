@@ -511,6 +511,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resultado da Pesquisa.
+        /// </summary>
+        public static string resultadosPesquisa {
+            get {
+                return ResourceManager.GetString("resultadosPesquisa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sem Imagem .
         /// </summary>
         public static string semimagem {
@@ -606,6 +615,15 @@ namespace EpicWareWeb.Views.User {
         public static string triste {
             get {
                 return ResourceManager.GetString("triste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome | Nickname | Tag.
+        /// </summary>
+        public static string txtBxPesquisa {
+            get {
+                return ResourceManager.GetString("txtBxPesquisa", resourceCulture);
             }
         }
         

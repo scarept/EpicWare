@@ -1116,6 +1116,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\User\FriendsList.cshtml" />
     <Content Include="Views\User\_FriendsList.cshtml" />
+    <Content Include="Views\Home\_SearchList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
