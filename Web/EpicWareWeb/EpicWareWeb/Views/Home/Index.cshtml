@@ -1,18 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@section featured {
 
-    @*<section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-        </div>
-    </section>*@
-    
-}
 <div style="align-content:center">
     <table width="600">
         <tr>
@@ -22,36 +11,52 @@
             </td>
             }
             <td rowspan="3" width="300"><img src="~/Images/EpicWare%20Logos/EpicWare%20Logo.png" /></td>
-            @using (Html.BeginForm("ListFriendRequest", "User", FormMethod.Get))
+            @if (Request.IsAuthenticated)
             {
-            <td width="300">
-                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.pendentes</button>
-            </td>
+                using (Html.BeginForm("ListFriendRequest", "User", FormMethod.Get))
+                {
+                    <td width="300">
+                        <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.pendentes</button>
+                    </td>
+                }
             }
         </tr>
         <tr>
             <td width="300">
                 <button type="button" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.scores</button>
             </td>
-            @using (Html.BeginForm("ListIntrosFriendRequestMiddle", "User", FormMethod.Get))
+            @if (Request.IsAuthenticated)
             {
-            <td width="300">
-               <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.intros</button>
-            </td>
+                using (Html.BeginForm("ListIntrosFriendRequestMiddle", "User", FormMethod.Get))
+                {
+                    <td width="300">
+                        <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.intros</button>
+                    </td>
+                }
             }
         </tr>
         <tr>
-            @using (Html.BeginForm("Create","User",FormMethod.Get)) 
-            { 
-            <td width="300">
-                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.registar</button>
-            </td>
-            }
-            @using (Html.BeginForm("FriendsSugestion", "User", FormMethod.Get))
+            @if (!Request.IsAuthenticated)
             {
-            <td width="300">
-                <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.friendsSugestion</button>
-            </td>
+                using (Html.BeginForm("Create","User",FormMethod.Get)) 
+                { 
+                <td width="300">
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.registar</button>
+                </td>
+                }
+            }
+            else
+            {
+                <td width="300">&nbsp;</td>
+            }
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("FriendsSugestion", "User", FormMethod.Get))
+                {
+                    <td width="300">
+                        <button type="submit" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.friendsSugestion</button>
+                    </td>
+                }
             }
         </tr>
     </table>
