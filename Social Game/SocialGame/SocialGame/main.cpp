@@ -8,6 +8,7 @@
 #include <External images for OpenGL\LoadImages.h>
 #include <WCF\WCF.h>
 #include <EpicService\EpicWareWeb.Models.xsd.h>
+
 using namespace std;
 
 
@@ -25,6 +26,13 @@ void menu(int item);
 
 #define graus(X) (double)((X)*180/M_PI)
 #define rad(X)   (double)((X)*M_PI/180)
+
+#define DRAG_SCALE	0.01
+#define OBJECTO_VELOCIDADE 10
+#define DIMENSAO_CAMARA 10
+
+GLfloat veloColisao;
+GLfloat velocidadeAtual;
 
 // luzes e materiais
 const GLfloat mat_ambient[][4] = { { 0.33, 0.22, 0.03, 1.0 },	// brass
@@ -91,6 +99,10 @@ typedef struct Camera{
 
 }Camera;
 
+typedef struct teclas_t{
+	GLboolean   up, down, left, right, keyQ, keyA;
+}teclas_t;
+
 typedef struct Estado{
 	Camera		camera;
 	int			xMouse, yMouse;
@@ -100,10 +112,12 @@ typedef struct Estado{
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
 	GLint		estadoJogo; // 0 - login; 1- Jogo 3D; 2- menu
+	teclas_t	teclas;
 	bool searchSelected;
 	string  searchText;
 	bool addFriendBox;
 	int lastSelected;
+	GLint		timer;
 }Estado;
 
 typedef struct Login{
@@ -116,6 +130,20 @@ typedef struct Login{
 
 }Login;
 
+typedef struct pos_t{
+	GLfloat    x, y, z;
+}pos_t;
+
+
+typedef struct objecto_t{
+	pos_t    pos;
+	GLfloat  dirLong;
+	GLfloat  dirLat;
+	GLfloat	 dist;
+	GLfloat  vel;
+	teclas_t teclaColis;
+}objecto_t;
+
 typedef struct Modelo {
 #ifdef __cplusplus
 	tipo_material cor_cubo;
@@ -125,9 +153,13 @@ typedef struct Modelo {
 
 	GLfloat g_pos_luz1[4];
 	GLfloat g_pos_luz2[4];
-
+	GLfloat g_pos_luz3[4];
+	objecto_t obj;
 	GLfloat escala;
 	GLUquadric *quad;
+	GLuint tempAnterior;
+	GLfloat velocidade = 0.5;
+	Vertice eye;
 }Modelo;
 
 Estado estado;
@@ -494,7 +526,20 @@ void gameInit(User *utilizador)
 	preencheInfoAmigos();
 	preencheInfoLigacao();
 
+	//modelo.aa = 0;
+	estado.camera.dir_lat = -0.004601;
+	estado.camera.dir_long = -4.0154;
+	estado.camera.fov = 60;
+	estado.camera.dist = 100;
 
+	modelo.obj.vel = OBJECTO_VELOCIDADE;
+	modelo.obj.pos.x = 40;
+	modelo.obj.pos.y = -40;
+	modelo.obj.pos.z = 50;
+
+	modelo.obj.dirLat = -0.004601;
+	modelo.obj.dirLong = -4.0154;
+	modelo.obj.dist = 100;
 }
 
 
@@ -1095,9 +1140,62 @@ void desenhaEixos(){
 
 void setCamera(){
 	Vertice eye;
-	eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
-	eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	/*
+	estado.camera.center[0] = modelo.obj.pos.x + cos(estado.camera.dir_long);
+	estado.camera.center[1] = modelo.obj.pos.y + sin(estado.camera.dir_long);
+	estado.camera.center[2] = modelo.obj.pos.z + sin(estado.camera.dir_lat);
+
+	eye[0] = modelo.obj.pos.x;
+	eye[1] = modelo.obj.pos.y;
+	eye[2] = modelo.obj.pos.z;
+	*/
+	/*
+	modelo.obj.pos.x;
+	modelo.obj.pos.y;
+	modelo.obj.pos.z;
+	*/
+	/*
+	eye[0] = modelo.obj.pos.x;
+	eye[1] = modelo.obj.pos.y;
+	eye[2] = modelo.obj.pos.z;
+	*/
+
+	/*
+	eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long);// *cos(estado.camera.dir_lat);
+	eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long);// *cos(estado.camera.dir_lat);
 	eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
+
+
+	modelo.eye[0] = eye[0];
+	modelo.eye[1] = eye[1];
+	modelo.eye[2] = eye[2];
+
+	estado.camera.center[0] = modelo.obj.pos.x;// +cos(estado.camera.dir_long);// *cos(estado.camera.dir_lat);
+	estado.camera.center[1] = modelo.obj.pos.y;// +sin(estado.camera.dir_long);// * cos(estado.camera.dir_lat);
+	estado.camera.center[2] = modelo.obj.pos.z;// +sin(estado.camera.dir_lat);
+	*/
+	///////////////
+	estado.camera.center[0] = (modelo.obj.pos.x + modelo.obj.dist *cos(estado.camera.dir_long));
+	estado.camera.center[1] = (modelo.obj.pos.y + modelo.obj.dist*sin(estado.camera.dir_long));
+	estado.camera.center[2] = (modelo.obj.pos.z + modelo.obj.dist) * sin(estado.camera.dir_lat);
+
+	eye[0] = modelo.obj.pos.x;
+	eye[1] = modelo.obj.pos.y;
+	eye[2] = modelo.obj.pos.z;
+
+	modelo.eye[0] = eye[0];
+	modelo.eye[1] = eye[1];
+	modelo.eye[2] = eye[2];
+
+	/*
+	cout << "eye 1 " << estado.camera.center[0] << endl;
+	cout << "eye 2 " << estado.camera.center[1] << endl;
+	cout << "eye 3 " << estado.camera.center[2] << endl;
+	*/
+
+	modelo.g_pos_luz3[0] = estado.camera.center[0];
+	modelo.g_pos_luz3[1] = estado.camera.center[1];
+	modelo.g_pos_luz3[2] = estado.camera.center[2];
 
 	if (estado.light){
 		gluLookAt(eye[0], eye[1], eye[2], estado.camera.center[0], estado.camera.center[1], estado.camera.center[2], 0, 0, 1);
@@ -1105,6 +1203,8 @@ void setCamera(){
 	}
 	else{
 		putLights((GLfloat*)white_light);
+		//desenhaLuzAponta(1, 1, 1);
+		//desenhaLuzAponta();
 		gluLookAt(eye[0], eye[1], eye[2], estado.camera.center[0], estado.camera.center[1], estado.camera.center[2], 0, 0, 1);
 	}
 }
@@ -1572,6 +1672,13 @@ void keyboard(unsigned char key, int x, int y)
 			initModelo();
 			glutPostRedisplay();
 			break;
+		case 'q':
+		case 'Q':
+			estado.teclas.keyQ = GL_TRUE;
+			break;
+		case 'a':
+		case 'A':
+			estado.teclas.keyA = GL_TRUE;
 		}
 	}
 
@@ -1608,17 +1715,48 @@ void Special(int key, int x, int y){
 		addArco(criaArco(4, 6, 1, 1));  // 4 - 6
 		glutPostRedisplay();
 		break;
-	case GLUT_KEY_UP:
-		estado.camera.dist -= 1;
-		glutPostRedisplay();
+	case GLUT_KEY_UP: estado.teclas.up = GL_TRUE;
 		break;
-	case GLUT_KEY_DOWN:
-		estado.camera.dist += 1;
-		glutPostRedisplay();
+	case GLUT_KEY_DOWN: estado.teclas.down = GL_TRUE;
+		break;
+	case GLUT_KEY_LEFT: estado.teclas.left = GL_TRUE;
+		break;
+	case GLUT_KEY_RIGHT: estado.teclas.right = GL_TRUE;
 		break;
 	}
 }
 
+void keyboardUP(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+	case 'q':
+	case 'Q':
+		estado.teclas.keyQ = GL_FALSE;
+		break;
+	case 'a':
+	case 'A':
+		estado.teclas.keyA = GL_FALSE;
+	}
+}
+
+void SpecialUP(int key, int x, int y)
+{
+	if (estado.estadoJogo == 1)
+	{
+		switch (key)
+		{
+		case GLUT_KEY_UP: estado.teclas.up = GL_FALSE;
+			break;
+		case GLUT_KEY_DOWN: estado.teclas.down = GL_FALSE;
+			break;
+		case GLUT_KEY_LEFT: estado.teclas.left = GL_FALSE;
+			break;
+		case GLUT_KEY_RIGHT: estado.teclas.right = GL_FALSE;
+			break;
+		}
+	}
+}
 
 void setProjection(int x, int y, GLboolean picking){
 	glLoadIdentity();
@@ -1662,15 +1800,31 @@ void myReshape(int w, int h){
 
 
 void motionRotate(int x, int y){
-#define DRAG_SCALE	0.01
 	double lim = M_PI / 2 - 0.1;
+
 	estado.camera.dir_long += (estado.xMouse - x)*DRAG_SCALE;
 	estado.camera.dir_lat -= (estado.yMouse - y)*DRAG_SCALE*0.5;
-	if (estado.camera.dir_lat>lim)
+
+	modelo.obj.dirLong += (estado.xMouse - x)*DRAG_SCALE;
+	modelo.obj.dirLat -= (estado.yMouse - y)*DRAG_SCALE*0.5;
+
+	cout << "obj lat: " << modelo.obj.dirLat << endl;
+	cout << "obj long: " << modelo.obj.dirLong << endl;
+
+	cout << " lat: " << estado.camera.dir_lat << endl;
+	cout << "long" << estado.camera.dir_long << endl;
+	if (estado.camera.dir_lat > lim)
+	{
 		estado.camera.dir_lat = lim;
+		modelo.obj.dirLat = lim;
+	}
+
 	else
-	if (estado.camera.dir_lat<-lim)
+	if (estado.camera.dir_lat < -lim)
+	{
 		estado.camera.dir_lat = -lim;
+		modelo.obj.dirLat = -lim;
+	}
 	estado.xMouse = x;
 	estado.yMouse = y;
 	glutPostRedisplay();
@@ -2472,6 +2626,315 @@ void dawHud(){
 
 }
 
+bool Colisoes2()
+{
+	GLuint selectBuf[BUFSIZE];
+	glSelectBuffer(BUFSIZE, selectBuf);
+	glRenderMode(GL_SELECT);
+	//estas 2 linhas sao necessarias para saber o No que colidiu para entra no voo rasante
+	glInitNames();//limpa a stack que contem info sobre os objectos
+	glPushName(0);
+
+	// definir projecao, visualizacao e desenhar
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	veloColisao = sqrtf((pow(velocidadeAtual, 2) + pow(modelo.velocidade, 2)));
+	glOrtho(-DIMENSAO_CAMARA / 2.0, DIMENSAO_CAMARA / 2.0, -DIMENSAO_CAMARA / 2.0, DIMENSAO_CAMARA / 2.0, 0.0, DIMENSAO_CAMARA / 2.0 + veloColisao);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+	glRotatef((radToDeg(-M_PI / 2.0 - atan2(modelo.velocidade, velocidadeAtual))), 1, 0, 0);
+	/*ssssss*/
+	glRotatef((radToDeg(M_PI / 2.0 - estado.camera.dir_long)), 0, 0, 1);
+	glTranslatef(-modelo.eye[0], -modelo.eye[1], -modelo.eye[2]);
+	cout << modelo.eye[0] << endl;
+	cout << modelo.eye[1] << endl;
+	cout << modelo.eye[2] << endl;
+	//glTranslatef(-modelo.eye, -modelo.objecto.pos.y, -modelo.objecto.pos.z);
+	drawGraph(GL_SELECT);//colisoes com o grafo
+	glPopMatrix();
+	glFlush();
+	GLint hits = glRenderMode(GL_RENDER);
+	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	if (hits>0) {
+		int i;
+		unsigned int j;
+		GLuint names, *ptr;
+		GLfloat z1 = 9999999;
+		GLint idNo;
+		ptr = (GLuint *)selectBuf;
+		names = *ptr;
+		ptr = ptr + 3;
+		cout << "nome " << *ptr << endl;
+
+		return true;
+	}
+	return false;
+}
+
+bool Colisoes()
+{
+
+	GLuint selectBuf[BUFSIZE];
+	glSelectBuffer(BUFSIZE, selectBuf);
+	glRenderMode(GL_SELECT);
+	//estas 2 linhas sao necessarias para saber o No que colidiu para entra no voo rasante
+	glInitNames();//limpa a stack que contem info sobre os objectos
+	glPushName(0);
+
+	// definir projecao, visualizacao e desenhar
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	veloColisao = sqrtf((pow(velocidadeAtual, 2) + pow(modelo.velocidade, 2)));
+	glOrtho(-DIMENSAO_CAMARA / 2.0, DIMENSAO_CAMARA / 2.0, -DIMENSAO_CAMARA / 2.0, DIMENSAO_CAMARA / 2.0, 0.0, DIMENSAO_CAMARA / 2.0 + veloColisao);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+	glRotatef((radToDeg(-M_PI / 2.0 - atan2(modelo.velocidade, velocidadeAtual))), 1, 0, 0);
+	/*ssssss*/
+	glRotatef((radToDeg(M_PI / 2.0 - estado.camera.dir_long)), 0, 0, 1);
+	glTranslatef(-modelo.obj.pos.x, -modelo.obj.pos.y, -modelo.obj.pos.z);
+	cout << modelo.eye[0] << endl;
+	cout << modelo.eye[1] << endl;
+	cout << modelo.eye[2] << endl;
+	//glTranslatef(-modelo.eye, -modelo.objecto.pos.y, -modelo.objecto.pos.z);
+	drawGraph(GL_SELECT);//colisoes com o grafo
+	//skydome();//colisoes com skydome
+	//desenhaChao();//colisoes com o chao	
+	glPopMatrix();
+	glFlush();
+	GLint hits = glRenderMode(GL_RENDER);
+	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	if (hits>0) {
+
+		//procurrar no buffer o index do No que houve a colisao
+		int i;
+		unsigned int j;
+		GLuint names, *ptr;
+		GLfloat z1 = 9999999;
+		GLint idNo;
+		ptr = (GLuint *)selectBuf;
+
+		//idNo = -1;
+		//estado.modoVooRasante.arcoSeleccionado = -1;
+		names = *ptr;
+		ptr = ptr + 3;
+		cout << "nome " << *ptr << endl;
+
+		//for (i = 0; i < hits; i++) {  /* for each hit  */
+		//	names = *ptr;
+		//	ptr++;
+		//	if ((float)*ptr / 0xffffffff <z1) {
+		//		z1 = (float)*ptr / 0xffffffff;
+		//		ptr++;
+		//		ptr++;
+		//		
+		//		/*
+		//		if (*ptr == NO_ID) //se for um No guarda o index do No
+		//		{
+		//			ptr++;//primeiro nome
+		//			idNo = *ptr;
+		//		}
+		//		*/
+		//		ptr++;//segundo nome
+		//	}
+		//}
+		/*
+		if (idNo >= 0) //senao for -1 entao estamos a detectar colisao no voo livre num No e este vai passar para voo rasante
+		{
+		modelo.objecto.pos.x = nos[idNo].x;
+		modelo.objecto.pos.y = nos[idNo].y;
+		modelo.objecto.pos.z = nos[idNo].z + (nos[idNo].raio * 2);
+		estado.modoVooRasante.Activo = true;
+		}
+		*/
+		return true;
+	}
+	return false;
+}
+
+
+void Timer(int value)
+{
+	float nx, ny, nz;
+	//modelo.eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	//modelo.eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+	//modelo.eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
+	//Tempo tempo passado
+	GLuint temACT = glutGet(GLUT_ELAPSED_TIME);
+
+	//Velocidade com base no tempo passado
+	velocidadeAtual = modelo.obj.vel*(temACT - modelo.tempAnterior)*0.001;
+	//velocidadeAtual = modelo.velocidade*(temACT - modelo.tempAnterior)*0.001;
+	modelo.tempAnterior = temACT;
+
+	glutTimerFunc(estado.timer, Timer, 0);
+	//cout << " ollllaaa " << endl;
+	if (estado.teclas.up)
+	{
+		cout << "Colisoes: " << Colisoes() << endl;
+		cout << "modelo: " << modelo.obj.pos.x << endl;
+		cout << "Camera: " << estado.camera.center[0] << endl;
+		cout << "modelo: " << modelo.obj.pos.y << endl;
+		cout << "Camera: " << estado.camera.center[1] << endl;
+		cout << "modelo: " << modelo.obj.pos.z << endl;
+		cout << "Camera: " << estado.camera.center[2] << endl;
+		//velocidadeAtual += 0.4;
+		//velocidadeAtual *= -1;
+		nx = modelo.obj.pos.x + velocidadeAtual * cos(modelo.obj.dirLong);
+		ny = modelo.obj.pos.y + velocidadeAtual * sin(modelo.obj.dirLong);
+		//nz = modelo.obj.pos.z - velocidadeAtual * sin(modelo.obj.dirLat);
+
+		if (!Colisoes2())
+		{
+			modelo.obj.pos.x = nx;
+			modelo.obj.pos.y = ny;
+			cout << "ola gatinho " << endl;
+		}
+
+		cout << " bom dia a prima " << endl;
+
+		//modelo.obj.pos.y = nz;
+		//modelo.obj.teclaColis.up = false;
+		//modelo.obj.pos.z = nz;
+
+
+		/*FAZER IF DE COLISÕES AQUI*/
+
+
+		//modelo.obj.pos.z = nz;
+
+	}
+	if (estado.teclas.down)
+	{
+		cout << "Colisoes: " << Colisoes() << endl;
+		cout << "modelo: " << modelo.obj.pos.x << endl;
+		cout << "Camera: " << estado.camera.center[0] << endl;
+		cout << "modelo: " << modelo.obj.pos.y << endl;
+		cout << "Camera: " << estado.camera.center[1] << endl;
+		cout << "modelo: " << modelo.obj.pos.z << endl;
+		cout << "Camera: " << estado.camera.center[2] << endl;
+		//velocidadeAtual += 0.4;
+		//velocidadeAtual *= -1;
+		nx = modelo.obj.pos.x - velocidadeAtual * cos(modelo.obj.dirLong);
+		ny = modelo.obj.pos.y - velocidadeAtual * sin(modelo.obj.dirLong);
+		//nz = modelo.obj.pos.z - sin(modelo.obj.dirLat) * velocidadeAtual;
+
+		/*FAZER IF DE COLISÕES AQUI*/
+
+		modelo.obj.pos.x = nx;
+		modelo.obj.pos.y = ny;
+
+		cout << " bom dia a prima " << endl;
+
+		modelo.obj.teclaColis.up = false;
+		//modelo.obj.pos.z = nz;
+
+		//modelo.obj.pos.z = nz;
+
+		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		//setCamera2();
+	}
+	if (estado.teclas.left)
+	{
+		Colisoes2();
+		//Colisoes();
+		cout << "Colisoes: " << Colisoes() << endl;
+		cout << "modelo: " << modelo.obj.pos.x << endl;
+		cout << "Camera: " << estado.camera.center[0] << endl;
+		cout << "modelo: " << modelo.obj.pos.y << endl;
+		cout << "Camera: " << estado.camera.center[1] << endl;
+		cout << "modelo: " << modelo.obj.pos.z << endl;
+		cout << "Camera: " << estado.camera.center[2] << endl;
+		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+
+		if (!Colisoes2())
+		{
+			estado.camera.dir_long += velocidadeAtual*0.1;
+			modelo.obj.dirLong += velocidadeAtual*0.1;
+		}
+
+
+
+		//setCamera2();
+
+	}
+	if (estado.teclas.right)
+	{
+		Colisoes2();
+		Colisoes();
+		cout << "Colisoes: " << Colisoes() << endl;
+		cout << "modelo: " << modelo.obj.pos.x << endl;
+		cout << "Camera: " << estado.camera.center[0] << endl;
+		cout << "modelo: " << modelo.obj.pos.y << endl;
+		cout << "Camera: " << estado.camera.center[1] << endl;
+		cout << "modelo: " << modelo.obj.pos.z << endl;
+		cout << "Camera: " << estado.camera.center[2] << endl;
+		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		if (!Colisoes2())
+		{
+			estado.camera.dir_long -= velocidadeAtual*0.1;
+			modelo.obj.dirLong -= velocidadeAtual*0.1;
+		}
+
+
+		//setCamera2();
+	}
+	if (estado.teclas.keyA)
+	{
+		cout << "Colisoes: " << Colisoes() << endl;
+		cout << "modelo: " << modelo.obj.pos.x << endl;
+		cout << "Camera: " << estado.camera.center[0] << endl;
+		cout << "modelo: " << modelo.obj.pos.y << endl;
+		cout << "Camera: " << estado.camera.center[1] << endl;
+		cout << "modelo: " << modelo.obj.pos.z << endl;
+		cout << "Camera: " << estado.camera.center[2] << endl;
+		//cout << "A" << endl;
+		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		//estado.camera.dist += 1;
+		/*
+		estado.camera.dist -= k_DISTANCIA;
+		modelo.obj.dist -= k_DISTANCIA;
+		cout << "distancia cam " << estado.camera.dist << endl;
+		cout << "distancia obj " << modelo.obj.dist << endl;
+
+		//setCamera2();
+		*/
+		if (!Colisoes2())
+		{
+			modelo.obj.pos.z -= 0.1;
+		}
+
+	}
+	if (estado.teclas.keyQ)
+	{
+		cout << "Colisoes: " << Colisoes() << endl;
+		cout << "modelo: " << modelo.obj.pos.x << endl;
+		cout << "Camera: " << estado.camera.center[0] << endl;
+		cout << "modelo: " << modelo.obj.pos.y << endl;
+		cout << "Camera: " << estado.camera.center[1] << endl;
+		cout << "modelo: " << modelo.obj.pos.z << endl;
+		cout << "Camera: " << estado.camera.center[2] << endl;
+		//cout << "Q" << endl;
+		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+		//cout << "Valor velocidade: " << velocidadeAtual << endl;
+		//bool teste = Colisoes();
+		//estado.camera.dir_long += velocidadeAtual;
+		/*
+		estado.camera.dist += k_DISTANCIA;
+		modelo.obj.dist += k_DISTANCIA;
+		*/
+		//setCamera2();
+		if (!Colisoes2())
+		{
+			modelo.obj.pos.z += 0.1;
+		}
+	}
+	display();
+}
+
 void main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
@@ -2492,7 +2955,9 @@ void main(int argc, char **argv)
 	glutDisplayFunc(display);
 	/*  Funcionalidade do teclado  */
 	glutKeyboardFunc(keyboard);
+	glutKeyboardUpFunc(keyboardUP);
 	glutSpecialFunc(Special);
+	glutSpecialUpFunc(SpecialUP);
 	/*  Funcionalidades do rato   */
 	glutMouseFunc(mouse);
 
@@ -2500,7 +2965,7 @@ void main(int argc, char **argv)
 
 	loginInit();
 
-
+	glutTimerFunc(estado.timer, Timer, 0);
 
 
 
