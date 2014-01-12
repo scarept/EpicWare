@@ -82,7 +82,7 @@ namespace EpicWareWeb.Controllers
                 db.users.Add(user);
                 db.SaveChanges();
                 MailController mailSend = new MailController();
-                mailSend.sendMail(user.email, "Registo de conta", "Username/Nikname: " + reg_model_tmp.UserName + "\nPassword: " + reg_model_tmp.Password);
+                mailSend.sendMail(user.email, "Registo de conta", "Username/Nickname: " + reg_model_tmp.UserName + "\nPassword: " + reg_model_tmp.Password);
                 //if (!WebSecurity.Initialized)
                 //{
                 //    new AccountController().InitilizeBdAccounts();
