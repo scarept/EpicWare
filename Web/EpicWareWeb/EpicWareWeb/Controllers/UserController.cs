@@ -818,6 +818,40 @@ namespace EpicWareWeb.Controllers
             return PartialView("_Notifications", user);
         }
 
+
+         /* INSERT REMOVE TAGS */
+        [HttpGet]
+        public PartialViewResult insertTag(string tags)
+        {
+            Tag tag = new Tag();
+            tag.tag = tags;
+            User user = UserAutenticated();
+            user.userTags.Add(tag);
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            
+            return PartialView("_TagsUser", user.userTags);
+        }
+        public PartialViewResult removeTag(int id = 0)
+        {
+            if (id != 0)
+            {
+                Tag tag = db.tags.Find(id);
+                
+                if (ModelState.IsValid)
+                {
+                    db.tags.Remove(tag);
+                    db.SaveChanges();
+                }
+            }
+            
+
+            return PartialView("_TagsUser", UserAutenticated().userTags);
+        }
+
         public ActionResult ListNotifications()
         {
             User user = UserAutenticated();

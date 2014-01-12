@@ -6,92 +6,123 @@
 
 <h1>@EpicWareWeb.Views.User.User.edit_perfil</h1>
 
-@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
-    
-    <fieldset>
-        <legend>User</legend>
+<table>
+    <tr>
+        <td width="500">
+            @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
 
-        @* Mood selecionado*@ 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.mood)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("moodSelect", (SelectList)ViewBag.moods)
-        </div>
+                <fieldset>
+                    <legend>User</legend>
 
-        @* Lingua escolhida *@
-        <div class="editor-label">
-            <h3>@Html.LabelFor(model => model.language)</h3>
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("langSelect", (SelectList)ViewBag.linguagens)
-        </div>
-        <br />
-        @* Phone *@
-        <div class="editor-label">
-           <h3>@Html.LabelFor(model => model.userProfile.phoneNumber)</h3>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => profile.phoneNumber)
-            @Html.ValidationMessageFor(model => profile.phoneNumber)
-        </div>
-        <br />
-        <div class="editor-label">
-            <h3>@Html.LabelFor(model => model.userTags)</h3>
-            <h4>@Html.Label(@EpicWareWeb.Views.User.User.textoDefaultTags)</h4>
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("tags")
-            @*<input type="text" id="tag" name="tag"/>
-                <label onclick="document.getElementById('tagsLB').innerHTML = document.getElementById('tag').nodeValue;">Inserir Tag</label>
-                <label id="tagsLB"></label>*@
-        </div>
-        <br />
-        @* Linkedin *@
-        <div class="editor-label">
-            <h3>@Html.LabelFor(model => model.userProfile.linkedinProfile)</h3>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => profile.linkedinProfile)
-            @Html.ValidationMessageFor(model => profile.linkedinProfile)
-        </div>
-        <br />
-        @* Facebook *@
-        <div class="editor-label">
-            <h3>@Html.LabelFor(model => model.userProfile.facebookProfile)</h3>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => profile.facebookProfile)
-            @Html.ValidationMessageFor(model => profile.facebookProfile)
-        </div>
-        <br />
-        @* Twitter *@
-        <div class="editor-label">
-            <h3>@Html.LabelFor(model => model.userProfile.twitterProfile)</h3>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => profile.twitterProfile)
-            @Html.ValidationMessageFor(model => profile.twitterProfile)
-        </div>
-        <br />
-        <h2><b>@EpicWareWeb.Views.User.User.image</b></h2>
-        @* Image *@
-        <div class="editor-field">
-            <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="250" />
-        </div>
-        <div class="editor-field">
-            <input type="file" name="file" id="file" style="width: 250px;" />
-        </div>
-        <br />
-        <p>
-            <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.edit</button>
-        </p>
-    </fieldset>
-}
+                    @* Mood selecionado*@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.mood)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("moodSelect", (SelectList)ViewBag.moods)
+                    </div>
+
+                    @* Lingua escolhida *@
+                    <div class="editor-label">
+                        <h3>@Html.LabelFor(model => model.language)</h3>
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("langSelect", (SelectList)ViewBag.linguagens)
+                    </div>
+                    <br />
+                    @* Phone *@
+                    <div class="editor-label">
+                        <h3>@Html.LabelFor(model => model.userProfile.phoneNumber)</h3>
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.phoneNumber)
+                        @Html.ValidationMessageFor(model => profile.phoneNumber)
+                    </div>
+                    <br />
+                    @* Linkedin *@
+                    <div class="editor-label">
+                        <h3>@Html.LabelFor(model => model.userProfile.linkedinProfile)</h3>
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.linkedinProfile)
+                        @Html.ValidationMessageFor(model => profile.linkedinProfile)
+                    </div>
+                    <br />
+                    @* Facebook *@
+                    <div class="editor-label">
+                        <h3>@Html.LabelFor(model => model.userProfile.facebookProfile)</h3>
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.facebookProfile)
+                        @Html.ValidationMessageFor(model => profile.facebookProfile)
+                    </div>
+                    <br />
+                    @* Twitter *@
+                    <div class="editor-label">
+                        <h3>@Html.LabelFor(model => model.userProfile.twitterProfile)</h3>
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.twitterProfile)
+                        @Html.ValidationMessageFor(model => profile.twitterProfile)
+                    </div>
+                    <br />
+                    <h2><b>@EpicWareWeb.Views.User.User.image</b></h2>
+                    @* Image *@
+                    <div class="editor-field">
+                        <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="300" width="250" />
+                    </div>
+                    <div class="editor-field">
+                        <input type="file" name="file" id="file" style="width: 250px;" />
+                    </div>
+                    <br />
+                    <p>
+                        <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.edit</button>
+                    </p>
+                </fieldset>
+            }
+        <td style="vertical-align:text-top">
+            <fieldset>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.userTags)
+                </div>
+                @using (Ajax.BeginForm("insertTag", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
+                {
+                    <div class="editor-field">
+                        @Html.TextBox("tags", "Tag", new { onclick = "document.getElementById(\"tags\").value= \"\";" })
+                    </div>
+                    <div>
+
+                        <button type="submit" value="Adicionar">Adicionar</button>
+                    </div>
+                }
+                <div id="tagsList">
+                    <table>
+                        @foreach (EpicWareWeb.Models.Tag tag in Model.userTags)
+                        {
+                            <tr>
+                            @using (Ajax.BeginForm("removeTag", new { id = tag.tagID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
+                            {
+                                <td style="color:white;font-size:larger">@tag.tag</td>
+                                <td><button class="noStyle" type="submit"><img src="/LAPR5/Images/Buttons/DeleteRed.png" alt="remover" width="10" height="10" /></button></td>
+                            }
+                            </tr>
+                        }
+                    </table>
+                    
+                </div>
+            </fieldset>
+        </td>
+
+
+
+        </td>
+    </tr>
+</table>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

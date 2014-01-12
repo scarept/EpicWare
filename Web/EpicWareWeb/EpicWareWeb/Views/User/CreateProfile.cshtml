@@ -6,95 +6,116 @@
 
 <h2>EditProfile</h2>
 
-@using (Html.BeginForm("CreateProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
-    
-    <fieldset>
-        <legend>Profile</legend>
+<table>
+    <tr>
+        <td width="500">
+            @using (Html.BeginForm("CreateProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                EpicWareWeb.Models.Profile profile = (EpicWareWeb.Models.Profile)ViewBag.profileSend;
 
-        @* Aniversário *@
-        <div class="editor-label">
-            @Html.LabelFor(model => model.userProfile.birthday)
-        </div>
-        <input type="text" id="MyDate" name="MyDate" required/>
+                <fieldset>
+                    <legend>Profile</legend>
 
-        @* Naturalidade *@
-        <div class="editor-label">
-            @Html.LabelFor(model => model.userProfile.country)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("naturalSelect", (SelectList)ViewBag.naturalidades)
-        </div>
+                    @* Aniversário *@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userProfile.birthday)
+                    </div>
+                    <input type="text" id="MyDate" name="MyDate" required />
 
-        @* Phone *@
-        <div class="editor-label">
-            @Html.LabelFor(model => model.userProfile.phoneNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => profile.phoneNumber)
-            @Html.ValidationMessageFor(model => profile.phoneNumber)
-        </div>
+                    @* Naturalidade *@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userProfile.country)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("naturalSelect", (SelectList)ViewBag.naturalidades)
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.userTags)
-            @Html.Label(@EpicWareWeb.Views.User.User.textoDefaultTags)
-        </div>
+                    @* Phone *@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userProfile.phoneNumber)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.phoneNumber)
+                        @Html.ValidationMessageFor(model => profile.phoneNumber)
+                    </div>
 
-        <div class="editor-field">
-            @Html.TextBox("tags")
-            @*<input type="text" id="tag" name="tag"/>
-            <label onclick="document.getElementById('tagsLB').innerHTML = document.getElementById('tag').nodeValue;">Inserir Tag</label>
-            <label id="tagsLB"></label>*@
-        </div>
+                    @* Linkedin *@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userProfile.linkedinProfile)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.linkedinProfile)
+                        @Html.ValidationMessageFor(model => profile.linkedinProfile)
+                    </div>
 
-            @* Linkedin *@
-            <div class="editor-label">
-                @Html.LabelFor(model => model.userProfile.linkedinProfile)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => profile.linkedinProfile)
-                @Html.ValidationMessageFor(model => profile.linkedinProfile)
-            </div>
+                    @* Facebook *@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userProfile.facebookProfile)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.facebookProfile)
+                        @Html.ValidationMessageFor(model => profile.facebookProfile)
+                    </div>
 
-            @* Facebook *@
-            <div class="editor-label">
-                @Html.LabelFor(model => model.userProfile.facebookProfile)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => profile.facebookProfile)
-                @Html.ValidationMessageFor(model => profile.facebookProfile)
-            </div>
+                    @* Twitter *@
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userProfile.twitterProfile)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => profile.twitterProfile)
+                        @Html.ValidationMessageFor(model => profile.twitterProfile)
+                    </div>
 
-            @* Twitter *@
-            <div class="editor-label">
-                @Html.LabelFor(model => model.userProfile.twitterProfile)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => profile.twitterProfile)
-                @Html.ValidationMessageFor(model => profile.twitterProfile)
-            </div>
+                    @* Gender *@
+                    <div class="editor-field">
+                        @Html.DropDownList("genderSelect", (SelectList)ViewBag.genders)
+                    </div>
 
-            @* Gender *@
-            <div class="editor-field">
-                @Html.DropDownList("genderSelect", (SelectList)ViewBag.genders)
-            </div>
+                    @* Image *@
+                    <div class="editor-label">
+                        <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="200" width="200" />
+                    </div>
+                    <div class="editor-field">
+                        <input type="file" name="file" id="file" style="width: 100%;" />
+                    </div>
 
-            @* Image *@
-            <div class="editor-label">
-                <img src="@Model.userProfile.pathImg" alt="@EpicWareWeb.Views.User.User.semimagem" height="200" width="200" />
-            </div>
-            <div class="editor-field">
-                <input type="file" name="file" id="file" style="width: 100%;" />
-            </div>
+                    <p>
+                        <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.create</button>
+                    </p>
+                </fieldset>
+            }
+        </td>
+        
+            <td style="vertical-align:text-top">
+                <fieldset>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.userTags)
+                    </div>
+                    @using (Ajax.BeginForm("insertTag", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
+                    {
+                    <div class="editor-field">
+                        @Html.TextBox("tags")
+                    </div>
+                    <div>
+                        
+                            <button type="submit" value="Adicionar">Adicionar</button>
+                    </div>
+                    }
+                    <div id="tagsList">
+                        @*@foreach (EpicWareWeb.Models.Tag tag in Model.userTags)
+                {
+                    <span style="color:white;font-size:larger">@tag.tag</span><br />
+                }*@
+                    </div>
+                </fieldset>
+            </td>
+        
+    </tr>
+</table> 
 
-            <p>
-                <button type="submit" class="btn btn-success">@EpicWareWeb.Views.User.User.create</button>
-            </p>
-</fieldset>
-}
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

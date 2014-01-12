@@ -7201,3 +7201,8 @@ a.noStyle:hover
     color:white;
     border:none;
 }
+button.noStyle
+{
+    background: none;
+    border:none;
+}

@@ -556,6 +556,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string remover {
+            get {
+                return ResourceManager.GetString("remover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultado da Pesquisa.
         /// </summary>
         public static string resultadosPesquisa {
