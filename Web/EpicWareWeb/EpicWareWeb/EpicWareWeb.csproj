@@ -1160,7 +1160,7 @@
       <DependentUpon>201401110052480_teste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Shared.resx">

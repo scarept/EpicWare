@@ -82,46 +82,39 @@
                     </p>
                 </fieldset>
             }
+        </td>
         <td style="vertical-align:text-top">
-            <fieldset>
+            
                 <div class="editor-label">
                     @Html.LabelFor(model => model.userTags)
                 </div>
-                @using (Ajax.BeginForm("insertTag", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
+                @using (Ajax.BeginForm("insertTag", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
                 {
-                    <div class="editor-field">
+                    <fieldset>
+                    @*<div class="editor-field">*@
                         @Html.TextBox("tags", "Tag", new { onclick = "document.getElementById(\"tags\").value= \"\";" })
-                    </div>
-                    <div>
-
-                        <button type="submit" value="Adicionar">Adicionar</button>
-                    </div>
+                    @*</div>*@
+                    @*<div>*@
+                        <button type="submit" value="@EpicWareWeb.Views.User.User.adicionar">@EpicWareWeb.Views.User.User.adicionar</button>
+                    @*</div>*@
+                    </fieldset>
                 }
                 <div id="tagsList">
                     <table>
                         @foreach (EpicWareWeb.Models.Tag tag in Model.userTags)
                         {
                             <tr>
-                            @using (Ajax.BeginForm("removeTag", new { id = tag.tagID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
-                            {
                                 <td style="color:white;font-size:larger">@tag.tag</td>
-                                <td><button class="noStyle" type="submit"><img src="/LAPR5/Images/Buttons/DeleteRed.png" alt="remover" width="10" height="10" /></button></td>
-                            }
+                                <td>@using (Ajax.BeginForm("removeTag", new { id = tag.tagID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" })){<button class="noStyle" type="submit"><img src="/LAPR5/Images/Buttons/DeleteRed.png" alt="remover" width="10" height="10" /></button>}</td>
                             </tr>
                         }
-                    </table>
-                    
+                  </table>
                 </div>
-            </fieldset>
-        </td>
-
-
-
-        </td>
+          </td>
     </tr>
 </table>
 
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

@@ -15,6 +15,7 @@ namespace EpicWareWeb.Models
         public int moodID { get; set; }
 
         [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "estadoHumor")]
         public string name { get; set; }
     }
 }

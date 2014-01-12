@@ -147,15 +147,48 @@ namespace EpicWareWeb
 
         public int getStrenghtConnection(int id1, int id2, string user, string pass)
         {
-            User user1 = db.users.Find(id1);
-            foreach (Connection conn in user1.listConnections)
+            if (Membership.ValidateUser(user, pass))
             {
-                if (conn.userConnected.userID == id2)
+                User user1 = db.users.Find(id1);
+                foreach (Connection conn in user1.listConnections)
                 {
-                    return conn.strenght;
+                    if (conn.userConnected.userID == id2)
+                    {
+                        return conn.strenght;
+                    }
+                }
+                return -1;
+            }else
+            {
+                return -1;
+            }
+            
+        }
+
+        public UserData getUserData(int id, string user, string pass)
+        {
+            UserData userData = new UserData();
+            if (Membership.ValidateUser(user, pass))
+            {
+                try
+                {
+                    User userT = db.users.Find(id);
+                    userData.firstName = userT.userProfile.name;
+                    userData.lastName = userT.userProfile.lastName;
+                    userData.numberOfUserTags = userT.userTags.Count();
+                    return userData;
+                }
+                catch (Exception)
+                {
+                    return userData;
                 }
             }
-            return -1;
+            else
+            {
+                return userData;
+            }
+
+            
         }
 
         //public User teste()

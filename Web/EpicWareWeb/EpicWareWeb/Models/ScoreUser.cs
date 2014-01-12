@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
@@ -19,9 +20,11 @@ namespace EpicWareWeb.Models
         public int scoreUserID { get; set; }
 
         [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "jogo")]
         public Game MyProperty { get; set; }
 
         [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "pontos")]
         public int points { get; set; }
     }
 }

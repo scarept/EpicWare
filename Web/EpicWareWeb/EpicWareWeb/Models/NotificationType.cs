@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
@@ -14,6 +15,7 @@ namespace EpicWareWeb.Models
         public int notificationTypeID { get; set; }
 
         [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "tipoNotificação")]
         public string type { get; set; }
 
         [DataMember]
