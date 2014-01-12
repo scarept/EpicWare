@@ -238,9 +238,9 @@
     <Compile Include="Migrations\201401110052480_teste.Designer.cs">
       <DependentUpon>201401110052480_teste.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201401121317398_updSomeRequireds.cs" />
-    <Compile Include="Migrations\201401121317398_updSomeRequireds.Designer.cs">
-      <DependentUpon>201401121317398_updSomeRequireds.cs</DependentUpon>
+    <Compile Include="Migrations\201401121428341_updUser.cs" />
+    <Compile Include="Migrations\201401121428341_updUser.Designer.cs">
+      <DependentUpon>201401121428341_updUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -1156,8 +1156,8 @@
     <EmbeddedResource Include="Migrations\201401110052480_teste.resx">
       <DependentUpon>201401110052480_teste.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401121317398_updSomeRequireds.resx">
-      <DependentUpon>201401121317398_updSomeRequireds.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201401121428341_updUser.resx">
+      <DependentUpon>201401121428341_updUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
