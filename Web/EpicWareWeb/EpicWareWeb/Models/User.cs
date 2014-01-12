@@ -27,7 +27,6 @@ namespace EpicWareWeb.Models
         public virtual List<Connection> listConnections { get; set; }
 
         [DataMember]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "linguagem")]
         public virtual Language language { get; set; }
 
@@ -52,7 +51,6 @@ namespace EpicWareWeb.Models
 
         [DataMember]
         [DataType(DataType.EmailAddress)]
-        [Required]
         [Display(ResourceType = typeof(LanguageModels), Name = "email")]
         public string email { get; set; }
 
