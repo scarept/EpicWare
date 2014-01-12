@@ -6,6 +6,12 @@
 
 <h2>EpicWareWeb.Views.User.User.create_perfil</h2>
 
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+
 <table>
     <tr>
         <td width="500">
@@ -20,7 +26,8 @@
                     <div class="editor-label">
                         @Html.LabelFor(model => model.userProfile.birthday)
                     </div>
-                    <input type="text" id="MyDate" name="MyDate" required />
+                    <input type="text" id="datepicker" name="datepicker" required>
+                    @*<input type="text" id="MyDate" name="MyDate" required />*@
 
                     @* Naturalidade *@
                     <div class="editor-label">
