@@ -11,7 +11,9 @@
 <table>
     @foreach (var u in Model)
     {
-        <tr>
+        if (!ctrConn.isFriends(u))
+        {
+            <tr>
             <td>
                 <table cellpadding="15" cellspacing="15">
                     <tr>
@@ -39,17 +41,6 @@
                                 <button type="button" disabled class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.aceitar_amigo</span></button><br /><br />
                             </td>
                         }
-                        else if (ctrConn.isFriends(u))
-                        {
-                                using (Html.BeginForm("IntrodutionRequest", "User", new { id = u.userID}, FormMethod.Get))
-                                {
-    
-                                    <td>
-                                        <button type="submit" class="btn btn-sm btn-primary" style="width:200px;"><span style="font-size:14px">@EpicWareWeb.Views.User.User.pedir_intro</span></button>
-                                    </td>
-   
-                                }
-                        }
                         else if (!ctrConn.isFriends(u))
                         {
                             <td>
@@ -66,5 +57,7 @@
                 </table>
             </td>
         </tr>
+        }
+        
     }
 </table>
