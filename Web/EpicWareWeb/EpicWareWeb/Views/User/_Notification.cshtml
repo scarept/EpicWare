@@ -1,4 +1,7 @@
 ﻿@model EpicWareWeb.Models.Notification
 <tr style="color:white;">
-    <td>@Model.message</td><td>@Model.time.Hour<span>:</span>@Model.time.Minute</td><td>@Model.read.ToString()</td><td>@Html.ActionLink(@EpicWareWeb.Views.User.User.ver,@Model.notificationType.resultLink)</td>
+    <td><span style="font-size:14px; color:white;">@Model.message</span></td>
+    <td><span style="font-size:14px; color:white;">@Model.time.Hour:@Model.time.Minute</span></td>
+    <td><span style="font-size:14px; color:white;">@Model.read.ToString()</span></td>
+    <td><span style="font-size:14px; color:white;">@Html.ActionLink(@EpicWareWeb.Views.User.User.ver, @Model.notificationType.resultLink)</span></td>
 </tr>
