@@ -330,4 +330,7 @@
   <data name="adicionar" xml:space="preserve">
     <value>Adicionar</value>
   </data>
+  <data name="forca_tag" xml:space="preserve">
+    <value>Defina a Força e Tag de Conecção</value>
+  </data>
 </root>

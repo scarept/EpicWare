@@ -214,6 +214,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Defina a Força e Tag de Conecção.
+        /// </summary>
+        public static string forca_tag {
+            get {
+                return ResourceManager.GetString("forca_tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to aceitou o seu pedido de amizade..
         /// </summary>
         public static string fraceite {
