@@ -333,4 +333,10 @@
   <data name="forca_tag" xml:space="preserve">
     <value>Defina a Força e Tag de Conecção</value>
   </data>
+  <data name="pedido1" xml:space="preserve">
+    <value>Pedido de introdução a</value>
+  </data>
+  <data name="pedido2" xml:space="preserve">
+    <value>ao seu amigo</value>
+  </data>
 </root>

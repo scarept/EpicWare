@@ -493,6 +493,24 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pedido de introdução a.
+        /// </summary>
+        public static string pedido1 {
+            get {
+                return ResourceManager.GetString("pedido1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ao seu amigo.
+        /// </summary>
+        public static string pedido2 {
+            get {
+                return ResourceManager.GetString("pedido2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pedir Introdução.
         /// </summary>
         public static string pedir_intro {

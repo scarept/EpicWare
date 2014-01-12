@@ -1,23 +1,17 @@
 ﻿@model EpicWareWeb.Models.Connection
-@{
-   
-}
 
 <table width="500">
     <tr>
-        <td rowspan=2>
-           <img src="@Model.userConnected.userProfile.pathImg" alt="No Image" />
+        <td width="75">
+           <img src="@Model.userConnected.userProfile.pathImg" alt="No Image" width="50" height="50"/>
         </td>
-    </tr>
-    <tr>
-        <td align="left">Nick: </td><td align="right">@Model.userConnected.userProfile.nickname</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            @using (Ajax.BeginForm("RequestIntroAjax", new { id1 = Model.Owner.userID, id2 = Model.userConnected.userID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials" })){
+        <td width="200"><span style="font-size:14px; color:white;"><b>@EpicWareWeb.Views.User.User.nick:</b> @Model.userConnected.userProfile.nickname</span></td>
+        <td width="100">
+            @using (Ajax.BeginForm("RequestIntroAjax", new { id1 = Model.Owner.userID, id2 = Model.userConnected.userID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partials" }))
+            {
                 @*<input type="submit" value="Pedir introdução" />*@
                 <button type="submit" class="btn btn-info">@EpicWareWeb.Views.User.User.pedir_intro</button>
             }
-        </td>        
+        </td>
     </tr>
 </table>
