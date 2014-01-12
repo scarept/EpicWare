@@ -330,10 +330,10 @@
   <data name="adicionar" xml:space="preserve">
     <value>Adicionar</value>
   </data>
-<<<<<<< HEAD
+
   <data name="remover" xml:space="preserve">
     <value />
-=======
+  </data>
   <data name="forca_tag" xml:space="preserve">
     <value>Defina a Força e Tag de Conecção</value>
   </data>
@@ -342,6 +342,6 @@
   </data>
   <data name="pedido2" xml:space="preserve">
     <value>ao seu amigo</value>
->>>>>>> 5e903c261abb43d7ca853fbb9d8bc06f988b6f3b
+
   </data>
 </root>
