@@ -187,7 +187,7 @@ namespace EpicWareWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Profile", new { id = userAuth.userID });
             }
-            return View();
+            return RedirectToAction("Profile", new { id = userAuth.userID });
         }
 
         //
@@ -820,7 +820,7 @@ namespace EpicWareWeb.Controllers
 
 
          /* INSERT REMOVE TAGS */
-        [HttpGet]
+        [HttpPost]
         public PartialViewResult insertTag(string tags)
         {
             Tag tag = new Tag();
@@ -835,6 +835,8 @@ namespace EpicWareWeb.Controllers
             
             return PartialView("_TagsUser", user.userTags);
         }
+        
+        [HttpPost]
         public PartialViewResult removeTag(int id = 0)
         {
             if (id != 0)
