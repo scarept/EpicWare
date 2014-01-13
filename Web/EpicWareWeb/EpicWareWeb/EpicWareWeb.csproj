@@ -258,6 +258,11 @@
     <Compile Include="Models\HtmlExtensions.cs" />
     <Compile Include="Models\IntroFriendRequest.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\LanguageModels.en.Designer.cs">
+      <DependentUpon>LanguageModels.en.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Models\LanguageModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1166,6 +1171,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401121436252_rmvSomeRequires.resx">
       <DependentUpon>201401121436252_rmvSomeRequires.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401131320168_addRefLanguage.resx">
+      <DependentUpon>201401131320168_addRefLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\LanguageModels.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanguageModels.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
