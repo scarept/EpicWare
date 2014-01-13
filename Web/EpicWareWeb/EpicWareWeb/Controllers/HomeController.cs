@@ -11,6 +11,7 @@ namespace EpicWareWeb.Controllers
     public class HomeController : Controller
     {
         DataContext db = new DataContext();
+      
         public ActionResult Index()
         {
             //ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -87,7 +88,25 @@ namespace EpicWareWeb.Controllers
             return View(users);
         }
 
-        
+        public ActionResult ChangeLanguage(string lang)
+        {
+           
+            if (!this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("language"))
+            {
+                HttpCookie cookie = new HttpCookie("language");
+                cookie.Value = lang;
+                this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+            }
+            else
+            {
+                HttpCookie cookie = this.ControllerContext.HttpContext.Request.Cookies["language"];
+                cookie.Value = lang;
+                this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+            }
+          
+            return RedirectToAction("Index", "Home");
+        }
+
         private bool matchWords(User user, string[] txtA)
         {
             string[] txtFirstName = user.userProfile.name.ToLower().Split(new Char[] { ' ' });

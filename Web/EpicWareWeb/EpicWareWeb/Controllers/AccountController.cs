@@ -74,12 +74,6 @@ namespace EpicWareWeb.Controllers
                 var userQ = from d in db.users where d.UserProfileID == id_login select d;
                 List<User> tempList = userQ.ToList();
                 User user = tempList.ElementAt(0);
-                String selectedLanguage = "en";
-
-                Thread.CurrentThread.CurrentCulture =
-                    new System.Globalization.CultureInfo(selectedLanguage);
-                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
                 if (user.active)
                 {
                     return RedirectToAction("Index","Home");
