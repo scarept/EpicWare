@@ -2,7 +2,7 @@
 
 GLuint load3D(char * nomeTextura){
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	
+
 	//glEnable(GL_TEXTURE_2D); //em 3D necessario desativar
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
@@ -11,7 +11,7 @@ GLuint load3D(char * nomeTextura){
 		nomeTextura,
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB
 		);
 
 
@@ -24,6 +24,7 @@ GLuint load3D(char * nomeTextura){
 	return imagem;
 }
 
+
 GLuint load2D(char * nomeTextura){
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glEnable(GL_TEXTURE_2D);
@@ -34,7 +35,7 @@ GLuint load2D(char * nomeTextura){
 		nomeTextura,
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB
 		);
 
 

@@ -124,6 +124,7 @@ typedef struct Login{
 	string password;
 	bool usernameSelected;
 	bool passwordSelected;
+	int userId;
 
 }Login;
 
@@ -269,6 +270,40 @@ void desenhaBtnLogin(GLenum mode){
 	glEnd();
 	glPopMatrix();
 
+	/* btn de min-jogos*/
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(5);
+	glBegin(GL_POLYGON);
+	glVertex2f(33, 80);
+	glVertex2f(40, 80);
+	glVertex2f(40, 85);
+	glVertex2f(33, 85);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(6);
+	glBegin(GL_POLYGON);
+	glVertex2f(45, 80);
+	glVertex2f(55, 80);
+	glVertex2f(55, 85);
+	glVertex2f(45, 85);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	if (mode == GL_SELECT)
+		glLoadName(7);
+	glBegin(GL_POLYGON);
+	glVertex2f(59, 80);
+	glVertex2f(67, 80);
+	glVertex2f(67, 85);
+	glVertex2f(59, 85);
+	glEnd();
+	glPopMatrix();
+
 	/* fim criacção de butões */
 
 }
@@ -362,25 +397,19 @@ void loginInit(){
 
 
 void userInit(User *utilizador){
-//void userInit(){
+
+	login.userId = utilizador->userID;
 	No user;
 	user.userId = utilizador->userID;
 	//wcharTutilizador->userProfile->name;
 	user.largura = utilizador->userTagsCount;
 	//char * t = (char)utilizador->userProfile->name;
-
 	user.nome = wcharToString(utilizador->userProfile->name);
 		
 	nos[0] = user;
-
 	numNos = 1;
 
-
 	utilizador->listConnections;
-
-	//user.userId = 9;
-	//nos[0] = user;
-	//numNos = 1;
 
 }
 
@@ -2109,7 +2138,7 @@ void userLogin(){
 		/*chamar initGame*/
 		/*caso o login seja valido, abreo jogo*/
 		estado.estadoJogo = 1;
-		//ss(utilizador);
+		
 		gameInit(utilizador);
 		/* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
 		myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
@@ -2119,6 +2148,8 @@ void userLogin(){
 	}
 	else{
 		cout << "Utilizador invalido" << endl;
+		login.loginBoxImg = load3D("login_password_invalid.png");
+		//login.loginBoxImg = "login_password_invalid.png";
 		/*coloca algo a vermelho no meenu*/
 	}
 }
@@ -2168,6 +2199,15 @@ void clickEvent(GLint hits, GLuint buffer[])
 			else if (*ptr == 0){
 				/*carregou em sair*/
 
+			}
+			else if (*ptr == 5){
+				/* labirinto */
+			}
+			else if (*ptr == 6){
+				/* hangman */
+			}
+			else if (*ptr == 7){
+				/* tic tac toe */
 			}
 
 
@@ -2351,8 +2391,6 @@ void janelaInfoUser(int idUserSelect){
 	//glutSwapBuffers();
 }
 
-void menu(int item)
-{}
 
 void limpaArrayStack(){
 
