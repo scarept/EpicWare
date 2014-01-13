@@ -196,12 +196,13 @@ void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
 
 void leGrafo(No  user1, vector<int> listaNos, int nivel, int posActual){
 	No user;
-	if (nivel == 1){
+	float alturaMaxima=18;
+	if (nivel == 1){ // se for o nivel raiz;
 		user = nos[0];
 		//No user;
 		user.x = 0;
 		user.y = 0;
-		user.z = 8;
+		user.z = alturaMaxima;
 		user.largura = 2;
 		//user.userId = 1;
 		user.nome = "Eu";

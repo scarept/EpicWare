@@ -67,6 +67,7 @@ const GLfloat mat_shininess[] = { 27.8,	// brass
 75.0,	// preto
 60.0 };	// cinza
 
+
 enum tipo_material { brass, red_plastic, emerald, slate, azul, preto, cinza }; //materiais para cobrir os objectos
 
 #ifdef __cplusplus
@@ -88,7 +89,7 @@ typedef struct pickingPesquisa{
 
 }pickingPesquisa;
 
-vector<pickingPesquisa> listaElementosPicking;
+pickingPesquisa listaElementosPicking[40];
 
 typedef struct Camera{
 	GLfloat fov;
@@ -113,10 +114,6 @@ typedef struct Estado{
 	GLdouble	eixo[3];
 	GLint		estadoJogo; // 0 - login; 1- Jogo 3D; 2- menu
 	teclas_t	teclas;
-	bool searchSelected;
-	string  searchText;
-	bool addFriendBox;
-	int lastSelected;
 	GLint		timer;
 }Estado;
 
@@ -162,6 +159,17 @@ typedef struct Modelo {
 	Vertice eye;
 }Modelo;
 
+typedef struct Elements2D{
+
+	bool searchSelected;
+	string  searchText;
+	bool addFriendBox;
+	int lastSelected;
+	bool userDetails;
+
+}Elements2D;
+
+Elements2D elementos2D;
 Estado estado;
 Modelo modelo;
 Login login;
@@ -180,7 +188,7 @@ void initEstado(){
 	estado.light = GL_FALSE;
 	estado.apresentaNormais = GL_FALSE;
 	estado.lightViewer = 1;
-	estado.searchSelected = false;
+
 }
 
 void initModelo(){
@@ -197,6 +205,10 @@ void initModelo(){
 	modelo.g_pos_luz2[3] = 0.0;
 }
 
+void initElemtnos2D(){
+	elementos2D.searchSelected = false;
+	elementos2D.userDetails = false;
+}
 
 
 void desenhaBtnLogin(GLenum mode){
@@ -497,6 +509,8 @@ void gameInit(User *utilizador)
 	//GLuint ax = load3D("menu.png");
 	//glPopMatrix();
 
+	estado.estadoJogo = 1;
+
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -518,6 +532,7 @@ void gameInit(User *utilizador)
 	gluQuadricDrawStyle(modelo.quad, GLU_FILL);
 	gluQuadricNormals(modelo.quad, GLU_OUTSIDE);
 
+	initElemtnos2D();
 	userInit(utilizador);
 	//userInit();
 	//nos[0];
@@ -525,6 +540,8 @@ void gameInit(User *utilizador)
 	constroiAmigos();
 	preencheInfoAmigos();
 	preencheInfoLigacao();
+
+	
 
 	//modelo.aa = 0;
 	estado.camera.dir_lat = -0.004601;
@@ -1299,14 +1316,14 @@ void textoPesquisa(){
 	novoBtn.y2 = 98;
 	novoBtn.nomeElem = "textoPesquisa";
 
-	listaElementosPicking.push_back(novoBtn);
+	listaElementosPicking[0]=novoBtn;
 
 	material(cinza);
 
 	glRasterPos2f(25, 97);
-	int tamanho = estado.searchText.length();
+	int tamanho = elementos2D.searchText.length();
 	for (int i = 0; i < tamanho; i++){
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, estado.searchText[i]);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, elementos2D.searchText[i]);
 	}
 
 
@@ -1390,7 +1407,7 @@ void pesquisaBtn(){
 	novoBtn.y2 = 97;
 	novoBtn.nomeElem = "pesquisaBtn";
 
-	listaElementosPicking.push_back(novoBtn);
+	listaElementosPicking[1]=novoBtn;
 
 	glLoadName(100);
 	glBegin(GL_POLYGON);
@@ -1480,22 +1497,19 @@ void display(void)
 		// desnha o grafo 3D
 		drawGraph(GL_SELECT);
 
+
 		/* HUD */
 		miniMapa();
 		estadoHumor();
 		pesquisa();
 		textoPesquisa();
-		//
+
 		pesquisaBtn();
+		/* fim HUD */
 
-		//if (estado.addFriendBox==true){
-		//	janelaInfoUser(9);
-		//}
-
-	//	textoPesquisa(GL_SELECT);
-		//		notificacao();
-		//		textoNotificacao();
-
+		if (elementos2D.userDetails==true){
+			janelaInfoUser(elementos2D.lastSelected);
+		}
 
 
 		if (estado.eixoTranslaccao) {
@@ -1562,14 +1576,14 @@ void keyboard(unsigned char key, int x, int y)
 
 	}
 	else if (estado.estadoJogo == 1){
-		if (estado.searchSelected == true){
+		if (elementos2D.searchSelected == true){
 			switch (key)
 			{
 			case 8:
-				if (estado.searchSelected == true) {
+				if (elementos2D.searchSelected == true) {
 					//se já estiver algo escrito
-					if (estado.searchText != "") {
-						estado.searchText = estado.searchText.substr(0, estado.searchText.size() - 1);
+					if (elementos2D.searchText != "") {
+						elementos2D.searchText = elementos2D.searchText.substr(0, elementos2D.searchText.size() - 1);
 						//glutPostRedisplay();
 						break;
 					}
@@ -1577,8 +1591,8 @@ void keyboard(unsigned char key, int x, int y)
 
 
 			default:
-				if (estado.searchSelected == true) {
-					estado.searchText = estado.searchText += key;
+				if (elementos2D.searchSelected == true) {
+					elementos2D.searchText = elementos2D.searchText += key;
 					//cout << key << endl;
 				}
 
@@ -1923,31 +1937,34 @@ void trataEvento(string nomeBtn){
 
 	if (nomeBtn == "pesquisaBtn"){
 		cout << "a efectuar pesquisa" << endl;
-		estado.searchSelected = false;
-		No *retorno = pesquisaPorNome(estado.searchText);
+		elementos2D.searchSelected = false;
+		No *retorno = pesquisaPorNome(elementos2D.searchText);
 		if (retorno != NULL){
 			/* chamar a camara e alterar a sua posição */
-			cout << "Não null: " << retorno->userId << endl;
+			cout << "Nao null: " << retorno->userId << endl;
 			
 		}
 
 	}
 	else if (nomeBtn == "textoPesquisa"){
-		estado.searchSelected = true;
+		elementos2D.searchSelected = true;
 		return;
 	}
 	
-	if (estado.addFriendBox == true){
+	if (elementos2D.addFriendBox == true){
 		if (nomeBtn == "adicionarAmigo"){
 
 			cout << "Adicionou amigo" << endl;
-			cout << "Id ultimo selecionado: " << estado.lastSelected << endl;
-			enviaPedidoNotificãcao(estado.lastSelected);
+			cout << "Id ultimo selecionado: " << elementos2D.lastSelected << endl;
+			enviaPedidoNotificãcao(elementos2D.lastSelected);
+			
+			elementos2D.userDetails = false;
+			
 			glutPostRedisplay();
 		}
 	}
 
-	estado.searchSelected = false;
+	elementos2D.searchSelected = false;
 }
 
 bool picking2(int x, int y){
@@ -1961,7 +1978,9 @@ bool picking2(int x, int y){
 	int size = view[3];
 	double yNovo = y;
 
-	int tamanho = listaElementosPicking.size();
+	//int tamanho = listaElementosPicking.size();
+
+	int tamanho = 10;
 
 	for (int i = 0; i < tamanho; i++){
 			
@@ -1978,7 +1997,7 @@ bool picking2(int x, int y){
 			}
 		}
 	
-		estado.searchSelected = false;
+		elementos2D.searchSelected = false;
 	}
 
 	return false;
@@ -2264,7 +2283,7 @@ void janelaFundoInfoUser(){
 
 }
 
-void adicionaAmigo(){
+void adicionaAmigoBtn(){
 
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
@@ -2285,7 +2304,7 @@ void adicionaAmigo(){
 		novoBtn.y2 = 59;
 		novoBtn.nomeElem = "adicionarAmigo";
 
-		listaElementosPicking.push_back(novoBtn);
+		listaElementosPicking[2] = novoBtn;
 
 		material(preto);
 		glBegin(GL_POLYGON);
@@ -2322,16 +2341,25 @@ void janelaInfoUser(int idUserSelect){
 
 	//bool notFriend = true;
 	janelaFundoInfoUser();
+	
 	infoUser(idUserSelect);
-	estado.addFriendBox = idFriend(idUserSelect);
-	if (estado.addFriendBox == true){
-		adicionaAmigo();
+	elementos2D.addFriendBox = idFriend(idUserSelect);
+	if (elementos2D.addFriendBox == true){
+		adicionaAmigoBtn();
 	}
-	glutSwapBuffers();
+	
+	//glutSwapBuffers();
 }
 
 void menu(int item)
 {}
+
+void limpaArrayStack(){
+
+	/*limpa elemento botão adicionar amigos*/
+	pickingPesquisa empty;
+	listaElementosPicking[2] = empty;
+}
 
 void mouse(int btn, int state, int x, int y){
 
@@ -2363,48 +2391,9 @@ void mouse(int btn, int state, int x, int y){
 	else if (estado.estadoJogo == 1){ // se estiver no jogo 3D tem outro tipo de picking
 		switch (btn) {
 		case GLUT_RIGHT_BUTTON:
-
-			//if (glutGetMenu() == true){
-			//	glutDestroyMenu(glutGetMenu());
-			//}
 		
+			elementos2D.userDetails = false;
 
-
-						/*
-			glPushMatrix();
-			glEnable(GL_DEPTH_TEST);
-			glEnable(GL_CULL_FACE);
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_LIGHTING);
-
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			setProjection(0, 0, GL_TRUE);
-			glMatrixMode(GL_MODELVIEW);
-
-			glPopMatrix();
-			*/
-			//glutSwapBuffers();
-			//glutPostRedisplay();
-
-
-			/*
-			glEnable(GL_DEPTH_TEST);
-			glEnable(GL_CULL_FACE);
-			glEnable(GL_TEXTURE_2D);
-			glEnable(GL_LIGHTING);
-
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-
-			setProjection(0, 0, GL_FALSE);
-			glMatrixMode(GL_MODELVIEW);
-
-			glutSwapBuffers();
-
-			*/
-
-			estado.addFriendBox = false;
 			if (state == GLUT_DOWN){
 				estado.xMouse = x;
 				estado.yMouse = y;
@@ -2423,145 +2412,41 @@ void mouse(int btn, int state, int x, int y){
 		case GLUT_LEFT_BUTTON:
 
 			if (state == GLUT_DOWN){
+
 				//int idUserSelect = 0;
-				bool t = picking2(x, y);
-				if (t == true){
+				bool picking2DOn = picking2(x, y);
+				if (picking2DOn == true){
 
 				}
-				else if (t != true){
-					estado.lastSelected = picking(x, y);
+				else if (picking2DOn != true){
+					int pickActual = picking(x, y);
+					
+					elementos2D.userDetails = false;
 
-					//bool t = picking2(x, y);
+					if (pickActual >= 0){ // se clicou em um nó e não em ligações
+						elementos2D.lastSelected = pickActual;
+						cout << "UserId: " << elementos2D.lastSelected << endl;
 
+						limpaArrayStack();
 
-					//if (glutGetMenu() == true){
-					//	glutDestroyMenu(glutGetMenu());
-					//}
+	
+						elementos2D.userDetails = true;
 
-					if (estado.lastSelected >= 0){
-						cout << "UserId: " << estado.lastSelected << endl;
-
-						//estado.addFriendBox = true;
-
-						cout << "ASDSA" << endl;
-
-						janelaInfoUser(estado.lastSelected);
+						janelaInfoUser(elementos2D.lastSelected);
 
 
-						//glutCreateMenu(menu);
-						//// Add menu items
-						//glutAddMenuEntry("Show Front", 1);
-						//glutAddMenuEntry("Show Back", 2);
-
-						//// Associate a mouse button with menu
-						//glutAttachMenu(GLUT_LEFT_BUTTON);
-
-						//glutPostRedisplay();
-						//glutSetMenu(glutGetMenu());
-
-						//glutPostRedisplay(glutGetMenu());
-
-
-						/*
-
-						glMatrixMode(GL_MODELVIEW);
-						glLoadIdentity();
-						glMatrixMode(GL_PROJECTION);
-						glLoadIdentity();
-						gluOrtho2D(-100, 100, -100, 100);
-						glDisable(GL_DEPTH_TEST);
-						glDisable(GL_CULL_FACE);
-						glDisable(GL_TEXTURE_2D);
-						glDisable(GL_LIGHTING);
-
-						glPushMatrix();
-
-						glBegin(GL_POLYGON);
-						glColor3f(0, 1, 1);
-						glVertex2f(0, 0);
-						glVertex2f(100, 0);
-						glVertex2f(100, 100);
-						glVertex2f(0, 100);
-						glEnd();
-
-						glPopMatrix();
-
-
-						glEnable(GL_DEPTH_TEST);
-						glutSwapBuffers();
-
-
-
-						*/
-
-
-
-
-
-
-
-
-						/*
-						glPushMatrix();
-						glDisable(GL_DEPTH_TEST);
-						glDisable(GL_CULL_FACE);
-						glDisable(GL_TEXTURE_2D);
-						glDisable(GL_LIGHTING);
-
-						glMatrixMode(GL_PROJECTION);
-						glLoadIdentity();
-						gluOrtho2D(-100, 100, -100, 100);
-
-						glMatrixMode(GL_MODELVIEW);
-						glLoadIdentity();
-						glColor3f(1, 1, 1);
-						glBegin(GL_QUADS);
-						glVertex3f(20.0f, 20.0f, 0.0f);
-						glVertex3f(20.0f, -20.0f, 0.0f);
-						glVertex3f(-20.0f, -20.0f, 0.0f);
-						glVertex3f(-20.0f, 20.0f, 0.0f);
-						glEnd();
-
-						glutSwapBuffers();
-						glPopMatrix();
-						*/
-						//glutPostRedisplay();
+						
 					}
 				}
 
-				//estado.eixoTranslaccao = picking(x, y);
-				//if (estado.eixoTranslaccao)
-				//glutMotionFunc(motionDrag);
-				//cout << "Right down - objecto:" << estado.eixoTranslaccao << endl;
-				//glutPostRedisplay();
-			}/*
-			 else{
-			 if (estado.eixoTranslaccao != 0) {
-			 estado.camera.center[0] = estado.eixo[0];
-			 estado.camera.center[1] = estado.eixo[1];
-			 estado.camera.center[2] = estado.eixo[2];
-			 glutMotionFunc(NULL);
-			 estado.eixoTranslaccao = 0;
-			 glutPostRedisplay();
-			 }
-			 cout << "Right up\n";
-			 }
-			 */
+
+
+			}
+
 			break;
 		}
 	}
-	//else if (estado.estadoJogo == 2){ // se estiver no jogo 3D tem outro tipo de picking
-	//	switch (btn) {
-	//	case GLUT_RIGHT_BUTTON:
 
-	//		estado.estadoJogo = 1;
-	//		estado.searchSelected = false;
-
-	//		estado.searchText;
-	//		cout << estado.searchText << endl;
-	//		break;
-	//	}
-	//}
 }
 
 void dawHud(){
@@ -2758,181 +2643,188 @@ bool Colisoes()
 
 void Timer(int value)
 {
-	float nx, ny, nz;
-	//modelo.eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
-	//modelo.eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
-	//modelo.eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
-	//Tempo tempo passado
-	GLuint temACT = glutGet(GLUT_ELAPSED_TIME);
+//	if (estado.estadoJogo == 1){
 
-	//Velocidade com base no tempo passado
-	velocidadeAtual = modelo.obj.vel*(temACT - modelo.tempAnterior)*0.001;
-	//velocidadeAtual = modelo.velocidade*(temACT - modelo.tempAnterior)*0.001;
-	modelo.tempAnterior = temACT;
+	//if (teste == 1){
+	//	janelaInfoUser(estado.lastSelected);
+	//}
 
-	glutTimerFunc(estado.timer, Timer, 0);
-	//cout << " ollllaaa " << endl;
-	if (estado.teclas.up)
-	{
-		cout << "Colisoes: " << Colisoes() << endl;
-		cout << "modelo: " << modelo.obj.pos.x << endl;
-		cout << "Camera: " << estado.camera.center[0] << endl;
-		cout << "modelo: " << modelo.obj.pos.y << endl;
-		cout << "Camera: " << estado.camera.center[1] << endl;
-		cout << "modelo: " << modelo.obj.pos.z << endl;
-		cout << "Camera: " << estado.camera.center[2] << endl;
-		//velocidadeAtual += 0.4;
-		//velocidadeAtual *= -1;
-		nx = modelo.obj.pos.x + velocidadeAtual * cos(modelo.obj.dirLong);
-		ny = modelo.obj.pos.y + velocidadeAtual * sin(modelo.obj.dirLong);
-		//nz = modelo.obj.pos.z - velocidadeAtual * sin(modelo.obj.dirLat);
+		float nx, ny, nz;
+		//modelo.eye[0] = estado.camera.center[0] + estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+		//modelo.eye[1] = estado.camera.center[1] + estado.camera.dist*sin(estado.camera.dir_long)*cos(estado.camera.dir_lat);
+		//modelo.eye[2] = estado.camera.center[2] + estado.camera.dist*sin(estado.camera.dir_lat);
+		//Tempo tempo passado
+		GLuint temACT = glutGet(GLUT_ELAPSED_TIME);
 
-		if (!Colisoes2())
+		//Velocidade com base no tempo passado
+		velocidadeAtual = modelo.obj.vel*(temACT - modelo.tempAnterior)*0.001;
+		//velocidadeAtual = modelo.velocidade*(temACT - modelo.tempAnterior)*0.001;
+		modelo.tempAnterior = temACT;
+
+		glutTimerFunc(estado.timer, Timer, 0);
+		//cout << " ollllaaa " << endl;
+		if (estado.teclas.up)
 		{
+			cout << "Colisoes: " << Colisoes() << endl;
+			cout << "modelo: " << modelo.obj.pos.x << endl;
+			cout << "Camera: " << estado.camera.center[0] << endl;
+			cout << "modelo: " << modelo.obj.pos.y << endl;
+			cout << "Camera: " << estado.camera.center[1] << endl;
+			cout << "modelo: " << modelo.obj.pos.z << endl;
+			cout << "Camera: " << estado.camera.center[2] << endl;
+			//velocidadeAtual += 0.4;
+			//velocidadeAtual *= -1;
+			nx = modelo.obj.pos.x + velocidadeAtual * cos(modelo.obj.dirLong);
+			ny = modelo.obj.pos.y + velocidadeAtual * sin(modelo.obj.dirLong);
+			//nz = modelo.obj.pos.z - velocidadeAtual * sin(modelo.obj.dirLat);
+
+			if (!Colisoes2())
+			{
+				modelo.obj.pos.x = nx;
+				modelo.obj.pos.y = ny;
+				cout << "ola gatinho " << endl;
+			}
+
+			cout << " bom dia a prima " << endl;
+
+			//modelo.obj.pos.y = nz;
+			//modelo.obj.teclaColis.up = false;
+			//modelo.obj.pos.z = nz;
+
+
+			/*FAZER IF DE COLISÕES AQUI*/
+
+
+			//modelo.obj.pos.z = nz;
+
+		}
+		if (estado.teclas.down)
+		{
+			cout << "Colisoes: " << Colisoes() << endl;
+			cout << "modelo: " << modelo.obj.pos.x << endl;
+			cout << "Camera: " << estado.camera.center[0] << endl;
+			cout << "modelo: " << modelo.obj.pos.y << endl;
+			cout << "Camera: " << estado.camera.center[1] << endl;
+			cout << "modelo: " << modelo.obj.pos.z << endl;
+			cout << "Camera: " << estado.camera.center[2] << endl;
+			//velocidadeAtual += 0.4;
+			//velocidadeAtual *= -1;
+			nx = modelo.obj.pos.x - velocidadeAtual * cos(modelo.obj.dirLong);
+			ny = modelo.obj.pos.y - velocidadeAtual * sin(modelo.obj.dirLong);
+			//nz = modelo.obj.pos.z - sin(modelo.obj.dirLat) * velocidadeAtual;
+
+			/*FAZER IF DE COLISÕES AQUI*/
+
 			modelo.obj.pos.x = nx;
 			modelo.obj.pos.y = ny;
-			cout << "ola gatinho " << endl;
+
+			cout << " bom dia a prima " << endl;
+
+			modelo.obj.teclaColis.up = false;
+			//modelo.obj.pos.z = nz;
+
+			//modelo.obj.pos.z = nz;
+
+			//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+			//setCamera2();
 		}
-
-		cout << " bom dia a prima " << endl;
-
-		//modelo.obj.pos.y = nz;
-		//modelo.obj.teclaColis.up = false;
-		//modelo.obj.pos.z = nz;
-
-
-		/*FAZER IF DE COLISÕES AQUI*/
-
-
-		//modelo.obj.pos.z = nz;
-
-	}
-	if (estado.teclas.down)
-	{
-		cout << "Colisoes: " << Colisoes() << endl;
-		cout << "modelo: " << modelo.obj.pos.x << endl;
-		cout << "Camera: " << estado.camera.center[0] << endl;
-		cout << "modelo: " << modelo.obj.pos.y << endl;
-		cout << "Camera: " << estado.camera.center[1] << endl;
-		cout << "modelo: " << modelo.obj.pos.z << endl;
-		cout << "Camera: " << estado.camera.center[2] << endl;
-		//velocidadeAtual += 0.4;
-		//velocidadeAtual *= -1;
-		nx = modelo.obj.pos.x - velocidadeAtual * cos(modelo.obj.dirLong);
-		ny = modelo.obj.pos.y - velocidadeAtual * sin(modelo.obj.dirLong);
-		//nz = modelo.obj.pos.z - sin(modelo.obj.dirLat) * velocidadeAtual;
-
-		/*FAZER IF DE COLISÕES AQUI*/
-
-		modelo.obj.pos.x = nx;
-		modelo.obj.pos.y = ny;
-
-		cout << " bom dia a prima " << endl;
-
-		modelo.obj.teclaColis.up = false;
-		//modelo.obj.pos.z = nz;
-
-		//modelo.obj.pos.z = nz;
-
-		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
-		//setCamera2();
-	}
-	if (estado.teclas.left)
-	{
-		Colisoes2();
-		//Colisoes();
-		cout << "Colisoes: " << Colisoes() << endl;
-		cout << "modelo: " << modelo.obj.pos.x << endl;
-		cout << "Camera: " << estado.camera.center[0] << endl;
-		cout << "modelo: " << modelo.obj.pos.y << endl;
-		cout << "Camera: " << estado.camera.center[1] << endl;
-		cout << "modelo: " << modelo.obj.pos.z << endl;
-		cout << "Camera: " << estado.camera.center[2] << endl;
-		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
-
-		if (!Colisoes2())
+		if (estado.teclas.left)
 		{
-			estado.camera.dir_long += velocidadeAtual*0.1;
-			modelo.obj.dirLong += velocidadeAtual*0.1;
+			Colisoes2();
+			//Colisoes();
+			cout << "Colisoes: " << Colisoes() << endl;
+			cout << "modelo: " << modelo.obj.pos.x << endl;
+			cout << "Camera: " << estado.camera.center[0] << endl;
+			cout << "modelo: " << modelo.obj.pos.y << endl;
+			cout << "Camera: " << estado.camera.center[1] << endl;
+			cout << "modelo: " << modelo.obj.pos.z << endl;
+			cout << "Camera: " << estado.camera.center[2] << endl;
+			//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+
+			if (!Colisoes2())
+			{
+				estado.camera.dir_long += velocidadeAtual*0.1;
+				modelo.obj.dirLong += velocidadeAtual*0.1;
+			}
+
+
+
+			//setCamera2();
+
 		}
-
-
-
-		//setCamera2();
-
-	}
-	if (estado.teclas.right)
-	{
-		Colisoes2();
-		Colisoes();
-		cout << "Colisoes: " << Colisoes() << endl;
-		cout << "modelo: " << modelo.obj.pos.x << endl;
-		cout << "Camera: " << estado.camera.center[0] << endl;
-		cout << "modelo: " << modelo.obj.pos.y << endl;
-		cout << "Camera: " << estado.camera.center[1] << endl;
-		cout << "modelo: " << modelo.obj.pos.z << endl;
-		cout << "Camera: " << estado.camera.center[2] << endl;
-		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
-		if (!Colisoes2())
+		if (estado.teclas.right)
 		{
-			estado.camera.dir_long -= velocidadeAtual*0.1;
-			modelo.obj.dirLong -= velocidadeAtual*0.1;
+			Colisoes2();
+			Colisoes();
+			cout << "Colisoes: " << Colisoes() << endl;
+			cout << "modelo: " << modelo.obj.pos.x << endl;
+			cout << "Camera: " << estado.camera.center[0] << endl;
+			cout << "modelo: " << modelo.obj.pos.y << endl;
+			cout << "Camera: " << estado.camera.center[1] << endl;
+			cout << "modelo: " << modelo.obj.pos.z << endl;
+			cout << "Camera: " << estado.camera.center[2] << endl;
+			//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+			if (!Colisoes2())
+			{
+				estado.camera.dir_long -= velocidadeAtual*0.1;
+				modelo.obj.dirLong -= velocidadeAtual*0.1;
+			}
+
+
+			//setCamera2();
 		}
-
-
-		//setCamera2();
-	}
-	if (estado.teclas.keyA)
-	{
-		cout << "Colisoes: " << Colisoes() << endl;
-		cout << "modelo: " << modelo.obj.pos.x << endl;
-		cout << "Camera: " << estado.camera.center[0] << endl;
-		cout << "modelo: " << modelo.obj.pos.y << endl;
-		cout << "Camera: " << estado.camera.center[1] << endl;
-		cout << "modelo: " << modelo.obj.pos.z << endl;
-		cout << "Camera: " << estado.camera.center[2] << endl;
-		//cout << "A" << endl;
-		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
-		//estado.camera.dist += 1;
-		/*
-		estado.camera.dist -= k_DISTANCIA;
-		modelo.obj.dist -= k_DISTANCIA;
-		cout << "distancia cam " << estado.camera.dist << endl;
-		cout << "distancia obj " << modelo.obj.dist << endl;
-
-		//setCamera2();
-		*/
-		if (!Colisoes2())
+		if (estado.teclas.keyA)
 		{
-			modelo.obj.pos.z -= 0.1;
-		}
+			cout << "Colisoes: " << Colisoes() << endl;
+			cout << "modelo: " << modelo.obj.pos.x << endl;
+			cout << "Camera: " << estado.camera.center[0] << endl;
+			cout << "modelo: " << modelo.obj.pos.y << endl;
+			cout << "Camera: " << estado.camera.center[1] << endl;
+			cout << "modelo: " << modelo.obj.pos.z << endl;
+			cout << "Camera: " << estado.camera.center[2] << endl;
+			//cout << "A" << endl;
+			//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+			//estado.camera.dist += 1;
+			/*
+			estado.camera.dist -= k_DISTANCIA;
+			modelo.obj.dist -= k_DISTANCIA;
+			cout << "distancia cam " << estado.camera.dist << endl;
+			cout << "distancia obj " << modelo.obj.dist << endl;
 
-	}
-	if (estado.teclas.keyQ)
-	{
-		cout << "Colisoes: " << Colisoes() << endl;
-		cout << "modelo: " << modelo.obj.pos.x << endl;
-		cout << "Camera: " << estado.camera.center[0] << endl;
-		cout << "modelo: " << modelo.obj.pos.y << endl;
-		cout << "Camera: " << estado.camera.center[1] << endl;
-		cout << "modelo: " << modelo.obj.pos.z << endl;
-		cout << "Camera: " << estado.camera.center[2] << endl;
-		//cout << "Q" << endl;
-		//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
-		//cout << "Valor velocidade: " << velocidadeAtual << endl;
-		//bool teste = Colisoes();
-		//estado.camera.dir_long += velocidadeAtual;
-		/*
-		estado.camera.dist += k_DISTANCIA;
-		modelo.obj.dist += k_DISTANCIA;
-		*/
-		//setCamera2();
-		if (!Colisoes2())
-		{
-			modelo.obj.pos.z += 0.1;
+			//setCamera2();
+			*/
+			if (!Colisoes2())
+			{
+				modelo.obj.pos.z -= 0.1;
+			}
+
 		}
-	}
-	display();
+		if (estado.teclas.keyQ)
+		{
+			cout << "Colisoes: " << Colisoes() << endl;
+			cout << "modelo: " << modelo.obj.pos.x << endl;
+			cout << "Camera: " << estado.camera.center[0] << endl;
+			cout << "modelo: " << modelo.obj.pos.y << endl;
+			cout << "Camera: " << estado.camera.center[1] << endl;
+			cout << "modelo: " << modelo.obj.pos.z << endl;
+			cout << "Camera: " << estado.camera.center[2] << endl;
+			//cout << "Q" << endl;
+			//cout << "olho x: " << modelo.eye[0] / 5 << " olho y : " << modelo.eye[1] / 5 << " olho z: " << modelo.eye[2] / 5 << endl;
+			//cout << "Valor velocidade: " << velocidadeAtual << endl;
+			//bool teste = Colisoes();
+			//estado.camera.dir_long += velocidadeAtual;
+			/*
+			estado.camera.dist += k_DISTANCIA;
+			modelo.obj.dist += k_DISTANCIA;
+			*/
+			//setCamera2();
+			if (!Colisoes2())
+			{
+				modelo.obj.pos.z += 0.1;
+			}
+		}
+		display();
+//	}
 }
 
 void main(int argc, char **argv)
