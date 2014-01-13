@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
-#include <GL/glut.h>
+#include <freeGLUT\include\GL\freeglut.h>
 #include <vector>
 
 using namespace std;

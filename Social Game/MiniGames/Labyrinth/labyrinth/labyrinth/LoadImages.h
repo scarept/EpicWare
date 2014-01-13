@@ -4,8 +4,8 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
-#include <GL/glut.h>
+#include <GLUT\GL\glut.h>
 #include <vector>
-#include "SOIL.h"
+#include <SOIL\SOIL.h>
 
 GLuint carrega_texturas(char * nomeTextura);
