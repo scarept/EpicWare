@@ -22,9 +22,9 @@ namespace EpicWareWeb
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "211013762421242",
+                appSecret: "b987cf8038c1876bc9dfa679fa01b774");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
