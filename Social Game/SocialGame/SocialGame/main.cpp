@@ -89,7 +89,7 @@ typedef struct pickingPesquisa{
 
 }pickingPesquisa;
 
-pickingPesquisa listaElementosPicking[40];
+pickingPesquisa listaElementosPicking[11];
 
 typedef struct Camera{
 	GLfloat fov;
@@ -170,6 +170,16 @@ typedef struct Elements2D{
 
 }Elements2D;
 
+typedef struct NotificationBox{
+
+	bool selectedNotification;
+	int idUserNotification;
+	string notificationText;
+	bool showNotification;
+
+}NotificationBox;
+
+NotificationBox notificationStatus;
 Elements2D elementos2D;
 Estado estado;
 Modelo modelo;
@@ -209,6 +219,11 @@ void initModelo(){
 void initElemtnos2D(){
 	elementos2D.searchSelected = false;
 	elementos2D.userDetails = false;
+}
+
+void initNotification(){
+	notificationStatus.showNotification = false;
+
 }
 
 
@@ -561,11 +576,14 @@ void gameInit(User *utilizador)
 	gluQuadricDrawStyle(modelo.quad, GLU_FILL);
 	gluQuadricNormals(modelo.quad, GLU_OUTSIDE);
 
+	/* inicia utilizador e menu descrições */
 	initElemtnos2D();
 	userInit(utilizador);
-	//userInit();
-	//nos[0];
-	//enviar user e lista de ints de amigos
+
+	/* trata noticações */
+	initNotification();
+
+	/* preenche o grafo */
 	constroiAmigos();
 	preencheInfoAmigos();
 	preencheInfoLigacao();
@@ -752,6 +770,16 @@ void notificacao(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+
+	pickingPesquisa notificationBtn;
+	notificationBtn.x1 = 70;
+	notificationBtn.x2 = 100;
+	notificationBtn.y1 = 4;
+	notificationBtn.y2 = 10;
+	notificationBtn.nomeElem = "notification";
+
+	listaElementosPicking[3] = notificationBtn;
+
 	glBegin(GL_POLYGON);
 	glColor3f(0, 1, 1);
 	glVertex2f(70, 4);
@@ -803,15 +831,21 @@ void textoNotificacao(string mensagem){
 
 }
 
+void checkNotification(){
+	/* chama web service */
+
+}
 
 void eventoNotificacao(){
-	/*criar aqui um apontador para char com o texto que querem*/
-	string mensagem = "teste";
+	/* web seevice que verifica se existe noticações novas, e se sim, retorna 1 de cada vez*/
+	checkNotification();
 
-	void notificacao();
-	//void textoNotificacao(mensagem);
+	string mensagem = "teste"; /* resultado web service */
 
-	glutSwapBuffers();
+	notificacao();
+	textoNotificacao(mensagem);
+
+	//glutSwapBuffers();
 
 
 }
@@ -1526,6 +1560,7 @@ void display(void)
 		// desnha o grafo 3D
 		drawGraph(GL_SELECT);
 
+		/* Desenho de estruturas 2D */
 
 		/* HUD */
 		miniMapa();
@@ -1540,6 +1575,11 @@ void display(void)
 			janelaInfoUser(elementos2D.lastSelected);
 		}
 
+		if (notificationStatus.showNotification == true){
+			eventoNotificacao();
+		}
+
+		/* fim desenho estruturas 2D*/
 
 		if (estado.eixoTranslaccao) {
 			// desenha plano de translac��o
@@ -1549,7 +1589,7 @@ void display(void)
 		}
 
 		glFlush();
-		glutSwapBuffers();
+		glutSwapBuffers(); // trocar buffer
 
 
 
@@ -2430,6 +2470,8 @@ void mouse(int btn, int state, int x, int y){
 		switch (btn) {
 		case GLUT_RIGHT_BUTTON:
 		
+			notificationStatus.showNotification=true;
+
 			elementos2D.userDetails = false;
 
 			if (state == GLUT_DOWN){
