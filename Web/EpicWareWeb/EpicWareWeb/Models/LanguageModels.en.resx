@@ -118,120 +118,120 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ativo" xml:space="preserve">
-    <value>Ativo</value>
+    <value>Active</value>
   </data>
   <data name="conexoes" xml:space="preserve">
-    <value>Conexões</value>
+    <value>Connections</value>
   </data>
   <data name="confirmaPassword" xml:space="preserve">
-    <value>Confirmar Password</value>
+    <value>Confirm password</value>
   </data>
   <data name="datahora" xml:space="preserve">
-    <value>Data e Hora</value>
+    <value>Date and time</value>
   </data>
   <data name="dataNascimento" xml:space="preserve">
-    <value>Data de Nascimento (mm/dd/aaaa)</value>
+    <value>Birthday (mm/dd/aaaa)</value>
   </data>
   <data name="descricao" xml:space="preserve">
-    <value>Descrição</value>
+    <value>Description</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="estadoHumor" xml:space="preserve">
-    <value>Estado de Humor</value>
+    <value>Mood</value>
   </data>
   <data name="facebookPofile" xml:space="preserve">
-    <value>Link do Perfil do Facebook</value>
+    <value>Facebook's profile link</value>
   </data>
   <data name="forca" xml:space="preserve">
-    <value>Força</value>
+    <value>Strenght</value>
   </data>
   <data name="genero" xml:space="preserve">
-    <value>Género</value>
+    <value>Gender</value>
   </data>
   <data name="jogo" xml:space="preserve">
-    <value>Jogo</value>
+    <value>Game</value>
   </data>
   <data name="lida" xml:space="preserve">
-    <value>Lida</value>
+    <value>Read</value>
   </data>
   <data name="linguagem" xml:space="preserve">
-    <value>Linguagem</value>
+    <value>Language</value>
   </data>
   <data name="linkedinPofile" xml:space="preserve">
-    <value>Link do Perfil do LinkedIn</value>
+    <value>Linkdin's profile link</value>
   </data>
   <data name="messageAB" xml:space="preserve">
-    <value>Mensagem de Pedido de Introdução</value>
+    <value>Introduction request's message</value>
   </data>
   <data name="messageBC" xml:space="preserve">
-    <value>Pedido de Introdução ao Destino</value>
+    <value>Introdution request to destination</value>
   </data>
   <data name="missoes" xml:space="preserve">
-    <value>Missões</value>
+    <value>Missions</value>
   </data>
   <data name="nickname" xml:space="preserve">
     <value>Nickname</value>
   </data>
   <data name="nivel" xml:space="preserve">
-    <value>Nível</value>
+    <value>Level</value>
   </data>
   <data name="nome" xml:space="preserve">
-    <value>Primeiro Nome</value>
+    <value>First name</value>
   </data>
   <data name="notificacao" xml:space="preserve">
-    <value>Notificação</value>
+    <value>Notification</value>
   </data>
   <data name="notificacoes" xml:space="preserve">
-    <value>Notificações</value>
+    <value>Notifications</value>
   </data>
   <data name="novaPassword" xml:space="preserve">
-    <value>Nova Password</value>
+    <value>New Password</value>
   </data>
   <data name="numTelefone" xml:space="preserve">
-    <value>Número de Telefone</value>
+    <value>Phone number</value>
   </data>
   <data name="pais" xml:space="preserve">
-    <value>País</value>
+    <value>Country</value>
   </data>
   <data name="password" xml:space="preserve">
-    <value>Palavra-Passe</value>
+    <value>Password</value>
   </data>
   <data name="pathImg" xml:space="preserve">
-    <value>Imagem de Perfil</value>
+    <value>Profile's picture</value>
   </data>
   <data name="pontoacoes" xml:space="preserve">
-    <value>Pontuações</value>
+    <value>Scores</value>
   </data>
   <data name="pontos" xml:space="preserve">
-    <value>Pontos</value>
+    <value>Points</value>
   </data>
   <data name="remember" xml:space="preserve">
-    <value>Lembrar-me?</value>
+    <value>Remember me?</value>
   </data>
   <data name="tag" xml:space="preserve">
     <value>Tag</value>
   </data>
   <data name="tagConexao" xml:space="preserve">
-    <value>Tag de Conexão</value>
+    <value>Connection's tag</value>
   </data>
   <data name="tipoNotificação" xml:space="preserve">
-    <value>Tipo de Notificação</value>
+    <value>Notification's type</value>
   </data>
   <data name="twitterPofile" xml:space="preserve">
-    <value>Link do Perfil do Twitter</value>
+    <value>Twitter's profile link</value>
   </data>
   <data name="ultNome" xml:space="preserve">
-    <value>Ultimo Nome</value>
+    <value>Last name</value>
   </data>
   <data name="usertags" xml:space="preserve">
-    <value>Tag's de Utilizador</value>
+    <value>User's tags</value>
   </data>
   <data name="utilizador" xml:space="preserve">
-    <value>Utilizador</value>
+    <value>User</value>
   </data>
   <data name="utilizadorConectado" xml:space="preserve">
-    <value>Utilizador Conectado</value>
+    <value>User connected</value>
   </data>
 </root>
