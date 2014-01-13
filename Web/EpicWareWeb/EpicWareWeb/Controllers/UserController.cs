@@ -201,12 +201,17 @@ namespace EpicWareWeb.Controllers
             User userAuth = UserAutenticated();
             
             /* BIRTHDAY */
-            string data = collection.Get("MyDate");
-            string[] arrData = data.Split('/');
-            int year = Convert.ToInt32(arrData.ElementAt(2));
-            int month = Convert.ToInt32(arrData.ElementAt(0));
-            int day = Convert.ToInt32(arrData.ElementAt(1));
-            userAuth.userProfile.birthday = new DateTime(year, month, day);
+            try
+            {
+                string data = collection.Get("MyDate");
+                string[] arrData = data.Split('/');
+                int year = Convert.ToInt32(arrData.ElementAt(2));
+                int month = Convert.ToInt32(arrData.ElementAt(0));
+                int day = Convert.ToInt32(arrData.ElementAt(1));
+                userAuth.userProfile.birthday = new DateTime(year, month, day);
+            }catch(Exception)
+            {}
+
 
             /* PHONE */
             string phone = collection.Get("profile.phoneNumber");
@@ -217,21 +222,6 @@ namespace EpicWareWeb.Controllers
             }catch(Exception)
             {}
             
-
-            /* USERTAGS */
-            string tags = collection.Get("tags");
-            string[] tagsV = tags.Split(',');
-            if (userAuth.userTags == null)
-            {
-                userAuth.userTags = new List<Tag>();
-            }
-            foreach (string tag in tagsV)
-            {
-                Tag t = new Tag();
-                t.tag = tag;
-                userAuth.userTags.Add(t);
-            }
-
             /* SOCIAL NETWORKS*/
             string linkedin = collection.Get("profile.linkedinProfile");
             userAuth.userProfile.linkedinProfile = linkedin;

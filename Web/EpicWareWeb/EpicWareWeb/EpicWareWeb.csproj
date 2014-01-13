@@ -272,6 +272,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LanguageModels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LanguageModels.fr.Designer.cs" />
     <Compile Include="Models\Mission.cs" />
     <Compile Include="Models\Mood.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -302,6 +303,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>User.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\User\User.fr.Designer.cs" />
     <Compile Include="WebService.svc.cs">
       <DependentUpon>WebService.svc</DependentUpon>
     </Compile>
@@ -1201,6 +1203,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\LanguageModels.fr.resx" />
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.Designer.cs</LastGenOutput>
@@ -1216,6 +1219,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>User.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\User.fr.resx" />
     <EmbeddedResource Include="Views\User\User.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
