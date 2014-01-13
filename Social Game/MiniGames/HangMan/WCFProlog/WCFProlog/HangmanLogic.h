@@ -8,15 +8,15 @@
 #include <SWI-Prolog.h>
 #include <SWI-Stream.h>
 #include <SWI-cpp.h>
+#include <vector>
 #include <string>
-#include "WebServices.h"
+#include <WebServices.h>
 #include <EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.h>
 #include <EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h>
 #include <EpicService\tempuri.org.xsd.h>
 #include <EpicService\tempuri.org.wsdl.h>
 #include <EpicService\EpicWareWeb.xsd.h>
 #include <EpicService\EpicWareWeb.Models.xsd.h>
-#include <vector>
 
 using namespace std;
 

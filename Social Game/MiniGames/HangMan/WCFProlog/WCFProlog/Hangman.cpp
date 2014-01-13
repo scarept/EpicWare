@@ -17,6 +17,9 @@ CHangman::CHangman(){}
 
 CHangman::~CHangman(){}
 
+int first;
+int second;
+
 void toggleGlutWindowMaximizeBox(char *szWindowTitle)
 {
 	long dwStyle;
@@ -278,7 +281,7 @@ void drawKeyboard(GLenum mode){
 	int xStart = WIDTH / 2, yStart = (2.0 / 3.0)*HEIGHT;
 
 
-	char* prefix = ".\/images\/bt_";
+	char* prefix = ".\/images\/hangman\/keyboard\/bt_";
 	char* suffix = ".png";
 	char let[2] = { 'A', 0 };
 	char result[50];
@@ -377,8 +380,10 @@ void drawCategoryButtons(GLenum mode){
 void drawCategoriesMenu(GLenum mode){
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	drawCategoryBackground();
 	drawCategoryButtons(mode);
+	
 }
 /*End Buttons*/
 
@@ -524,8 +529,14 @@ void pickRects(int button, int state, int x, int y){
 void Draw(void){
 	
 	if (!modelo.onGame){
+
 		drawCategoriesMenu(GL_SELECT);
-		glutSwapBuffers();
+		glFlush();
+
+		if (first == 0){
+			glutSwapBuffers();
+			first = 1;
+		}
 	}
 	else{
 		drawGameScreen(GL_SELECT);
@@ -542,14 +553,14 @@ void Timer(int value)
 
 
 	// redesenhar o ecra 
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 void Key(unsigned char key, int x, int y)
 {
 	switch (key) {
 	case 27:
-		exit(1);
+		glutLeaveMainLoop();
 		break;
 	case 'a':
 	case 'A':
@@ -665,6 +676,15 @@ void Key(unsigned char key, int x, int y)
 
 void CHangman::startGame(int argc, char **argv){
 
+	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
+
+	char* dummy_args[] = { argv[0], "-s", ".\/pl\/hangman.pl", NULL };
+
+	argv = dummy_args;
+	argc = sizeof(dummy_args) / sizeof(dummy_args[0]) - 1;
+
+	PlEngine e(3, dummy_args);
+
 	//Open connection to EpicService
 	WCF* EpicService = new WCF();;
 
@@ -674,6 +694,9 @@ void CHangman::startGame(int argc, char **argv){
 
 		//Retrive words to assert
 		words = EpicService->getEveryWord();
+
+		if (words.size() == 0)
+				glutLeaveMainLoop();
 
 		for each (Word w in words){
 
@@ -695,8 +718,7 @@ void CHangman::startGame(int argc, char **argv){
 		cerr << (char*)&plex << "\n";
 	}
 
-	if (words.size() == 0)
-		exit(0);
+	
 
 	/*---------------------*/
 
@@ -716,6 +738,8 @@ void CHangman::startGame(int argc, char **argv){
 
 	estado.doubleBuffer = GL_TRUE;
 	
+	
+	
 	glutInit(&argc, argv);
 
 	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WIDTH) / 2,
@@ -724,12 +748,18 @@ void CHangman::startGame(int argc, char **argv){
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutInitDisplayMode(((estado.doubleBuffer) ? GLUT_DOUBLE : GLUT_SINGLE) | GLUT_RGB);
 	if (glutCreateWindow("Hangman") == GL_FALSE)
-		exit(1);
+		glutLeaveMainLoop();
 
 	toggleGlutWindowMaximizeBox("Hangman");
 
-	BACKGROUND_TEX = loadOpaqueTexture("background.jpg");
-	BACKGROUND_CATEGORY_TEX = loadOpaqueTexture("background_category.jpg");
+	BACKGROUND_CATEGORY_TEX = loadOpaqueTexture(".\/images\/hangman\/background_category.jpg");
+	BACKGROUND_TEX = loadOpaqueTexture(".\/images\/hangman\/background.jpg");
+	
+	
+	glutSetOption(
+		GLUT_ACTION_ON_WINDOW_CLOSE,
+		GLUT_ACTION_GLUTMAINLOOP_RETURNS
+		);
 
 	Init();
 
