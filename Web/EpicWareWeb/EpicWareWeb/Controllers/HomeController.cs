@@ -8,6 +8,11 @@ using System.Web.Mvc;
 
 namespace EpicWareWeb.Controllers
 {
+    public struct ScoreTable
+    {
+        public string nome;
+        public int pontuação;
+    }
     public class HomeController : Controller
     {
         DataContext db = new DataContext();
@@ -107,6 +112,30 @@ namespace EpicWareWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult ScoreBoard()
+        {
+            List<ScoreTable> scores = new List<ScoreTable>();
+            foreach (User user in db.users.ToList())
+            {
+                int sum = 0;
+                foreach (ScoreUser score in user.scores)
+                {
+                    sum += score.points;
+                }
+                ScoreTable tmp = new ScoreTable();
+                tmp.nome = user.userProfile.nickname;
+                tmp.pontuação = sum;
+                scores.Add(tmp);
+            }
+
+            scores.Sort(Compare);
+            return View(scores);
+        }
+
+        private static int Compare(ScoreTable x, ScoreTable y)
+        {
+            return x.pontuação.CompareTo(y.pontuação);
+        }
         private bool matchWords(User user, string[] txtA)
         {
             string[] txtFirstName = user.userProfile.name.ToLower().Split(new Char[] { ' ' });

@@ -559,7 +559,7 @@ namespace EpicWareWeb.Controllers
 
             /* Create Notification */
             Notification note = new Notification();
-            note.message = userAuth.userProfile.nickname + EpicWareWeb.Views.User.User.fraceite;
+            note.message = userAuth.userProfile.nickname + " " + EpicWareWeb.Views.User.User.fraceite;
             note.time = DateTime.Now;
             note.read = false;
             NotificationType nTyp = new NotificationType();
