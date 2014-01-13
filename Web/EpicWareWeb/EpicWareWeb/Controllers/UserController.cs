@@ -145,20 +145,6 @@ namespace EpicWareWeb.Controllers
             int phoneNumber = Convert.ToInt32(phone);
             userAuth.userProfile.phoneNumber = phoneNumber;
 
-            /* USERTAGS */
-            string tags = collection.Get("tags");
-            string[] tagsV = tags.Split(',');
-            if (userAuth.userTags == null)
-            {
-                userAuth.userTags = new List<Tag>();
-            }
-            foreach (string tag in tagsV)
-            {
-                Tag t = new Tag();
-                t.tag = tag;
-                userAuth.userTags.Add(t);
-            }
-
             /* SOCIAL NETWORKS*/
             string linkedin = collection.Get("profile.linkedinProfile");
             userAuth.userProfile.linkedinProfile = linkedin;

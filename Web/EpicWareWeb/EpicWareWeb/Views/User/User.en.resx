@@ -117,56 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="avisoContaDesativada" xml:space="preserve">
-    <value>Your account has been disabled! Do you wish to reactivate it?</value>
-  </data>
-  <data name="confirmDesativarConta" xml:space="preserve">
-    <value>Are you sure you wish to disable your account?</value>
-  </data>
-  <data name="feminino" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="masculino" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="nao" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="reativarConta" xml:space="preserve">
-    <value>Reactivate account</value>
-  </data>
-  <data name="perfil" xml:space="preserve">
-    <value>Profile</value>
-  </data>
-  <data name="semimagem" xml:space="preserve">
-    <value>No image</value>
-  </data>
-  <data name="sim" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="textoDefaultTags" xml:space="preserve">
-    <value>separated by ','</value>
-  </data>
-  <data name="aniversario" xml:space="preserve">
-    <value>Birthday</value>
-  </data>
-  <data name="genero" xml:space="preserve">
-    <value>Gender</value>
-  </data>
-  <data name="humor" xml:space="preserve">
-    <value>Mood</value>
-  </data>
-  <data name="nick" xml:space="preserve">
-    <value>Nickname</value>
-  </data>
-  <data name="pais" xml:space="preserve">
-    <value>Country</value>
-  </data>
-  <data name="social" xml:space="preserve">
-    <value>Social</value>
+  <data name="accept" xml:space="preserve">
+    <value>Accept</value>
   </data>
   <data name="aceitar_amigo" xml:space="preserve">
     <value>Accept friend</value>
+  </data>
+  <data name="adicionar" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="adicionar_amigo" xml:space="preserve">
     <value>Add friend</value>
@@ -174,173 +132,38 @@
   <data name="amizade_pendente" xml:space="preserve">
     <value>Pending friend request</value>
   </data>
-  <data name="edit_perfil" xml:space="preserve">
-    <value>Edit profile</value>
+  <data name="aniversario1" xml:space="preserve">
+    <value>Birthday</value>
   </data>
-  <data name="pedir_intro" xml:space="preserve">
-    <value>Ask for introduction</value>
+  <data name="avisoContaDesativada" xml:space="preserve">
+    <value>Your account has been disabled! Do you wish to reactivate it?</value>
   </data>
-  <data name="introEnviada" xml:space="preserve">
-    <value>Introduction request sent</value>
+  <data name="changePass" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="confirmDesativarConta" xml:space="preserve">
+    <value>Are you sure you want to disable your account?</value>
   </data>
   <data name="create" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="image" xml:space="preserve">
-    <value>Profile's picture</value>
-  </data>
-  <data name="accept" xml:space="preserve">
-    <value>Accept</value>
-  </data>
-  <data name="destino" xml:space="preserve">
-    <value>Destiny</value>
-  </data>
-  <data name="forca" xml:space="preserve">
-    <value>Strenght</value>
-  </data>
-  <data name="friendPending" xml:space="preserve">
-    <value>Pending friend requests</value>
-  </data>
-  <data name="introPending" xml:space="preserve">
-    <value>Pending introduction requests</value>
-  </data>
-  <data name="introReq" xml:space="preserve">
-    <value>Introduction requests</value>
-  </data>
-  <data name="lastname" xml:space="preserve">
-    <value>Last name</value>
-  </data>
-  <data name="name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="noPending" xml:space="preserve">
-    <value>No pending requests</value>
-  </data>
-  <data name="origem" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="reject" xml:space="preserve">
-    <value>Reject</value>
-  </data>
-  <data name="send" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="sugestedby" xml:space="preserve">
-    <value>Suggested by</value>
-  </data>
-  <data name="tagconn" xml:space="preserve">
-    <value>Relationship's tag</value>
-  </data>
-  <data name="feliz" xml:space="preserve">
-    <value>Happy</value>
-  </data>
-  <data name="normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="triste" xml:space="preserve">
-    <value>Sad</value>
-  </data>
-  <data name="notificacoes" xml:space="preserve">
-    <value>Notifications</value>
-  </data>
-  <data name="hora" xml:space="preserve">
-    <value>Hour</value>
-  </data>
-  <data name="lida" xml:space="preserve">
-    <value>Read</value>
-  </data>
-  <data name="mensagem" xml:space="preserve">
-    <value>Message</value>
-  </data>
-  <data name="ver" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="novopedidoamizade" xml:space="preserve">
-    <value>New friend request</value>
-  </data>
-  <data name="novopedidointroducao" xml:space="preserve">
-    <value>New introduction request</value>
-  </data>
-  <data name="fraceite" xml:space="preserve">
-    <value>has accepted your friend request.</value>
+  <data name="create_perfil" xml:space="preserve">
+    <value>Create profile</value>
   </data>
   <data name="de" xml:space="preserve">
     <value>of</value>
   </data>
-  <data name="introReqNotMiddleAceept" xml:space="preserve">
-    <value>Introduction request accepted and sent to friend</value>
-  </data>
-  <data name="oseuamigo" xml:space="preserve">
-    <value>Your friend</value>
-  </data>
-  <data name="para" xml:space="preserve">
-    <value>to</value>
-  </data>
-  <data name="paraSerSeuAmigo" xml:space="preserve">
-    <value>to become your friend</value>
-  </data>
-  <data name="recomendou" xml:space="preserve">
-    <value>recommended</value>
-  </data>
-  <data name="rejeitouIR" xml:space="preserve">
-    <value>has rejected your introduction request to </value>
-  </data>
-  <data name="tagcloudGeral" xml:space="preserve">
-    <value>User's tag cloud</value>
-  </data>
-  <data name="tagcloudRelacao" xml:space="preserve">
-    <value>Relationship's tag cloud</value>
-  </data>
-  <data name="no_info" xml:space="preserve">
-    <value>Sem informação disponivel</value>
-  </data>
-  <data name="friendsSugestion" xml:space="preserve">
-    <value>Friend suggestion</value>
-  </data>
-  <data name="tam_rede" xml:space="preserve">
-    <value>Network's size</value>
+  <data name="destino" xml:space="preserve">
+    <value>Destination</value>
   </data>
   <data name="download" xml:space="preserve">
     <value>Download game</value>
   </data>
-  <data name="intros" xml:space="preserve">
-    <value>Introducer request</value>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="pendentes" xml:space="preserve">
-    <value>Pending requests</value>
-  </data>
-  <data name="registar" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="scores" xml:space="preserve">
-    <value>Scoreboard</value>
-  </data>
-  <data name="veramigos" xml:space="preserve">
-    <value>View friends</value>
-  </data>
-  <data name="resultadosPesquisa" xml:space="preserve">
-    <value>Search's result</value>
-  </data>
-  <data name="txtBxPesquisa" xml:space="preserve">
-    <value>Name | Nickname | Tag</value>
-  </data>
-  <data name="adicionar" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="forca_tag" xml:space="preserve">
-    <value>Define connection's strenght and tag.</value>
-  </data>
-  <data name="pedido1" xml:space="preserve">
-    <value>Introduction request to</value>
-  </data>
-  <data name="pedido2" xml:space="preserve">
-    <value>to your friend</value>
-  </data>
-  <data name="create_perfil" xml:space="preserve">
-    <value>Create profile</value>
+  <data name="edit_perfil" xml:space="preserve">
+    <value>Edit profile</value>
   </data>
   <data name="erro" xml:space="preserve">
     <value>Error</value>
@@ -348,28 +171,202 @@
   <data name="erro_msg" xml:space="preserve">
     <value>An error occurred while processing your request</value>
   </data>
+  <data name="feliz" xml:space="preserve">
+    <value>Happy</value>
+  </data>
+  <data name="feminino1" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="forca" xml:space="preserve">
+    <value>Strenght</value>
+  </data>
+  <data name="forca_tag" xml:space="preserve">
+    <value>Define connection's streght and tag</value>
+  </data>
+  <data name="fraceite" xml:space="preserve">
+    <value>accepted your friend request</value>
+  </data>
+  <data name="friendPending" xml:space="preserve">
+    <value>Pending firend requests</value>
+  </data>
+  <data name="friendsSugestion" xml:space="preserve">
+    <value>Friends sugestion</value>
+  </data>
   <data name="friend_list" xml:space="preserve">
-    <value>Every friend</value>
+    <value>All friends</value>
+  </data>
+  <data name="genero1" xml:space="preserve">
+    <value>Gender</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>EpicWare</value>
   </data>
+  <data name="hora" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="humor1" xml:space="preserve">
+    <value>Mood</value>
+  </data>
+  <data name="image" xml:space="preserve">
+    <value>Profile picture</value>
+  </data>
+  <data name="introEnviada" xml:space="preserve">
+    <value>Introduction request sent</value>
+  </data>
+  <data name="introPending" xml:space="preserve">
+    <value>Pending introduction requests</value>
+  </data>
+  <data name="introReq" xml:space="preserve">
+    <value>Introduction requests</value>
+  </data>
+  <data name="introReqNotMiddleAceept" xml:space="preserve">
+    <value>Introduction request accepted and sent to friend</value>
+  </data>
+  <data name="intros" xml:space="preserve">
+    <value>Introducer requests</value>
+  </data>
+  <data name="lastname" xml:space="preserve">
+    <value>Lastname</value>
+  </data>
+  <data name="lida" xml:space="preserve">
+    <value>Read</value>
+  </data>
   <data name="logout" xml:space="preserve">
     <value>Exit</value>
+  </data>
+  <data name="masculino1" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="mensagem" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="nao" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="nick1" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="noPending" xml:space="preserve">
+    <value>No pending requests</value>
+  </data>
+  <data name="normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="notificacoes" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="novopedidoamizade" xml:space="preserve">
+    <value>New friend request</value>
+  </data>
+  <data name="novopedidointroducao" xml:space="preserve">
+    <value>New introduction request</value>
+  </data>
+  <data name="no_info" xml:space="preserve">
+    <value>No information available</value>
+  </data>
+  <data name="origem" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="oseuamigo" xml:space="preserve">
+    <value>Your friend</value>
+  </data>
+  <data name="pais1" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="para" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="paraSerSeuAmigo" xml:space="preserve">
+    <value>to become your friend</value>
+  </data>
+  <data name="pedido1" xml:space="preserve">
+    <value>Introduction request to</value>
+  </data>
+  <data name="pedido2" xml:space="preserve">
+    <value>your friend</value>
+  </data>
+  <data name="pedir_intro" xml:space="preserve">
+    <value>Ask for introdution</value>
+  </data>
+  <data name="pendentes" xml:space="preserve">
+    <value>Pending requests</value>
+  </data>
+  <data name="perfil1" xml:space="preserve">
+    <value>Profile</value>
   </data>
   <data name="reativar" xml:space="preserve">
     <value>Reactivate</value>
   </data>
+  <data name="reativarConta" xml:space="preserve">
+    <value>Reactivate account</value>
+  </data>
+  <data name="recomendou" xml:space="preserve">
+    <value>recommended</value>
+  </data>
+  <data name="registar" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="rejeitouIR" xml:space="preserve">
+    <value>rejected your introduction request to</value>
+  </data>
+  <data name="resultadosPesquisa" xml:space="preserve">
+    <value>Search's result</value>
+  </data>
+  <data name="scores" xml:space="preserve">
+    <value>Scoreboard</value>
+  </data>
   <data name="search" xml:space="preserve">
     <value>Search's result</value>
+  </data>
+  <data name="semimagem1" xml:space="preserve">
+    <value>No picture</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="sim" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="social1" xml:space="preserve">
+    <value>Social</value>
   </data>
   <data name="sugerir_amigos" xml:space="preserve">
     <value>Suggest friends</value>
   </data>
-  <data name="changePass" xml:space="preserve">
-    <value>Change password</value>
+  <data name="sugestedby" xml:space="preserve">
+    <value>Suggested by</value>
   </data>
-  <data name="tabela_classificativa" xml:space="preserve">
-    <value>Scoreboard</value>
+  <data name="tagcloudGeral" xml:space="preserve">
+    <value>User's tag cloud</value>
+  </data>
+  <data name="tagcloudRelacao" xml:space="preserve">
+    <value>Relationship's tag cloud</value>
+  </data>
+  <data name="tagconn" xml:space="preserve">
+    <value>Relation's tag</value>
+  </data>
+  <data name="tam_rede" xml:space="preserve">
+    <value>Network size</value>
+  </data>
+  <data name="textoDefaultTags" xml:space="preserve">
+    <value>Sepparated by ','</value>
+  </data>
+  <data name="triste" xml:space="preserve">
+    <value>Sad</value>
+  </data>
+  <data name="txtBxPesquisa" xml:space="preserve">
+    <value>Name | Nickname | Tag</value>
+  </data>
+  <data name="ver" xml:space="preserve">
+    <value>See</value>
+  </data>
+  <data name="veramigos" xml:space="preserve">
+    <value>See friends</value>
   </data>
 </root>

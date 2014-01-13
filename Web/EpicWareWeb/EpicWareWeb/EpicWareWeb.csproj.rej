@@ -1,0 +1,43 @@
+diff a/Web/EpicWareWeb/EpicWareWeb/EpicWareWeb.csproj b/Web/EpicWareWeb/EpicWareWeb/EpicWareWeb.csproj	(rejected hunks)
+@@ -246,6 +246,10 @@
+     <Compile Include="Migrations\201401121436252_rmvSomeRequires.Designer.cs">
+       <DependentUpon>201401121436252_rmvSomeRequires.cs</DependentUpon>
+     </Compile>
++    <Compile Include="Migrations\201401131320168_addRefLanguage.cs" />
++    <Compile Include="Migrations\201401131320168_addRefLanguage.Designer.cs">
++      <DependentUpon>201401131320168_addRefLanguage.cs</DependentUpon>
++    </Compile>
+     <Compile Include="Migrations\Configuration.cs" />
+     <Compile Include="Models\AccountModels.cs" />
+     <Compile Include="Models\Connection.cs" />
+@@ -277,6 +281,11 @@
+     <Compile Include="Models\UserEntities.cs" />
+     <Compile Include="Models\UserRelationsEntities.cs" />
+     <Compile Include="Properties\AssemblyInfo.cs" />
++    <Compile Include="Views\Shared\Shared.en.Designer.cs">
++      <DependentUpon>Shared.en.resx</DependentUpon>
++      <AutoGen>True</AutoGen>
++      <DesignTime>True</DesignTime>
++    </Compile>
+     <Compile Include="Views\Shared\Shared.Designer.cs">
+       <DependentUpon>Shared.resx</DependentUpon>
+       <AutoGen>True</AutoGen>
+@@ -1166,10 +1175,18 @@
+     <EmbeddedResource Include="Migrations\201401121436252_rmvSomeRequires.resx">
+       <DependentUpon>201401121436252_rmvSomeRequires.cs</DependentUpon>
+     </EmbeddedResource>
++    <EmbeddedResource Include="Migrations\201401131320168_addRefLanguage.resx">
++      <DependentUpon>201401131320168_addRefLanguage.cs</DependentUpon>
++    </EmbeddedResource>
+     <EmbeddedResource Include="Models\LanguageModels.resx">
+       <Generator>PublicResXFileCodeGenerator</Generator>
+       <LastGenOutput>LanguageModels.Designer.cs</LastGenOutput>
+     </EmbeddedResource>
++    <EmbeddedResource Include="Views\Shared\Shared.en.resx">
++      <Generator>PublicResXFileCodeGenerator</Generator>
++      <LastGenOutput>Shared.en.Designer.cs</LastGenOutput>
++      <SubType>Designer</SubType>
++    </EmbeddedResource>
+     <EmbeddedResource Include="Views\Shared\Shared.resx">
+       <Generator>PublicResXFileCodeGenerator</Generator>
+       <LastGenOutput>Shared.Designer.cs</LastGenOutput>

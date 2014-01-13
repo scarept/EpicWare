@@ -73,5 +73,8 @@ namespace EpicWareWeb
 
         [OperationContract]
         UserData getUserData(int id, string user, string pass);
+
+        [OperationContract]
+        bool createFriendRequest(int id1, int id2, string user, string pass);
     }
 }
