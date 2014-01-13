@@ -3,11 +3,13 @@ using EpicWareWeb.DAL;
 using EpicWareWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Web.Http.ModelBinding;
 using System.Web.Security;
 using WebMatrix.WebData;
 
@@ -189,6 +191,58 @@ namespace EpicWareWeb
             }
 
             
+        }
+
+        public bool createFriendRequest(int id1, int id2, string user, string pass)
+        {
+            if (Membership.ValidateUser(user, pass))
+            {
+                try
+                {
+                    User user1 = db.users.Find(id1);
+                    User user2 = db.users.Find(id2);
+
+                    /*Create Friend Request*/
+                    FriendRequest fR = new FriendRequest();
+
+                    /* Strenght */
+                    int forçaInt = 1;
+                    fR.strenght = forçaInt;
+
+                    /* Tag Connection */
+                    TagConnection tagConn = db.tagConnections.Find(1);
+                    fR.tagConnection = tagConn;
+
+                    /*Users*/
+                    fR.user1 = user1;
+                    fR.user2 = user2;
+
+                    db.friendRequests.Add(fR);
+                    db.SaveChanges();
+                    
+
+                    /* Create Notification */
+                    Notification note = new Notification();
+                    Notification nTyp = new Notification();
+                    note.message = @EpicWareWeb.Views.User.User.pedidoAmizadePeloJogo + " : " + user1.userProfile.nickname;
+                    note.time = DateTime.Now;
+                    note.read = false;
+                    user2.notifications.Add(note);
+
+                    db.Entry(user1).State = EntityState.Modified;
+                    db.Entry(user2).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                    
+                }catch(Exception)
+                {
+                    return false;
+                }
+
+            }
+            else { return false; }
+            
+
         }
 
         //public User teste()

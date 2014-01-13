@@ -17,5 +17,9 @@ namespace EpicWareWeb.Models
         [DataMember]
         [Display(ResourceType = typeof(LanguageModels), Name = "linguagem")]
         public string name { get; set; }
+
+        [DataMember]
+        [Display(ResourceType = typeof(LanguageModels), Name = "linguagem")]
+        public string reference { get; set; }
     }
 }

@@ -32,10 +32,9 @@ util = teste.UserAutenticated();
                               <div id="notifications"></div>
                         </td>
                         <td align="right">
-                            @using (Html.BeginForm("Profile", "User", FormMethod.Get))
-                            {
-                            <button class="btn"><img src=@util.userProfile.pathImg width="25" height="25" /> @util.userProfile.name @util.userProfile.lastName</button>
-                            }
+                            <form action="/LAPR5/User/Profile">
+                                <button class="btn"><img src=@util.userProfile.pathImg width="25" height="25" /> @util.userProfile.name @util.userProfile.lastName</button>
+                            </form>
                     </td>
                         <td align="right" width="100">
                             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -47,17 +46,7 @@ util = teste.UserAutenticated();
                     </tr>
                 </table>
                 
-                
-                @*<form class="form-search">
-                    <div class="input-append">
-                        <input type="text" class="span2 search-query">
-                        <button type="submit" class="btn">Search</button>
-                    </div>
-                </form>*@
-
-                @*<img src="@user.userProfile.pathImg" class="img-rounded" width="50" height="50"> <a href="~/User/Profile/@user.userID">@user.userProfile.name @user.userProfile.lastName</a>*@
-
-                </div><!-- /navbar-inner -->
+           </div><!-- /navbar-inner -->
             </div><!-- /navbar -->
         </div>
     </div>

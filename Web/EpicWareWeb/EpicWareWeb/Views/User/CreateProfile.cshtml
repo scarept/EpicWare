@@ -4,13 +4,14 @@
     ViewBag.Title = EpicWareWeb.Views.User.User.create_perfil;
  }
 
-<h2>EpicWareWeb.Views.User.User.create_perfil</h2>
+<h2>@EpicWareWeb.Views.User.User.create_perfil</h2>
 
-<script>
+<script type="text/javascript">
     $(function () {
         $("#datepicker").datepicker();
     });
 </script>
+
 
 <table>
     <tr>
@@ -26,7 +27,7 @@
                     <div class="editor-label">
                         @Html.LabelFor(model => model.userProfile.birthday)
                     </div>
-                    <input type="text" id="datepicker" name="datepicker" required>
+                    <input type="text" id="datepicker" required>
                     @*<input type="text" id="MyDate" name="MyDate" required />*@
 
                     @* Naturalidade *@
@@ -94,39 +95,25 @@
         </td>
         
             <td style="vertical-align:text-top">
-                <fieldset>
+                
                     <div class="editor-label">
                         @Html.LabelFor(model => model.userTags)
                     </div>
-                    @using (Ajax.BeginForm("insertTag", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
+                    @using (Ajax.BeginForm("insertTag", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tagsList" }))
                     {
-                    <div class="editor-field">
-                        @Html.TextBox("tags")
-                    </div>
-                    <div>
-                        
-                            <button type="submit" value="Adicionar">@EpicWareWeb.Views.User.User.adicionar</button>
-                    </div>
+                    <fieldset>
+                        @Html.TextBox("tags", "Tag", new { onclick = "document.getElementById(\"tags\").value= \"\";" })
+                        <button type="submit" value="@EpicWareWeb.Views.User.User.adicionar">@EpicWareWeb.Views.User.User.adicionar</button>
+                    </fieldset>
                     }
                     <div id="tagsList">
-                        @*@foreach (EpicWareWeb.Models.Tag tag in Model.userTags)
-                {
-                    <span style="color:white;font-size:larger">@tag.tag</span><br />
-                }*@
                     </div>
-                </fieldset>
-            </td>
+           </td>
         
     </tr>
 </table> 
 
-<script type="text/javascript">
 
-    $(function () {
-        $('#MyDate').datepicker();
-    });
-
-</script>
 
 
 
