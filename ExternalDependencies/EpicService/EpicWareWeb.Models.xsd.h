@@ -54,6 +54,7 @@ extern "C" {
 //     struct NotificationType;
 //     struct ArrayOfScoreUser;
 //     struct ScoreUser;
+//     struct Game;
 //     struct Profile;
 //     struct Country;
 //     struct ArrayOfTag;
@@ -71,6 +72,7 @@ extern "C" {
 //     struct NotificationType;
 //     struct ArrayOfScoreUser;
 //     struct ScoreUser;
+//     struct Game;
 //     struct Profile;
 //     struct Country;
 //     struct ArrayOfTag;
@@ -111,6 +113,7 @@ typedef struct Language
 {
     int languageID;
     WCHAR* name; // optional
+    WCHAR* reference; // optional
 } Language;
 
 // typeDescription: EpicWareWeb_Models_xsd.globalTypes.Connection
@@ -166,8 +169,17 @@ typedef struct NotificationType
 // typeDescription: EpicWareWeb_Models_xsd.globalTypes.ScoreUser
 typedef struct ScoreUser 
 {
+    struct Game* MyProperty; // optional
+    int points;
     int scoreUserID;
 } ScoreUser;
+
+// typeDescription: EpicWareWeb_Models_xsd.globalTypes.Game
+typedef struct Game 
+{
+    int gameID;
+    WCHAR* name; // optional
+} Game;
 
 // typeDescription: EpicWareWeb_Models_xsd.globalTypes.Profile
 typedef struct Profile 
@@ -321,6 +333,12 @@ typedef struct _EpicWareWeb_Models_xsd
         // typeDescription: EpicWareWeb_Models_xsd.globalTypes.ScoreUser
         WS_STRUCT_DESCRIPTION ScoreUser;
         
+        // xml type: Game ("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models")
+        // c type: Game
+        // WS_TYPE: WS_STRUCT_TYPE
+        // typeDescription: EpicWareWeb_Models_xsd.globalTypes.Game
+        WS_STRUCT_DESCRIPTION Game;
+        
         // xml type: Profile ("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models")
         // c type: Profile
         // WS_TYPE: WS_STRUCT_TYPE
@@ -412,6 +430,11 @@ typedef struct _EpicWareWeb_Models_xsd
         // c type: ScoreUser
         // elementDescription: EpicWareWeb_Models_xsd.globalElements.ScoreUser
         WS_ELEMENT_DESCRIPTION ScoreUser;
+        
+        // xml element: Game ("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models")
+        // c type: Game
+        // elementDescription: EpicWareWeb_Models_xsd.globalElements.Game
+        WS_ELEMENT_DESCRIPTION Game;
         
         // xml element: Profile ("http://schemas.datacontract.org/2004/07/EpicWareWeb.Models")
         // c type: Profile

@@ -132,6 +132,10 @@ extern "C" {
 //     BasicHttpBinding_IWebService_GetEveryWord
 //     BasicHttpBinding_IWebService_getAllUsersID
 //     BasicHttpBinding_IWebService_getConnectioStrenght
+//     BasicHttpBinding_IWebService_getNumberTagsForUserId
+//     BasicHttpBinding_IWebService_getStrenghtConnection
+//     BasicHttpBinding_IWebService_getUserData
+//     BasicHttpBinding_IWebService_createFriendRequest
 
 // The following server function tables were generated:
 
@@ -275,6 +279,60 @@ HRESULT WINAPI BasicHttpBinding_IWebService_getConnectioStrenght(
     _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_opt_ WS_ERROR* _error);
 
+// operation: BasicHttpBinding_IWebService_getNumberTagsForUserId
+HRESULT WINAPI BasicHttpBinding_IWebService_getNumberTagsForUserId(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ int* getNumberTagsForUserIdResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IWebService_getStrenghtConnection
+HRESULT WINAPI BasicHttpBinding_IWebService_getStrenghtConnection(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id1, 
+    _In_ int id2, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ int* getStrenghtConnectionResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IWebService_getUserData
+HRESULT WINAPI BasicHttpBinding_IWebService_getUserData(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Outptr_opt_ UserData** getUserDataResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IWebService_createFriendRequest
+HRESULT WINAPI BasicHttpBinding_IWebService_createFriendRequest(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id1, 
+    _In_ int id2, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ BOOL* createFriendRequestResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error);
+
 ////////////////////////////////////////////////
 // Service functions definitions
 ////////////////////////////////////////////////
@@ -340,6 +398,44 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getConnectioStrenghtCall
     _In_ const WS_ASYNC_CONTEXT* _asyncContext,
     _In_ WS_ERROR* _error);
 
+typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getNumberTagsForUserIdCallback) (
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ int id, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ int* getNumberTagsForUserIdResult, 
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getStrenghtConnectionCallback) (
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ int id1, 
+    _In_ int id2, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ int* getStrenghtConnectionResult, 
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_getUserDataCallback) (
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ int id, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Outptr_opt_ UserData** getUserDataResult, 
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IWebService_createFriendRequestCallback) (
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ int id1, 
+    _In_ int id2, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ BOOL* createFriendRequestResult, 
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error);
+
 // binding: BasicHttpBinding_IWebService
 typedef struct BasicHttpBinding_IWebServiceFunctionTable 
 {
@@ -351,6 +447,10 @@ typedef struct BasicHttpBinding_IWebServiceFunctionTable
     BasicHttpBinding_IWebService_GetEveryWordCallback BasicHttpBinding_IWebService_GetEveryWord;
     BasicHttpBinding_IWebService_getAllUsersIDCallback BasicHttpBinding_IWebService_getAllUsersID;
     BasicHttpBinding_IWebService_getConnectioStrenghtCallback BasicHttpBinding_IWebService_getConnectioStrenght;
+    BasicHttpBinding_IWebService_getNumberTagsForUserIdCallback BasicHttpBinding_IWebService_getNumberTagsForUserId;
+    BasicHttpBinding_IWebService_getStrenghtConnectionCallback BasicHttpBinding_IWebService_getStrenghtConnection;
+    BasicHttpBinding_IWebService_getUserDataCallback BasicHttpBinding_IWebService_getUserData;
+    BasicHttpBinding_IWebService_createFriendRequestCallback BasicHttpBinding_IWebService_createFriendRequest;
 } BasicHttpBinding_IWebServiceFunctionTable;
 
 ////////////////////////////////////////////////
@@ -457,6 +557,54 @@ typedef struct _tempuri_org_wsdl
         // messageDescription: tempuri_org_wsdl.messages.IWebService_getConnectioStrenght_OutputMessage
         WS_MESSAGE_DESCRIPTION IWebService_getConnectioStrenght_OutputMessage;
         
+        // message: IWebService_getNumberTagsForUserId_InputMessage
+        // c type: _getNumberTagsForUserId
+        // action: "http://tempuri.org/IWebService/getNumberTagsForUserId"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getNumberTagsForUserId_InputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberTagsForUserId_InputMessage;
+        
+        // message: IWebService_getNumberTagsForUserId_OutputMessage
+        // c type: _getNumberTagsForUserIdResponse
+        // action: "http://tempuri.org/IWebService/getNumberTagsForUserIdResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getNumberTagsForUserId_OutputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberTagsForUserId_OutputMessage;
+        
+        // message: IWebService_getStrenghtConnection_InputMessage
+        // c type: _getStrenghtConnection
+        // action: "http://tempuri.org/IWebService/getStrenghtConnection"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getStrenghtConnection_InputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getStrenghtConnection_InputMessage;
+        
+        // message: IWebService_getStrenghtConnection_OutputMessage
+        // c type: _getStrenghtConnectionResponse
+        // action: "http://tempuri.org/IWebService/getStrenghtConnectionResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getStrenghtConnection_OutputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getStrenghtConnection_OutputMessage;
+        
+        // message: IWebService_getUserData_InputMessage
+        // c type: _getUserData
+        // action: "http://tempuri.org/IWebService/getUserData"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getUserData_InputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getUserData_InputMessage;
+        
+        // message: IWebService_getUserData_OutputMessage
+        // c type: _getUserDataResponse
+        // action: "http://tempuri.org/IWebService/getUserDataResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_getUserData_OutputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_getUserData_OutputMessage;
+        
+        // message: IWebService_createFriendRequest_InputMessage
+        // c type: _createFriendRequest
+        // action: "http://tempuri.org/IWebService/createFriendRequest"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_createFriendRequest_InputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_createFriendRequest_InputMessage;
+        
+        // message: IWebService_createFriendRequest_OutputMessage
+        // c type: _createFriendRequestResponse
+        // action: "http://tempuri.org/IWebService/createFriendRequestResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IWebService_createFriendRequest_OutputMessage
+        WS_MESSAGE_DESCRIPTION IWebService_createFriendRequest_OutputMessage;
+        
     } messages;
     struct // contracts
     {
@@ -486,6 +634,18 @@ typedef struct _tempuri_org_wsdl
         // operation: BasicHttpBinding_IWebService_getConnectioStrenght
         //     input message: IWebService_getConnectioStrenght_InputMessage
         //     output message: IWebService_getConnectioStrenght_OutputMessage
+        // operation: BasicHttpBinding_IWebService_getNumberTagsForUserId
+        //     input message: IWebService_getNumberTagsForUserId_InputMessage
+        //     output message: IWebService_getNumberTagsForUserId_OutputMessage
+        // operation: BasicHttpBinding_IWebService_getStrenghtConnection
+        //     input message: IWebService_getStrenghtConnection_InputMessage
+        //     output message: IWebService_getStrenghtConnection_OutputMessage
+        // operation: BasicHttpBinding_IWebService_getUserData
+        //     input message: IWebService_getUserData_InputMessage
+        //     output message: IWebService_getUserData_OutputMessage
+        // operation: BasicHttpBinding_IWebService_createFriendRequest
+        //     input message: IWebService_createFriendRequest_InputMessage
+        //     output message: IWebService_createFriendRequest_OutputMessage
         // contractDescription: tempuri_org_wsdl.contracts.BasicHttpBinding_IWebService
         WS_CONTRACT_DESCRIPTION BasicHttpBinding_IWebService;
         

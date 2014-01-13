@@ -77,6 +77,56 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION getConnectioStrenghtResult;
             WS_FIELD_DESCRIPTION* _getConnectioStrenghtResponseFields [1]; 
         } _getConnectioStrenghtResponsedescs; // end of _getConnectioStrenghtResponse
+        struct  // _getNumberTagsForUserId
+        {
+            WS_FIELD_DESCRIPTION id;
+            WS_FIELD_DESCRIPTION user;
+            WS_FIELD_DESCRIPTION pass;
+            WS_FIELD_DESCRIPTION* _getNumberTagsForUserIdFields [3]; 
+        } _getNumberTagsForUserIddescs; // end of _getNumberTagsForUserId
+        struct  // _getNumberTagsForUserIdResponse
+        {
+            WS_FIELD_DESCRIPTION getNumberTagsForUserIdResult;
+            WS_FIELD_DESCRIPTION* _getNumberTagsForUserIdResponseFields [1]; 
+        } _getNumberTagsForUserIdResponsedescs; // end of _getNumberTagsForUserIdResponse
+        struct  // _getStrenghtConnection
+        {
+            WS_FIELD_DESCRIPTION id1;
+            WS_FIELD_DESCRIPTION id2;
+            WS_FIELD_DESCRIPTION user;
+            WS_FIELD_DESCRIPTION pass;
+            WS_FIELD_DESCRIPTION* _getStrenghtConnectionFields [4]; 
+        } _getStrenghtConnectiondescs; // end of _getStrenghtConnection
+        struct  // _getStrenghtConnectionResponse
+        {
+            WS_FIELD_DESCRIPTION getStrenghtConnectionResult;
+            WS_FIELD_DESCRIPTION* _getStrenghtConnectionResponseFields [1]; 
+        } _getStrenghtConnectionResponsedescs; // end of _getStrenghtConnectionResponse
+        struct  // _getUserData
+        {
+            WS_FIELD_DESCRIPTION id;
+            WS_FIELD_DESCRIPTION user;
+            WS_FIELD_DESCRIPTION pass;
+            WS_FIELD_DESCRIPTION* _getUserDataFields [3]; 
+        } _getUserDatadescs; // end of _getUserData
+        struct  // _getUserDataResponse
+        {
+            WS_FIELD_DESCRIPTION getUserDataResult;
+            WS_FIELD_DESCRIPTION* _getUserDataResponseFields [1]; 
+        } _getUserDataResponsedescs; // end of _getUserDataResponse
+        struct  // _createFriendRequest
+        {
+            WS_FIELD_DESCRIPTION id1;
+            WS_FIELD_DESCRIPTION id2;
+            WS_FIELD_DESCRIPTION user;
+            WS_FIELD_DESCRIPTION pass;
+            WS_FIELD_DESCRIPTION* _createFriendRequestFields [4]; 
+        } _createFriendRequestdescs; // end of _createFriendRequest
+        struct  // _createFriendRequestResponse
+        {
+            WS_FIELD_DESCRIPTION createFriendRequestResult;
+            WS_FIELD_DESCRIPTION* _createFriendRequestResponseFields [1]; 
+        } _createFriendRequestResponsedescs; // end of _createFriendRequestResponse
     } globalElements;  // end of global elements
     struct  // XML dictionary
     {
@@ -117,6 +167,18 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_XML_STRING _getConnectioStrenghtid2LocalName;  // id2
             WS_XML_STRING _getConnectioStrenghtResponseTypeName;  // getConnectioStrenghtResponse
             WS_XML_STRING _getConnectioStrenghtResponsegetConnectioStrenghtResultLocalName;  // getConnectioStrenghtResult
+            WS_XML_STRING _getNumberTagsForUserIdTypeName;  // getNumberTagsForUserId
+            WS_XML_STRING _getNumberTagsForUserIdResponseTypeName;  // getNumberTagsForUserIdResponse
+            WS_XML_STRING _getNumberTagsForUserIdResponsegetNumberTagsForUserIdResultLocalName;  // getNumberTagsForUserIdResult
+            WS_XML_STRING _getStrenghtConnectionTypeName;  // getStrenghtConnection
+            WS_XML_STRING _getStrenghtConnectionResponseTypeName;  // getStrenghtConnectionResponse
+            WS_XML_STRING _getStrenghtConnectionResponsegetStrenghtConnectionResultLocalName;  // getStrenghtConnectionResult
+            WS_XML_STRING _getUserDataTypeName;  // getUserData
+            WS_XML_STRING _getUserDataResponseTypeName;  // getUserDataResponse
+            WS_XML_STRING _getUserDataResponsegetUserDataResultLocalName;  // getUserDataResult
+            WS_XML_STRING _createFriendRequestTypeName;  // createFriendRequest
+            WS_XML_STRING _createFriendRequestResponseTypeName;  // createFriendRequestResponse
+            WS_XML_STRING _createFriendRequestResponsecreateFriendRequestResultLocalName;  // createFriendRequestResult
         } xmlStrings;  // end of XML string list
         WS_XML_DICTIONARY dict;
     } dictionary;  // end of XML dictionary
@@ -399,6 +461,254 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getConnectioStrenghtResponsedescs.getConnectioStrenghtResult,
             },
         },    // _getConnectioStrenghtResponse
+        {  // _getNumberTagsForUserId
+            {  // field description for id
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDidLocalName, // id
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getNumberTagsForUserId, id),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id
+            {  // field description for user
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDuserLocalName, // user
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getNumberTagsForUserId, user),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for user
+            {  // field description for pass
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDpassLocalName, // pass
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getNumberTagsForUserId, pass),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for pass
+            {  // fields description for _getNumberTagsForUserId
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIddescs.id,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIddescs.user,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIddescs.pass,
+            },
+        },    // _getNumberTagsForUserId
+        {  // _getNumberTagsForUserIdResponse
+            {  // field description for getNumberTagsForUserIdResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberTagsForUserIdResponsegetNumberTagsForUserIdResultLocalName, // getNumberTagsForUserIdResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getNumberTagsForUserIdResponse, getNumberTagsForUserIdResult),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for getNumberTagsForUserIdResult
+            {  // fields description for _getNumberTagsForUserIdResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIdResponsedescs.getNumberTagsForUserIdResult,
+            },
+        },    // _getNumberTagsForUserIdResponse
+        {  // _getStrenghtConnection
+            {  // field description for id1
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtid1LocalName, // id1
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getStrenghtConnection, id1),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id1
+            {  // field description for id2
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtid2LocalName, // id2
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getStrenghtConnection, id2),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id2
+            {  // field description for user
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDuserLocalName, // user
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getStrenghtConnection, user),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for user
+            {  // field description for pass
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDpassLocalName, // pass
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getStrenghtConnection, pass),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for pass
+            {  // fields description for _getStrenghtConnection
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectiondescs.id1,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectiondescs.id2,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectiondescs.user,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectiondescs.pass,
+            },
+        },    // _getStrenghtConnection
+        {  // _getStrenghtConnectionResponse
+            {  // field description for getStrenghtConnectionResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getStrenghtConnectionResponsegetStrenghtConnectionResultLocalName, // getStrenghtConnectionResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getStrenghtConnectionResponse, getStrenghtConnectionResult),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for getStrenghtConnectionResult
+            {  // fields description for _getStrenghtConnectionResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectionResponsedescs.getStrenghtConnectionResult,
+            },
+        },    // _getStrenghtConnectionResponse
+        {  // _getUserData
+            {  // field description for id
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDidLocalName, // id
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_getUserData, id),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id
+            {  // field description for user
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDuserLocalName, // user
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getUserData, user),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for user
+            {  // field description for pass
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDpassLocalName, // pass
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getUserData, pass),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for pass
+            {  // fields description for _getUserData
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getUserDatadescs.id,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getUserDatadescs.user,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getUserDatadescs.pass,
+            },
+        },    // _getUserData
+        {  // _getUserDataResponse
+            {  // field description for getUserDataResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserDataResponsegetUserDataResultLocalName, // getUserDataResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&EpicWareWeb_xsd.globalTypes.UserData,
+            WsOffsetOf(_getUserDataResponse, getUserDataResult),
+            WS_FIELD_POINTER| WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for getUserDataResult
+            {  // fields description for _getUserDataResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getUserDataResponsedescs.getUserDataResult,
+            },
+        },    // _getUserDataResponse
+        {  // _createFriendRequest
+            {  // field description for id1
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtid1LocalName, // id1
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_createFriendRequest, id1),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id1
+            {  // field description for id2
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getConnectioStrenghtid2LocalName, // id2
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_createFriendRequest, id2),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for id2
+            {  // field description for user
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDuserLocalName, // user
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_createFriendRequest, user),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for user
+            {  // field description for pass
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserByIDpassLocalName, // pass
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_createFriendRequest, pass),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for pass
+            {  // fields description for _createFriendRequest
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestdescs.id1,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestdescs.id2,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestdescs.user,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestdescs.pass,
+            },
+        },    // _createFriendRequest
+        {  // _createFriendRequestResponse
+            {  // field description for createFriendRequestResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._createFriendRequestResponsecreateFriendRequestResultLocalName, // createFriendRequestResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_BOOL_TYPE,
+            0,
+            WsOffsetOf(_createFriendRequestResponse, createFriendRequestResult),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for createFriendRequestResult
+            {  // fields description for _createFriendRequestResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestResponsedescs.createFriendRequestResult,
+            },
+        },    // _createFriendRequestResponse
     }, // end of global elements
     {  // dictionary 
         {  // xmlStrings
@@ -437,13 +747,25 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("id2",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 32),
             WS_XML_STRING_DICTIONARY_VALUE("getConnectioStrenghtResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 33),
             WS_XML_STRING_DICTIONARY_VALUE("getConnectioStrenghtResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 34),
+            WS_XML_STRING_DICTIONARY_VALUE("getNumberTagsForUserId",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 35),
+            WS_XML_STRING_DICTIONARY_VALUE("getNumberTagsForUserIdResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 36),
+            WS_XML_STRING_DICTIONARY_VALUE("getNumberTagsForUserIdResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 37),
+            WS_XML_STRING_DICTIONARY_VALUE("getStrenghtConnection",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 38),
+            WS_XML_STRING_DICTIONARY_VALUE("getStrenghtConnectionResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 39),
+            WS_XML_STRING_DICTIONARY_VALUE("getStrenghtConnectionResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 40),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserData",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 41),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserDataResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 42),
+            WS_XML_STRING_DICTIONARY_VALUE("getUserDataResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 43),
+            WS_XML_STRING_DICTIONARY_VALUE("createFriendRequest",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 44),
+            WS_XML_STRING_DICTIONARY_VALUE("createFriendRequestResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 45),
+            WS_XML_STRING_DICTIONARY_VALUE("createFriendRequestResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 46),
         },  // end of xmlStrings
         
         {  // tempuri_org_xsddictionary
-          // dda19f73-d8d7-4ca3-8473-af1a7bc198e9 
-        { 0xdda19f73, 0xd8d7, 0x4ca3, { 0x84, 0x73, 0xaf,0x1a, 0x7b, 0xc1, 0x98, 0xe9 } },
+          // 8762e6ee-00c9-4802-9cdc-aecd4b27232c 
+        { 0x8762e6ee, 0x00c9, 0x4802, { 0x9c, 0xdc, 0xae,0xcd, 0x4b, 0x27, 0x23, 0x2c } },
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings,
-        35,
+        47,
         TRUE,
         },
     },  //  end of dictionary
@@ -547,6 +869,54 @@ const _tempuri_org_xsd tempuri_org_xsd =
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
             WS_STRUCT_TYPE,
             (void*)&tempuri_org_xsd.externallyReferencedTypes.getConnectioStrenghtResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberTagsForUserIdTypeName, // getNumberTagsForUserId
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getNumberTagsForUserId,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberTagsForUserIdResponseTypeName, // getNumberTagsForUserIdResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getNumberTagsForUserIdResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getStrenghtConnectionTypeName, // getStrenghtConnection
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getStrenghtConnection,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getStrenghtConnectionResponseTypeName, // getStrenghtConnectionResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getStrenghtConnectionResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserDataTypeName, // getUserData
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getUserData,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserDataResponseTypeName, // getUserDataResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getUserDataResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._createFriendRequestTypeName, // createFriendRequest
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.createFriendRequest,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._createFriendRequestResponseTypeName, // createFriendRequestResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.createFriendRequestResponse,
         },
     },  // globalElements
     {  // begin of externallyReferencedTypes
@@ -726,5 +1096,93 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         0,
         },   // end of struct description for _getConnectioStrenghtResponse
+        {
+        sizeof(_getNumberTagsForUserId),
+        __alignof(_getNumberTagsForUserId),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIddescs._getNumberTagsForUserIdFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIddescs._getNumberTagsForUserIdFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberTagsForUserIdTypeName, // getNumberTagsForUserId
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getNumberTagsForUserId
+        {
+        sizeof(_getNumberTagsForUserIdResponse),
+        __alignof(_getNumberTagsForUserIdResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIdResponsedescs._getNumberTagsForUserIdResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getNumberTagsForUserIdResponsedescs._getNumberTagsForUserIdResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberTagsForUserIdResponseTypeName, // getNumberTagsForUserIdResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getNumberTagsForUserIdResponse
+        {
+        sizeof(_getStrenghtConnection),
+        __alignof(_getStrenghtConnection),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectiondescs._getStrenghtConnectionFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectiondescs._getStrenghtConnectionFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getStrenghtConnectionTypeName, // getStrenghtConnection
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getStrenghtConnection
+        {
+        sizeof(_getStrenghtConnectionResponse),
+        __alignof(_getStrenghtConnectionResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectionResponsedescs._getStrenghtConnectionResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getStrenghtConnectionResponsedescs._getStrenghtConnectionResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getStrenghtConnectionResponseTypeName, // getStrenghtConnectionResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getStrenghtConnectionResponse
+        {
+        sizeof(_getUserData),
+        __alignof(_getUserData),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getUserDatadescs._getUserDataFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getUserDatadescs._getUserDataFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserDataTypeName, // getUserData
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getUserData
+        {
+        sizeof(_getUserDataResponse),
+        __alignof(_getUserDataResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getUserDataResponsedescs._getUserDataResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getUserDataResponsedescs._getUserDataResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getUserDataResponseTypeName, // getUserDataResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getUserDataResponse
+        {
+        sizeof(_createFriendRequest),
+        __alignof(_createFriendRequest),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestdescs._createFriendRequestFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestdescs._createFriendRequestFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._createFriendRequestTypeName, // createFriendRequest
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _createFriendRequest
+        {
+        sizeof(_createFriendRequestResponse),
+        __alignof(_createFriendRequestResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestResponsedescs._createFriendRequestResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._createFriendRequestResponsedescs._createFriendRequestResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._createFriendRequestResponseTypeName, // createFriendRequestResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getNumberUsersTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _createFriendRequestResponse
     },  // end of externallyReferencedTypes;
 }; // end of _tempuri_org_xsd

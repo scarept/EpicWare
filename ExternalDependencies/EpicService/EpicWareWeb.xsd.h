@@ -43,8 +43,10 @@ extern "C" {
 
 //     struct ArrayOfWord;
 //     struct Word;
+//     struct UserData;
 //     struct ArrayOfWord;
 //     struct Word;
+//     struct UserData;
 
 // The following header files must be included in this order before this one
 
@@ -69,6 +71,14 @@ typedef struct Word
     WCHAR* topic; // optional
 } Word;
 
+// typeDescription: EpicWareWeb_xsd.globalTypes.UserData
+typedef struct UserData 
+{
+    WCHAR* firstName; // optional
+    WCHAR* lastName; // optional
+    int numberOfUserTags;
+} UserData;
+
 ////////////////////////////////////////////////
 // Global web service descriptions.
 ////////////////////////////////////////////////
@@ -89,6 +99,12 @@ typedef struct _EpicWareWeb_xsd
         // typeDescription: EpicWareWeb_xsd.globalTypes.Word
         WS_STRUCT_DESCRIPTION Word;
         
+        // xml type: UserData ("http://schemas.datacontract.org/2004/07/EpicWareWeb")
+        // c type: UserData
+        // WS_TYPE: WS_STRUCT_TYPE
+        // typeDescription: EpicWareWeb_xsd.globalTypes.UserData
+        WS_STRUCT_DESCRIPTION UserData;
+        
     } globalTypes;
     struct // globalElements
     {
@@ -101,6 +117,11 @@ typedef struct _EpicWareWeb_xsd
         // c type: Word
         // elementDescription: EpicWareWeb_xsd.globalElements.Word
         WS_ELEMENT_DESCRIPTION Word;
+        
+        // xml element: UserData ("http://schemas.datacontract.org/2004/07/EpicWareWeb")
+        // c type: UserData
+        // elementDescription: EpicWareWeb_xsd.globalElements.UserData
+        WS_ELEMENT_DESCRIPTION UserData;
         
     } globalElements;
 } _EpicWareWeb_xsd;

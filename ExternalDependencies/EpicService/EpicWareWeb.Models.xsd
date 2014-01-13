@@ -21,6 +21,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="languageID" type="xs:int" />
       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="reference" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Language" nillable="true" type="tns:Language" />
@@ -100,10 +101,19 @@
   <xs:element name="ArrayOfScoreUser" nillable="true" type="tns:ArrayOfScoreUser" />
   <xs:complexType name="ScoreUser">
     <xs:sequence>
+      <xs:element minOccurs="0" name="MyProperty" nillable="true" type="tns:Game" />
+      <xs:element minOccurs="0" name="points" type="xs:int" />
       <xs:element minOccurs="0" name="scoreUserID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ScoreUser" nillable="true" type="tns:ScoreUser" />
+  <xs:complexType name="Game">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="gameID" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Game" nillable="true" type="tns:Game" />
   <xs:complexType name="Profile">
     <xs:sequence>
       <xs:element minOccurs="0" name="birthday" type="xs:dateTime" />

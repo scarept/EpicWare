@@ -17,7 +17,8 @@ typedef struct _EpicWareWeb_Models_xsdLocalDefinitions
             {
                 WS_FIELD_DESCRIPTION languageID;
                 WS_FIELD_DESCRIPTION name;
-                WS_FIELD_DESCRIPTION* LanguageFields [2]; 
+                WS_FIELD_DESCRIPTION reference;
+                WS_FIELD_DESCRIPTION* LanguageFields [3]; 
             } Languagedescs; // end of Language
             WS_FIELD_DESCRIPTION language;
             struct  // Connection
@@ -70,8 +71,16 @@ typedef struct _EpicWareWeb_Models_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION notifications;
             struct  // ScoreUser
             {
+                struct  // Game
+                {
+                    WS_FIELD_DESCRIPTION gameID;
+                    WS_FIELD_DESCRIPTION name;
+                    WS_FIELD_DESCRIPTION* GameFields [2]; 
+                } Gamedescs; // end of Game
+                WS_FIELD_DESCRIPTION MyProperty;
+                WS_FIELD_DESCRIPTION points;
                 WS_FIELD_DESCRIPTION scoreUserID;
-                WS_FIELD_DESCRIPTION* ScoreUserFields [1]; 
+                WS_FIELD_DESCRIPTION* ScoreUserFields [3]; 
             } ScoreUserdescs; // end of ScoreUser
             WS_FIELD_DESCRIPTION scores;
             WS_FIELD_DESCRIPTION userID;
@@ -145,6 +154,7 @@ typedef struct _EpicWareWeb_Models_xsdLocalDefinitions
             WS_XML_STRING LanguageTypeName;  // Language
             WS_XML_STRING LanguagelanguageIDLocalName;  // languageID
             WS_XML_STRING LanguagenameLocalName;  // name
+            WS_XML_STRING LanguagereferenceLocalName;  // reference
             WS_XML_STRING UserlanguageLocalName;  // language
             WS_XML_STRING ConnectionTypeName;  // Connection
             WS_XML_STRING ConnectionOwnerLocalName;  // Owner
@@ -176,6 +186,10 @@ typedef struct _EpicWareWeb_Models_xsdLocalDefinitions
             WS_XML_STRING NotificationtimeLocalName;  // time
             WS_XML_STRING UsernotificationsWrapperName;  // notifications
             WS_XML_STRING ScoreUserTypeName;  // ScoreUser
+            WS_XML_STRING GameTypeName;  // Game
+            WS_XML_STRING GamegameIDLocalName;  // gameID
+            WS_XML_STRING ScoreUserMyPropertyLocalName;  // MyProperty
+            WS_XML_STRING ScoreUserpointsLocalName;  // points
             WS_XML_STRING ScoreUserscoreUserIDLocalName;  // scoreUserID
             WS_XML_STRING UserscoresWrapperName;  // scores
             WS_XML_STRING UseruserIDLocalName;  // userID
@@ -268,9 +282,21 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
                 0,
                 0xffffffff
                 },    // end of field description for name
+                {  // field description for reference
+                WS_ELEMENT_FIELD_MAPPING,
+                (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.LanguagereferenceLocalName, // reference
+                (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+                WS_WSZ_TYPE,
+                0,
+                WsOffsetOf(Language, reference),
+                 WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+                0,
+                0xffffffff
+                },    // end of field description for reference
                 {  // fields description for Language
                 (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.Languagedescs.languageID,
                 (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.Languagedescs.name,
+                (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.Languagedescs.reference,
                 },
             },    // Language
             {  // field description for language
@@ -602,6 +628,56 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
             0,
             },    // end of field description for notifications
             {  // ScoreUser
+                {  // Game
+                    {  // field description for gameID
+                    WS_ELEMENT_FIELD_MAPPING,
+                    (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.GamegameIDLocalName, // gameID
+                    (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+                    WS_INT32_TYPE,
+                    0,
+                    WsOffsetOf(Game, gameID),
+                     WS_FIELD_OPTIONAL,
+                    0,
+                    0xffffffff
+                    },    // end of field description for gameID
+                    {  // field description for name
+                    WS_ELEMENT_FIELD_MAPPING,
+                    (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.LanguagenameLocalName, // name
+                    (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+                    WS_WSZ_TYPE,
+                    0,
+                    WsOffsetOf(Game, name),
+                     WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+                    0,
+                    0xffffffff
+                    },    // end of field description for name
+                    {  // fields description for Game
+                    (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.Gamedescs.gameID,
+                    (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.Gamedescs.name,
+                    },
+                },    // Game
+                {  // field description for MyProperty
+                WS_ELEMENT_FIELD_MAPPING,
+                (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.ScoreUserMyPropertyLocalName, // MyProperty
+                (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+                WS_STRUCT_TYPE,
+                (void*)&EpicWareWeb_Models_xsd.globalTypes.Game,
+                WsOffsetOf(ScoreUser, MyProperty),
+                WS_FIELD_POINTER| WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+                0,
+                0xffffffff
+                },    // end of field description for MyProperty
+                {  // field description for points
+                WS_ELEMENT_FIELD_MAPPING,
+                (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.ScoreUserpointsLocalName, // points
+                (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+                WS_INT32_TYPE,
+                0,
+                WsOffsetOf(ScoreUser, points),
+                 WS_FIELD_OPTIONAL,
+                0,
+                0xffffffff
+                },    // end of field description for points
                 {  // field description for scoreUserID
                 WS_ELEMENT_FIELD_MAPPING,
                 (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.ScoreUserscoreUserIDLocalName, // scoreUserID
@@ -614,6 +690,8 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
                 0xffffffff
                 },    // end of field description for scoreUserID
                 {  // fields description for ScoreUser
+                (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.MyProperty,
+                (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.points,
                 (WS_FIELD_DESCRIPTION*)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.scoreUserID,
                 },
             },    // ScoreUser
@@ -992,70 +1070,75 @@ const static _EpicWareWeb_Models_xsdLocalDefinitions EpicWareWeb_Models_xsdLocal
             WS_XML_STRING_DICTIONARY_VALUE("Language",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 5),
             WS_XML_STRING_DICTIONARY_VALUE("languageID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 6),
             WS_XML_STRING_DICTIONARY_VALUE("name",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 7),
-            WS_XML_STRING_DICTIONARY_VALUE("language",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 8),
-            WS_XML_STRING_DICTIONARY_VALUE("Connection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 9),
-            WS_XML_STRING_DICTIONARY_VALUE("Owner",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 10),
-            WS_XML_STRING_DICTIONARY_VALUE("connectionID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 11),
-            WS_XML_STRING_DICTIONARY_VALUE("strenght",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 12),
-            WS_XML_STRING_DICTIONARY_VALUE("TagConnection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 13),
-            WS_XML_STRING_DICTIONARY_VALUE("tag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 14),
-            WS_XML_STRING_DICTIONARY_VALUE("tagConnectionID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 15),
-            WS_XML_STRING_DICTIONARY_VALUE("tagConnection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 16),
-            WS_XML_STRING_DICTIONARY_VALUE("userConnected",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 17),
-            WS_XML_STRING_DICTIONARY_VALUE("listConnections",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 18),
-            WS_XML_STRING_DICTIONARY_VALUE("Mission",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 19),
-            WS_XML_STRING_DICTIONARY_VALUE("description",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 20),
-            WS_XML_STRING_DICTIONARY_VALUE("level",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 21),
-            WS_XML_STRING_DICTIONARY_VALUE("missionID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 22),
-            WS_XML_STRING_DICTIONARY_VALUE("missions",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 23),
-            WS_XML_STRING_DICTIONARY_VALUE("Mood",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 24),
-            WS_XML_STRING_DICTIONARY_VALUE("moodID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 25),
-            WS_XML_STRING_DICTIONARY_VALUE("mood",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 26),
-            WS_XML_STRING_DICTIONARY_VALUE("Notification",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 27),
-            WS_XML_STRING_DICTIONARY_VALUE("message",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 28),
-            WS_XML_STRING_DICTIONARY_VALUE("notificationID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 29),
-            WS_XML_STRING_DICTIONARY_VALUE("NotificationType",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 30),
-            WS_XML_STRING_DICTIONARY_VALUE("notificationTypeID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 31),
-            WS_XML_STRING_DICTIONARY_VALUE("resultLink",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 32),
-            WS_XML_STRING_DICTIONARY_VALUE("type",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 33),
-            WS_XML_STRING_DICTIONARY_VALUE("notificationType",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 34),
-            WS_XML_STRING_DICTIONARY_VALUE("read",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 35),
-            WS_XML_STRING_DICTIONARY_VALUE("time",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 36),
-            WS_XML_STRING_DICTIONARY_VALUE("notifications",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 37),
-            WS_XML_STRING_DICTIONARY_VALUE("ScoreUser",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 38),
-            WS_XML_STRING_DICTIONARY_VALUE("scoreUserID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 39),
-            WS_XML_STRING_DICTIONARY_VALUE("scores",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 40),
-            WS_XML_STRING_DICTIONARY_VALUE("userID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 41),
-            WS_XML_STRING_DICTIONARY_VALUE("Profile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 42),
-            WS_XML_STRING_DICTIONARY_VALUE("birthday",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 43),
-            WS_XML_STRING_DICTIONARY_VALUE("Country",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 44),
-            WS_XML_STRING_DICTIONARY_VALUE("countryID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 45),
-            WS_XML_STRING_DICTIONARY_VALUE("country",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 46),
-            WS_XML_STRING_DICTIONARY_VALUE("facebookProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 47),
-            WS_XML_STRING_DICTIONARY_VALUE("gender",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 48),
-            WS_XML_STRING_DICTIONARY_VALUE("lastName",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 49),
-            WS_XML_STRING_DICTIONARY_VALUE("linkedinProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 50),
-            WS_XML_STRING_DICTIONARY_VALUE("nickname",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 51),
-            WS_XML_STRING_DICTIONARY_VALUE("pathImg",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 52),
-            WS_XML_STRING_DICTIONARY_VALUE("phoneNumber",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 53),
-            WS_XML_STRING_DICTIONARY_VALUE("profileID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 54),
-            WS_XML_STRING_DICTIONARY_VALUE("twitterProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 55),
-            WS_XML_STRING_DICTIONARY_VALUE("userProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 56),
-            WS_XML_STRING_DICTIONARY_VALUE("Tag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 57),
-            WS_XML_STRING_DICTIONARY_VALUE("tagID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 58),
-            WS_XML_STRING_DICTIONARY_VALUE("userTags",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 59),
-            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfConnection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 60),
-            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfMission",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 61),
-            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfNotification",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 62),
-            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfScoreUser",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 63),
-            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfTag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 64),
+            WS_XML_STRING_DICTIONARY_VALUE("reference",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 8),
+            WS_XML_STRING_DICTIONARY_VALUE("language",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 9),
+            WS_XML_STRING_DICTIONARY_VALUE("Connection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 10),
+            WS_XML_STRING_DICTIONARY_VALUE("Owner",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 11),
+            WS_XML_STRING_DICTIONARY_VALUE("connectionID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 12),
+            WS_XML_STRING_DICTIONARY_VALUE("strenght",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 13),
+            WS_XML_STRING_DICTIONARY_VALUE("TagConnection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 14),
+            WS_XML_STRING_DICTIONARY_VALUE("tag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 15),
+            WS_XML_STRING_DICTIONARY_VALUE("tagConnectionID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 16),
+            WS_XML_STRING_DICTIONARY_VALUE("tagConnection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 17),
+            WS_XML_STRING_DICTIONARY_VALUE("userConnected",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 18),
+            WS_XML_STRING_DICTIONARY_VALUE("listConnections",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 19),
+            WS_XML_STRING_DICTIONARY_VALUE("Mission",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 20),
+            WS_XML_STRING_DICTIONARY_VALUE("description",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 21),
+            WS_XML_STRING_DICTIONARY_VALUE("level",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 22),
+            WS_XML_STRING_DICTIONARY_VALUE("missionID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 23),
+            WS_XML_STRING_DICTIONARY_VALUE("missions",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 24),
+            WS_XML_STRING_DICTIONARY_VALUE("Mood",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 25),
+            WS_XML_STRING_DICTIONARY_VALUE("moodID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 26),
+            WS_XML_STRING_DICTIONARY_VALUE("mood",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 27),
+            WS_XML_STRING_DICTIONARY_VALUE("Notification",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 28),
+            WS_XML_STRING_DICTIONARY_VALUE("message",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 29),
+            WS_XML_STRING_DICTIONARY_VALUE("notificationID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 30),
+            WS_XML_STRING_DICTIONARY_VALUE("NotificationType",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 31),
+            WS_XML_STRING_DICTIONARY_VALUE("notificationTypeID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 32),
+            WS_XML_STRING_DICTIONARY_VALUE("resultLink",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 33),
+            WS_XML_STRING_DICTIONARY_VALUE("type",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 34),
+            WS_XML_STRING_DICTIONARY_VALUE("notificationType",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 35),
+            WS_XML_STRING_DICTIONARY_VALUE("read",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 36),
+            WS_XML_STRING_DICTIONARY_VALUE("time",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 37),
+            WS_XML_STRING_DICTIONARY_VALUE("notifications",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 38),
+            WS_XML_STRING_DICTIONARY_VALUE("ScoreUser",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 39),
+            WS_XML_STRING_DICTIONARY_VALUE("Game",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 40),
+            WS_XML_STRING_DICTIONARY_VALUE("gameID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 41),
+            WS_XML_STRING_DICTIONARY_VALUE("MyProperty",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 42),
+            WS_XML_STRING_DICTIONARY_VALUE("points",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 43),
+            WS_XML_STRING_DICTIONARY_VALUE("scoreUserID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 44),
+            WS_XML_STRING_DICTIONARY_VALUE("scores",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 45),
+            WS_XML_STRING_DICTIONARY_VALUE("userID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 46),
+            WS_XML_STRING_DICTIONARY_VALUE("Profile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 47),
+            WS_XML_STRING_DICTIONARY_VALUE("birthday",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 48),
+            WS_XML_STRING_DICTIONARY_VALUE("Country",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 49),
+            WS_XML_STRING_DICTIONARY_VALUE("countryID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 50),
+            WS_XML_STRING_DICTIONARY_VALUE("country",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 51),
+            WS_XML_STRING_DICTIONARY_VALUE("facebookProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 52),
+            WS_XML_STRING_DICTIONARY_VALUE("gender",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 53),
+            WS_XML_STRING_DICTIONARY_VALUE("lastName",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 54),
+            WS_XML_STRING_DICTIONARY_VALUE("linkedinProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 55),
+            WS_XML_STRING_DICTIONARY_VALUE("nickname",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 56),
+            WS_XML_STRING_DICTIONARY_VALUE("pathImg",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 57),
+            WS_XML_STRING_DICTIONARY_VALUE("phoneNumber",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 58),
+            WS_XML_STRING_DICTIONARY_VALUE("profileID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 59),
+            WS_XML_STRING_DICTIONARY_VALUE("twitterProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 60),
+            WS_XML_STRING_DICTIONARY_VALUE("userProfile",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 61),
+            WS_XML_STRING_DICTIONARY_VALUE("Tag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 62),
+            WS_XML_STRING_DICTIONARY_VALUE("tagID",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 63),
+            WS_XML_STRING_DICTIONARY_VALUE("userTags",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 64),
+            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfConnection",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 65),
+            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfMission",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 66),
+            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfNotification",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 67),
+            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfScoreUser",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 68),
+            WS_XML_STRING_DICTIONARY_VALUE("ArrayOfTag",&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.dict, 69),
         },  // end of xmlStrings
         
         {  // EpicWareWeb_Models_xsddictionary
-          // 08dd3849-7b80-426b-be54-86d03e5aaa63 
-        { 0x08dd3849, 0x7b80, 0x426b, { 0xbe, 0x54, 0x86,0xd0, 0x3e, 0x5a, 0xaa, 0x63 } },
+          // 26a24698-9544-4257-a6b9-aec152689c80 
+        { 0x26a24698, 0x9544, 0x4257, { 0xa6, 0xb9, 0xae,0xc1, 0x52, 0x68, 0x9c, 0x80 } },
         (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings,
-        65,
+        70,
         TRUE,
         },
     },  //  end of dictionary
@@ -1208,6 +1291,17 @@ const _EpicWareWeb_Models_xsd EpicWareWeb_Models_xsd =
         0,
         },   // end of struct description for ScoreUser
         {
+        sizeof(Game),
+        __alignof(Game),
+        (WS_FIELD_DESCRIPTION**)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.Gamedescs.GameFields,
+        WsCountOf(EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.ScoreUserdescs.Gamedescs.GameFields),
+        (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.GameTypeName, // Game
+        (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+        0,
+        0,
+        0,
+        },   // end of struct description for Game
+        {
         sizeof(Profile),
         __alignof(Profile),
         (WS_FIELD_DESCRIPTION**)&EpicWareWeb_Models_xsdLocalDefinitions.globalTypes.Userdescs.Profiledescs.ProfileFields,
@@ -1330,6 +1424,12 @@ const _EpicWareWeb_Models_xsd EpicWareWeb_Models_xsd =
             (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
             WS_STRUCT_TYPE,
             (void*)&EpicWareWeb_Models_xsd.globalTypes.ScoreUser,
+        },
+        {
+            (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.GameTypeName, // Game
+            (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.UserTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb.Models
+            WS_STRUCT_TYPE,
+            (void*)&EpicWareWeb_Models_xsd.globalTypes.Game,
         },
         {
             (WS_XML_STRING*)&EpicWareWeb_Models_xsdLocalDefinitions.dictionary.xmlStrings.ProfileTypeName, // Profile

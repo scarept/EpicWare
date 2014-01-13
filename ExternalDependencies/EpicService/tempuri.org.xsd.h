@@ -57,6 +57,14 @@ extern "C" {
 //     struct _getAllUsersIDResponse;
 //     struct _getConnectioStrenght;
 //     struct _getConnectioStrenghtResponse;
+//     struct _getNumberTagsForUserId;
+//     struct _getNumberTagsForUserIdResponse;
+//     struct _getStrenghtConnection;
+//     struct _getStrenghtConnectionResponse;
+//     struct _getUserData;
+//     struct _getUserDataResponse;
+//     struct _createFriendRequest;
+//     struct _createFriendRequestResponse;
 
 // The following header files must be included in this order before this one
 
@@ -158,6 +166,64 @@ typedef struct _getConnectioStrenghtResponse
     int getConnectioStrenghtResult;
 } _getConnectioStrenghtResponse;
 
+// typeDescription: n/a
+typedef struct _getNumberTagsForUserId 
+{
+    int id;
+    WCHAR* user; // optional
+    WCHAR* pass; // optional
+} _getNumberTagsForUserId;
+
+// typeDescription: n/a
+typedef struct _getNumberTagsForUserIdResponse 
+{
+    int getNumberTagsForUserIdResult;
+} _getNumberTagsForUserIdResponse;
+
+// typeDescription: n/a
+typedef struct _getStrenghtConnection 
+{
+    int id1;
+    int id2;
+    WCHAR* user; // optional
+    WCHAR* pass; // optional
+} _getStrenghtConnection;
+
+// typeDescription: n/a
+typedef struct _getStrenghtConnectionResponse 
+{
+    int getStrenghtConnectionResult;
+} _getStrenghtConnectionResponse;
+
+// typeDescription: n/a
+typedef struct _getUserData 
+{
+    int id;
+    WCHAR* user; // optional
+    WCHAR* pass; // optional
+} _getUserData;
+
+// typeDescription: n/a
+typedef struct _getUserDataResponse 
+{
+    struct UserData* getUserDataResult;
+} _getUserDataResponse;
+
+// typeDescription: n/a
+typedef struct _createFriendRequest 
+{
+    int id1;
+    int id2;
+    WCHAR* user; // optional
+    WCHAR* pass; // optional
+} _createFriendRequest;
+
+// typeDescription: n/a
+typedef struct _createFriendRequestResponse 
+{
+    BOOL createFriendRequestResult;
+} _createFriendRequestResponse;
+
 ////////////////////////////////////////////////
 // Global web service descriptions.
 ////////////////////////////////////////////////
@@ -246,6 +312,46 @@ typedef struct _tempuri_org_xsd
         // elementDescription: tempuri_org_xsd.globalElements.getConnectioStrenghtResponse
         WS_ELEMENT_DESCRIPTION getConnectioStrenghtResponse;
         
+        // xml element: getNumberTagsForUserId ("http://tempuri.org/")
+        // c type: _getNumberTagsForUserId
+        // elementDescription: tempuri_org_xsd.globalElements.getNumberTagsForUserId
+        WS_ELEMENT_DESCRIPTION getNumberTagsForUserId;
+        
+        // xml element: getNumberTagsForUserIdResponse ("http://tempuri.org/")
+        // c type: _getNumberTagsForUserIdResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getNumberTagsForUserIdResponse
+        WS_ELEMENT_DESCRIPTION getNumberTagsForUserIdResponse;
+        
+        // xml element: getStrenghtConnection ("http://tempuri.org/")
+        // c type: _getStrenghtConnection
+        // elementDescription: tempuri_org_xsd.globalElements.getStrenghtConnection
+        WS_ELEMENT_DESCRIPTION getStrenghtConnection;
+        
+        // xml element: getStrenghtConnectionResponse ("http://tempuri.org/")
+        // c type: _getStrenghtConnectionResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getStrenghtConnectionResponse
+        WS_ELEMENT_DESCRIPTION getStrenghtConnectionResponse;
+        
+        // xml element: getUserData ("http://tempuri.org/")
+        // c type: _getUserData
+        // elementDescription: tempuri_org_xsd.globalElements.getUserData
+        WS_ELEMENT_DESCRIPTION getUserData;
+        
+        // xml element: getUserDataResponse ("http://tempuri.org/")
+        // c type: _getUserDataResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getUserDataResponse
+        WS_ELEMENT_DESCRIPTION getUserDataResponse;
+        
+        // xml element: createFriendRequest ("http://tempuri.org/")
+        // c type: _createFriendRequest
+        // elementDescription: tempuri_org_xsd.globalElements.createFriendRequest
+        WS_ELEMENT_DESCRIPTION createFriendRequest;
+        
+        // xml element: createFriendRequestResponse ("http://tempuri.org/")
+        // c type: _createFriendRequestResponse
+        // elementDescription: tempuri_org_xsd.globalElements.createFriendRequestResponse
+        WS_ELEMENT_DESCRIPTION createFriendRequestResponse;
+        
     } globalElements;
     struct // externallyReferencedTypes
     {
@@ -265,6 +371,14 @@ typedef struct _tempuri_org_xsd
         WS_STRUCT_DESCRIPTION getAllUsersIDResponse;
         WS_STRUCT_DESCRIPTION getConnectioStrenght;
         WS_STRUCT_DESCRIPTION getConnectioStrenghtResponse;
+        WS_STRUCT_DESCRIPTION getNumberTagsForUserId;
+        WS_STRUCT_DESCRIPTION getNumberTagsForUserIdResponse;
+        WS_STRUCT_DESCRIPTION getStrenghtConnection;
+        WS_STRUCT_DESCRIPTION getStrenghtConnectionResponse;
+        WS_STRUCT_DESCRIPTION getUserData;
+        WS_STRUCT_DESCRIPTION getUserDataResponse;
+        WS_STRUCT_DESCRIPTION createFriendRequest;
+        WS_STRUCT_DESCRIPTION createFriendRequestResponse;
     } externallyReferencedTypes;
 } _tempuri_org_xsd;
 

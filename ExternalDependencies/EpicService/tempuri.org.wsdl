@@ -57,6 +57,30 @@
   <wsdl:message name="IWebService_getConnectioStrenght_OutputMessage">
     <wsdl:part name="parameters" element="tns:getConnectioStrenghtResponse" />
   </wsdl:message>
+  <wsdl:message name="IWebService_getNumberTagsForUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:getNumberTagsForUserId" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_getNumberTagsForUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getNumberTagsForUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_getStrenghtConnection_InputMessage">
+    <wsdl:part name="parameters" element="tns:getStrenghtConnection" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_getStrenghtConnection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getStrenghtConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_getUserData_InputMessage">
+    <wsdl:part name="parameters" element="tns:getUserData" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_getUserData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getUserDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_createFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:createFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IWebService_createFriendRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:createFriendRequestResponse" />
+  </wsdl:message>
   <wsdl:portType name="IWebService">
     <wsdl:operation name="getNumberUsers">
       <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getNumberUsers" message="tns:IWebService_getNumberUsers_InputMessage" />
@@ -89,6 +113,22 @@
     <wsdl:operation name="getConnectioStrenght">
       <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getConnectioStrenght" message="tns:IWebService_getConnectioStrenght_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getConnectioStrenghtResponse" message="tns:IWebService_getConnectioStrenght_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getNumberTagsForUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getNumberTagsForUserId" message="tns:IWebService_getNumberTagsForUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getNumberTagsForUserIdResponse" message="tns:IWebService_getNumberTagsForUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getStrenghtConnection">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getStrenghtConnection" message="tns:IWebService_getStrenghtConnection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getStrenghtConnectionResponse" message="tns:IWebService_getStrenghtConnection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebService/getUserData" message="tns:IWebService_getUserData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebService/getUserDataResponse" message="tns:IWebService_getUserData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="createFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebService/createFriendRequest" message="tns:IWebService_createFriendRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebService/createFriendRequestResponse" message="tns:IWebService_createFriendRequest_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IWebService" type="tns:IWebService">
@@ -158,6 +198,42 @@
     </wsdl:operation>
     <wsdl:operation name="getConnectioStrenght">
       <soap:operation soapAction="http://tempuri.org/IWebService/getConnectioStrenght" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNumberTagsForUserId">
+      <soap:operation soapAction="http://tempuri.org/IWebService/getNumberTagsForUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStrenghtConnection">
+      <soap:operation soapAction="http://tempuri.org/IWebService/getStrenghtConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserData">
+      <soap:operation soapAction="http://tempuri.org/IWebService/getUserData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createFriendRequest">
+      <soap:operation soapAction="http://tempuri.org/IWebService/createFriendRequest" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
