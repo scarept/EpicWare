@@ -2,12 +2,15 @@
 #include <math.h>   
 #include <stdlib.h> 
 #include <iostream>
-#include <GL\glut.h>
-#include "Grafo.h"
-#include "DataTypeChange.h"
+#include <thread>
+#include <freeGLUT\include\GL\freeglut.h>
+//#include <freeGLUT\include\GL\freeglut.h>
+#include "core\Grafo.h"
+#include "core\DataTypeChange.h"
 #include <External images for OpenGL\LoadImages.h>
 #include <WCF\WCF.h>
 #include <EpicService\EpicWareWeb.Models.xsd.h>
+#include <process.h>
 
 using namespace std;
 
@@ -67,7 +70,6 @@ const GLfloat mat_shininess[] = { 27.8,	// brass
 75.0,	// preto
 60.0 };	// cinza
 
-
 enum tipo_material { brass, red_plastic, emerald, slate, azul, preto, cinza }; //materiais para cobrir os objectos
 
 #ifdef __cplusplus
@@ -79,6 +81,13 @@ inline tipo_material operator++(tipo_material &rs, int) {
 typedef	GLdouble Vertice[3];
 typedef	GLdouble Vector[4];
 
+typedef struct PrologInfo{
+	int argc;
+	char **argv;
+
+}PrologInfo;
+
+PrologInfo pInfo;
 
 typedef struct pickingPesquisa{
 	GLdouble x1;
@@ -128,6 +137,7 @@ typedef struct Login{
 
 }Login;
 
+
 typedef struct pos_t{
 	GLfloat    x, y, z;
 }pos_t;
@@ -141,6 +151,7 @@ typedef struct objecto_t{
 	GLfloat  vel;
 	teclas_t teclaColis;
 }objecto_t;
+
 
 typedef struct Modelo {
 #ifdef __cplusplus
@@ -199,7 +210,6 @@ void initEstado(){
 	estado.light = GL_FALSE;
 	estado.apresentaNormais = GL_FALSE;
 	estado.lightViewer = 1;
-
 }
 
 void initModelo(){
@@ -225,7 +235,6 @@ void initNotification(){
 	notificationStatus.showNotification = false;
 
 }
-
 
 void desenhaBtnLogin(GLenum mode){
 	/* funções botões */
@@ -399,8 +408,8 @@ void escreveTexto(){
 }
 
 void loginInit(){
-	login.imagemFundo = load3D("background.png");
-	login.loginBoxImg = load3D("login.png");
+	login.imagemFundo = load3D(".\/images\/background.png");
+	login.loginBoxImg = load3D(".\/images\/login.png");
 	/*
 	glPushMatrix();
 	menu.imagemFundo = load3D("menu.png");
@@ -605,8 +614,6 @@ void gameInit(User *utilizador)
 	modelo.obj.dirLong = -4.0154;
 	modelo.obj.dist = 100;
 }
-
-
 
 void imprime_ajuda(void)
 {
@@ -849,7 +856,6 @@ void eventoNotificacao(){
 
 
 }
-
 
 void desenhaParede(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf){
 	/*
@@ -1769,16 +1775,73 @@ void keyboard(unsigned char key, int x, int y)
 	}
 }
 
+void runLabyrinth(){
+
+
+}
+
+int latestHangmanScore;
+std::thread HangmanThread;
+bool hangmanRunning;
+
+int latestLabyrinthScore;
+std::thread LabyrinthThread;
+bool labyrinthRunning;
+
+int latestTicTacToeScore;
+std::thread TicTacToeThread;
+bool tictactoeRunning;
+
+void runHangman(){
+
+	hangmanRunning = true;
+	char *spawn_args[2] = { NULL };
+
+	// execute the other process and wait for it to terminate
+	spawn_args[0] = ".\/..\/..\/..\/";
+	latestHangmanScore = _spawnv(
+		P_WAIT,
+		"./WCFProlog.exe",
+		spawn_args
+		);
+	hangmanRunning = false;
+	return;
+}
+
+
+
 void Special(int key, int x, int y){
 
 	switch (key){
-	case GLUT_KEY_F1:
-		gravaGrafo();
-		break;
+	
+		{ case GLUT_KEY_F1:
+
+			if (!hangmanRunning){
+
+				if (HangmanThread.joinable())
+					HangmanThread.join();
+
+				HangmanThread = std::thread(runHangman);
+				std::cout << "main, Hangman will now execute concurrently...\n";
+			}
+
+			break;
+		}
 	case GLUT_KEY_F2:
 //		leGrafo();
 		glutPostRedisplay();
 		break;
+		{
+	case GLUT_KEY_F3:
+
+		//Simulate Timer action
+		if (!hangmanRunning){
+		
+			HangmanThread.join();
+		}
+
+		break;
+		}
 
 	case GLUT_KEY_F6:
 		numNos = numArcos = 0;
@@ -1840,6 +1903,7 @@ void SpecialUP(int key, int x, int y)
 		}
 	}
 }
+
 
 void setProjection(int x, int y, GLboolean picking){
 	glLoadIdentity();
@@ -2155,6 +2219,10 @@ int picking(int x, int y){
 	return objid;
 }
 
+void ss(User * utilizador){
+
+
+}
 
 void userLogin(){
 	/*chama a web service*/
@@ -2188,7 +2256,7 @@ void userLogin(){
 	}
 	else{
 		cout << "Utilizador invalido" << endl;
-		login.loginBoxImg = load3D("login_password_invalid.png");
+		login.loginBoxImg = load3D(".\/images\/login_password_invalid.png");
 		//login.loginBoxImg = "login_password_invalid.png";
 		/*coloca algo a vermelho no meenu*/
 	}
@@ -2906,9 +2974,11 @@ void Timer(int value)
 		display();
 //	}
 }
-
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
+	pInfo.argc = argc;
+	pInfo.argv = argv;
+
 	glutInit(&argc, argv);
 
 	/* need both double buffering and z buffer */
@@ -2916,7 +2986,12 @@ void main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(1000, 700); //tamanho da janela
 	glutCreateWindow("SocialGame - EpicWare"); //nome da janela
-
+	
+	glutSetOption(
+		GLUT_ACTION_ON_WINDOW_CLOSE,
+		GLUT_ACTION_GLUTMAINLOOP_RETURNS
+		);
+		
 	/* fazer novo init*/
 	estado.estadoJogo = 0;
 	login.usernameSelected = true;
@@ -2939,7 +3014,18 @@ void main(int argc, char **argv)
 
 	glutTimerFunc(estado.timer, Timer, 0);
 
-
-
 	glutMainLoop();
+
+	if (HangmanThread.joinable()){
+
+		//Wait for Hangman-launching thread to close
+		HangmanThread.join();
+
+		cout << "Publish score to DB" << "\n";
+		//first.detach();
+		//first.~thread();
+		//delete &first;
+	}
+
+	return 0;
 }
