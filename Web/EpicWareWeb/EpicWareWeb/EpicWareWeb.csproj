@@ -198,57 +198,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IWebService.cs" />
-    <Compile Include="Migrations\201312220009168_addTag.cs" />
-    <Compile Include="Migrations\201312220009168_addTag.Designer.cs">
-      <DependentUpon>201312220009168_addTag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312231907478_FriendRequesAddTagAndStr.cs" />
-    <Compile Include="Migrations\201312231907478_FriendRequesAddTagAndStr.Designer.cs">
-      <DependentUpon>201312231907478_FriendRequesAddTagAndStr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.cs" />
-    <Compile Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.Designer.cs">
-      <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401022327246_rmImgNotification.cs" />
-    <Compile Include="Migrations\201401022327246_rmImgNotification.Designer.cs">
-      <DependentUpon>201401022327246_rmImgNotification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401022337302_updNotification.cs" />
-    <Compile Include="Migrations\201401022337302_updNotification.Designer.cs">
-      <DependentUpon>201401022337302_updNotification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401022353314_updNotification2.cs" />
-    <Compile Include="Migrations\201401022353314_updNotification2.Designer.cs">
-      <DependentUpon>201401022353314_updNotification2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401022355073_updNotification3.cs" />
-    <Compile Include="Migrations\201401022355073_updNotification3.Designer.cs">
-      <DependentUpon>201401022355073_updNotification3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401071207245_downLoadAdd.cs" />
-    <Compile Include="Migrations\201401071207245_downLoadAdd.Designer.cs">
-      <DependentUpon>201401071207245_downLoadAdd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401101743509_updTags.cs" />
-    <Compile Include="Migrations\201401101743509_updTags.Designer.cs">
-      <DependentUpon>201401101743509_updTags.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401110052480_teste.cs" />
-    <Compile Include="Migrations\201401110052480_teste.Designer.cs">
-      <DependentUpon>201401110052480_teste.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401121428341_updUser.cs" />
-    <Compile Include="Migrations\201401121428341_updUser.Designer.cs">
-      <DependentUpon>201401121428341_updUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401121436252_rmvSomeRequires.cs" />
-    <Compile Include="Migrations\201401121436252_rmvSomeRequires.Designer.cs">
-      <DependentUpon>201401121436252_rmvSomeRequires.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201401131736439_updTeste.cs" />
-    <Compile Include="Migrations\201401131736439_updTeste.Designer.cs">
-      <DependentUpon>201401131736439_updTeste.cs</DependentUpon>
+    <Compile Include="Migrations\201401131845533_final.cs" />
+    <Compile Include="Migrations\201401131845533_final.Designer.cs">
+      <DependentUpon>201401131845533_final.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -1145,59 +1097,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201312220009168_addTag.resx">
-      <DependentUpon>201312220009168_addTag.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312231907478_FriendRequesAddTagAndStr.resx">
-      <DependentUpon>201312231907478_FriendRequesAddTagAndStr.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312302335033_addSendBCBool_IntroFriendRequest.resx">
-      <DependentUpon>201312302335033_addSendBCBool_IntroFriendRequest.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401022327246_rmImgNotification.resx">
-      <DependentUpon>201401022327246_rmImgNotification.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401022337302_updNotification.resx">
-      <DependentUpon>201401022337302_updNotification.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401022353314_updNotification2.resx">
-      <DependentUpon>201401022353314_updNotification2.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401022355073_updNotification3.resx">
-      <DependentUpon>201401022355073_updNotification3.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401071207245_downLoadAdd.resx">
-      <DependentUpon>201401071207245_downLoadAdd.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401101743509_updTags.resx">
-      <DependentUpon>201401101743509_updTags.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401110052480_teste.resx">
-      <DependentUpon>201401110052480_teste.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401121428341_updUser.resx">
-      <DependentUpon>201401121428341_updUser.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401121436252_rmvSomeRequires.resx">
-      <DependentUpon>201401121436252_rmvSomeRequires.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401131320168_addRefLanguage.resx">
-      <DependentUpon>201401131320168_addRefLanguage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201401131736439_updTeste.resx">
-      <DependentUpon>201401131736439_updTeste.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201401131845533_final.resx">
+      <DependentUpon>201401131845533_final.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
