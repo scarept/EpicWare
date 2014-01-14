@@ -22,6 +22,7 @@ void escreveTexto();
 void dawHud();
 void janelaInfoUser(int idUser);
 void menu(int item);
+void desenhaMenuEscolhaMiniJogo();
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
@@ -232,6 +233,7 @@ void initElemtnos2D(){
 }
 
 void initNotification(){
+	notificationStatus.selectedNotification = false;
 	notificationStatus.showNotification = false;
 
 }
@@ -563,6 +565,7 @@ void gameInit(User *utilizador)
 	//glPopMatrix();
 
 	estado.estadoJogo = 1;
+
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
 
@@ -1585,6 +1588,10 @@ void display(void)
 			eventoNotificacao();
 		}
 
+		if (notificationStatus.selectedNotification == true){
+			desenhaMenuEscolhaMiniJogo();
+		}
+
 		/* fim desenho estruturas 2D*/
 
 		if (estado.eixoTranslaccao) {
@@ -2059,10 +2066,42 @@ No* pesquisaPorNome(string nome){
 	return NULL;
 }
 
-void enviaPedidoNotificãcao(int idUserDestino){
+void enviaPedidoNotificacao(int idUserDestino){
 	//int idorigem = login.
 
 
+}
+
+void desenhaMenuEscolhaMiniJogo(){
+		material(azul);
+
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		gluOrtho2D(0, 100, 100, 0);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+		glDisable(GL_CULL_FACE);
+
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		glBegin(GL_POLYGON);
+		glColor3f(0, 1, 1);
+		glVertex2f(70, 12);
+		glVertex2f(100, 12);
+		glVertex2f(100, 22);
+		glVertex2f(70, 22);
+		glEnd();
+
+
+		// Volta a preparar para desenhar 3D
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
+
+		//glutSwapBuffers();
 }
 
 void trataEvento(string nomeBtn){
@@ -2089,13 +2128,26 @@ void trataEvento(string nomeBtn){
 
 			cout << "Adicionou amigo" << endl;
 			cout << "Id ultimo selecionado: " << elementos2D.lastSelected << endl;
-			enviaPedidoNotificãcao(elementos2D.lastSelected);
+			enviaPedidoNotificacao(elementos2D.lastSelected);
 
 			elementos2D.userDetails = false;
 
 			glutPostRedisplay();
 		}
 	}
+
+	if (notificationStatus.showNotification==true){
+		if (nomeBtn == "notification"){
+			cout << "carregou notificação" << endl;
+
+			//notificationStatus.idUserNotification;
+			notificationStatus.selectedNotification = true;
+
+			glutPostRedisplay();
+		}
+	
+	}
+
 
 	elementos2D.searchSelected = false;
 }
