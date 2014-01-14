@@ -139,12 +139,7 @@ other_player(o,x).
 other_player(x,o).
 
 spy(Player,Position,Value) :-
-   spy, !,
-   write(Player),
-   write(' '),
-   write(Position),
-   write(' '),
-   writeln(Value).
+   spy, !.
 spy(_,_,_). % do nothing
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
