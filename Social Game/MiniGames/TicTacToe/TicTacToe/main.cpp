@@ -6,23 +6,22 @@
 #include <stdlib.h>
 #include <freeGLUT\include\GL\freeglut.h>
 #include <vector>
-//#include "SOIL.h"
 #include <External images for OpenGl\Loadimages.h>
-//#include "LoadExternalFiles.h"
 #include <conio.h>
 #include <windows.h>
 #include <iostream>
-#include <SWI-Prolog.h>
-#include <SWI-Stream.h>
-#include <SWI-cpp.h>
-//#include "Prolog" 
+#include <SWI-Prolog\include\SWI-Prolog.h>
+#include <SWI-Prolog\include\SWI-Stream.h>
+#include <SWI-Prolog\include\SWI-cpp.h>
 
-//#pragma comment(linker, "/subsystem:\"windows\" \
-//	/entry:\"mainCRTStartup\"")
+#pragma comment(linker, "/subsystem:\"windows\" \
+	/entry:\"mainCRTStartup\"")
 
 using namespace std;
 
 #define BUFSIZE 512
+#define WIDTH 300
+#define HEIGHT 300
 
 int teste = 0;
 
@@ -80,15 +79,15 @@ void initGame(){
 	resetMatriz();
 
 	/* carregar imagens */
-	mod.imagem_circle = load2D(".\/images\/tictactoe\/CIRCLE.png");
-	mod.imagem_cruz = load2D(".\/images\/tictactoe\/CRUZ.png");
-	mod.textura_paredes = load2D(".\/images\/tictactoe\/PAREDE.png");
-	mod.win = load2D(".\/images\/tictactoe\/WIN.png");
-	mod.lose = load2D(".\/images\/tictactoe\/LOSE.png");
-	mod.deuce = load2D(".\/images\/tictactoe\/DEUCE.png");
+	mod.imagem_circle = load2D("./images/tictactoe/CIRCLE.png");
+	mod.imagem_cruz = load2D("./images/tictactoe/CRUZ.png");
+	mod.textura_paredes = load2D("./images/tictactoe/PAREDE.png");
+	mod.win = load2D("./images/tictactoe/WIN.png");
+	mod.lose = load2D("./images/tictactoe/LOSE.png");
+	mod.deuce = load2D("./images/tictactoe/DEUCE.png");
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
-		mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/PAREDE.png");
+		mod.textura_quadrado[i][j] = load2D("./images/tictactoe/PAREDE.png");
 		}
 	}
 
@@ -103,9 +102,9 @@ void initGame(){
 void initMenu(void)
 {
 	/*  texturas  menu */
-	mod.menu = load2D(".\/images\/tictactoe\/MENU.png");
-	mod.exit = load2D(".\/images\/tictactoe\/EXIT.png");
-	mod.play = load2D(".\/images\/tictactoe\/PLAY.png");
+	mod.menu = load2D("./images/tictactoe/MENU.png");
+	mod.exit = load2D("./images/tictactoe/EXIT.png");
+	mod.play = load2D("./images/tictactoe/PLAY.png");
 }
 
 
@@ -120,7 +119,7 @@ void addBase(char c)
 
 	PlTermv az1(pointerVal1);
 	bv1[0] = PlCompound("base", az1);
-	cout << (char*)bv1[0] << endl;
+	//cout << (char*)bv1[0] << endl;
 	PlQuery p1("assertz", bv1);
 	p1.next_solution();
 }
@@ -180,6 +179,8 @@ Cordenadas fastestWayAvailable(){
 
 	PlTermv av(2);
 
+
+
 	char *res = 0;
 	char *res2 = 0;
 
@@ -194,6 +195,7 @@ Cordenadas fastestWayAvailable(){
 	Cordenadas cord;
 	cord.l = atoi(res2) - 1;
 	cord.c = atoi(res) - 1;
+
 	return cord;
 }
 
@@ -405,17 +407,18 @@ void desenhaJogo(GLenum mode)
 	//Analisa Matriz de Jogo
 	for (int i = 0; i < 3; i++)
 	{
+
 		for (int j = 0; j < 3; j++)
 		{
 			if (mod.matJogo[i][j] == 0)
 			{
-				mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/PAREDE.png");
+				mod.textura_quadrado[i][j] = load2D("./images/tictactoe/PAREDE.png");
 			}
 			else if(mod.matJogo[i][j] == 1){
-				mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/CRUZ.png");
+				mod.textura_quadrado[i][j] = load2D("./images/tictactoe/CRUZ.png");
 			}
 			else{
-				mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/CIRCLE.png");
+				mod.textura_quadrado[i][j] = load2D("./images/tictactoe/CIRCLE.png");
 			}
 		}
 	}
@@ -433,14 +436,14 @@ void desenhaJogo(GLenum mode)
 				glBindTexture(GL_TEXTURE_2D, mod.textura_quadrado[i][j]);
 				glBegin(GL_POLYGON);
 				glColor3f(128, 0, 255);
-				glTexCoord2f(0.0, 0.0);
-				glVertex2f(0 + (j * 33), 0 + i * 33);
-				glTexCoord2f(0.0, 1.0);
-				glVertex2f(0 + (j * 33), 33 + i * 33);
-				glTexCoord2f(1.0, 1.0);
-				glVertex2f(33 + (j * 33), 33 + i * 33);
-				glTexCoord2f(1.0, 0.0);
-				glVertex2f(33 + (j * 33), 0 + i * 33);
+				glTexCoord2f(0.0f, 0.0f);
+				glVertex2f(0.0f + ((float)j * 33.0f), 0.0f + (float)i * 33.0f);
+				glTexCoord2f(0.0f, 1.0f);
+				glVertex2f(0.0f + ((float)j * 33.0f), 33.0f + (float)i * 33.0f);
+				glTexCoord2f(1.0f, 1.0f);
+				glVertex2f(33.0f + ((float)j * 33.0f), 33.0f + (float)i * 33.0f);
+				glTexCoord2f(1.0f, 0.0f);
+				glVertex2f(33.0f + ((float)j * 33.0f), 0.0f + (float)i * 33.0f);
 				glEnd();
 				glBindTexture(GL_TEXTURE_2D, NULL);
 			}
@@ -495,23 +498,23 @@ void desenhaFinal(GLenum mode)
 		glBindTexture(GL_TEXTURE_2D, NULL);
 	glPopMatrix();
 
-	/*  sair btn  */
-	glPushMatrix();
-	if (mode == GL_SELECT){
-		glLoadName(4);
-		glBindTexture(GL_TEXTURE_2D, mod.exit);
-		glBegin(GL_POLYGON);
-		glTexCoord2f(0.0, 1.0);
-		glVertex2f(25, 80);
-		glTexCoord2f(1.0, 1.0);
-		glVertex2f(75, 80);
-		glTexCoord2f(1.0, 0.0);
-		glVertex2f(75, 87);
-		glTexCoord2f(0.0, 0.0);
-		glVertex2f(25, 87);
-		glEnd();
-	}
-	glPopMatrix();
+	///*  sair btn  */
+	//glPushMatrix();
+	//if (mode == GL_SELECT){
+	//	glLoadName(4);
+	//	glBindTexture(GL_TEXTURE_2D, mod.exit);
+	//	glBegin(GL_POLYGON);
+	//	glTexCoord2f(0.0, 1.0);
+	//	glVertex2f(25, 80);
+	//	glTexCoord2f(1.0, 1.0);
+	//	glVertex2f(75, 80);
+	//	glTexCoord2f(1.0, 0.0);
+	//	glVertex2f(75, 87);
+	//	glTexCoord2f(0.0, 0.0);
+	//	glVertex2f(25, 87);
+	//	glEnd();
+	//}
+	//glPopMatrix();
 
 }
 
@@ -565,13 +568,15 @@ void clickEvent(GLint hits, GLuint buffer[])
 		names = *ptr;
 		ptr = ptr + 3;
 		for (j = 0; j < names; j++) { /* for each name */
+			int aa = *ptr;
+			cout << *ptr;
 			if (*ptr == 1){
 				initGame();
 				teste = 1;
 				glutPostRedisplay();
 			}
 			else if (*ptr == 4){
-				exit(0);
+				glutLeaveMainLoop();
 			}
 			ptr++;
 		}
@@ -581,7 +586,7 @@ void clickEvent(GLint hits, GLuint buffer[])
 void clickEventMatrix(GLint hits, GLuint buffer[])
 {
 	if (player && !terminouJogo){
-		Cordenadas jogada;
+
 		int i;
 		unsigned int j;
 		GLuint names, *ptr;
@@ -666,6 +671,9 @@ void pickRects(int button, int state, int x, int y)
 	gluOrtho2D(0, 100, 100, 0);
 	desenhaMenu(GL_SELECT);
 
+	if (terminouJogo)
+		desenhaFinal(GL_SELECT);
+
 	glPopMatrix();
 	glFlush();
 	hits = glRenderMode(GL_RENDER);
@@ -717,8 +725,10 @@ void picking(int button, int state, int x, int y)
 
 int main(int argc, char** argv)
 {
+	//Dev purposes only, needs to be commented for release
 	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
-	char* dummy_args[] = { argv[0], "-s", ".\/pl\/tictactoe.pl", NULL };
+
+	char* dummy_args[] = { argv[0], "-s", "./pl/tictactoe.pl", NULL };
 
 	PlEngine e(3, dummy_args);
 
@@ -726,11 +736,19 @@ int main(int argc, char** argv)
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-	glutInitWindowSize(300, 300); //tamanho da janela
+	//posição inicial da janela
+	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WIDTH) / 2,
+		(glutGet(GLUT_SCREEN_HEIGHT) - HEIGHT) / 2);
 
-	glutInitWindowPosition(99, 99); //posição inicial da janela
+	glutInitWindowSize(WIDTH, HEIGHT); //tamanho da janela
+	
+	//glutSetIconTitle("./images/tictactoe/tictactoe.ico");
 
-	glutCreateWindow(argv[0]); //linha de comandos
+	glutCreateWindow("Tic-Tac-Toe"); //linha de comandos
+
+	HANDLE icon = LoadImage(GetModuleHandle(NULL), L"./images/tictactoe/tictactoe.ico", IMAGE_ICON, 16, 16, LR_LOADFROMFILE | LR_COLOR);
+	HWND hwnd = FindWindow(NULL, L"Tic-Tac-Toe");
+	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
 
 	glutMouseFunc(picking); //funcionalidade de picking do rato
 

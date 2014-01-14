@@ -1,9 +1,9 @@
 using namespace std;
 
 #include <iostream>
-#include <SWI-Prolog.h>
-#include <SWI-Stream.h>
-#include <SWI-cpp.h>
+#include <SWI-Prolog\include\SWI-Prolog.h>
+#include <SWI-Prolog\include\SWI-Stream.h>
+#include <SWI-Prolog\include\SWI-cpp.h>
 #include "Labyrinth.h"
 
 int* fastestWayAvailable(int **matriz, int y, int x){
@@ -14,9 +14,7 @@ int* fastestWayAvailable(int **matriz, int y, int x){
 	//xFinal = 4;
 	//yFinal = 8;
 
-		_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
-		char* argv[] = { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
-		PlEngine e(3, argv);
+	
 
 	
 	/* Colocar informação da matriz na base de conhecimento*/

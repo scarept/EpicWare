@@ -5,9 +5,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 #include <iostream>
-#include <SWI-Prolog.h>
-#include <SWI-Stream.h>
-#include <SWI-cpp.h>
+#include <SWI-Prolog\include\SWI-Prolog.h>
+#include <SWI-Prolog\include\SWI-Stream.h>
+#include <SWI-Prolog\include\SWI-cpp.h>
 #include <vector>
 #include <string>
 #include <WebServices.h>

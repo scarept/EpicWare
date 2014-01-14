@@ -676,12 +676,10 @@ void Key(unsigned char key, int x, int y)
 
 void CHangman::startGame(int argc, char **argv){
 
+	//Dev purposes only, needs to be commented for release
 	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
 
 	char* dummy_args[] = { argv[0], "-s", ".\/pl\/hangman.pl", NULL };
-
-	argv = dummy_args;
-	argc = sizeof(dummy_args) / sizeof(dummy_args[0]) - 1;
 
 	PlEngine e(3, dummy_args);
 
@@ -737,9 +735,7 @@ void CHangman::startGame(int argc, char **argv){
 	cout << modelo.partialWord << endl;*/
 
 	estado.doubleBuffer = GL_TRUE;
-	
-	
-	
+
 	glutInit(&argc, argv);
 
 	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WIDTH) / 2,
@@ -749,6 +745,10 @@ void CHangman::startGame(int argc, char **argv){
 	glutInitDisplayMode(((estado.doubleBuffer) ? GLUT_DOUBLE : GLUT_SINGLE) | GLUT_RGB);
 	if (glutCreateWindow("Hangman") == GL_FALSE)
 		glutLeaveMainLoop();
+
+	HANDLE icon = LoadImage(GetModuleHandle(NULL), "./images/hangman/hangman.ico", IMAGE_ICON, 16, 16, LR_LOADFROMFILE | LR_COLOR);
+	HWND hwnd = FindWindow(NULL, "Hangman");
+	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
 
 	toggleGlutWindowMaximizeBox("Hangman");
 

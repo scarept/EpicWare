@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <freeGLUT\include\GL\freeglut.h>
 #include <vector>
-#include <SOIL\SOIL.h>
+#include <SOIL\src\SOIL.h>
 
 #include "Labyrinth.h"
 #include <External images for OpenGL\LoadImages.h>
@@ -17,6 +17,12 @@
 #define BUFSIZE 512
 
 int teste = 0;
+
+typedef struct PrologInfo{
+
+	int argc;
+	char** argv;
+}PrologInfo;
 
 typedef struct {
 	GLboolean   a, w, s, d, h, p;
@@ -42,6 +48,7 @@ typedef struct{
 Teclas tecla;
 Quadrado quad;
 ModeloLabyrinth mod;
+PrologInfo pInfo;
 
 Labyrinth::Labyrinth(){}
 Labyrinth::~Labyrinth(){}
@@ -549,6 +556,9 @@ Labyrinth::~Labyrinth(){}
 
 	int Labyrinth::startGame(int argc, char** argv)
 	{
+		pInfo.argc = argc;
+		pInfo.argv = argv;
+
 		glutInit(&argc, argv);
 
 		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -559,6 +569,9 @@ Labyrinth::~Labyrinth(){}
 
 		glutCreateWindow("Labyrinth");
 
+		HANDLE icon = LoadImage(GetModuleHandle(NULL), L"./images/labyrinth/maze.ico", IMAGE_ICON, 16, 16, LR_LOADFROMFILE | LR_COLOR);
+		HWND hwnd = FindWindow(NULL, L"Labyrinth");
+		SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
 
 		glutMouseFunc(pickRects); //funcionalidade de picking do rato
 

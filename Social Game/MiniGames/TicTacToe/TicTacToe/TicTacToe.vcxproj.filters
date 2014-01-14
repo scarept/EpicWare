@@ -13,18 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\SOIL">
+      <UniqueIdentifier>{2f9ce155-b3e2-4efb-b390-12dc652c8140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SOIL">
+      <UniqueIdentifier>{6840ce3e-df43-45e0-9dc8-7f028895eeab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\ExternalDependencies\External images for OpenGl\LoadImages.cpp">
+    <ClCompile Include="..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\image_helper.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\SOIL.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c">
+      <Filter>Source Files\SOIL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\ExternalDependencies\External images for OpenGl\Loadimages.h">
+    <ClInclude Include="..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\image_helper.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\SOIL.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h">
+      <Filter>Header Files\SOIL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

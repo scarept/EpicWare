@@ -4,11 +4,9 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
-#include <SOIL\SOIL.h>
+#include <SOIL\src\SOIL.h>
 #include <freeGLUT\include\GL\freeglut.h>
-//#include <freeGLUT\include\GL\freeglut.h>
 #include <vector>
-
 
 GLuint load2D(char * nomeTextura);
 

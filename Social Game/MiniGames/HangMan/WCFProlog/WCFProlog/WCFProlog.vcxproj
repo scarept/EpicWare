@@ -41,29 +41,29 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\swipl\include;C:\GLUT;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\swipl\lib;C:\GLUT;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;C:\Program Files %28x86%29\swipl;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\..\..\..\ExternalDependencies;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\..\..\ExternalDependencies;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>..\..\..\..\..\ExternalDependencies\SWI-Prolog\bin;..\..\..\..\..\ExternalDependencies\freeGLUT\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Program Files\swipl\include;C:\GLUT;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\swipl\lib;C:\GLUT;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;C:\Program Files %28x86%29\swipl;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\..\..\..\ExternalDependencies;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\..\..\ExternalDependencies;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>..\..\..\..\..\ExternalDependencies\SWI-Prolog\bin;..\..\..\..\..\ExternalDependencies\freeGLUT\bin;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\swipl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libswipl.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SWI-Prolog\lib\libswipl.lib;freeGLUT\lib\freeglut.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,36 +73,56 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\swipl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libswipl.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SWI-Prolog\lib\libswipl.lib;freeGLUT\lib\freeglut.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.Models.xsd.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.xsd.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_helper.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\SOIL.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\WCF\WCF.cpp" />
     <ClCompile Include="HangmanLogic.cpp" />
     <ClCompile Include="Hangman.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c" />
-    <ClCompile Include="SocialGameService.xsd.c" />
-    <ClCompile Include="tempuri.org.wsdl.c" />
-    <ClCompile Include="tempuri.org.xsd.c" />
-    <ClCompile Include="WCF.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WCF.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.Models.xsd.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.xsd.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_helper.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\SOIL.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\WCF\WCF.h" />
     <ClInclude Include="HangmanLogic.h" />
     <ClInclude Include="Hangman.h" />
-    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h" />
-    <ClInclude Include="SocialGameService.xsd.h" />
-    <ClInclude Include="tempuri.org.wsdl.h" />
-    <ClInclude Include="tempuri.org.xsd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

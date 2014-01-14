@@ -41,15 +41,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\Márcio\Dropbox\Faculdade\3º Ano\LAPR5\git\ExternalDependencies;C:\Program Files %28x86%29\swipl\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\swipl\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>..\..\..\..\..\ExternalDependencies\SWI-Prolog\bin;..\..\..\..\..\ExternalDependencies\freeGLUT\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\..\..\ExternalDependencies;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\..\ExternalDependencies;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\Márcio\Dropbox\Faculdade\3º Ano\LAPR5\git\ExternalDependencies;C:\Program Files %28x86%29\swipl\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\swipl\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>..\..\..\..\..\ExternalDependencies\SWI-Prolog\bin;..\..\..\..\..\ExternalDependencies\freeGLUT\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\..\..\ExternalDependencies;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\..\ExternalDependencies;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -57,15 +57,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\SWIProlog\include;C:\SOIL\src;C:\Glut;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>C:\Glut;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>"C:\SOIL\lib\libSOIL.lib";"C:\Glut\glut32.lib";"C:\SWIProlog\lib\libswipl.lib"</AdditionalDependencies>
+      <AdditionalDependencies>SWI-Prolog\lib\libswipl.lib;freeGLUT\lib\freeglut.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -77,26 +77,36 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\SOIL\src;C:\Glut;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>C:\Glut;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>"C:\SOIL\lib\libSOIL.lib";"C:\Glut\glut32.lib";"C:\SWIProlog\lib\libswipl.lib"</AdditionalDependencies>
+      <AdditionalDependencies>SWI-Prolog\lib\libswipl.lib;freeGLUT\lib\freeglut.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\ExternalDependencies\External images for OpenGl\LoadImages.cpp" />
+    <ClCompile Include="..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp" />
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.c" />
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\image_helper.c" />
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\SOIL.c" />
+    <ClCompile Include="..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\ExternalDependencies\External images for OpenGl\Loadimages.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\image_helper.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\SOIL.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

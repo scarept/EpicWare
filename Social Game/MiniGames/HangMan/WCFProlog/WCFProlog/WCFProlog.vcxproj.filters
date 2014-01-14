@@ -15,11 +15,23 @@
     <Filter Include="Header Files\WCF">
       <UniqueIdentifier>{4ce90907-a5f6-46dc-a572-0dcb92284daa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\AI">
-      <UniqueIdentifier>{de27c39c-5fe3-44ce-9e99-300660798bea}</UniqueIdentifier>
+    <Filter Include="Header Files\SOIL">
+      <UniqueIdentifier>{77d167ae-420b-415b-b32e-59abda83e715}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\AI">
+    <Filter Include="Source Files\SOIL">
+      <UniqueIdentifier>{e7d4ac83-94a5-493b-8408-493ad0e90de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EpicService">
+      <UniqueIdentifier>{9fb36f85-2c10-45f8-95f0-e541c6c5a145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EpicService">
+      <UniqueIdentifier>{9bf374c3-2de7-4f7a-8eb5-77da73aebbbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
       <UniqueIdentifier>{5283e7dd-727a-4672-9681-16b6c6311972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{de27c39c-5fe3-44ce-9e99-300660798bea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -29,46 +41,94 @@
     <ClCompile Include="Hangman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WCF.cpp">
-      <Filter>Source Files\WCF</Filter>
-    </ClCompile>
-    <ClCompile Include="tempuri.org.xsd.c">
-      <Filter>Source Files\WCF</Filter>
-    </ClCompile>
-    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
-      <Filter>Source Files\WCF</Filter>
-    </ClCompile>
-    <ClCompile Include="SocialGameService.xsd.c">
-      <Filter>Source Files\WCF</Filter>
-    </ClCompile>
-    <ClCompile Include="tempuri.org.wsdl.c">
-      <Filter>Source Files\WCF</Filter>
-    </ClCompile>
     <ClCompile Include="HangmanLogic.cpp">
-      <Filter>Source Files\AI</Filter>
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.Models.xsd.c">
+      <Filter>Source Files\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.xsd.c">
+      <Filter>Source Files\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.c">
+      <Filter>Source Files\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.c">
+      <Filter>Source Files\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.c">
+      <Filter>Source Files\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.c">
+      <Filter>Source Files\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\WCF\WCF.cpp">
+      <Filter>Source Files\WCF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_helper.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\SOIL.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c">
+      <Filter>Source Files\SOIL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hangman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WCF.h">
-      <Filter>Header Files\WCF</Filter>
-    </ClInclude>
-    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
-      <Filter>Header Files\WCF</Filter>
-    </ClInclude>
-    <ClInclude Include="SocialGameService.xsd.h">
-      <Filter>Header Files\WCF</Filter>
-    </ClInclude>
-    <ClInclude Include="tempuri.org.wsdl.h">
-      <Filter>Header Files\WCF</Filter>
-    </ClInclude>
-    <ClInclude Include="tempuri.org.xsd.h">
-      <Filter>Header Files\WCF</Filter>
-    </ClInclude>
     <ClInclude Include="HangmanLogic.h">
-      <Filter>Header Files\AI</Filter>
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.Models.xsd.h">
+      <Filter>Header Files\EpicService</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\EpicWareWeb.xsd.h">
+      <Filter>Header Files\EpicService</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h">
+      <Filter>Header Files\EpicService</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.h">
+      <Filter>Header Files\EpicService</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.h">
+      <Filter>Header Files\EpicService</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.h">
+      <Filter>Header Files\EpicService</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\WCF\WCF.h">
+      <Filter>Header Files\WCF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_helper.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\SOIL.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h">
+      <Filter>Header Files\SOIL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

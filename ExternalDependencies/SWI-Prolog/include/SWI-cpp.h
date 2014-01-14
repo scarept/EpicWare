@@ -24,7 +24,7 @@
 #ifndef _SWI_CPP_H
 #define _SWI_CPP_H
 
-#include <SWI-Prolog.h>
+#include "SWI-Prolog.h"
 #include <string.h>
 #include <wchar.h>
 #ifndef __APPLE__

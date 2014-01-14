@@ -13,10 +13,84 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\SOIL">
+      <UniqueIdentifier>{b30e6f35-f993-433e-a177-25a02cc293e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{c0e1cbc8-802e-4719-86dc-e55e466abe9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{3ed67917-a8f4-45b4-a995-5d8690400e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{f26b5d7e-7e24-4a44-8fc2-909493c72026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{dcc75ab2-6a80-4f19-9ed9-03c8513b2f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SOIL">
+      <UniqueIdentifier>{5c5c5792-190a-43f8-b560-957bc723c301}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Labyrinth.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="LabyrinthLogic.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_helper.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\SOIL.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadExternalFiles.cpp">
+      <Filter>Source Files\SOIL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Labyrinth.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="LabyrinthLogic.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_DXT.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\image_helper.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\SOIL.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadExternalFiles.h">
+      <Filter>Header Files\SOIL</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
