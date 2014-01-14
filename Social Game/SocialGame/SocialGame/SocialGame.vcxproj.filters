@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{ade451b0-2124-4f10-9dea-49f8f4a5fdf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\SOIL">
+      <UniqueIdentifier>{a1f2cb2e-0e00-4b4e-a8ad-f63b83298fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{6939e46f-b5de-4f66-bc63-bc0d8a4c5349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\SOIL">
+      <UniqueIdentifier>{bed58ca0-1087-4d60-9533-d63b74ee7a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Services">
+      <UniqueIdentifier>{27059bc6-af4b-46b4-ba0f-42a0dd48a470}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Services\EpicService">
+      <UniqueIdentifier>{629fc508-b4aa-41ca-9a3b-bbe67aba6f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Services">
+      <UniqueIdentifier>{6fab9b41-2e09-4320-a95b-5f3b3a01f9b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Services\EpicSevice">
+      <UniqueIdentifier>{6add9ff5-c4ae-4bf4-9e83-629e5a63666d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{81fa943c-a475-4c3b-8edc-1fcb9daf68e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Graph">
+      <UniqueIdentifier>{38f6d11e-79d1-43be-8b10-225c1cb2dd34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{911fd567-db9e-4640-a27d-4bd6925420e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Graph">
+      <UniqueIdentifier>{88541b34-0145-45e9-b504-e5a3fbdb973a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\ExternalDependencies\WCF\WCF.h">
+      <Filter>Header Files\Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\image_DXT.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\image_helper.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\SOIL.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stb_image_aug.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stbi_DDS_aug.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stbi_DDS_aug_c.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="core\DataTypeChange.h">
+      <Filter>Header Files\Logic\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Grafo.h">
+      <Filter>Header Files\Logic\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\freeGLUT\include\GL\freeglut.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\EpicService\EpicWareWeb.Models.xsd.h">
+      <Filter>Header Files\Core\Services\EpicSevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\EpicService\EpicWareWeb.xsd.h">
+      <Filter>Header Files\Core\Services\EpicSevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.h">
+      <Filter>Header Files\Core\Services\EpicSevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.h">
+      <Filter>Header Files\Core\Services\EpicSevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.h">
+      <Filter>Header Files\Core\Services\EpicSevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.h">
+      <Filter>Header Files\Core\Services\EpicSevice</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\WCF\WCF.cpp">
+      <Filter>Source Files\Core\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\image_DXT.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\image_helper.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\SOIL.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\stb_image_aug.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="core\DataTypeChange.cpp">
+      <Filter>Source Files\Logic\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Grafo.cpp">
+      <Filter>Source Files\Logic\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\EpicService\EpicWareWeb.Models.xsd.c">
+      <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\EpicService\EpicWareWeb.xsd.c">
+      <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.Arrays.xsd.c">
+      <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\EpicService\schemas.microsoft.com.2003.10.Serialization.xsd.c">
+      <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.c">
+      <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.c">
+      <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
