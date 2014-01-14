@@ -59,6 +59,7 @@ void imprimeArco(Arco);
 void listArcos();
 Arco criaArco(int, int, float, float);
 
+void gravaGrafo();
 void leGrafo(No noAtual, vector<int> listaNos, int nivel, int posActual);
 
 #endif
