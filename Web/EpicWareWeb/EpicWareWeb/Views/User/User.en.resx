@@ -372,4 +372,16 @@
   <data name="tabela_classificativa" xml:space="preserve">
     <value>ScoreBoard</value>
   </data>
+  <data name="all_score" xml:space="preserve">
+    <value>General Score</value>
+  </data>
+  <data name="labirinth" xml:space="preserve">
+    <value>Labyrinth</value>
+  </data>
+  <data name="maze" xml:space="preserve">
+    <value>Maze Game</value>
+  </data>
+  <data name="tic_tac_toe" xml:space="preserve">
+    <value>Tic Tac Toe</value>
+  </data>
 </root>
