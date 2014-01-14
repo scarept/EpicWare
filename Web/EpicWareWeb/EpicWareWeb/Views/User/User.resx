@@ -369,4 +369,19 @@
   <data name="changePass" xml:space="preserve">
     <value>Mudar Password</value>
   </data>
+  <data name="tabela_classificativa" xml:space="preserve">
+    <value>Tabela Classificativa</value>
+  </data>
+  <data name="all_score" xml:space="preserve">
+    <value>Top Geral</value>
+  </data>
+  <data name="labirinth" xml:space="preserve">
+    <value>Labirinto</value>
+  </data>
+  <data name="maze" xml:space="preserve">
+    <value>Enforcado</value>
+  </data>
+  <data name="tic_tac_toe" xml:space="preserve">
+    <value>Jogo do Galo</value>
+  </data>
 </root>

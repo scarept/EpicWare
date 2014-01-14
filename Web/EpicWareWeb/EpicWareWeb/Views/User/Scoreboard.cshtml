@@ -1,25 +1,61 @@
-﻿@model IEnumerable<EpicWareWeb.Models.ScoreUser>
-
-@{
-    ViewBag.Title = EpicWareWeb.Views.User.User.tabela_classificativa;
-}
+﻿@{ViewBag.Title = EpicWareWeb.Views.User.User.tabela_classificativa;}
 
 <h2>@EpicWareWeb.Views.User.User.tabela_classificativa</h2>
 
-
-<table class="TabelaClassificativa">
-    @foreach (EpicWareWeb.Models.ScoreUser s in Model)
-    {
-        <tr>
-            <td>
-                
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-        </tr>
-    }
+<table>
+    <tr>
+        <td>
+            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.all_score</button>
+        </td>
+        <td>
+            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.tic_tac_toe</button>
+        </td>
+        <td>
+            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.labirinth</button>
+        </td>
+        <td>
+            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.maze</button>
+        </td>
+    </tr>
 </table>
+
+<div style="align-content:center;">
+    <h1>
+        TABELA CLASSIFICATIVA XPTO
+    </h1>
+    <div class="TabelaClassificativa">
+        <table>
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td width="20">
+                        @*Posição*@
+                        <span style="font-size:14px; color:white;">
+
+                        </span>
+                    </td>
+                    <td width="70">
+                        @*Ir buscar a imagem do user*@
+                        <a href="">
+                            <img src="" width="50" height="50" />
+                        </a>
+                    </td>
+                    <td>
+                        @*Nickname*@
+                        <a href="">
+                            <span style="font-size:14px; color:white;">
+
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        @*Pontuação*@
+                        <span style="font-size:14px; color:white;">
+
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
