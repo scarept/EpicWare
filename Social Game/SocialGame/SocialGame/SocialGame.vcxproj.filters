@@ -54,24 +54,6 @@
     <ClInclude Include="..\..\..\ExternalDependencies\WCF\WCF.h">
       <Filter>Header Files\Core\Services</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\image_DXT.h">
-      <Filter>Header Files\Core\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\image_helper.h">
-      <Filter>Header Files\Core\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\SOIL.h">
-      <Filter>Header Files\Core\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stb_image_aug.h">
-      <Filter>Header Files\Core\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stbi_DDS_aug.h">
-      <Filter>Header Files\Core\SOIL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stbi_DDS_aug_c.h">
-      <Filter>Header Files\Core\SOIL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h">
       <Filter>Header Files\Core\SOIL</Filter>
     </ClInclude>
@@ -102,6 +84,24 @@
     <ClInclude Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.h">
       <Filter>Header Files\Core\Services\EpicSevice</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\image_DXT.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\image_helper.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\SOIL.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h">
+      <Filter>Header Files\Core\SOIL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -109,18 +109,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\ExternalDependencies\WCF\WCF.cpp">
       <Filter>Source Files\Core\Services</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\image_DXT.c">
-      <Filter>Source Files\Core\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\image_helper.c">
-      <Filter>Source Files\Core\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\SOIL.c">
-      <Filter>Source Files\Core\SOIL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\stb_image_aug.c">
-      <Filter>Source Files\Core\SOIL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp">
       <Filter>Source Files\Core\SOIL</Filter>
@@ -148,6 +136,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.c">
       <Filter>Source Files\Core\Services\EpicService</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\image_DXT.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\image_helper.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\SOIL.c">
+      <Filter>Source Files\Core\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c">
+      <Filter>Source Files\Core\SOIL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -39,14 +39,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>..\..\..\ExternalDependencies;..\..\..\ExternalDependencies\SWI-Prolog\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\..\ExternalDependencies\freeGLUT\lib;..\..\..\ExternalDependencies\SWI-Prolog\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>..\..\..\ExternalDependencies\SWI-Prolog\bin;..\..\..\ExternalDependencies\freeGLUT\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\..\ExternalDependencies;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\ExternalDependencies;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ExecutablePath>C:\Program Files %28x86%29\swipl\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>..\..\..\ExternalDependencies;..\..\..\ExternalDependencies\SWI-Prolog\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\..\ExternalDependencies\freeGLUT\lib;..\..\..\ExternalDependencies\SWI-Prolog\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>..\..\..\ExternalDependencies\SWI-Prolog\bin;..\..\..\ExternalDependencies\freeGLUT\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>..\..\..\ExternalDependencies;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\ExternalDependencies;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -58,7 +58,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>libswipl.lib;WebServices.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SWI-Prolog\lib\libswipl.lib;freeGLUT\lib\freeglut.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -74,7 +74,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libswipl.lib;WebServices.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SWI-Prolog\lib\libswipl.lib;freeGLUT\lib\freeglut.lib;WebServices.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -87,12 +87,12 @@
     <ClInclude Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.h" />
     <ClInclude Include="..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.h" />
     <ClInclude Include="..\..\..\ExternalDependencies\freeGLUT\include\GL\freeglut.h" />
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\image_DXT.h" />
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\image_helper.h" />
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\SOIL.h" />
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stbi_DDS_aug.h" />
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stbi_DDS_aug_c.h" />
-    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\stb_image_aug.h" />
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\image_DXT.h" />
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\image_helper.h" />
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\SOIL.h" />
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug.h" />
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\stbi_DDS_aug_c.h" />
+    <ClInclude Include="..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.h" />
     <ClInclude Include="..\..\..\ExternalDependencies\WCF\WCF.h" />
     <ClInclude Include="core\DataTypeChange.h" />
     <ClInclude Include="core\Grafo.h" />
@@ -105,10 +105,10 @@
     <ClCompile Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.wsdl.c" />
     <ClCompile Include="..\..\..\ExternalDependencies\EpicService\tempuri.org.xsd.c" />
     <ClCompile Include="..\..\..\ExternalDependencies\External images for OpenGL\LoadImages.cpp" />
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\image_DXT.c" />
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\image_helper.c" />
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\SOIL.c" />
-    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\stb_image_aug.c" />
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\image_DXT.c" />
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\image_helper.c" />
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\SOIL.c" />
+    <ClCompile Include="..\..\..\ExternalDependencies\SOIL\src\stb_image_aug.c" />
     <ClCompile Include="..\..\..\ExternalDependencies\WCF\WCF.cpp" />
     <ClCompile Include="core\DataTypeChange.cpp" />
     <ClCompile Include="core\Grafo.cpp" />
