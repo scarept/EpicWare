@@ -372,4 +372,16 @@
   <data name="tabela_classificativa" xml:space="preserve">
     <value>Tableau de la Ligue</value>
   </data>
+  <data name="all_score" xml:space="preserve">
+    <value>Top général</value>
+  </data>
+  <data name="labirinth" xml:space="preserve">
+    <value>Labyrinthe</value>
+  </data>
+  <data name="maze" xml:space="preserve">
+    <value>Pendu</value>
+  </data>
+  <data name="tic_tac_toe" xml:space="preserve">
+    <value>Tic Tac Toe</value>
+  </data>
 </root>
