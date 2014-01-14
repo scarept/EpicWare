@@ -601,6 +601,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pedido de amizade enviado pelo jogo.
+        /// </summary>
+        public static string pedidoAmizadePeloJogo {
+            get {
+                return ResourceManager.GetString("pedidoAmizadePeloJogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pedir Introdução.
         /// </summary>
         public static string pedir_intro {

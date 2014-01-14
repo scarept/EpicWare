@@ -40,9 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Facebook">
-      <HintPath>..\packages\Facebook.6.4.2\lib\net45\Facebook.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -196,16 +193,11 @@
     <Compile Include="DAL\BaseGateway.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="DAL\HangmanGateway.cs" />
-    <Compile Include="FacebookGraphAPI\FacebookGraphAPI.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IWebService.cs" />
-    <Compile Include="Migrations\201401131845533_final.cs" />
-    <Compile Include="Migrations\201401131845533_final.Designer.cs">
-      <DependentUpon>201401131845533_final.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -1106,9 +1098,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201401131845533_final.resx">
-      <DependentUpon>201401131845533_final.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.en.Designer.cs</LastGenOutput>

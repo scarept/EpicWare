@@ -384,4 +384,7 @@
   <data name="tic_tac_toe" xml:space="preserve">
     <value>Jogo do Galo</value>
   </data>
+  <data name="pedidoAmizadePeloJogo" xml:space="preserve">
+    <value>Pedido de amizade enviado pelo jogo</value>
+  </data>
 </root>
