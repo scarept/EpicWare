@@ -320,8 +320,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\toastr.css" />
-    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -329,7 +327,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\modern_dot_digital-7.ttf" />
-    <Content Include="Content\toastr.less" />
     <Content Include="Images\Flags\FR.gif" />
     <Content Include="Images\Logos\tagcloud.png" />
     <Content Include="WebService.svc" />
@@ -1004,8 +1001,6 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\toastr.js" />
-    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1078,7 +1073,6 @@
     <Content Include="Views\User\ListIntrosFriendRequestMiddle.cshtml" />
     <Content Include="Views\User\_IntroSendBC.cshtml" />
     <Content Include="Views\User\_IntroRequest.cshtml" />
-    <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\User\ListNotifications.cshtml" />
     <Content Include="Views\User\_Notification.cshtml" />
