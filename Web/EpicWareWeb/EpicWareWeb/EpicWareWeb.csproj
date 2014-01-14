@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -193,6 +196,7 @@
     <Compile Include="DAL\BaseGateway.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="DAL\HangmanGateway.cs" />
+    <Compile Include="FacebookGraphAPI\FacebookGraphAPI.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
