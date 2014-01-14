@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include <WCF/WCF.h>
+#include <WCF\WCF.h>
 #include <iostream>
 #include <SWI-Prolog.h>
 #include <SWI-Stream.h>
@@ -18,6 +18,7 @@ using namespace std;
 class PathFinder
 {
 private:
+	string username, password;
 	WCF *webService;
 	/*
 	Treats and asserts connections between users into the prolog engine

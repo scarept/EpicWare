@@ -27,6 +27,14 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
         WS_MESSAGE_DESCRIPTION IWebService_getAllUsersID_OutputMessage;
         WS_MESSAGE_DESCRIPTION IWebService_getConnectioStrenght_InputMessage;
         WS_MESSAGE_DESCRIPTION IWebService_getConnectioStrenght_OutputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberTagsForUserId_InputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getNumberTagsForUserId_OutputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getStrenghtConnection_InputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getStrenghtConnection_OutputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getUserData_InputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_getUserData_OutputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_createFriendRequest_InputMessage;
+        WS_MESSAGE_DESCRIPTION IWebService_createFriendRequest_OutputMessage;
     } messages;  // end of messages
     struct  // contracts
     {
@@ -72,7 +80,27 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
                 WS_PARAMETER_DESCRIPTION params[3];
                 WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getConnectioStrenght;
             } BasicHttpBinding_IWebService_getConnectioStrenght;
-            WS_OPERATION_DESCRIPTION* operations[8];
+            struct  // BasicHttpBinding_IWebService_getNumberTagsForUserId
+            {
+                WS_PARAMETER_DESCRIPTION params[4];
+                WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getNumberTagsForUserId;
+            } BasicHttpBinding_IWebService_getNumberTagsForUserId;
+            struct  // BasicHttpBinding_IWebService_getStrenghtConnection
+            {
+                WS_PARAMETER_DESCRIPTION params[5];
+                WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getStrenghtConnection;
+            } BasicHttpBinding_IWebService_getStrenghtConnection;
+            struct  // BasicHttpBinding_IWebService_getUserData
+            {
+                WS_PARAMETER_DESCRIPTION params[4];
+                WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_getUserData;
+            } BasicHttpBinding_IWebService_getUserData;
+            struct  // BasicHttpBinding_IWebService_createFriendRequest
+            {
+                WS_PARAMETER_DESCRIPTION params[5];
+                WS_OPERATION_DESCRIPTION BasicHttpBinding_IWebService_createFriendRequest;
+            } BasicHttpBinding_IWebService_createFriendRequest;
+            WS_OPERATION_DESCRIPTION* operations[12];
             WS_CONTRACT_DESCRIPTION contractDesc;
         } BasicHttpBinding_IWebService;
     } contracts;  // endof contracts 
@@ -106,6 +134,14 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
             WS_XML_STRING IWebService_getAllUsersID_OutputMessageactionName;  // http://tempuri.org/IWebService/getAllUsersIDResponse
             WS_XML_STRING IWebService_getConnectioStrenght_InputMessageactionName;  // http://tempuri.org/IWebService/getConnectioStrenght
             WS_XML_STRING IWebService_getConnectioStrenght_OutputMessageactionName;  // http://tempuri.org/IWebService/getConnectioStrenghtResponse
+            WS_XML_STRING IWebService_getNumberTagsForUserId_InputMessageactionName;  // http://tempuri.org/IWebService/getNumberTagsForUserId
+            WS_XML_STRING IWebService_getNumberTagsForUserId_OutputMessageactionName;  // http://tempuri.org/IWebService/getNumberTagsForUserIdResponse
+            WS_XML_STRING IWebService_getStrenghtConnection_InputMessageactionName;  // http://tempuri.org/IWebService/getStrenghtConnection
+            WS_XML_STRING IWebService_getStrenghtConnection_OutputMessageactionName;  // http://tempuri.org/IWebService/getStrenghtConnectionResponse
+            WS_XML_STRING IWebService_getUserData_InputMessageactionName;  // http://tempuri.org/IWebService/getUserData
+            WS_XML_STRING IWebService_getUserData_OutputMessageactionName;  // http://tempuri.org/IWebService/getUserDataResponse
+            WS_XML_STRING IWebService_createFriendRequest_InputMessageactionName;  // http://tempuri.org/IWebService/createFriendRequest
+            WS_XML_STRING IWebService_createFriendRequest_OutputMessageactionName;  // http://tempuri.org/IWebService/createFriendRequestResponse
         } xmlStrings;  // end of XML string list
         WS_XML_DICTIONARY dict;
     } dictionary;  // end of XML dictionary
@@ -369,6 +405,150 @@ HRESULT CALLBACK BasicHttpBinding_IWebService_getConnectioStrenghtOperationStub(
 #if (_MSC_VER >=1400) 
 #pragma warning(pop)
 #endif
+
+typedef struct BasicHttpBinding_IWebService_getNumberTagsForUserIdParamStruct 
+{
+    int* id;
+    WCHAR** user;
+    WCHAR** pass;
+    int* getNumberTagsForUserIdResult;
+} BasicHttpBinding_IWebService_getNumberTagsForUserIdParamStruct;
+
+#if (_MSC_VER >=1400) 
+#pragma warning(push)
+#endif
+#pragma warning(disable: 4055) // conversion from data pointer to function pointer
+HRESULT CALLBACK BasicHttpBinding_IWebService_getNumberTagsForUserIdOperationStub(
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ void* _stackStruct,
+    _In_ const void* _callback,
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error)
+{
+    BasicHttpBinding_IWebService_getNumberTagsForUserIdCallback _operation = (BasicHttpBinding_IWebService_getNumberTagsForUserIdCallback)_callback;
+    BasicHttpBinding_IWebService_getNumberTagsForUserIdParamStruct *_stack =(BasicHttpBinding_IWebService_getNumberTagsForUserIdParamStruct*)_stackStruct;
+    return _operation( 
+        _context,
+        *(_stack->id),
+        *(_stack->user),
+        *(_stack->pass),
+        (_stack->getNumberTagsForUserIdResult),
+        (WS_ASYNC_CONTEXT*)_asyncContext,
+        _error);
+}
+#pragma warning(default: 4055)  // conversion from data pointer to function pointer
+#if (_MSC_VER >=1400) 
+#pragma warning(pop)
+#endif
+
+typedef struct BasicHttpBinding_IWebService_getStrenghtConnectionParamStruct 
+{
+    int* id1;
+    int* id2;
+    WCHAR** user;
+    WCHAR** pass;
+    int* getStrenghtConnectionResult;
+} BasicHttpBinding_IWebService_getStrenghtConnectionParamStruct;
+
+#if (_MSC_VER >=1400) 
+#pragma warning(push)
+#endif
+#pragma warning(disable: 4055) // conversion from data pointer to function pointer
+HRESULT CALLBACK BasicHttpBinding_IWebService_getStrenghtConnectionOperationStub(
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ void* _stackStruct,
+    _In_ const void* _callback,
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error)
+{
+    BasicHttpBinding_IWebService_getStrenghtConnectionCallback _operation = (BasicHttpBinding_IWebService_getStrenghtConnectionCallback)_callback;
+    BasicHttpBinding_IWebService_getStrenghtConnectionParamStruct *_stack =(BasicHttpBinding_IWebService_getStrenghtConnectionParamStruct*)_stackStruct;
+    return _operation( 
+        _context,
+        *(_stack->id1),
+        *(_stack->id2),
+        *(_stack->user),
+        *(_stack->pass),
+        (_stack->getStrenghtConnectionResult),
+        (WS_ASYNC_CONTEXT*)_asyncContext,
+        _error);
+}
+#pragma warning(default: 4055)  // conversion from data pointer to function pointer
+#if (_MSC_VER >=1400) 
+#pragma warning(pop)
+#endif
+
+typedef struct BasicHttpBinding_IWebService_getUserDataParamStruct 
+{
+    int* id;
+    WCHAR** user;
+    WCHAR** pass;
+    UserData** getUserDataResult;
+} BasicHttpBinding_IWebService_getUserDataParamStruct;
+
+#if (_MSC_VER >=1400) 
+#pragma warning(push)
+#endif
+#pragma warning(disable: 4055) // conversion from data pointer to function pointer
+HRESULT CALLBACK BasicHttpBinding_IWebService_getUserDataOperationStub(
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ void* _stackStruct,
+    _In_ const void* _callback,
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error)
+{
+    BasicHttpBinding_IWebService_getUserDataCallback _operation = (BasicHttpBinding_IWebService_getUserDataCallback)_callback;
+    BasicHttpBinding_IWebService_getUserDataParamStruct *_stack =(BasicHttpBinding_IWebService_getUserDataParamStruct*)_stackStruct;
+    return _operation( 
+        _context,
+        *(_stack->id),
+        *(_stack->user),
+        *(_stack->pass),
+        (_stack->getUserDataResult),
+        (WS_ASYNC_CONTEXT*)_asyncContext,
+        _error);
+}
+#pragma warning(default: 4055)  // conversion from data pointer to function pointer
+#if (_MSC_VER >=1400) 
+#pragma warning(pop)
+#endif
+
+typedef struct BasicHttpBinding_IWebService_createFriendRequestParamStruct 
+{
+    int* id1;
+    int* id2;
+    WCHAR** user;
+    WCHAR** pass;
+    BOOL* createFriendRequestResult;
+} BasicHttpBinding_IWebService_createFriendRequestParamStruct;
+
+#if (_MSC_VER >=1400) 
+#pragma warning(push)
+#endif
+#pragma warning(disable: 4055) // conversion from data pointer to function pointer
+HRESULT CALLBACK BasicHttpBinding_IWebService_createFriendRequestOperationStub(
+    _In_ const WS_OPERATION_CONTEXT* _context,
+    _In_ void* _stackStruct,
+    _In_ const void* _callback,
+    _In_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_ WS_ERROR* _error)
+{
+    BasicHttpBinding_IWebService_createFriendRequestCallback _operation = (BasicHttpBinding_IWebService_createFriendRequestCallback)_callback;
+    BasicHttpBinding_IWebService_createFriendRequestParamStruct *_stack =(BasicHttpBinding_IWebService_createFriendRequestParamStruct*)_stackStruct;
+    return _operation( 
+        _context,
+        *(_stack->id1),
+        *(_stack->id2),
+        *(_stack->user),
+        *(_stack->pass),
+        (_stack->createFriendRequestResult),
+        (WS_ASYNC_CONTEXT*)_asyncContext,
+        _error);
+}
+#pragma warning(default: 4055)  // conversion from data pointer to function pointer
+#if (_MSC_VER >=1400) 
+#pragma warning(pop)
+#endif
 const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions =
 {
     {  // messages
@@ -436,6 +616,38 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getConnectioStrenght_OutputMessageactionName, // http://tempuri.org/IWebService/getConnectioStrenghtResponse
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getConnectioStrenghtResponse, 
         },    // message description for IWebService_getConnectioStrenght_OutputMessage
+        {  // message description for IWebService_getNumberTagsForUserId_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberTagsForUserId_InputMessageactionName, // http://tempuri.org/IWebService/getNumberTagsForUserId
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberTagsForUserId, 
+        },    // message description for IWebService_getNumberTagsForUserId_InputMessage
+        {  // message description for IWebService_getNumberTagsForUserId_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberTagsForUserId_OutputMessageactionName, // http://tempuri.org/IWebService/getNumberTagsForUserIdResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberTagsForUserIdResponse, 
+        },    // message description for IWebService_getNumberTagsForUserId_OutputMessage
+        {  // message description for IWebService_getStrenghtConnection_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getStrenghtConnection_InputMessageactionName, // http://tempuri.org/IWebService/getStrenghtConnection
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getStrenghtConnection, 
+        },    // message description for IWebService_getStrenghtConnection_InputMessage
+        {  // message description for IWebService_getStrenghtConnection_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getStrenghtConnection_OutputMessageactionName, // http://tempuri.org/IWebService/getStrenghtConnectionResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getStrenghtConnectionResponse, 
+        },    // message description for IWebService_getStrenghtConnection_OutputMessage
+        {  // message description for IWebService_getUserData_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getUserData_InputMessageactionName, // http://tempuri.org/IWebService/getUserData
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getUserData, 
+        },    // message description for IWebService_getUserData_InputMessage
+        {  // message description for IWebService_getUserData_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getUserData_OutputMessageactionName, // http://tempuri.org/IWebService/getUserDataResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getUserDataResponse, 
+        },    // message description for IWebService_getUserData_OutputMessage
+        {  // message description for IWebService_createFriendRequest_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_createFriendRequest_InputMessageactionName, // http://tempuri.org/IWebService/createFriendRequest
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.createFriendRequest, 
+        },    // message description for IWebService_createFriendRequest_InputMessage
+        {  // message description for IWebService_createFriendRequest_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_createFriendRequest_OutputMessageactionName, // http://tempuri.org/IWebService/createFriendRequestResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.createFriendRequestResponse, 
+        },    // message description for IWebService_createFriendRequest_OutputMessage
     },  // end of messages 
     {  // contracts
         {  // BasicHttpBinding_IWebService,
@@ -580,6 +792,84 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
                     WS_NON_RPC_LITERAL_OPERATION
                 }, //operation description for BasicHttpBinding_IWebService_getConnectioStrenght
             },  // BasicHttpBinding_IWebService_getConnectioStrenght
+            {  // BasicHttpBinding_IWebService_getNumberTagsForUserId
+                {  // parameter descriptions for BasicHttpBinding_IWebService_getNumberTagsForUserId
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)0, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)1, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)2, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)-1, (USHORT)0},
+                },  // parameter descriptions for BasicHttpBinding_IWebService_getNumberTagsForUserId
+                {  // operation description for BasicHttpBinding_IWebService_getNumberTagsForUserId
+                    1,
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getNumberTagsForUserId_InputMessage, 
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getNumberTagsForUserId_OutputMessage, 
+                    0,
+                    0,
+                    4,
+                    (WS_PARAMETER_DESCRIPTION*)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberTagsForUserId.params,
+                    BasicHttpBinding_IWebService_getNumberTagsForUserIdOperationStub,
+                    WS_NON_RPC_LITERAL_OPERATION
+                }, //operation description for BasicHttpBinding_IWebService_getNumberTagsForUserId
+            },  // BasicHttpBinding_IWebService_getNumberTagsForUserId
+            {  // BasicHttpBinding_IWebService_getStrenghtConnection
+                {  // parameter descriptions for BasicHttpBinding_IWebService_getStrenghtConnection
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)0, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)1, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)2, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)3, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)-1, (USHORT)0},
+                },  // parameter descriptions for BasicHttpBinding_IWebService_getStrenghtConnection
+                {  // operation description for BasicHttpBinding_IWebService_getStrenghtConnection
+                    1,
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getStrenghtConnection_InputMessage, 
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getStrenghtConnection_OutputMessage, 
+                    0,
+                    0,
+                    5,
+                    (WS_PARAMETER_DESCRIPTION*)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getStrenghtConnection.params,
+                    BasicHttpBinding_IWebService_getStrenghtConnectionOperationStub,
+                    WS_NON_RPC_LITERAL_OPERATION
+                }, //operation description for BasicHttpBinding_IWebService_getStrenghtConnection
+            },  // BasicHttpBinding_IWebService_getStrenghtConnection
+            {  // BasicHttpBinding_IWebService_getUserData
+                {  // parameter descriptions for BasicHttpBinding_IWebService_getUserData
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)0, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)1, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)2, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)-1, (USHORT)0},
+                },  // parameter descriptions for BasicHttpBinding_IWebService_getUserData
+                {  // operation description for BasicHttpBinding_IWebService_getUserData
+                    1,
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getUserData_InputMessage, 
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_getUserData_OutputMessage, 
+                    0,
+                    0,
+                    4,
+                    (WS_PARAMETER_DESCRIPTION*)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getUserData.params,
+                    BasicHttpBinding_IWebService_getUserDataOperationStub,
+                    WS_NON_RPC_LITERAL_OPERATION
+                }, //operation description for BasicHttpBinding_IWebService_getUserData
+            },  // BasicHttpBinding_IWebService_getUserData
+            {  // BasicHttpBinding_IWebService_createFriendRequest
+                {  // parameter descriptions for BasicHttpBinding_IWebService_createFriendRequest
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)0, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)1, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)2, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)3, (USHORT)-1},
+                    {WS_PARAMETER_TYPE_NORMAL, (USHORT)-1, (USHORT)0},
+                },  // parameter descriptions for BasicHttpBinding_IWebService_createFriendRequest
+                {  // operation description for BasicHttpBinding_IWebService_createFriendRequest
+                    1,
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_createFriendRequest_InputMessage, 
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IWebService_createFriendRequest_OutputMessage, 
+                    0,
+                    0,
+                    5,
+                    (WS_PARAMETER_DESCRIPTION*)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_createFriendRequest.params,
+                    BasicHttpBinding_IWebService_createFriendRequestOperationStub,
+                    WS_NON_RPC_LITERAL_OPERATION
+                }, //operation description for BasicHttpBinding_IWebService_createFriendRequest
+            },  // BasicHttpBinding_IWebService_createFriendRequest
             {  // array of operations for BasicHttpBinding_IWebService
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberUsers.BasicHttpBinding_IWebService_getNumberUsers,
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberDownloads.BasicHttpBinding_IWebService_getNumberDownloads,
@@ -589,9 +879,13 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_GetEveryWord.BasicHttpBinding_IWebService_GetEveryWord,
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getAllUsersID.BasicHttpBinding_IWebService_getAllUsersID,
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getConnectioStrenght.BasicHttpBinding_IWebService_getConnectioStrenght,
+                (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberTagsForUserId.BasicHttpBinding_IWebService_getNumberTagsForUserId,
+                (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getStrenghtConnection.BasicHttpBinding_IWebService_getStrenghtConnection,
+                (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getUserData.BasicHttpBinding_IWebService_getUserData,
+                (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_createFriendRequest.BasicHttpBinding_IWebService_createFriendRequest,
             },  // array of operations for BasicHttpBinding_IWebService
             {  // contract description for BasicHttpBinding_IWebService
-            8,
+            12,
             (WS_OPERATION_DESCRIPTION**)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.operations,
             },  // end of contract description for BasicHttpBinding_IWebService
         },  // BasicHttpBinding_IWebService
@@ -638,13 +932,21 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getAllUsersIDResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 13),
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getConnectioStrenght",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 14),
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getConnectioStrenghtResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 15),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getNumberTagsForUserId",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 16),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getNumberTagsForUserIdResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 17),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getStrenghtConnection",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 18),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getStrenghtConnectionResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 19),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserData",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 20),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/getUserDataResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 21),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/createFriendRequest",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 22),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IWebService/createFriendRequestResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 23),
         },  // end of xmlStrings
         
         {  // tempuri_org_wsdldictionary
-          // 84eef763-dec3-4796-b5d5-6db5f68e179a 
-        { 0x84eef763, 0xdec3, 0x4796, { 0xb5, 0xd5, 0x6d,0xb5, 0xf6, 0x8e, 0x17, 0x9a } },
+          // 1ed68632-925f-488f-a12c-fd26b837428f 
+        { 0x1ed68632, 0x925f, 0x488f, { 0xa1, 0x2c, 0xfd,0x26, 0xb8, 0x37, 0x42, 0x8f } },
         (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings,
-        16,
+        24,
         TRUE,
         },
     },  //  end of dictionary
@@ -857,6 +1159,122 @@ HRESULT WINAPI BasicHttpBinding_IWebService_getConnectioStrenght(
         _asyncContext,
         _error);
 }
+
+// operation: BasicHttpBinding_IWebService_getNumberTagsForUserId
+HRESULT WINAPI BasicHttpBinding_IWebService_getNumberTagsForUserId(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ int* getNumberTagsForUserIdResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error)
+{
+    void* _argList[4]; 
+    _argList[0] = &id;
+    _argList[1] = &user;
+    _argList[2] = &pass;
+    _argList[3] = &getNumberTagsForUserIdResult;
+    return WsCall(_serviceProxy,
+        (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getNumberTagsForUserId.BasicHttpBinding_IWebService_getNumberTagsForUserId,
+        (const void **)&_argList,
+        _heap,
+        _callProperties,
+        _callPropertyCount,
+        _asyncContext,
+        _error);
+}
+
+// operation: BasicHttpBinding_IWebService_getStrenghtConnection
+HRESULT WINAPI BasicHttpBinding_IWebService_getStrenghtConnection(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id1, 
+    _In_ int id2, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ int* getStrenghtConnectionResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error)
+{
+    void* _argList[5]; 
+    _argList[0] = &id1;
+    _argList[1] = &id2;
+    _argList[2] = &user;
+    _argList[3] = &pass;
+    _argList[4] = &getStrenghtConnectionResult;
+    return WsCall(_serviceProxy,
+        (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getStrenghtConnection.BasicHttpBinding_IWebService_getStrenghtConnection,
+        (const void **)&_argList,
+        _heap,
+        _callProperties,
+        _callPropertyCount,
+        _asyncContext,
+        _error);
+}
+
+// operation: BasicHttpBinding_IWebService_getUserData
+HRESULT WINAPI BasicHttpBinding_IWebService_getUserData(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Outptr_opt_ UserData** getUserDataResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error)
+{
+    void* _argList[4]; 
+    _argList[0] = &id;
+    _argList[1] = &user;
+    _argList[2] = &pass;
+    _argList[3] = &getUserDataResult;
+    return WsCall(_serviceProxy,
+        (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_getUserData.BasicHttpBinding_IWebService_getUserData,
+        (const void **)&_argList,
+        _heap,
+        _callProperties,
+        _callPropertyCount,
+        _asyncContext,
+        _error);
+}
+
+// operation: BasicHttpBinding_IWebService_createFriendRequest
+HRESULT WINAPI BasicHttpBinding_IWebService_createFriendRequest(
+    _In_ WS_SERVICE_PROXY* _serviceProxy,
+    _In_ int id1, 
+    _In_ int id2, 
+    _In_opt_z_ WCHAR* user, 
+    _In_opt_z_ WCHAR* pass, 
+    _Out_ BOOL* createFriendRequestResult, 
+    _In_ WS_HEAP* _heap,
+    _In_reads_opt_(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    _In_ const ULONG _callPropertyCount,
+    _In_opt_ const WS_ASYNC_CONTEXT* _asyncContext,
+    _In_opt_ WS_ERROR* _error)
+{
+    void* _argList[5]; 
+    _argList[0] = &id1;
+    _argList[1] = &id2;
+    _argList[2] = &user;
+    _argList[3] = &pass;
+    _argList[4] = &createFriendRequestResult;
+    return WsCall(_serviceProxy,
+        (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.BasicHttpBinding_IWebService_createFriendRequest.BasicHttpBinding_IWebService_createFriendRequest,
+        (const void **)&_argList,
+        _heap,
+        _callProperties,
+        _callPropertyCount,
+        _asyncContext,
+        _error);
+}
 #if (_MSC_VER >= 1400)
 #pragma warning(pop)
 #endif
@@ -928,10 +1346,42 @@ const _tempuri_org_wsdl tempuri_org_wsdl =
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getConnectioStrenght_OutputMessageactionName, // http://tempuri.org/IWebService/getConnectioStrenghtResponse
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getConnectioStrenghtResponse, 
         },    // message description for IWebService_getConnectioStrenght_OutputMessage
+        {  // message description for IWebService_getNumberTagsForUserId_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberTagsForUserId_InputMessageactionName, // http://tempuri.org/IWebService/getNumberTagsForUserId
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberTagsForUserId, 
+        },    // message description for IWebService_getNumberTagsForUserId_InputMessage
+        {  // message description for IWebService_getNumberTagsForUserId_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getNumberTagsForUserId_OutputMessageactionName, // http://tempuri.org/IWebService/getNumberTagsForUserIdResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getNumberTagsForUserIdResponse, 
+        },    // message description for IWebService_getNumberTagsForUserId_OutputMessage
+        {  // message description for IWebService_getStrenghtConnection_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getStrenghtConnection_InputMessageactionName, // http://tempuri.org/IWebService/getStrenghtConnection
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getStrenghtConnection, 
+        },    // message description for IWebService_getStrenghtConnection_InputMessage
+        {  // message description for IWebService_getStrenghtConnection_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getStrenghtConnection_OutputMessageactionName, // http://tempuri.org/IWebService/getStrenghtConnectionResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getStrenghtConnectionResponse, 
+        },    // message description for IWebService_getStrenghtConnection_OutputMessage
+        {  // message description for IWebService_getUserData_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getUserData_InputMessageactionName, // http://tempuri.org/IWebService/getUserData
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getUserData, 
+        },    // message description for IWebService_getUserData_InputMessage
+        {  // message description for IWebService_getUserData_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_getUserData_OutputMessageactionName, // http://tempuri.org/IWebService/getUserDataResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.getUserDataResponse, 
+        },    // message description for IWebService_getUserData_OutputMessage
+        {  // message description for IWebService_createFriendRequest_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_createFriendRequest_InputMessageactionName, // http://tempuri.org/IWebService/createFriendRequest
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.createFriendRequest, 
+        },    // message description for IWebService_createFriendRequest_InputMessage
+        {  // message description for IWebService_createFriendRequest_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IWebService_createFriendRequest_OutputMessageactionName, // http://tempuri.org/IWebService/createFriendRequestResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.createFriendRequestResponse, 
+        },    // message description for IWebService_createFriendRequest_OutputMessage
     },  // messages
     {  // contracts
         {  // BasicHttpBinding_IWebService
-            8,
+            12,
             (WS_OPERATION_DESCRIPTION**)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IWebService.operations,
         },  // end of BasicHttpBinding_IWebService
     },  // contracts

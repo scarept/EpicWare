@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
-#include <GL/glut.h>
+#include <freeGLUT\include\GL\freeglut.h>
 #include <vector>
 //#include "SOIL.h"
 #include <External images for OpenGl\Loadimages.h>
@@ -16,6 +16,10 @@
 #include <SWI-Stream.h>
 #include <SWI-cpp.h>
 //#include "Prolog" 
+
+//#pragma comment(linker, "/subsystem:\"windows\" \
+//	/entry:\"mainCRTStartup\"")
+
 using namespace std;
 
 #define BUFSIZE 512
@@ -76,15 +80,15 @@ void initGame(){
 	resetMatriz();
 
 	/* carregar imagens */
-	mod.imagem_circle = load2D("CIRCLE.png");
-	mod.imagem_cruz = load2D("CRUZ.png");
-	mod.textura_paredes = load2D("PAREDE.png");
-	mod.win = load2D("WIN.png");
-	mod.lose = load2D("LOSE.png");
-	mod.deuce = load2D("DEUCE.png");
+	mod.imagem_circle = load2D(".\/images\/tictactoe\/CIRCLE.png");
+	mod.imagem_cruz = load2D(".\/images\/tictactoe\/CRUZ.png");
+	mod.textura_paredes = load2D(".\/images\/tictactoe\/PAREDE.png");
+	mod.win = load2D(".\/images\/tictactoe\/WIN.png");
+	mod.lose = load2D(".\/images\/tictactoe\/LOSE.png");
+	mod.deuce = load2D(".\/images\/tictactoe\/DEUCE.png");
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
-		mod.textura_quadrado[i][j] = load2D("PAREDE.png");
+		mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/PAREDE.png");
 		}
 	}
 
@@ -99,9 +103,9 @@ void initGame(){
 void initMenu(void)
 {
 	/*  texturas  menu */
-	mod.menu = load2D("MENU.png");
-	mod.exit = load2D("EXIT.png");
-	mod.play = load2D("PLAY.png");
+	mod.menu = load2D(".\/images\/tictactoe\/MENU.png");
+	mod.exit = load2D(".\/images\/tictactoe\/EXIT.png");
+	mod.play = load2D(".\/images\/tictactoe\/PLAY.png");
 }
 
 
@@ -172,16 +176,12 @@ void assertData(){
 
 Cordenadas fastestWayAvailable(){
 
-	_putenv("SWI_HOME_DIR=..\\..\\..\\..\\ExternalDependencies\\SWI-Prolog");
-	char* argv[] = { "", "-s", "tictactoe.pl", NULL };
-
-	PlEngine e(3, argv);
 	assertData();
 
 	PlTermv av(2);
 
-	char *res;
-	char *res2;
+	char *res = 0;
+	char *res2 = 0;
 
 	/* Obtem as cordenadas da jogado do computador*/
 	PlQuery q("c", av);
@@ -409,13 +409,13 @@ void desenhaJogo(GLenum mode)
 		{
 			if (mod.matJogo[i][j] == 0)
 			{
-				mod.textura_quadrado[i][j] = load2D("PAREDE.png");
+				mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/PAREDE.png");
 			}
 			else if(mod.matJogo[i][j] == 1){
-				mod.textura_quadrado[i][j] = load2D("CRUZ.png");
+				mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/CRUZ.png");
 			}
 			else{
-				mod.textura_quadrado[i][j] = load2D("CIRCLE.png");
+				mod.textura_quadrado[i][j] = load2D(".\/images\/tictactoe\/CIRCLE.png");
 			}
 		}
 	}
@@ -717,6 +717,11 @@ void picking(int button, int state, int x, int y)
 
 int main(int argc, char** argv)
 {
+	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
+	char* dummy_args[] = { argv[0], "-s", ".\/pl\/tictactoe.pl", NULL };
+
+	PlEngine e(3, dummy_args);
+
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -732,6 +737,11 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display); //função display actualizada a cada instante
 
 	glutReshapeFunc(reshape);
+
+	glutSetOption(
+		GLUT_ACTION_ON_WINDOW_CLOSE,
+		GLUT_ACTION_GLUTMAINLOOP_RETURNS
+		);
 
 	initMenu(); //começa por carregar o menu
 

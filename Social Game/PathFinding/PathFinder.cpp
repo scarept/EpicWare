@@ -11,7 +11,7 @@ void PathFinder::assertData(void){
 	vector<int> users = webService->getAllUsers();
 	
 	for each (int user in users){
-		vector<int> friends = webService->getFriendsByUser(user);
+		vector<int> friends = webService->getUserFiends(username,password,user);
 		for each(int userFriend in friends)
 			joinConnection(user, userFriend);
 	}
@@ -42,7 +42,7 @@ void PathFinder::assertDataStrenght(void){
 	vector<int> users = webService->getAllUsers();
 
 	for each (int user in users){
-		vector<int> friends = webService->getFriendsByUser(user);
+		vector<int> friends = webService->getUserFiends(username, password, user);
 		for each(int userFriend in friends){
 			strenght = webService->getConnectionStrenght(user, userFriend);
 			joinConnection(user, userFriend, strenght);
@@ -88,17 +88,19 @@ vector<int> PathFinder::getShortestPath(int user1, int user2){
 	
 	PlQuery q("go", av);
 	try{
+		int i = 0;
 		while (q.next_solution()){
-			//cout << (char *)av[2] << endl;
-			char *indexes = strtok((char *)av[2], " ,'[]");
-			if (indexes == NULL)
-				return path;
+			if (i < 1){
+				char *indexes = strtok((char *)av[2], " ,'[]");
+				if (indexes == NULL)
+					return path;
 
-			while (indexes != NULL){
-				path.push_back(atoi(indexes));
-				indexes = strtok(NULL, " ,'[]");
+				while (indexes != NULL){
+					path.push_back(atoi(indexes));
+					indexes = strtok(NULL, " ,'[]");
+				}
 			}
-
+			i++;
 		}
 	}
 	catch (PlException &ex){
@@ -108,25 +110,24 @@ vector<int> PathFinder::getShortestPath(int user1, int user2){
 }
 
 vector<int> PathFinder::getHeaviestPath(int user1, int user2){
-	string user1Str, user2Str, tempNode, tempCost;
+	char user1Str[10], user2Str[10];
+	char tempNode[256], tempCost[10];
 	string tmp;
 	vector<int> path;
 	char *indexes;
-	_itoa(user1, &tmp[0], 10);
-	strcat(&user1Str[0], &tmp[0]);
-	_itoa(user2, &tmp[0], 10);
-	strcat(&user2Str[0], &tmp[0]);
-	strcat(&user1Str[0], ",");
-	strcat(&user2Str[0], ",");
-
+	_itoa(user1, user1Str, 10);
+	_itoa(user2, user2Str, 10);
+	strcat(user1Str, ",");
+	strcat(user2Str, ",");
+	
 	PlTermv av(4);
-	av[0] = user1Str.c_str();
-	av[1] = user2Str.c_str();
+	av[0] = user1Str;
+	av[1] = user2Str;
 	PlQuery q("go", av);
 	try{
 		while (q.next_solution()){
-			strcpy(&tempNode[0], (char *)av[2]);
-			strcpy(&tempCost[0], (char *)av[2]);
+			strcpy(tempNode, (char *)av[2]);
+			strcpy(tempCost, (char *)av[3]);
 		}
 
 		if (&tempNode[0] == NULL)

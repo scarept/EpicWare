@@ -20,6 +20,13 @@ typedef struct _EpicWareWeb_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION Word;
             WS_FIELD_DESCRIPTION* ArrayOfWordFields [1]; 
         } ArrayOfWorddescs; // end of ArrayOfWord
+        struct  // UserData
+        {
+            WS_FIELD_DESCRIPTION firstName;
+            WS_FIELD_DESCRIPTION lastName;
+            WS_FIELD_DESCRIPTION numberOfUserTags;
+            WS_FIELD_DESCRIPTION* UserDataFields [3]; 
+        } UserDatadescs; // end of UserData
     } globalTypes;  // end of global types
     struct  // XML dictionary
     {
@@ -31,6 +38,10 @@ typedef struct _EpicWareWeb_xsdLocalDefinitions
             WS_XML_STRING WordlanguageLocalName;  // language
             WS_XML_STRING WordtextLocalName;  // text
             WS_XML_STRING WordtopicLocalName;  // topic
+            WS_XML_STRING UserDataTypeName;  // UserData
+            WS_XML_STRING UserDatafirstNameLocalName;  // firstName
+            WS_XML_STRING UserDatalastNameLocalName;  // lastName
+            WS_XML_STRING UserDatanumberOfUserTagsLocalName;  // numberOfUserTags
         } xmlStrings;  // end of XML string list
         WS_XML_DICTIONARY dict;
     } dictionary;  // end of XML dictionary
@@ -99,6 +110,46 @@ const static _EpicWareWeb_xsdLocalDefinitions EpicWareWeb_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&EpicWareWeb_xsdLocalDefinitions.globalTypes.ArrayOfWorddescs.Word,
             },
         },    // ArrayOfWord
+        {  // UserData
+            {  // field description for firstName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.UserDatafirstNameLocalName, // firstName
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfWordTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(UserData, firstName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for firstName
+            {  // field description for lastName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.UserDatalastNameLocalName, // lastName
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfWordTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(UserData, lastName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for lastName
+            {  // field description for numberOfUserTags
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.UserDatanumberOfUserTagsLocalName, // numberOfUserTags
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfWordTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(UserData, numberOfUserTags),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for numberOfUserTags
+            {  // fields description for UserData
+            (WS_FIELD_DESCRIPTION*)&EpicWareWeb_xsdLocalDefinitions.globalTypes.UserDatadescs.firstName,
+            (WS_FIELD_DESCRIPTION*)&EpicWareWeb_xsdLocalDefinitions.globalTypes.UserDatadescs.lastName,
+            (WS_FIELD_DESCRIPTION*)&EpicWareWeb_xsdLocalDefinitions.globalTypes.UserDatadescs.numberOfUserTags,
+            },
+        },    // UserData
     }, // end of global types
     {  // dictionary 
         {  // xmlStrings
@@ -108,13 +159,17 @@ const static _EpicWareWeb_xsdLocalDefinitions EpicWareWeb_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("language",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 3),
             WS_XML_STRING_DICTIONARY_VALUE("text",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 4),
             WS_XML_STRING_DICTIONARY_VALUE("topic",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 5),
+            WS_XML_STRING_DICTIONARY_VALUE("UserData",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 6),
+            WS_XML_STRING_DICTIONARY_VALUE("firstName",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 7),
+            WS_XML_STRING_DICTIONARY_VALUE("lastName",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 8),
+            WS_XML_STRING_DICTIONARY_VALUE("numberOfUserTags",&EpicWareWeb_xsdLocalDefinitions.dictionary.dict, 9),
         },  // end of xmlStrings
         
         {  // EpicWareWeb_xsddictionary
-          // e47c55f7-fd43-4df8-a140-59c6c611320f 
-        { 0xe47c55f7, 0xfd43, 0x4df8, { 0xa1, 0x40, 0x59,0xc6, 0xc6, 0x11, 0x32, 0x0f } },
+          // 2a927002-63b3-4479-98e7-efb4bc9ea785 
+        { 0x2a927002, 0x63b3, 0x4479, { 0x98, 0xe7, 0xef,0xb4, 0xbc, 0x9e, 0xa7, 0x85 } },
         (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings,
-        6,
+        10,
         TRUE,
         },
     },  //  end of dictionary
@@ -145,6 +200,17 @@ const _EpicWareWeb_xsd EpicWareWeb_xsd =
         0,
         0,
         },   // end of struct description for Word
+        {
+        sizeof(UserData),
+        __alignof(UserData),
+        (WS_FIELD_DESCRIPTION**)&EpicWareWeb_xsdLocalDefinitions.globalTypes.UserDatadescs.UserDataFields,
+        WsCountOf(EpicWareWeb_xsdLocalDefinitions.globalTypes.UserDatadescs.UserDataFields),
+        (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.UserDataTypeName, // UserData
+        (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfWordTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb
+        0,
+        0,
+        0,
+        },   // end of struct description for UserData
     },  // globalTypes
     {  // globalElements
         {
@@ -158,6 +224,12 @@ const _EpicWareWeb_xsd EpicWareWeb_xsd =
             (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfWordTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb
             WS_STRUCT_TYPE,
             (void*)&EpicWareWeb_xsd.globalTypes.Word,
+        },
+        {
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.UserDataTypeName, // UserData
+            (WS_XML_STRING*)&EpicWareWeb_xsdLocalDefinitions.dictionary.xmlStrings.ArrayOfWordTypeNamespace, // http://schemas.datacontract.org/2004/07/EpicWareWeb
+            WS_STRUCT_TYPE,
+            (void*)&EpicWareWeb_xsd.globalTypes.UserData,
         },
     },  // globalElements
 }; // end of _EpicWareWeb_xsd

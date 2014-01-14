@@ -243,6 +243,11 @@
     <Compile Include="Models\UserEntities.cs" />
     <Compile Include="Models\UserRelationsEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Shared\Shared.fr.Designer.cs">
+      <DependentUpon>Shared.fr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\Shared.Designer.cs">
       <DependentUpon>Shared.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1112,6 +1117,11 @@
     <EmbeddedResource Include="Models\LanguageModels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Shared.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shared.fr.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Shared.en.resx" />
