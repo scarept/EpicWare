@@ -2800,6 +2800,10 @@ int main(int argc, char **argv)
 	glutInitWindowSize(1000, 700); //tamanho da janela
 	glutCreateWindow("SocialGame - EpicWare"); //nome da janela
 
+	HANDLE icon = LoadImage(GetModuleHandle(NULL), "./images/epicware.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE | LR_COLOR);
+	HWND hwnd = FindWindow(NULL, "SocialGame - EpicWare");
+	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
+
 	glutSetOption(
 		GLUT_ACTION_ON_WINDOW_CLOSE,
 		GLUT_ACTION_GLUTMAINLOOP_RETURNS
