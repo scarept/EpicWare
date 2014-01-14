@@ -11,6 +11,8 @@
 #define radToDeg(x)   (180*(x)/M_PI)
 #define degToRad(x)   (M_PI*(x)/180)
 
+#define __GRAFO__FILE__ "exemplo.grafo"
+
 No nos[_MAX_NOS_GRAFO];
 Arco arcos[_MAX_ARCOS_GRAFO];
 int numNos=0, numArcos=0;
@@ -87,6 +89,23 @@ Arco criaArco(int noi, int nof, float peso, float forcaLig){
 	return arco;
 }
 
+void gravaGrafo(){
+	ofstream myfile;
+
+	myfile.open (__GRAFO__FILE__, ios::out);
+	if (!myfile.is_open()) {
+		cout << "Erro ao abrir " << __GRAFO__FILE__ << "para escrever" <<endl;
+		exit(1);
+	}
+	myfile << numNos << endl;
+	for(int i=0; i<numNos;i++)
+		myfile << nos[i].x << " " << nos[i].y << " " << nos[i].z <<endl;
+	myfile << numArcos << endl;
+	for(int i=0; i<numArcos;i++)
+		myfile << arcos[i].noi << " " << arcos[i].nof << " " << arcos[i].peso << " " << arcos[i].forcaLig << endl;
+	myfile.close();
+}
+
 void ligacaoNos(int noi, int nof){
 	arcos[numArcos].noi = noi;
 	arcos[numArcos].nof = nof;
@@ -153,13 +172,14 @@ void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
 			float x = raio * ((cos(i*alpha)));
 			float y = raio * (sin(i*alpha));
 
-			nos[numNos].nome = "Amigo";
+			nos[numNos].nome = "ND";
 			nos[numNos].userId = amigosDiretos[i];
 			nos[numNos].x = x + no_inicio.x;
 			nos[numNos].y = y + no_inicio.y;
 			nos[numNos].z = no_inicio.z + altura;
 			/* função que conta o numero de tags MUDAR*/
-			nos[numNos].largura = 2;
+			nos[numNos].largura = 1;
+			nos[numNos].nivel = nivel;
 
 			numNos = numNos + 1;
 
@@ -176,15 +196,17 @@ void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
 
 void leGrafo(No  user1, vector<int> listaNos, int nivel, int posActual){
 	No user;
-	if (nivel == 1){
+	float alturaMaxima=18;
+	if (nivel == 1){ // se for o nivel raiz;
 		user = nos[0];
 		//No user;
 		user.x = 0;
 		user.y = 0;
-		user.z = 8;
+		user.z = alturaMaxima;
 		user.largura = 2;
 		//user.userId = 1;
 		user.nome = "Eu";
+		user.nivel = nivel;
 
 		nos[0] = user;
 	}
