@@ -97,6 +97,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Top Geral.
+        /// </summary>
+        public static string all_score {
+            get {
+                return ResourceManager.GetString("all_score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pedido de amizade pendente.
         /// </summary>
         public static string amizade_pendente {
@@ -385,6 +394,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Labirinto.
+        /// </summary>
+        public static string labirinth {
+            get {
+                return ResourceManager.GetString("labirinth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sobrenome.
         /// </summary>
         public static string lastname {
@@ -417,6 +435,15 @@ namespace EpicWareWeb.Views.User {
         public static string masculino {
             get {
                 return ResourceManager.GetString("masculino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enforcado.
+        /// </summary>
+        public static string maze {
+            get {
+                return ResourceManager.GetString("maze", resourceCulture);
             }
         }
         
@@ -570,15 +597,6 @@ namespace EpicWareWeb.Views.User {
         public static string pedido2 {
             get {
                 return ResourceManager.GetString("pedido2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pedido de amizade enviado a partir do jogo.
-        /// </summary>
-        public static string pedidoAmizadePeloJogo {
-            get {
-                return ResourceManager.GetString("pedidoAmizadePeloJogo", resourceCulture);
             }
         }
         
@@ -745,6 +763,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tabela Classificativa.
+        /// </summary>
+        public static string tabela_classificativa {
+            get {
+                return ResourceManager.GetString("tabela_classificativa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nuvem de tags de utilizador.
         /// </summary>
         public static string tagcloudGeral {
@@ -786,6 +813,15 @@ namespace EpicWareWeb.Views.User {
         public static string textoDefaultTags {
             get {
                 return ResourceManager.GetString("textoDefaultTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jogo do Galo.
+        /// </summary>
+        public static string tic_tac_toe {
+            get {
+                return ResourceManager.GetString("tic_tac_toe", resourceCulture);
             }
         }
         

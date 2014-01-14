@@ -369,4 +369,7 @@
   <data name="veramigos" xml:space="preserve">
     <value>See friends</value>
   </data>
+  <data name="tabela_classificativa" xml:space="preserve">
+    <value>ScoreBoard</value>
+  </data>
 </root>

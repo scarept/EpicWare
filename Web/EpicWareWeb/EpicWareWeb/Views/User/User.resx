@@ -369,4 +369,7 @@
   <data name="changePass" xml:space="preserve">
     <value>Mudar Password</value>
   </data>
+  <data name="tabela_classificativa" xml:space="preserve">
+    <value>Tabela Classificativa</value>
+  </data>
 </root>

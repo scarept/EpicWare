@@ -369,4 +369,7 @@
   <data name="changePass" xml:space="preserve">
     <value>Changer mot de passe</value>
   </data>
+  <data name="tabela_classificativa" xml:space="preserve">
+    <value>Tableau de la Ligue</value>
+  </data>
 </root>
