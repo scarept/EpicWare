@@ -135,6 +135,14 @@ namespace EpicWareWeb.Controllers
             return View(scores);
         }
 
+        public ActionResult E404()
+        {
+            return View();
+        }
+        public ActionResult E403()
+        {
+            return View();
+        }
         private static int Compare(ScoreTable x, ScoreTable y)
         {
             return x.pontuação.CompareTo(y.pontuação);
