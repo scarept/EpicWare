@@ -22,9 +22,15 @@
             }
         </tr>
         <tr>
+            @if (Request.IsAuthenticated)
+            {
+              using (Html.BeginForm("ScoreBoard", "Home", FormMethod.Get))
+                {
             <td width="300">
                 <button type="button" class="btn btn-lg btn-primary" style="width:200px;">@EpicWareWeb.Views.User.User.scores</button>
             </td>
+                }
+            }
             @if (Request.IsAuthenticated)
             {
                 using (Html.BeginForm("ListIntrosFriendRequestMiddle", "User", FormMethod.Get))
