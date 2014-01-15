@@ -1940,10 +1940,6 @@ void keyboard(unsigned char key, int x, int y)
 	}
 }
 
-void runLabyrinth(){
-
-
-}
 
 int latestHangmanScore;
 std::thread HangmanThread;
@@ -1973,7 +1969,37 @@ void runHangman(){
 	return;
 }
 
+void runLabyrinth(){
 
+	labyrinthRunning = true;
+	char *spawn_args[2] = { NULL };
+
+	// execute the other process and wait for it to terminate
+	spawn_args[0] = ".\/..\/..\/..\/";
+	latestLabyrinthScore = _spawnv(
+		P_WAIT,
+		"./labyrinth.exe",
+		spawn_args
+		);
+	labyrinthRunning = false;
+	return;
+}
+
+void runTicTacToe(){
+
+	tictactoeRunning = true;
+	char *spawn_args[2] = { NULL };
+
+	// execute the other process and wait for it to terminate
+	spawn_args[0] = ".\/..\/..\/..\/";
+	latestTicTacToeScore = _spawnv(
+		P_WAIT,
+		"./TicTacToe.exe",
+		spawn_args
+		);
+	tictactoeRunning = false;
+	return;
+}
 
 void Special(int key, int x, int y){
 
@@ -2801,12 +2827,36 @@ void clickEvent(GLint hits, GLuint buffer[])
 			}
 			else if (*ptr == 5){
 				/* labirinto */
+				if (!labyrinthRunning){
+
+					if (LabyrinthThread.joinable())
+						LabyrinthThread.join();
+
+					LabyrinthThread = std::thread(runLabyrinth);
+					std::cout << "main, Labyrinth will now execute concurrently...\n";
+				}
 			}
 			else if (*ptr == 6){
 				/* hangman */
+				if (!hangmanRunning){
+
+					if (HangmanThread.joinable())
+						HangmanThread.join();
+
+					HangmanThread = std::thread(runHangman);
+					std::cout << "main, Hangman will now execute concurrently...\n";
+				}
 			}
 			else if (*ptr == 7){
 				/* tic tac toe */
+				if (!tictactoeRunning){
+
+					if (TicTacToeThread.joinable())
+						TicTacToeThread.join();
+
+					TicTacToeThread = std::thread(runTicTacToe);
+					std::cout << "main, TicTacToe will now execute concurrently...\n";
+				}
 			}
 
 
@@ -3264,6 +3314,21 @@ void Timer(int value)
 		}
 	}
 	display();
+	//glFlush();
+	if (!hangmanRunning && HangmanThread.joinable()){
+
+		HangmanThread.join();
+	}
+
+	if (!labyrinthRunning && LabyrinthThread.joinable()){
+
+		LabyrinthThread.join();
+	}
+
+	if (!tictactoeRunning && TicTacToeThread.joinable()){
+
+		TicTacToeThread.join();
+	}
 	//	}
 }
 int main(int argc, char **argv)
