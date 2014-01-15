@@ -64,14 +64,14 @@ xcopy /I /Y /E ".\%BINARIES_PATH%\%TICTACTOE_RES_PATH2%" ".\%OUTPUT_PATH2%\pl"
 
 xcopy /Y /E /exclude:excludedfileslist.txt ".\%BINARIES_PATH%\%HANGMAN_PATH%" ".\%OUTPUT_PATH%"
 xcopy /Y /E /exclude:excludedfileslist.txt ".\%BINARIES_PATH%\%HANGMAN_PATH%" ".\%OUTPUT_PATH2%"
-pause
+
 xcopy /Y /E /exclude:excludedfileslist.txt ".\%BINARIES_PATH%\%LABYRINTH_PATH%" ".\%OUTPUT_PATH%"
 xcopy /Y /E /exclude:excludedfileslist.txt ".\%BINARIES_PATH%\%LABYRINTH_PATH%" ".\%OUTPUT_PATH2%"
 xcopy /Y /E /exclude:excludedfileslist.txt ".\%BINARIES_PATH%\%TICTACTOE_PATH%" ".\%OUTPUT_PATH%"
 xcopy /Y /E /exclude:excludedfileslist.txt ".\%BINARIES_PATH%\%TICTACTOE_PATH%" ".\%OUTPUT_PATH2%"
 xcopy /Y /E /exclude:excludedfileslist2.txt ".\%SOCIAL_PATH%" ".\%OUTPUT_PATH%\images"
 xcopy /Y /E /exclude:excludedfileslist2.txt ".\%SOCIAL_PATH%" ".\%OUTPUT_PATH2%\images"
-pause
+
 xcopy /Y /E ".\%BINARIES_PATH%\%HANGMAN_RES_PATH%" ".\%BINARIES_PATH%\%HANGMAN_RELEASE_IMG%"
 xcopy /Y /E ".\%BINARIES_PATH%\%HANGMAN_RES_PATH2%" ".\%BINARIES_PATH%\%HANGMAN_RELEASE_PL%"
 xcopy /Y /E ".\%BINARIES_PATH%\%HANGMAN_RES_PATH%" ".\%BINARIES_PATH%\%HANGMAN_RELEASE2_IMG%"
