@@ -1090,8 +1090,8 @@
     <Content Include="Views\Home\_SearchList.cshtml" />
     <Content Include="Views\User\_TagsUser.cshtml" />
     <Content Include="Views\Home\ScoreBoard.cshtml" />
-    <Content Include="Views\Shared\e404.cshtml" />
-    <Content Include="Views\Shared\e403.cshtml" />
+    <Content Include="Views\Home\e404.cshtml" />
+    <Content Include="Views\Home\e403.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
