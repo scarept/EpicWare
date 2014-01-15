@@ -63,6 +63,12 @@
                 </div>
             </td>
         }
+        else
+        {
+            <td width="500" align="right" style="padding-right:0px;">
+                <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @EpicWareWeb.Views.User.User.no_info</div>@*Portugal</div>*@
+            </td>
+        }
         @if (!(Model.userProfile.country == null)) {
         <td width="500" align="right" style="padding-right:0px;">
             <div class="alert alert-info"><b>@EpicWareWeb.Views.User.User.pais:</b> @Model.userProfile.country.name</div>@*Portugal</div>*@
