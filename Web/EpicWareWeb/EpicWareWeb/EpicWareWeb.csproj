@@ -1087,7 +1087,7 @@
     <Content Include="Views\User\_FriendsList.cshtml" />
     <Content Include="Views\Home\_SearchList.cshtml" />
     <Content Include="Views\User\_TagsUser.cshtml" />
-    <Content Include="Views\User\Scoreboard.cshtml" />
+    <Content Include="Views\Home\ScoreBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

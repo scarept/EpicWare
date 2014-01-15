@@ -1,4 +1,9 @@
-﻿@{ViewBag.Title = EpicWareWeb.Views.User.User.tabela_classificativa;}
+﻿@model IEnumerable<EpicWareWeb.Controllers.ScoreTable>
+
+@{ViewBag.Title = EpicWareWeb.Views.User.User.tabela_classificativa; int count = 1;
+  
+  
+  }
 
 <h2>@EpicWareWeb.Views.User.User.tabela_classificativa</h2>
 
@@ -8,13 +13,13 @@
             <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.all_score</button>
         </td>
         <td>
-            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.tic_tac_toe</button>
+            <button type="submit" class="btn btn-default" disabled>@EpicWareWeb.Views.User.User.tic_tac_toe</button>
         </td>
         <td>
-            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.labirinth</button>
+            <button type="submit" class="btn btn-default" disabled>@EpicWareWeb.Views.User.User.labirinth</button>
         </td>
         <td>
-            <button type="submit" class="btn btn-default">@EpicWareWeb.Views.User.User.maze</button>
+            <button type="submit" class="btn btn-default" disabled>@EpicWareWeb.Views.User.User.maze</button>
         </td>
     </tr>
 </table>
@@ -27,36 +32,41 @@
     </h1>
     <div class="TabelaClassificativa">
         <table>
-            @foreach (var s in Model)
+            @foreach (EpicWareWeb.Controllers.ScoreTable s in Model)
             {
+                if (count > 10)
+                {
+                    break;
+                }
                 <tr>
                     <td width="20">
                         @*Posição*@
                         <span style="font-size:14px; color:white;">
-
+                            @count;
                         </span>
                     </td>
                     <td width="70">
                         @*Ir buscar a imagem do user*@
                         <a href="">
-                            <img src="" width="50" height="50" />
+                            <img src="@s.user.userProfile.pathImg" width="50" height="50" />
                         </a>
                     </td>
                     <td>
                         @*Nickname*@
-                        <a href="">
+                        <a href="/LAPR5/User/Profile/@s.user.userID">
                             <span style="font-size:14px; color:white;">
-
+                                @s.user.userProfile.nickname
                             </span>
                         </a>
                     </td>
                     <td>
                         @*Pontuação*@
                         <span style="font-size:14px; color:white;">
-
+                            @s.pontuação
                         </span>
                     </td>
                 </tr>
+                count++;
             }
         </table>
     </div>

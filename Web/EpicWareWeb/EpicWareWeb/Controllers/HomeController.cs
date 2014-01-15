@@ -10,6 +10,7 @@ namespace EpicWareWeb.Controllers
 {
     public struct ScoreTable
     {
+        public User user;
         public string nome;
         public int pontuação;
     }
@@ -123,12 +124,14 @@ namespace EpicWareWeb.Controllers
                     sum += score.points;
                 }
                 ScoreTable tmp = new ScoreTable();
+                tmp.user = user;
                 tmp.nome = user.userProfile.nickname;
                 tmp.pontuação = sum;
                 scores.Add(tmp);
             }
 
             scores.Sort(Compare);
+            scores.Reverse();
             return View(scores);
         }
 
