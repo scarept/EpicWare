@@ -47,6 +47,8 @@ void desenhaBtnRegeita();
 void getRequests();
 void getWaitingResponses();
 
+void cleanStack();
+
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
 #define degToRad(x)   (M_PI*(x)/180)
@@ -1956,8 +1958,10 @@ void keyboard(unsigned char key, int x, int y)
 				break;
 			case 'h':
 			case 'H':
-				
-					getRequests();
+					
+				cleanStack();
+				testeVar = 0;
+				getRequests();
 
 				//cout << "modo jogo!" << endl;
 				break;
@@ -2655,6 +2659,7 @@ void desenhaMenuEscolhaMiniJogo(){
 
 void getRequests(){
 	testeVar = 0;
+	//cleanStack();
 	WCF* EpicService = new WCF();
 	listaNotificacoesRespondidas = EpicService->waitingGamePlay(login.username, login.password, login.userId);
 	if (listaNotificacoesRespondidas.size()>0){
