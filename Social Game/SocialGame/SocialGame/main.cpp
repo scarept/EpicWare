@@ -1,4 +1,8 @@
 ﻿#define _USE_MATH_DEFINES
+
+#include <windows.h>
+#include <stdio.h>
+
 #include <math.h>   
 #include <stdlib.h> 
 #include <iostream>
@@ -11,6 +15,13 @@
 #include <WCF\WCF.h>
 #include <EpicService\EpicWareWeb.Models.xsd.h>
 #include <process.h>
+
+
+
+
+#if defined(_MSC_VER)
+#pragma comment(lib, "Winmm.lib")
+#endif
 
 #pragma comment(linker, "/subsystem:\"console\" \
 	/entry:\"mainCRTStartup\"")
@@ -362,6 +373,23 @@ void desenhaBtnLogin(GLenum mode){
 
 }
 
+BOOL PlaySong(LPCTSTR szFile)
+{
+	TCHAR szCommandString[1000];
+
+	wsprintf(szCommandString, TEXT("open \"%s\" type mpegvideo alias MediaFile"), szFile);
+
+	/* By default mci functions will return immediately and the task will be carried out
+	* asynchronously. To have the function wait, place the word "wait" at the end of the
+	* command string. ie. "play MediaFile wait" */
+	if (ERROR_SUCCESS == mciSendString(szCommandString, NULL, 0, NULL) && ERROR_SUCCESS == mciSendString(TEXT("play MediaFile"), NULL, 0, NULL))
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 void desenhaLogin(GLenum mode){
 
 	desenhaBtnLogin(mode);
@@ -659,6 +687,12 @@ void gameInit(User *utilizador)
 	//modelo.obj.dirLat = 0.17999;
 	//modelo.obj.dirLong = -4.009;
 	//modelo.obj.dist = 100;
+
+	//manix
+	if (!PlaySong(TEXT("C:\\music.wav")))
+	{
+		printf("Failed to play song!");
+	}
 }
 
 void imprime_ajuda(void)
@@ -3218,16 +3252,6 @@ bool Colisoes2()
 	GLint hits = glRenderMode(GL_RENDER);
 	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	if (hits>0) {
-		int i;
-		unsigned int j;
-		GLuint names, *ptr;
-		GLfloat z1 = 9999999;
-		GLint idNo;
-		ptr = (GLuint *)selectBuf;
-		names = *ptr;
-		ptr = ptr + 3;
-		cout << "nome " << *ptr << endl;
-
 		return true;
 	}
 	return false;
