@@ -492,7 +492,8 @@ namespace EpicWareWeb
         /*Retorna o Objeto pedido de amizade dado um determinado id*/
         public FriendRequest getFriendRequestById(int id, string user, string pass)
         {
-            return db.friendRequests.Find(id);
+            FriendRequest fR = removeProxyFriendRequest(db.friendRequests.Find(id));
+            return fR;
         }
 
         /*AUX METHODS*/
@@ -556,6 +557,18 @@ namespace EpicWareWeb
 
 
             return returnList;
+        }
+
+        private FriendRequest removeProxyFriendRequest(FriendRequest tmp)
+        {
+            FriendRequest fRreturn = new FriendRequest();
+            fRreturn.friendRequestID = tmp.friendRequestID;
+            fRreturn.game = db.games.Find(tmp.game.gameID);
+            fRreturn.strenght = tmp.strenght;
+            fRreturn.tagConnection = db.tagConnections.Find(tmp.tagConnection.tagConnectionID);
+            fRreturn.user1 = removeProxyUser(tmp.user1);
+            fRreturn.user2 = removeProxyUser(tmp.user2);
+            return fRreturn;
         }
 
 
