@@ -15,11 +15,11 @@ namespace EpicWareWeb.Models
         public int missionID { get; set; }
 
         [DataMember]
-        [Display(ResourceType = typeof(LanguageModels), Name = "descricao")]
-        public string description { get; set; }
+        public int currentLeavel { get; set; }
 
         [DataMember]
-        [Display(ResourceType = typeof(LanguageModels), Name = "nivel")]
-        public int level { get; set; }
+        public int finalLeavel { get; set; }
+
+        public bool missionDone { get; set; }
     }
 }
