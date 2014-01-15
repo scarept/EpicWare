@@ -16,7 +16,7 @@ using namespace std;
 typedef struct No{
 	float x, y, z, largura;
 	char * tags;
-	char * estadoHumor;
+	string estadoHumor;
 	int userId;
 	string nome;
 	int nivel;
