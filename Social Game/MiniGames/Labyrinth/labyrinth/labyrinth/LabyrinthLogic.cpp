@@ -14,6 +14,8 @@ int* fastestWayAvailable(int **matriz, int y, int x){
 	//xFinal = 4;
 	//yFinal = 8;
 
+
+
 	
 	char* dummy_args[] = { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
 	PlEngine e(3, dummy_args);

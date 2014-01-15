@@ -18,6 +18,8 @@
 
 int teste = 0;
 
+
+
 typedef struct PrologInfo{
 
 	int argc;

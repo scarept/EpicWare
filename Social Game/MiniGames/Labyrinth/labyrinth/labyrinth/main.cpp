@@ -31,6 +31,8 @@ int main(int argc, char** argv)
 	Labyrinth s;
 	s.startGame(argc, argv);
 
+
+
 	return 1;
 }
 
