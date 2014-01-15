@@ -23,15 +23,14 @@
 int main(int argc, char** argv)
 {
 	//Dev purposes only, needs to be commented for release
-	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
+	_putenv("SWI_HOME_DIR=C:\\SWIProlog");
 
 	char* dummy_args[] = { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
 	
 	PlEngine e(3, dummy_args);
 
 	Labyrinth s;
-	s.startGame(argc, argv);
-
-	return 1;
+	
+	return s.startGame(argc, argv);
 }
 
