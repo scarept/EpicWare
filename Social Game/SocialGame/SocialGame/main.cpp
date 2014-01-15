@@ -22,7 +22,13 @@ void escreveTexto();
 void dawHud();
 void janelaInfoUser(int idUser);
 void menu(int item);
+
 void desenhaMenuEscolhaMiniJogo();
+void desenhaBtnLabirinto();
+void desenhaBtnHangman();
+void desenhaBtnTicTacToe();
+void desenhaBtnAceita();
+void desenhaBtnRegeita();
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
@@ -1563,6 +1569,11 @@ void display(void)
 
 		if (notificationStatus.selectedNotification == true){
 			desenhaMenuEscolhaMiniJogo();
+			desenhaBtnLabirinto();
+			desenhaBtnHangman();
+			desenhaBtnTicTacToe();
+			desenhaBtnAceita();
+			desenhaBtnRegeita();
 		}
 
 		/* fim desenho estruturas 2D*/
@@ -2045,37 +2056,7 @@ void enviaPedidoNotificacao(int idUserDestino){
 
 }
 
-void desenhaMenuEscolhaMiniJogo(){
-		material(azul);
-
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		gluOrtho2D(0, 100, 100, 0);
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-		glLoadIdentity();
-		glDisable(GL_CULL_FACE);
-
-		glClear(GL_DEPTH_BUFFER_BIT);
-
-		glBegin(GL_POLYGON);
-		glColor3f(0, 1, 1);
-		glVertex2f(70, 12);
-		glVertex2f(100, 12);
-		glVertex2f(100, 22);
-		glVertex2f(70, 22);
-		glEnd();
-
-
-		// Volta a preparar para desenhar 3D
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
-
-		//glutSwapBuffers();
-}
+/* ricardo */
 
 void trataEvento(string nomeBtn){
 
@@ -2121,6 +2102,27 @@ void trataEvento(string nomeBtn){
 	
 	}
 
+	if (notificationStatus.selectedNotification == true){
+		if (nomeBtn == "jogoHangman"){
+			cout << "hang" << endl;
+
+		}
+		else if (nomeBtn=="jogoLabirinto"){
+			cout << "lab" << endl;
+		}
+		else if (nomeBtn == "jogoTicTacToe"){
+			cout << "tic" << endl;
+
+		}
+		else if (nomeBtn == "jogoAdiciona"){
+			cout << "add" << endl;
+
+		}
+		else if (nomeBtn == "jogoRegeita"){
+			cout << "reject" << endl;
+		}
+	
+	}
 
 	elementos2D.searchSelected = false;
 }
