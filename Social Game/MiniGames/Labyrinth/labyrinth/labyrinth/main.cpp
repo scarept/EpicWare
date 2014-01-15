@@ -23,7 +23,7 @@
 int main(int argc, char** argv)
 {
 	//Dev purposes only, needs to be commented for release
-	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
+	_putenv("SWI_HOME_DIR=.\\");
 
 	//char* dummy_args[] = { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
 	//PlEngine e(3, dummy_args);

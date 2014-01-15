@@ -796,10 +796,9 @@ void picking(int button, int state, int x, int y)
 
 int main(int argc, char** argv)
 {
-	//Dev purposes only, needs to be commented for release
-	_putenv("SWI_HOME_DIR=C:\\SWIProlog");
+	_putenv("SWI_HOME_DIR=.\\");
 
-	char* dummy_args[] = { argv[0], "-s", "./pl/tictactoe.pl", NULL };
+	char* dummy_args[] = { "libswipl.dll", "-s", "./pl/tictactoe.pl", NULL };
 
 	PlEngine e(3, dummy_args);
 

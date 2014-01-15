@@ -1,4 +1,8 @@
 ﻿#define _USE_MATH_DEFINES
+
+#include <windows.h>
+#include <stdio.h>
+
 #include <math.h>   
 #include <stdlib.h> 
 #include <iostream>
@@ -11,6 +15,13 @@
 #include <WCF\WCF.h>
 #include <EpicService\EpicWareWeb.Models.xsd.h>
 #include <process.h>
+
+
+
+
+#if defined(_MSC_VER)
+#pragma comment(lib, "Winmm.lib")
+#endif
 
 #pragma comment(linker, "/subsystem:\"console\" \
 	/entry:\"mainCRTStartup\"")
@@ -49,6 +60,8 @@ void getWaitingResponses();
 
 GLfloat veloColisao;
 GLfloat velocidadeAtual;
+
+int testeVar = 0;
 
 // luzes e materiais
 const GLfloat mat_ambient[][4] = { { 0.33, 0.22, 0.03, 1.0 },	// brass
@@ -362,6 +375,23 @@ void desenhaBtnLogin(GLenum mode){
 
 }
 
+BOOL PlaySong(LPCTSTR szFile)
+{
+	TCHAR szCommandString[1000];
+
+	wsprintf(szCommandString, TEXT("open \"%s\" type mpegvideo alias MediaFile"), szFile);
+
+	/* By default mci functions will return immediately and the task will be carried out
+	* asynchronously. To have the function wait, place the word "wait" at the end of the
+	* command string. ie. "play MediaFile wait" */
+	if (ERROR_SUCCESS == mciSendString(szCommandString, NULL, 0, NULL) && ERROR_SUCCESS == mciSendString(TEXT("play MediaFile"), NULL, 0, NULL))
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 void desenhaLogin(GLenum mode){
 
 	desenhaBtnLogin(mode);
@@ -659,6 +689,12 @@ void gameInit(User *utilizador)
 	//modelo.obj.dirLat = 0.17999;
 	//modelo.obj.dirLong = -4.009;
 	//modelo.obj.dist = 100;
+
+	//manix
+	if (!PlaySong(TEXT("C:\\music.wav")))
+	{
+		printf("Failed to play song!");
+	}
 }
 
 void imprime_ajuda(void)
@@ -891,6 +927,51 @@ void desenhaNormal(GLdouble x, GLdouble y, GLdouble z, GLdouble normal[], tipo_m
 
 }
 
+void notificacao2(){
+
+	material(cinza);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+
+	pickingPesquisa notificationBtn;
+	notificationBtn.x1 = 70;
+	notificationBtn.x2 = 100;
+	notificationBtn.y1 = 4;
+	notificationBtn.y2 = 10;
+	notificationBtn.nomeElem = "respostaNotificacao";
+
+	listaElementosPicking[9] = notificationBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(70, 4);
+	glVertex2f(100, 4);
+	glVertex2f(100, 10);
+	glVertex2f(70, 10);
+	glEnd();
+
+
+	// Volta a preparar para desenhar 3D
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+	//glutSwapBuffers();
+
+}
+
+
 /* notificações do social game */
 void notificacao(){
 
@@ -973,6 +1054,22 @@ void checkNotification(){
 
 }
 
+void eventoNotificacao2(){
+	/* web seevice que verifica se existe noticações novas, e se sim, retorna 1 de cada vez*/
+	//checkNotification();
+
+	//string mensagem = "teste"; /* resultado web service */
+
+	//notificacao();
+	//textoNotificacao(mensagem);
+
+	cout <<"bbb"<< endl;
+	notificacao2();
+	//glutSwapBuffers();
+
+}
+
+
 void eventoNotificacao(){
 	/* web seevice que verifica se existe noticações novas, e se sim, retorna 1 de cada vez*/
 	checkNotification();
@@ -984,42 +1081,7 @@ void eventoNotificacao(){
 
 	//glutSwapBuffers();
 
-
 }
-
-void desenhaParede(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf){
-	/*
-	GLdouble v1[3], v2[3], cross[3];
-	GLdouble length;
-	v1[0] = xf - xi;
-	v1[1] = yf - yi;
-	v1[2] = 0;
-	v2[0] = 0;
-	v2[1] = 0;
-	v2[2] = 1;
-	CrossProduct(v1, v2, cross);
-	//printf("cross x=%lf y=%lf z=%lf",cross[0],cross[1],cross[2]);
-	length = VectorNormalize(cross);
-	//printf("Normal x=%lf y=%lf z=%lf length=%lf\n",cross[0],cross[1],cross[2]);
-
-	material(emerald);
-	glBegin(GL_QUADS);
-	glNormal3dv(cross);
-	glVertex3f(xi, yi, zi);
-	glVertex3f(xf, yf, zf + 0);
-	glVertex3f(xf, yf, zf + 1);
-	glVertex3f(xi, yi, zi + 1);
-	glEnd();
-
-	if (estado.apresentaNormais) {
-	desenhaNormal(xi, yi, zi, cross, emerald);
-	desenhaNormal(xf, yf, zf, cross, emerald);
-	desenhaNormal(xf, yf, zf + 1, cross, emerald);
-	desenhaNormal(xi, yi, zi + 1, cross, emerald);
-	}
-	*/
-}
-
 
 void desenhaChao(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf, int orient){
 	GLdouble v1[3], v2[3], cross[3];
@@ -1748,9 +1810,15 @@ void display(void)
 			janelaInfoUser(elementos2D.lastSelected);
 		}
 
-		if (notificationStatus.showNotification == true){
-			eventoNotificacao();
+		if (testeVar == 2){
+			if (notificationStatus.showNotification == true){
+				eventoNotificacao();
+			}
 		}
+		if (testeVar == 1){
+			eventoNotificacao2();
+		}
+
 
 		if (notificationStatus.selectedNotification == true){
 			desenhaMenuEscolhaMiniJogo();
@@ -2524,11 +2592,23 @@ void desenhaMenuEscolhaMiniJogo(){
 void getRequests(){
 
 	WCF* EpicService = new WCF();
-	listaNotificacoesAmizade = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
-	if (listaNotificacoesAmizade.size()>0){
-		notificationStatus.showNotification = true;
+	listaNotificacoesRespondidas = EpicService->waitingGamePlay(login.username, login.password, login.userId);
+	if (listaNotificacoesRespondidas.size()>0){
+		testeVar = 1;
+		/*
+		cout << listaNotificacoesRespondidas[0] << endl;
+		FriendRequest *friendRequest;
+		friendRequest = EpicService->getFriendRequestById(login.username, login.password, listaNotificacoesRespondidas[0]);
+		*/
 	}
 
+	else {
+		testeVar = 2;
+		listaNotificacoesAmizade = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
+		if (listaNotificacoesAmizade.size() > 0){
+			notificationStatus.showNotification = true;
+		}
+	}
 }
 
 void getWaitingResponses(){
@@ -2538,7 +2618,6 @@ void getWaitingResponses(){
 		cout << listaNotificacoesRespondidas[0] << endl;
 		FriendRequest *aa;
 		aa=EpicService->getFriendRequestById(login.username, login.password, listaNotificacoesRespondidas[0]);
-		cout<<aa->friendRequestID<<endl;
 
 		//int aaa;
 	//	notificationStatus.showNotification = true;
@@ -2559,6 +2638,44 @@ void webServiceAddFriend(string username, string password, int idUser, int idAsk
 	}
 }
 void trataEvento(string nomeBtn){
+
+	if (nomeBtn == "respostaNotificacao"){
+		cout << "resposta" << endl;
+
+		int points = 0;
+		bool win = false;
+
+		WCF* EpicService = new WCF();
+		//cout << listaNotificacoesRespondidas[0] << endl;
+		int size = listaNotificacoesRespondidas.size()-1;
+		FriendRequest *friendRequest;
+		friendRequest = EpicService->getFriendRequestById(login.username, login.password, listaNotificacoesRespondidas[size]);
+
+		cout << friendRequest->game->gameID << endl;
+
+		if (friendRequest->game->gameID == 1){
+			/* abre tic tac toe*/
+
+			//EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 1, win, points);
+		}
+		else if (friendRequest->game->gameID == 2){
+			/* Hangman */
+
+			EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 2, win, points);
+			listaNotificacoesRespondidas.pop_back();
+			testeVar == 2;
+			getRequests();
+			
+
+			//EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 2, win, points);
+		}
+		else if (friendRequest->game->gameID == 3){
+			/* labirinto */
+		
+			//EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 3, win, points);
+		}
+		
+	}
 
 
 	if (nomeBtn == "pesquisaBtn"){
@@ -2610,11 +2727,11 @@ void trataEvento(string nomeBtn){
 
 	if (notificationStatus.selectedNotification == true){
 		if (nomeBtn == "jogoHangman"){
-			cout << "hang" << endl;
+			//cout << "hang" << endl;
 			WCF* EpicService = new WCF();
-			int id = listaNotificacoesAmizade[0];
-			EpicService->selectGameToPlay(login.username, login.password, listaNotificacoesAmizade[0], 2);
-
+			int last = listaNotificacoesAmizade.size();
+			EpicService->selectGameToPlay(login.username, login.password, listaNotificacoesAmizade[last], 2);
+			listaNotificacoesAmizade.pop_back();
 		}
 		else if (nomeBtn=="jogoLabirinto"){
 			cout << "lab" << endl;
@@ -3268,16 +3385,6 @@ bool Colisoes2()
 	GLint hits = glRenderMode(GL_RENDER);
 	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	if (hits>0) {
-		int i;
-		unsigned int j;
-		GLuint names, *ptr;
-		GLfloat z1 = 9999999;
-		GLint idNo;
-		ptr = (GLuint *)selectBuf;
-		names = *ptr;
-		ptr = ptr + 3;
-		cout << "nome " << *ptr << endl;
-
 		return true;
 	}
 	return false;

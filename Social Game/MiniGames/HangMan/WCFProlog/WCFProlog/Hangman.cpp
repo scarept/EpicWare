@@ -678,15 +678,14 @@ void Key(unsigned char key, int x, int y)
 
 int CHangman::startGame(int argc, char **argv){
 
-	//Dev purposes only, needs to be commented for release
-	_putenv("SWI_HOME_DIR=C:\\Program Files\\swipl");
+	_putenv("SWI_HOME_DIR=.\\");
 
-	char* dummy_args[] = { argv[0], "-s", ".\/pl\/hangman.pl", NULL };
+	char* dummy_args[] = { "libswipl.dll", "-s", "./pl/hangman.pl", NULL };
 
 	PlEngine e(3, dummy_args);
 
 	//Open connection to EpicService
-	WCF* EpicService = new WCF();;
+	WCF* EpicService = new WCF();
 
 	vector<Word> words;
 
