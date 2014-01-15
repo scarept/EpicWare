@@ -130,6 +130,7 @@ typedef struct Estado{
 	GLint		estadoJogo; // 0 - login; 1- Jogo 3D; 2- menu
 	teclas_t	teclas;
 	GLint		timer;
+	boolean		luz;
 }Estado;
 
 typedef struct Login{
@@ -615,6 +616,8 @@ void gameInit(User *utilizador)
 	estado.camera.posicao.z = 110;
 
 	estado.camera.distancia = 100;
+
+	estado.luz = false;
 	//modelo.obj.dirLat = 0.17999;
 	//modelo.obj.dirLong = -4.009;
 	//modelo.obj.dist = 100;
@@ -663,16 +666,97 @@ const GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
 void putLights(GLfloat* diffuse)
 {
 	const GLfloat white_amb[] = { 0.2, 0.2, 0.2, 1.0 };
-
+	/*
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
 	glLightfv(GL_LIGHT0, GL_POSITION, modelo.g_pos_luz1);
+	*/
+	//glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+	//glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
+	//glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
+	//glLightfv(GL_LIGHT1, GL_POSITION, modelo.g_pos_luz2);
 
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
-	glLightfv(GL_LIGHT1, GL_POSITION, modelo.g_pos_luz2);
+	/*
+	GLfloat qaSpecularLight[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+	GLfloat spotDir[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] };
+
+	cout << estado.camera.posicao.x << endl;
+	cout << estado.camera.center[0] << endl;
+
+	glLightfv(GL_LIGHT3, GL_SPECULAR, qaSpecularLight);
+	glLightfv(GL_LIGHT3, GL_SPECULAR, white_light);
+	glLightfv(GL_LIGHT3, GL_AMBIENT, white_amb);
+	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 30.0);// set cutoff angle
+	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotDir);
+	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 1);
+	*/
+
+//	GLfloat light_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+//	GLfloat spotDir[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] }; 
+
+	GLfloat light1_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light1_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+	GLfloat spot_direction[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] };
+
+	/*
+	GLfloat light1_position[] = { 0.0, -50, 0, 10.0 };
+	GLfloat spot_direction[] = { 0, 40.0, 1.0 };
+	
+	*/
+	/*
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
+	glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
+	//glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);
+	//glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0);
+	//glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+
+	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 100.0);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
+	//glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 2.0);
+	*/
+	if (estado.luz == true)
+	{
+		glLightfv(GL_LIGHT0, GL_SPECULAR, red_light);
+		glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
+		glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 100.0);
+		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
+		glEnable(GL_LIGHT0);
+	}
+	else
+	{
+
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
+		glLightfv(GL_LIGHT0, GL_POSITION, modelo.g_pos_luz1);
+
+		glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+		glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
+		glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
+		glLightfv(GL_LIGHT1, GL_POSITION, modelo.g_pos_luz2);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHT1);
+	}
+		/*
+	}
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, red_light);
+	
+	//glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);
+	//glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0);
+	//glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+
+
+	//glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 2.0);
+
+
 
 	/* desenhar luz */
 	//material(red_plastic);
@@ -691,9 +775,12 @@ void putLights(GLfloat* diffuse)
 	//	glEnable(GL_LIGHTING);
 	//glPopMatrix();
 
+	//glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
+	//glEnable(GL_LIGHT3);
 }
+
+
 
 void desenhaSolo(){
 #define STEP 10
@@ -1117,23 +1204,6 @@ void desenhaNomes(float x1, float y1, float z, string nome){
 
 }
 
-void DesenhaQuadrado(GLfloat x, GLfloat y, GLfloat z)
-{
-	glBegin(GL_POLYGON);
-	glColor3d(0.0F, 1.0F, 0.0F);
-	/*
-	glVertex3f(estado.camera.posicao.x + 10.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 10.0F);
-	glVertex3f(estado.camera.posicao.x + 15.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 10.0F);
-	glVertex3f(estado.camera.posicao.x + 15.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 15.0F);
-	glVertex3f(estado.camera.posicao.x + 10.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 15.0F);
-	*/
-	glVertex3f(x + 10.0F, y + 20, z + 10.0F);
-	glVertex3f(x + 15.0F, y + 20, z + 10.0F);
-	glVertex3f(x + 15.0F, y + 20, z + 15.0F);
-	glVertex3f(x + 10.0F, y + 20, z + +15.0F);
-
-	glEnd();
-}
 
 void drawGraph(GLenum mode){
 	glPushMatrix();
@@ -1246,6 +1316,26 @@ void desenhaEixos(){
 
 }
 
+
+void colocarSpot()
+{
+	/*    a, b and c -- x, y and z co-ordinates for light position   
+	d, e and f -- x, y and z co-ordinates for spot light position   
+
+	GLfloat light_position[] = { a, b, c, 1.0 };
+	GLfloat spotDir[] = { d, e, f };
+	*/
+	GLfloat qaSpecularLight[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+	GLfloat spotDir[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] };
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT3);
+	glLightfv(GL_LIGHT3, GL_SPECULAR, qaSpecularLight);
+	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 30.0);// set cutoff angle
+	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotDir);
+	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 1);
+}
+
 void setCamera(){
 	Vertice eye;
 	estado.camera.center[0] = (estado.camera.posicao.x + estado.camera.dist * cos(estado.camera.dir_long));
@@ -1266,7 +1356,7 @@ void setCamera(){
 	}
 	else{
 		putLights((GLfloat*)white_light);
-		DesenhaQuadrado(estado.camera.center[0], estado.camera.center[1], estado.camera.center[2]);
+		//colocarSpot();
 		gluLookAt(eye[0], eye[1], eye[2], estado.camera.center[0], estado.camera.center[1], estado.camera.center[2], 0, 0, 1);
 	}
 }
@@ -1535,10 +1625,13 @@ void display(void)
 
 		material(slate);
 		desenhaSolo();
-
-
+		
 		desenhaEixos();
-
+		//DesenhaQuadrado(estado.camera.center[0], estado.camera.center[1], estado.camera.center[2]);
+		//DesenhaQuadrado(estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z);
+		//cout << "pos x" << estado.camera.posicao.x << endl;
+		//cout << "pos y" << estado.camera.posicao.y << endl;
+		//cout << "pos z" << estado.camera.posicao.z << endl;
 		// desnha o grafo 3D
 		drawGraph(GL_SELECT);
 
@@ -1841,6 +1934,14 @@ void Special(int key, int x, int y){
 		addArco(criaArco(4, 6, 1, 1));  // 4 - 6
 		glutPostRedisplay();
 		break;
+		
+	case GLUT_KEY_F7:
+		if (estado.luz == false)
+			estado.luz = true;
+		else
+			estado.luz = false;
+			break;
+		
 	case GLUT_KEY_UP: estado.teclas.up = GL_TRUE;
 		break;
 	case GLUT_KEY_DOWN: estado.teclas.down = GL_TRUE;
