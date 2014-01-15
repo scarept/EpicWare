@@ -44,6 +44,7 @@ public:
 	BOOL WCF::rejectFriendRequest(string username, string password, int idFriendRequest);
 	BOOL WCF::registerGameResult(string username, string password, int idFriendRequest, int idGame, bool win, int points);
 	vector<int> WCF::waitingGamePlay(string username, string password, int idUser);
+	FriendRequest * WCF::getFriendRequestById(string username, string password, int idUser);
 };
 
 #endif

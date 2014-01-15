@@ -32,6 +32,20 @@
     </h1>
     <div class="TabelaClassificativa">
         <table>
+            <tr>
+                <td>
+                    @EpicWareWeb.Views.User.User.position
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    @EpicWareWeb.Views.User.User.nickname
+                </td>
+                <td>
+                    @EpicWareWeb.Views.User.User.pontos
+                </td>
+            </tr>
             @foreach (EpicWareWeb.Controllers.ScoreTable s in Model)
             {
                 if (count > 10)
@@ -41,9 +55,9 @@
                 <tr>
                     <td width="20">
                         @*Posição*@
-                        <span style="font-size:14px; color:white;">
+                        <span style="font-size:14px; color:black;"><b>
                             @count;
-                        </span>
+                        </b></span>
                     </td>
                     <td width="70">
                         @*Ir buscar a imagem do user*@
@@ -54,16 +68,16 @@
                     <td>
                         @*Nickname*@
                         <a href="/LAPR5/User/Profile/@s.user.userID">
-                            <span style="font-size:14px; color:white;">
+                            <span style="font-size:14px; color:black;"><b>
                                 @s.user.userProfile.nickname
-                            </span>
+                            </b></span>
                         </a>
                     </td>
                     <td>
                         @*Pontuação*@
-                        <span style="font-size:14px; color:white;">
+                        <span style="font-size:14px; color:black;"><b>
                             @s.pontuação
-                        </span>
+                        </b></span>
                     </td>
                 </tr>
                 count++;

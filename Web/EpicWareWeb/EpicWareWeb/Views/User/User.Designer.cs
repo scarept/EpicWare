@@ -484,6 +484,15 @@ namespace EpicWareWeb.Views.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string nickname {
+            get {
+                return ResourceManager.GetString("nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sem informação disponivel.
         /// </summary>
         public static string no_info {
@@ -633,6 +642,24 @@ namespace EpicWareWeb.Views.User {
         public static string perfil {
             get {
                 return ResourceManager.GetString("perfil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pontuação.
+        /// </summary>
+        public static string pontos {
+            get {
+                return ResourceManager.GetString("pontos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posição.
+        /// </summary>
+        public static string position {
+            get {
+                return ResourceManager.GetString("position", resourceCulture);
             }
         }
         
