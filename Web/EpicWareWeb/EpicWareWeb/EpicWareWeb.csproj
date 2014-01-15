@@ -198,6 +198,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IWebService.cs" />
+    <Compile Include="Migrations\201401142351057_upd.cs" />
+    <Compile Include="Migrations\201401142351057_upd.Designer.cs">
+      <DependentUpon>201401142351057_upd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -330,6 +334,7 @@
     <Content Include="Images\Flags\FR.gif" />
     <Content Include="Images\Logos\tagcloud.png" />
     <Content Include="WebService.svc" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\LAPR5.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Buttons\loginOut.png" />
@@ -1091,6 +1096,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201401142351057_upd.resx">
+      <DependentUpon>201401142351057_upd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.en.Designer.cs</LastGenOutput>

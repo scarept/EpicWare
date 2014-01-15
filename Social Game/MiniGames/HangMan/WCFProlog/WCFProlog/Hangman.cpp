@@ -404,9 +404,11 @@ void drawGameScreen(GLenum mode){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (s.isGameWon(modelo.word, modelo.guesses)){
 		drawFinalScreen("YOU WIN!");
+		modelo.gamePoints = 1;
 	}
 	else if (modelo.numErrors >= 6){
 		drawFinalScreen("YOU LOSE!");
+		modelo.gamePoints = 0;
 	}
 	else{
 
@@ -674,10 +676,10 @@ void Key(unsigned char key, int x, int y)
 }
 
 
-void CHangman::startGame(int argc, char **argv){
+int CHangman::startGame(int argc, char **argv){
 
 	//Dev purposes only, needs to be commented for release
-	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
+	_putenv("SWI_HOME_DIR=C:\\Program Files\\swipl");
 
 	char* dummy_args[] = { argv[0], "-s", ".\/pl\/hangman.pl", NULL };
 
@@ -778,4 +780,5 @@ void CHangman::startGame(int argc, char **argv){
 
 	// COMECAR...
 	glutMainLoop();
+	return modelo.gamePoints;
 }

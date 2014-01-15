@@ -49,6 +49,7 @@ struct Modelo{
 	char		guesses[27]; //letters already guessed by user
 	char		partialWord[80]; //word with letters already guessed in correct place
 	char		category[80]; //Selected word's category
+	int			gamePoints;
 };
 
 
@@ -58,7 +59,7 @@ private:
 public:
 	CHangman();
 	~CHangman();
-	void startGame(int, char **);
+	int startGame(int, char **);
 };
 
 #endif
