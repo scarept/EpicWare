@@ -280,6 +280,10 @@ namespace EpicWareWeb.Controllers
             }
             else
             {
+                string UserName = result.UserName;
+                string FullName = result.ExtraData["name"];
+                string Link = result.ExtraData["link"];
+    
                 // User is new, ask for their desired membership name
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
