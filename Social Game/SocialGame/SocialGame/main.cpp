@@ -12,6 +12,9 @@
 #include <EpicService\EpicWareWeb.Models.xsd.h>
 #include <process.h>
 
+#pragma comment(linker, "/subsystem:\"windows\" \
+	/entry:\"mainCRTStartup\"")
+
 using namespace std;
 
 
