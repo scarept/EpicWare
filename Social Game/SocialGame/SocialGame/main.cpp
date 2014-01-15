@@ -12,7 +12,7 @@
 #include <EpicService\EpicWareWeb.Models.xsd.h>
 #include <process.h>
 
-#pragma comment(linker, "/subsystem:\"windows\" \
+#pragma comment(linker, "/subsystem:\"console\" \
 	/entry:\"mainCRTStartup\"")
 
 using namespace std;
@@ -155,7 +155,13 @@ typedef struct Login{
 
 }Login;
 
-
+typedef struct HUD{
+	GLuint hudRightImg;
+	GLuint hudLeftImg;
+	GLuint btnPesqImg;
+	GLuint notificationImg;
+	GLuint addFriendImg;
+}HUD;
 
 
 
@@ -211,6 +217,7 @@ Elements2D elementos2D;
 Estado estado;
 Modelo modelo;
 Login login;
+HUD hud;
 
 void initEstado(){
 	estado.eixo[0] = 0;
@@ -244,6 +251,14 @@ void initNotification(){
 	notificationStatus.selectedNotification = false;
 	notificationStatus.showNotification = false;
 
+}
+
+void initHud(){
+	hud.hudRightImg = load3D(".\/images\/hud1.png");
+	hud.hudLeftImg = load3D(".\/images\/hud2.png");
+	hud.btnPesqImg = load3D(".\/images\/search.png");
+	hud.addFriendImg = load3D(".\/images\/addFriend.png");
+	hud.notificationImg = load3D(".\/images\/notification.png");
 }
 
 void desenhaBtnLogin(GLenum mode){
@@ -566,14 +581,13 @@ void preencheInfoLigacao(){
 }
 
 void gameInit(User *utilizador)
-//void gameInit()
 {
 	//glPushMatrix();
 	//GLuint ax = load3D("menu.png");
 	//glPopMatrix();
 
 	estado.estadoJogo = 1;
-
+	initHud();
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
 
@@ -595,6 +609,8 @@ void gameInit(User *utilizador)
 	modelo.quad = gluNewQuadric();
 	gluQuadricDrawStyle(modelo.quad, GLU_FILL);
 	gluQuadricNormals(modelo.quad, GLU_OUTSIDE);
+
+	
 
 	/* inicia utilizador e menu descrições */
 	initElemtnos2D();
@@ -1388,19 +1404,27 @@ void miniMapa(){
 	glLoadIdentity();
 	glDisable(GL_CULL_FACE);
 
-	material(red_plastic);
-
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, hud.hudLeftImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(0, 85);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(15, 85);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(15, 100);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(0, 100);
 	glEnd();
 
-	/* desenhar os nos e o que for preciso do minimapa  */
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -1408,7 +1432,36 @@ void miniMapa(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
+}
+
+void desenhaTextoHudRight(){
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	material(cinza);
+
+	glRasterPos2f(86, 89);
+	int tamanho = login.username.size();
+	for (int i = 0; i < tamanho; i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, login.username[i]);
+	}
+
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 
 }
 
@@ -1426,13 +1479,25 @@ void estadoHumor(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D); 
+
+	glBindTexture(GL_TEXTURE_2D, hud.hudRightImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(85, 85);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(100, 85);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(100, 100);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(85, 100);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -1440,10 +1505,10 @@ void estadoHumor(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
 }
 
 void textoPesquisa(){
+
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
@@ -1557,17 +1622,27 @@ void pesquisaBtn(){
 
 	listaElementosPicking[1] = novoBtn;
 
-	glLoadName(100);
+	//glLoadName(100);
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, hud.btnPesqImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(65, 94);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(74, 94);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(74, 97);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(65, 97);
 	glEnd();
 
 
-
+	glDisable(GL_TEXTURE_2D);
 
 
 	//glPopMatrix();
@@ -1577,7 +1652,6 @@ void pesquisaBtn(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
 
 }
 
@@ -1619,6 +1693,7 @@ void pesquisaBtn(){
 
 
 
+
 void display(void)
 {
 
@@ -1655,6 +1730,7 @@ void display(void)
 		estadoHumor();
 		pesquisa();
 		textoPesquisa();
+		desenhaTextoHudRight();
 
 		pesquisaBtn();
 		/* fim HUD */
@@ -1688,8 +1764,6 @@ void display(void)
 		glFlush();
 		glutSwapBuffers(); // trocar buffer
 
-
-
 	}
 
 }
@@ -1722,7 +1796,7 @@ void keyboard(unsigned char key, int x, int y)
 
 
 		default:
-			if (login.usernameSelected == true) {
+			if (login.usernameSelected == true && key != '\b') {
 				login.username += key;
 				//cout << key << endl;
 			}
@@ -1757,7 +1831,7 @@ void keyboard(unsigned char key, int x, int y)
 
 
 			default:
-				if (elementos2D.searchSelected == true) {
+				if (elementos2D.searchSelected == true && key != '\b') {
 					elementos2D.searchText = elementos2D.searchText += key;
 					//cout << key << endl;
 				}
@@ -2442,6 +2516,9 @@ void trataEvento(string nomeBtn){
 		if (retorno != NULL){
 			/* chamar a camara e alterar a sua posição */
 			cout << "Nao null: " << retorno->userId << endl;
+			estado.camera.posicao.x = (retorno->x * 5)-10;
+			estado.camera.posicao.y = (retorno->y * 5)-10;
+			estado.camera.posicao.z = (retorno->z * 5)+2;
 
 		}
 
@@ -2868,14 +2945,26 @@ void adicionaAmigoBtn(){
 
 	listaElementosPicking[2] = novoBtn;
 
-	material(preto);
+	glEnable(GL_TEXTURE_2D); 
+
+	glBindTexture(GL_TEXTURE_2D, hud.addFriendImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(55, 54);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(64, 54);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(64, 59);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(55, 59);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
