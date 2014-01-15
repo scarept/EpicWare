@@ -177,6 +177,15 @@ typedef struct HUD{
 	GLuint addFriendImg;
 }HUD;
 
+typedef struct askFriend{
+	GLuint tictacimg;
+	GLuint addimg;
+	GLuint labimg;
+	GLuint hangimg;
+	GLuint regimg;
+}askFriend;
+
+
 
 
 typedef struct objecto_t{
@@ -232,7 +241,7 @@ Estado estado;
 Modelo modelo;
 Login login;
 HUD hud;
-
+askFriend askFriendMenu;
 
 vector<int> listaNotificacoesAmizade;
 vector<int> listaNotificacoesRespondidas;
@@ -277,6 +286,12 @@ void initHud(){
 	hud.btnPesqImg = load3D(".\/images\/search.png");
 	hud.addFriendImg = load3D(".\/images\/addFriend.png");
 	hud.notificationImg = load3D(".\/images\/notification.png");
+
+	askFriendMenu.addimg = load3D(".\/images\/adicionar_add.png");
+	askFriendMenu.hangimg = load3D(".\/images\/hangman_add.png");
+	askFriendMenu.labimg = load3D(".\/images\/labirinto_add.png");
+	askFriendMenu.regimg = load3D(".\/images\/regeitar_add.png");
+	askFriendMenu.tictacimg = load3D(".\/images\/tictactoe_add.png");
 }
 
 void desenhaBtnLogin(GLenum mode){
@@ -858,17 +873,27 @@ void putLights(GLfloat* diffuse)
 
 void desenhaSolo(){
 #define STEP 10
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, login.imagemFundo);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBegin(GL_QUADS);
 	glNormal3f(0, 0, 1);
 	for (int i = -300; i<300; i += STEP)
 	for (int j = -300; j<300; j += STEP){
+		glTexCoord2f(0.0, 1.0);
 		glVertex2f(i, j);
+		glTexCoord2f(1.0, 1.0);
 		glVertex2f(i + STEP, j);
+		glTexCoord2f(1.0, 0.0);
 		glVertex2f(i + STEP, j + STEP);
+		glTexCoord2f(0.0, 0.0);
 		glVertex2f(i, j + STEP);
 	}
 	glEnd();
-
+	glDisable(GL_TEXTURE_2D);
 }
 
 void CrossProduct(GLdouble v1[], GLdouble v2[], GLdouble cross[])
@@ -1058,12 +1083,6 @@ void eventoNotificacao2(){
 	/* web seevice que verifica se existe noticações novas, e se sim, retorna 1 de cada vez*/
 	//checkNotification();
 
-	//string mensagem = "teste"; /* resultado web service */
-
-	//notificacao();
-	//textoNotificacao(mensagem);
-
-	cout <<"bbb"<< endl;
 	notificacao2();
 	//glutSwapBuffers();
 
@@ -1074,7 +1093,7 @@ void eventoNotificacao(){
 	/* web seevice que verifica se existe noticações novas, e se sim, retorna 1 de cada vez*/
 	checkNotification();
 
-	string mensagem = "teste"; /* resultado web service */
+	string mensagem = "Nova Notificacao"; /* resultado web service */
 
 	notificacao();
 	textoNotificacao(mensagem);
@@ -1341,6 +1360,7 @@ void desenhaElemLigacao(Arco arco){
 }
 
 void desenhaEixo(){
+	/*
 	gluCylinder(modelo.quad, 0.5, 0.5, 20, 16, 15);
 	glPushMatrix();
 	glTranslatef(0, 0, 20);
@@ -1350,6 +1370,7 @@ void desenhaEixo(){
 	glPopMatrix();
 	gluCylinder(modelo.quad, 2, 0, 5, 16, 15);
 	glPopMatrix();
+	*/
 }
 
 #define EIXO_X		1
@@ -1935,13 +1956,8 @@ void keyboard(unsigned char key, int x, int y)
 				break;
 			case 'h':
 			case 'H':
-
-				////imprime_ajuda();
-				//estado.estadoJogo = 1;
-				//gameInit();
-				///* força a abertura do reshape pois vai mudar de 2D (menu) para 3D grafo */
-				//myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
-				//glutPostRedisplay();
+				
+					getRequests();
 
 				//cout << "modo jogo!" << endl;
 				break;
@@ -2357,6 +2373,13 @@ void desenhaBtnLabirinto(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, askFriendMenu.labimg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	pickingPesquisa novoBtn;
 	novoBtn.x1 = 72;
 	novoBtn.x2 = 98;
@@ -2366,13 +2389,21 @@ void desenhaBtnLabirinto(){
 
 	listaElementosPicking[4] = novoBtn;
 
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(novoBtn.x1, novoBtn.y2);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -2397,6 +2428,13 @@ void desenhaBtnHangman(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, askFriendMenu.hangimg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	pickingPesquisa novoBtn;
 	novoBtn.x1 = 72;
 	novoBtn.x2 = 98;
@@ -2407,12 +2445,17 @@ void desenhaBtnHangman(){
 	listaElementosPicking[5] = novoBtn;
 
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(novoBtn.x1, novoBtn.y2);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -2437,6 +2480,13 @@ void desenhaBtnTicTacToe(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, askFriendMenu.tictacimg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	pickingPesquisa novoBtn;
 	novoBtn.x1 = 72;
 	novoBtn.x2 = 98;
@@ -2447,13 +2497,17 @@ void desenhaBtnTicTacToe(){
 	listaElementosPicking[6] = novoBtn;
 
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(novoBtn.x1, novoBtn.y2);
 	glEnd();
 
+	glDisable(GL_TEXTURE_2D);
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
@@ -2477,6 +2531,13 @@ void desenhaBtnAceita(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, askFriendMenu.addimg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	pickingPesquisa novoBtn;
 	novoBtn.x1 = 72;
 	novoBtn.x2 = 98;
@@ -2487,12 +2548,17 @@ void desenhaBtnAceita(){
 	listaElementosPicking[7] = novoBtn;
 
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(novoBtn.x1, novoBtn.y2);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -2517,10 +2583,9 @@ void desenhaBtnRegeita(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
-	glEnable(GL_TEXTURE_2D); //obrigatorio para ler imagens no soil
-	//GLuint ax = load3D("menu.png");
+	glEnable(GL_TEXTURE_2D); 
 
-	glBindTexture(GL_TEXTURE_2D, login.imagemFundo);
+	glBindTexture(GL_TEXTURE_2D, askFriendMenu.regimg);
 	/* render texturas */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -2535,7 +2600,6 @@ void desenhaBtnRegeita(){
 	listaElementosPicking[8] = novoBtn;
 
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
 	glTexCoord2f(0.0, 1.0);
 	glVertex2f(novoBtn.x1, novoBtn.y1);
 	glTexCoord2f(1.0, 1.0);
@@ -2590,22 +2654,19 @@ void desenhaMenuEscolhaMiniJogo(){
 }
 
 void getRequests(){
-
+	testeVar = 0;
 	WCF* EpicService = new WCF();
 	listaNotificacoesRespondidas = EpicService->waitingGamePlay(login.username, login.password, login.userId);
 	if (listaNotificacoesRespondidas.size()>0){
 		testeVar = 1;
-		/*
-		cout << listaNotificacoesRespondidas[0] << endl;
-		FriendRequest *friendRequest;
-		friendRequest = EpicService->getFriendRequestById(login.username, login.password, listaNotificacoesRespondidas[0]);
-		*/
+
 	}
 
 	else {
 		testeVar = 2;
 		listaNotificacoesAmizade = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
 		if (listaNotificacoesAmizade.size() > 0){
+			/* verificar se o campo game está vazio ou não */
 			notificationStatus.showNotification = true;
 		}
 	}
@@ -2619,7 +2680,6 @@ void getWaitingResponses(){
 		FriendRequest *aa;
 		aa=EpicService->getFriendRequestById(login.username, login.password, listaNotificacoesRespondidas[0]);
 
-		//int aaa;
 	//	notificationStatus.showNotification = true;
 	}
 	//listaNotificacoesAmizade
@@ -2637,13 +2697,33 @@ void webServiceAddFriend(string username, string password, int idUser, int idAsk
 		erroPedidoWebService();
 	}
 }
+
+void cleanStack(){
+	pickingPesquisa novoBtn;
+	listaElementosPicking[3] = novoBtn;
+	listaElementosPicking[4] = novoBtn;
+	listaElementosPicking[5] = novoBtn;
+	listaElementosPicking[6] = novoBtn;
+	listaElementosPicking[7] = novoBtn;
+	listaElementosPicking[8] = novoBtn;
+	listaElementosPicking[9] = novoBtn;
+
+	notificationStatus.showNotification = false;
+	testeVar = 1;
+
+	notificationStatus.selectedNotification = false;
+
+	getRequests();
+
+}
+
 void trataEvento(string nomeBtn){
 
 	if (nomeBtn == "respostaNotificacao"){
 		cout << "resposta" << endl;
 
 		int points = 0;
-		bool win = false;
+		bool win = true;
 
 		WCF* EpicService = new WCF();
 		//cout << listaNotificacoesRespondidas[0] << endl;
@@ -2656,6 +2736,13 @@ void trataEvento(string nomeBtn){
 		if (friendRequest->game->gameID == 1){
 			/* abre tic tac toe*/
 
+
+
+			EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 1, win, points);
+			listaNotificacoesRespondidas.pop_back();
+			testeVar == 2;
+			cleanStack();
+			getRequests();
 			//EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 1, win, points);
 		}
 		else if (friendRequest->game->gameID == 2){
@@ -2664,14 +2751,20 @@ void trataEvento(string nomeBtn){
 			EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 2, win, points);
 			listaNotificacoesRespondidas.pop_back();
 			testeVar == 2;
+			cleanStack();
 			getRequests();
-			
 
 			//EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 2, win, points);
 		}
 		else if (friendRequest->game->gameID == 3){
 			/* labirinto */
 		
+
+			EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 3, win, points);
+			listaNotificacoesRespondidas.pop_back();
+			testeVar == 2;
+			cleanStack();
+			getRequests();
 			//EpicService->registerGameResult(login.username, login.password, listaNotificacoesRespondidas[size], 3, win, points);
 		}
 		
@@ -2729,30 +2822,40 @@ void trataEvento(string nomeBtn){
 		if (nomeBtn == "jogoHangman"){
 			//cout << "hang" << endl;
 			WCF* EpicService = new WCF();
-			int last = listaNotificacoesAmizade.size();
+			int last = listaNotificacoesAmizade.size()-1;
 			EpicService->selectGameToPlay(login.username, login.password, listaNotificacoesAmizade[last], 2);
 			listaNotificacoesAmizade.pop_back();
+			cleanStack();
 		}
 		else if (nomeBtn=="jogoLabirinto"){
 			cout << "lab" << endl;
 			WCF* EpicService = new WCF();
-			//EpicService->selectGameToPlay(login.username, login.password, , 3);
+			int last = listaNotificacoesAmizade.size() - 1;
+			EpicService->selectGameToPlay(login.username, login.password, listaNotificacoesAmizade[last], 3);
+			listaNotificacoesAmizade.pop_back();
+			cleanStack();
 		}
 		else if (nomeBtn == "jogoTicTacToe"){
-			cout << "tic" << endl;
 			WCF* EpicService = new WCF();
-			//EpicService->selectGameToPlay(login.username, login.password, , 1);
+			int last = listaNotificacoesAmizade.size() - 1;
+			EpicService->selectGameToPlay(login.username, login.password, listaNotificacoesAmizade[last], 1);
+			listaNotificacoesAmizade.pop_back();
+			cleanStack();
 		}
 		else if (nomeBtn == "jogoAdiciona"){
 			cout << "add" << endl;
 			WCF* EpicService = new WCF();
-			//EpicService->acceptFriendRequest(login.username, login.password, );
+			int last = listaNotificacoesAmizade.size() - 1;
+			EpicService->acceptFriendRequest(login.username, login.password, listaNotificacoesAmizade[last]);
+			cleanStack();
 
 		}
 		else if (nomeBtn == "jogoRegeita"){
 			cout << "reject" << endl;
 			WCF* EpicService = new WCF();
-			//EpicService->rejectFriendRequest(login.username, login.password, );
+			int last = listaNotificacoesAmizade.size() - 1;
+			EpicService->rejectFriendRequest(login.username, login.password, listaNotificacoesAmizade[last]);
+			cleanStack();
 		}
 	
 	}
@@ -2784,7 +2887,7 @@ bool picking2(int x, int y){
 
 		if (x > xtest1 && x < xtest2){
 			if (yNovo > ytest1 && yNovo < ytest2){
-				cout << "entrou" << endl;
+				
 				trataEvento(listaElementosPicking[i].nomeElem);
 				return true;
 			}
@@ -3286,7 +3389,6 @@ void mouse(int btn, int state, int x, int y){
 				}
 
 
-
 			}
 
 			break;
@@ -3463,6 +3565,7 @@ void Timer(int value)
 
 		TicTacToeThread.join();
 	}
+
 	//	}
 }
 int main(int argc, char **argv)
