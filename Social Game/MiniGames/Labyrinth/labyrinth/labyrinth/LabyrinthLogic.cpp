@@ -15,7 +15,8 @@ int* fastestWayAvailable(int **matriz, int y, int x){
 	//yFinal = 8;
 
 	
-
+	char* dummy_args[] = { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
+	PlEngine e(3, dummy_args);
 	
 	/* Colocar informação da matriz na base de conhecimento*/
 	assertData(matriz);
@@ -98,6 +99,7 @@ int* fastestWayAvailable(int **matriz, int y, int x){
 		resTemp++;
 	}
 	solution[0] = finalSize;
+
 	return solution;
 	//solution[finalSize] = '/0';
 
@@ -115,9 +117,15 @@ Recebe a matriz usada para desenhar o labirinto, e sempre que existe uma ligação
 */
 void assertData(int **matriz){
 
-	//char* argv[] = { "swipl.dll", "-s", "labyrinthIA.pl", NULL };
+	
+	//char* argv[]= { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
 
 	//PlEngine e(3, argv);
+
+	//PlTerm tt("liga(_,_)");
+	//PlQuery r("retractall", tt);
+	//r.next_solution();
+
 	int nivel = 0;
 	nivel = matriz[0][0];
 	int largura = 0, altura = 0;
@@ -161,7 +169,6 @@ void assertData(int **matriz){
 			}
 		}
 	}
-
 }
 
 /*

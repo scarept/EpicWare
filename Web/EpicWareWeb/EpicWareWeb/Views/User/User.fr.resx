@@ -316,7 +316,7 @@
     <value>Enregistrer</value>
   </data>
   <data name="scores" xml:space="preserve">
-    <value>Tabela de Resultados</value>
+    <value>Tableau de résultat</value>
   </data>
   <data name="veramigos" xml:space="preserve">
     <value>voir amis</value>
@@ -361,7 +361,7 @@
     <value>réactiver</value>
   </data>
   <data name="search" xml:space="preserve">
-    <value>Tableau de résultat</value>
+    <value>Rechercher</value>
   </data>
   <data name="sugerir_amigos" xml:space="preserve">
     <value>Suggérer amis</value>

@@ -44,6 +44,7 @@ typedef struct{
 	GLuint win;
 	GLuint lose;
 	GLuint deuce;
+	int pontos;
 }Modelo;
 
 typedef struct{
@@ -95,7 +96,7 @@ void initGame(){
 	player = true;
 	terminouJogo = false;
 	repetirJogada = false;
-
+	mod.pontos = -1;
 	glShadeModel(GL_FLAT);
 }
 
@@ -233,6 +234,8 @@ int validaJogada(int player, int l, int c)
 		{
 			terminouJogo = true;
 			vencedor = player;
+			mod.pontos = 1;
+			teste = 2;
 			return 1;
 			
 		}
@@ -251,6 +254,8 @@ int validaJogada(int player, int l, int c)
 		{
 			terminouJogo = true;
 			vencedor = player;
+			mod.pontos = 1; 
+			teste = 2;
 			return 1;
 			
 		}
@@ -269,6 +274,8 @@ int validaJogada(int player, int l, int c)
 		{
 			terminouJogo = true;
 			vencedor = player;
+			mod.pontos = 1;
+			teste = 2;
 			return 1;
 			
 		}
@@ -292,11 +299,13 @@ int validaJogada(int player, int l, int c)
 		{
 			terminouJogo = true;
 			vencedor = player;
+			teste = 2;
+			mod.pontos = 1;
 			return 1;
 			
 		}
 
-		/* VERIFICACA SE JOGO TERMINOU SEM VENCEDOR*/
+		/* VERIFICA SE JOGO TERMINOU SEM VENCEDOR*/
 		bool terminou = true;
 		for (int i = 0; i < 3; i++)
 		{
@@ -312,6 +321,8 @@ int validaJogada(int player, int l, int c)
 		{
 			terminouJogo = true;
 			vencedor = 0;
+			mod.pontos = 0;
+			teste = 2;
 			return 2;
 		}
 		else{
@@ -456,7 +467,8 @@ void desenhaFinal(GLenum mode)
 {
 	/* carregar fundo */
 	glPushMatrix();
-		glLoadName(20);
+	if (mode == GL_SELECT)
+		glLoadName(99);
 		glBindTexture(GL_TEXTURE_2D, mod.menu);
 		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, 0.5); //transparencias 
 		glBegin(GL_POLYGON);
@@ -474,17 +486,16 @@ void desenhaFinal(GLenum mode)
 
 	/* carrega painel  final */
 
+	if (vencedor == 0){
+		glBindTexture(GL_TEXTURE_2D, mod.deuce);
+	}
+	else if (vencedor == 1){
+		glBindTexture(GL_TEXTURE_2D, mod.win);
+	}
+	else{
+		glBindTexture(GL_TEXTURE_2D, mod.lose);
+	}
 	glPushMatrix();
-		glLoadName(1);
-		if (vencedor == 0){
-			glBindTexture(GL_TEXTURE_2D, mod.deuce);
-		}
-		else if (vencedor == 1){
-			glBindTexture(GL_TEXTURE_2D, mod.win);
-		}
-		else{
-			glBindTexture(GL_TEXTURE_2D, mod.lose);
-		}
 		glBegin(GL_POLYGON);
 		glTexCoord2f(0.0, 1.0);
 		glVertex2f(15, 30);
@@ -515,6 +526,7 @@ void desenhaFinal(GLenum mode)
 	//	glEnd();
 	//}
 	//glPopMatrix();
+
 
 }
 
@@ -640,6 +652,11 @@ void clickEventMatrix(GLint hits, GLuint buffer[])
 					glutPostRedisplay();
 					jogadaJogador(2, 2);
 				}
+				else if (*ptr == 99){
+					printf("99");
+					glutLeaveMainLoop();
+					
+				}
 				ptr++;
 			}
 		}
@@ -647,6 +664,27 @@ void clickEventMatrix(GLint hits, GLuint buffer[])
 	}
 	else{}
 	
+}
+
+void clickEventFinal(GLint hits, GLuint buffer[])
+{
+		int i;
+		unsigned int j;
+		GLuint names, *ptr;
+		ptr = (GLuint *)buffer;
+		for (i = 0; i < hits; i++) {
+			names = *ptr;
+			ptr = ptr + 3;
+			for (j = 0; j < names; j++) { /* for each name */
+				if (*ptr == 99){
+					printf("99");
+					glutLeaveMainLoop();
+
+				}
+				ptr++;
+			}
+		}
+
 }
 
 void pickRects(int button, int state, int x, int y)
@@ -671,8 +709,8 @@ void pickRects(int button, int state, int x, int y)
 	gluOrtho2D(0, 100, 100, 0);
 	desenhaMenu(GL_SELECT);
 
-	if (terminouJogo)
-		desenhaFinal(GL_SELECT);
+	//if (terminouJogo)
+	//	desenhaFinal(GL_SELECT);
 
 	glPopMatrix();
 	glFlush();
@@ -711,6 +749,36 @@ void pickMatriz(int button, int state, int x, int y)
 
 }
 
+
+void pickFinal(int button, int state, int x, int y)
+{
+
+	GLuint selectBuf[BUFSIZE];
+	GLint hits;
+	GLint viewport[4];
+	if (button != GLUT_LEFT_BUTTON || state != GLUT_DOWN)
+		return;
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glSelectBuffer(BUFSIZE, selectBuf);
+	(void)glRenderMode(GL_SELECT);
+	glInitNames();
+	glPushName((GLuint)~0);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	/* create 5x5 pixel picking region near cursor location */
+	gluPickMatrix((GLdouble)x, (GLdouble)(viewport[3] - y), 0.5, 0.5, viewport);
+	gluOrtho2D(0, 100, 100, 0);
+	desenhaFinal(GL_SELECT);
+
+	glPopMatrix();
+	glFlush();
+	hits = glRenderMode(GL_RENDER);
+	clickEventFinal(hits, selectBuf);
+
+}
+
 void picking(int button, int state, int x, int y)
 {
 	if (teste == 0){
@@ -719,6 +787,9 @@ void picking(int button, int state, int x, int y)
 	else if (teste == 1){
 		pickMatriz(button, state, x, y);
 	}
+	else if (teste == 2){
+		pickFinal(button, state, x, y);
+	}
 }
 
 /* MAIN */
@@ -726,7 +797,7 @@ void picking(int button, int state, int x, int y)
 int main(int argc, char** argv)
 {
 	//Dev purposes only, needs to be commented for release
-	_putenv("SWI_HOME_DIR=C:\\Program Files (x86)\\swipl");
+	_putenv("SWI_HOME_DIR=C:\\SWIProlog");
 
 	char* dummy_args[] = { argv[0], "-s", "./pl/tictactoe.pl", NULL };
 
@@ -765,6 +836,6 @@ int main(int argc, char** argv)
 
 	glutMainLoop();
 
-	return 0;
+	return mod.pontos;
 }
 

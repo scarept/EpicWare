@@ -15,7 +15,7 @@ WCF::WCF()
 	//endereço do serviço
 	address.url = url;
 
-	hr = WsCreateHeap(4096, 512, NULL, 0, &heap, error);
+	hr = WsCreateHeap(8192, 512, NULL, 0, &heap, error);
 	WS_HTTP_BINDING_TEMPLATE templ = {};
 	//criação do proxy para o serviço
 	hr = BasicHttpBinding_IWebService_CreateServiceProxy(&templ, NULL, 0, &proxy, error);
@@ -78,9 +78,7 @@ int WCF::getConnectionStrenght(int id1, int id2){
 }
 
 User* WCF::getUserAutentication(string username, string password){
-	unsigned int n = 0;
-	int *ids;
-	vector<int> users;
+
 	User *teste = NULL;
 
 	/* eliminar depois dos testes */
@@ -149,10 +147,6 @@ vector<int> WCF::getUserFiends(string username, string password, int idUser){
 }
 
 UserData* WCF::getUserById(string username, string password, int idUser){
-	unsigned int n = 0;
-	int *ids;
-	vector<int> users;
-	User *teste = NULL;
 
 	UserData *utilizador = NULL;
 
@@ -196,10 +190,7 @@ UserData* WCF::getUserById(string username, string password, int idUser){
 }
 
 int WCF::getConnectioStrenght(string username, string password, int idUser1, int idUser2){
-	unsigned int n = 0;
-	int *ids;
-	vector<int> users;
-	User *teste = NULL;
+
 	int resultado = NULL;
 
 	/* eliminar depois dos testes */
@@ -241,10 +232,6 @@ int WCF::getConnectioStrenght(string username, string password, int idUser1, int
 }
 
 int WCF::getNumberTagsForUserId(string username, string password, int idUser){
-	unsigned int n = 0;
-	int *ids;
-	vector<int> users;
-	User *teste = NULL;
 	int resultado = NULL;
 
 	/* eliminar depois dos testes */
@@ -282,5 +269,322 @@ int WCF::getNumberTagsForUserId(string username, string password, int idUser){
 	}
 
 	return resultado;
+
+}
+
+
+vector<int> WCF::getFRReceivedPending(string username, string password, int idUser){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+		hr = BasicHttpBinding_IWebService_getFRReceivedPending(proxy, idUser, wcharUsername, wcharPassword,&n, &ids, heap, NULL, 0, NULL, error);
+		for (int i = 0; i < n; i++){
+			users.push_back(*ids);
+			ids++;
+		}
+	}
+
+	return users;
+
+}
+
+BOOL WCF::getCreateFriendRequest(string username, string password, int idUser1, int idUser2){
+	
+	BOOL result = false;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+
+
+		hr = BasicHttpBinding_IWebService_createFriendRequest(proxy, idUser1, idUser2, wcharUsername, wcharPassword, &result, heap, NULL, 0, NULL, error);
+	}
+
+	return result;
+
+}
+
+
+BOOL WCF::selectGameToPlay(string username, string password, int idFriendRequest, int idGame){
+
+	BOOL result = false;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+
+
+		hr = BasicHttpBinding_IWebService_selectGameToPlay(proxy, idFriendRequest, idGame, wcharUsername, wcharPassword, &result, heap, NULL, 0, NULL, error);
+	}
+
+	return result;
+
+}
+
+
+BOOL WCF::acceptFriendRequest(string username, string password, int idFriendRequest){
+
+	BOOL result = false;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+
+
+		hr = BasicHttpBinding_IWebService_acceptFriendRequest(proxy, idFriendRequest, wcharUsername, wcharPassword, &result, heap, NULL, 0, NULL, error);
+	}
+
+	return result;
+
+}
+
+BOOL WCF::rejectFriendRequest(string username, string password, int idFriendRequest){
+
+	BOOL result = false;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+
+
+		hr = BasicHttpBinding_IWebService_acceptFriendRequest(proxy, idFriendRequest, wcharUsername, wcharPassword, &result, heap, NULL, 0, NULL, error);
+	}
+
+	return result;
+
+}
+
+BOOL WCF::registerGameResult(string username, string password, int idFriendRequest, int idGame, bool win, int points){
+
+	BOOL result = false;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+
+		hr = BasicHttpBinding_IWebService_registerGameResult(proxy, idFriendRequest,win,points,wcharUsername, wcharPassword, &result, heap, NULL, 0, NULL, error);
+	}
+
+	return result;
+
+}
+
+
+vector<int> WCF::waitingGamePlay(string username, string password, int idUser){
+	unsigned int n = 0;
+	int *ids;
+	vector<int> users;
+
+	/* eliminar depois dos testes */
+	if (username == ""){
+		username = "Halsahaf";
+	}
+
+	if (password == ""){
+		password = "123456";
+	}
+
+	if (username != "" && password != ""){
+
+		wchar_t* wcharUsername = new wchar_t[1023];
+		size_t* sizeOut = new size_t;
+		size_t sizeInWords = 256;
+
+		const char* cStr;
+		cStr = username.c_str();
+		mbstowcs_s(sizeOut, wcharUsername, sizeInWords, cStr, strlen(cStr) + 1);
+
+		wchar_t* wcharPassword = new wchar_t[1023];
+		size_t* sizeOut2 = new size_t;
+		size_t sizeInWords2 = 256;
+
+		const char* cStr2;
+		cStr2 = password.c_str();
+		mbstowcs_s(sizeOut2, wcharPassword, sizeInWords, cStr2, strlen(cStr2) + 1);
+
+
+		//wchar_t * wcharUsername = stringToWchar(username);
+		//wchar_t * wcharPassword = stringToWchar(password);
+
+		hr = BasicHttpBinding_IWebService_waitingGamePlay(proxy, idUser, wcharUsername, wcharPassword, &n, &ids, heap, NULL, 0, NULL, error);
+		for (int i = 0; i < n; i++){
+			users.push_back(*ids);
+			ids++;
+		}
+	}
+
+	return users;
 
 }

@@ -163,13 +163,14 @@ void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
 	int tamanho = contaDiferentes(amigosDiretos);
 
 	if (tamanho != 0){
-		alpha = 360 / tamanho;
+		alpha = 360 / tamanhoLista;
 		alpha = degToRad(alpha);
 	}
 	for (int i = 0; i < tamanhoLista; i++){
 
 		if (testaExistencia(amigosDiretos[i]) == false){
-			float x = raio * ((cos(i*alpha)));
+
+			float x = raio * (cos(i*alpha));
 			float y = raio * (sin(i*alpha));
 
 			nos[numNos].nome = "ND";
@@ -222,58 +223,6 @@ void leGrafo(No  user1, vector<int> listaNos, int nivel, int posActual){
 	distribuicaoRadial(user, listaNos, nivel);
 
 
-
-	/*
-	nos[0].userId = 1;
-	nos[0].x = 0;
-	nos[0].y = 0;
-	nos[0].z = 0;
-	nos[0].largura = 2; // calculo por numero de tags
-
-	nos[1].userId = 2;
-	nos[1].x = 5;
-	nos[1].y = 5;
-	nos[1].z = 5;
-	nos[1].largura = 2;
-	*/
-	/*
-	arcos[0].noi = 1;
-	arcos[0].nof = 2;
-	arcos[0].peso = 10;
-	arcos[0].forcaLig = 2;
-	arcos[0].largura = 1;
-	*/
-	//numNos = 2;
-	//numArcos = 1;
-
-
-
-	/*
-	ifstream myfile;
-
-	myfile.open (__GRAFO__FILE__, ios::in);
-	if (!myfile.is_open()) {
-	cout << "Erro ao abrir " << __GRAFO__FILE__ << "para ler" <<endl;
-	exit(1);
-	}
-
-	myfile >> numNos;
-	for (int i = 0; i < numNos; i++)
-	myfile >> nos[i].x >> nos[i].y >> nos[i].z;
-	myfile >> numArcos ;
-	for(int i=0; i<numArcos;i++)
-	myfile >> arcos[i].noi >> arcos[i].nof >> arcos[i].peso >> arcos[i].forcaLig >> arcos[i].largura;
-	myfile.close();
-	
-	// calcula a largura de cada no = maior largura dos arcos que divergem/convergem desse/nesse no
-	for (int i = 0; i<2; i++){
-	nos[i].largura = 0;
-	for (int j = 0; j<1; j++)
-	//caso a ligação seja maior que o tamanho do nó
-	if ((arcos[j].noi == i || arcos[j].nof == i) && nos[i].largura < arcos[j].forcaLig)
-	nos[i].largura = arcos[j].forcaLig;
-	}
-	*/
 
 
 }

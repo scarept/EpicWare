@@ -12,6 +12,9 @@
 #include <EpicService\EpicWareWeb.Models.xsd.h>
 #include <process.h>
 
+#pragma comment(linker, "/subsystem:\"console\" \
+	/entry:\"mainCRTStartup\"")
+
 using namespace std;
 
 
@@ -22,7 +25,15 @@ void escreveTexto();
 void dawHud();
 void janelaInfoUser(int idUser);
 void menu(int item);
+
 void desenhaMenuEscolhaMiniJogo();
+void desenhaBtnLabirinto();
+void desenhaBtnHangman();
+void desenhaBtnTicTacToe();
+void desenhaBtnAceita();
+void desenhaBtnRegeita();
+
+void getRequests();
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
@@ -130,6 +141,7 @@ typedef struct Estado{
 	GLint		estadoJogo; // 0 - login; 1- Jogo 3D; 2- menu
 	teclas_t	teclas;
 	GLint		timer;
+	boolean		luz;
 }Estado;
 
 typedef struct Login{
@@ -143,7 +155,13 @@ typedef struct Login{
 
 }Login;
 
-
+typedef struct HUD{
+	GLuint hudRightImg;
+	GLuint hudLeftImg;
+	GLuint btnPesqImg;
+	GLuint notificationImg;
+	GLuint addFriendImg;
+}HUD;
 
 
 
@@ -199,6 +217,7 @@ Elements2D elementos2D;
 Estado estado;
 Modelo modelo;
 Login login;
+HUD hud;
 
 void initEstado(){
 	estado.eixo[0] = 0;
@@ -232,6 +251,14 @@ void initNotification(){
 	notificationStatus.selectedNotification = false;
 	notificationStatus.showNotification = false;
 
+}
+
+void initHud(){
+	hud.hudRightImg = load3D(".\/images\/hud1.png");
+	hud.hudLeftImg = load3D(".\/images\/hud2.png");
+	hud.btnPesqImg = load3D(".\/images\/search.png");
+	hud.addFriendImg = load3D(".\/images\/addFriend.png");
+	hud.notificationImg = load3D(".\/images\/notification.png");
 }
 
 void desenhaBtnLogin(GLenum mode){
@@ -554,14 +581,13 @@ void preencheInfoLigacao(){
 }
 
 void gameInit(User *utilizador)
-//void gameInit()
 {
 	//glPushMatrix();
 	//GLuint ax = load3D("menu.png");
 	//glPopMatrix();
 
 	estado.estadoJogo = 1;
-
+	initHud();
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
 
@@ -584,6 +610,8 @@ void gameInit(User *utilizador)
 	gluQuadricDrawStyle(modelo.quad, GLU_FILL);
 	gluQuadricNormals(modelo.quad, GLU_OUTSIDE);
 
+	
+
 	/* inicia utilizador e menu descrições */
 	initElemtnos2D();
 	userInit(utilizador);
@@ -597,6 +625,8 @@ void gameInit(User *utilizador)
 	preencheInfoLigacao();
 
 
+	/* check pedidos de amizades e notificações */
+	getRequests();
 
 	//modelo.aa = 0;
 	estado.camera.dir_lat = 0.17999;
@@ -615,6 +645,8 @@ void gameInit(User *utilizador)
 	estado.camera.posicao.z = 110;
 
 	estado.camera.distancia = 100;
+
+	estado.luz = false;
 	//modelo.obj.dirLat = 0.17999;
 	//modelo.obj.dirLong = -4.009;
 	//modelo.obj.dist = 100;
@@ -663,16 +695,97 @@ const GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
 void putLights(GLfloat* diffuse)
 {
 	const GLfloat white_amb[] = { 0.2, 0.2, 0.2, 1.0 };
-
+	/*
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
 	glLightfv(GL_LIGHT0, GL_POSITION, modelo.g_pos_luz1);
+	*/
+	//glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+	//glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
+	//glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
+	//glLightfv(GL_LIGHT1, GL_POSITION, modelo.g_pos_luz2);
 
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
-	glLightfv(GL_LIGHT1, GL_POSITION, modelo.g_pos_luz2);
+	/*
+	GLfloat qaSpecularLight[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+	GLfloat spotDir[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] };
+
+	cout << estado.camera.posicao.x << endl;
+	cout << estado.camera.center[0] << endl;
+
+	glLightfv(GL_LIGHT3, GL_SPECULAR, qaSpecularLight);
+	glLightfv(GL_LIGHT3, GL_SPECULAR, white_light);
+	glLightfv(GL_LIGHT3, GL_AMBIENT, white_amb);
+	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 30.0);// set cutoff angle
+	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotDir);
+	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 1);
+	*/
+
+//	GLfloat light_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+//	GLfloat spotDir[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] }; 
+
+	GLfloat light1_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light1_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+	GLfloat spot_direction[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] };
+
+	/*
+	GLfloat light1_position[] = { 0.0, -50, 0, 10.0 };
+	GLfloat spot_direction[] = { 0, 40.0, 1.0 };
+	
+	*/
+	/*
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
+	glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
+	//glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);
+	//glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0);
+	//glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+
+	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 100.0);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
+	//glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 2.0);
+	*/
+	if (estado.luz == true)
+	{
+		glLightfv(GL_LIGHT0, GL_SPECULAR, red_light);
+		glLightfv(GL_LIGHT0, GL_POSITION, light1_position);
+		glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 100.0);
+		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
+		glEnable(GL_LIGHT0);
+	}
+	else
+	{
+
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
+		glLightfv(GL_LIGHT0, GL_POSITION, modelo.g_pos_luz1);
+
+		glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+		glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
+		glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
+		glLightfv(GL_LIGHT1, GL_POSITION, modelo.g_pos_luz2);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHT1);
+	}
+		/*
+	}
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, red_light);
+	
+	//glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);
+	//glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0);
+	//glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+
+
+	//glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 2.0);
+
+
 
 	/* desenhar luz */
 	//material(red_plastic);
@@ -691,9 +804,12 @@ void putLights(GLfloat* diffuse)
 	//	glEnable(GL_LIGHTING);
 	//glPopMatrix();
 
+	//glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
+	//glEnable(GL_LIGHT3);
 }
+
+
 
 void desenhaSolo(){
 #define STEP 10
@@ -1117,23 +1233,6 @@ void desenhaNomes(float x1, float y1, float z, string nome){
 
 }
 
-void DesenhaQuadrado(GLfloat x, GLfloat y, GLfloat z)
-{
-	glBegin(GL_POLYGON);
-	glColor3d(0.0F, 1.0F, 0.0F);
-	/*
-	glVertex3f(estado.camera.posicao.x + 10.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 10.0F);
-	glVertex3f(estado.camera.posicao.x + 15.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 10.0F);
-	glVertex3f(estado.camera.posicao.x + 15.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 15.0F);
-	glVertex3f(estado.camera.posicao.x + 10.0F, estado.camera.posicao.y + 20, (estado.camera.posicao.z - 5) + 15.0F);
-	*/
-	glVertex3f(x + 10.0F, y + 20, z + 10.0F);
-	glVertex3f(x + 15.0F, y + 20, z + 10.0F);
-	glVertex3f(x + 15.0F, y + 20, z + 15.0F);
-	glVertex3f(x + 10.0F, y + 20, z + +15.0F);
-
-	glEnd();
-}
 
 void drawGraph(GLenum mode){
 	glPushMatrix();
@@ -1246,6 +1345,26 @@ void desenhaEixos(){
 
 }
 
+
+void colocarSpot()
+{
+	/*    a, b and c -- x, y and z co-ordinates for light position   
+	d, e and f -- x, y and z co-ordinates for spot light position   
+
+	GLfloat light_position[] = { a, b, c, 1.0 };
+	GLfloat spotDir[] = { d, e, f };
+	*/
+	GLfloat qaSpecularLight[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_position[] = { estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z, 1.0 };
+	GLfloat spotDir[] = { estado.camera.center[0], estado.camera.center[1], estado.camera.center[2] };
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT3);
+	glLightfv(GL_LIGHT3, GL_SPECULAR, qaSpecularLight);
+	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 30.0);// set cutoff angle
+	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, spotDir);
+	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 1);
+}
+
 void setCamera(){
 	Vertice eye;
 	estado.camera.center[0] = (estado.camera.posicao.x + estado.camera.dist * cos(estado.camera.dir_long));
@@ -1266,7 +1385,7 @@ void setCamera(){
 	}
 	else{
 		putLights((GLfloat*)white_light);
-		DesenhaQuadrado(estado.camera.center[0], estado.camera.center[1], estado.camera.center[2]);
+		//colocarSpot();
 		gluLookAt(eye[0], eye[1], eye[2], estado.camera.center[0], estado.camera.center[1], estado.camera.center[2], 0, 0, 1);
 	}
 }
@@ -1285,19 +1404,27 @@ void miniMapa(){
 	glLoadIdentity();
 	glDisable(GL_CULL_FACE);
 
-	material(red_plastic);
-
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, hud.hudLeftImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(0, 85);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(15, 85);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(15, 100);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(0, 100);
 	glEnd();
 
-	/* desenhar os nos e o que for preciso do minimapa  */
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -1305,7 +1432,36 @@ void miniMapa(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
+}
+
+void desenhaTextoHudRight(){
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	material(cinza);
+
+	glRasterPos2f(86, 89);
+	int tamanho = login.username.size();
+	for (int i = 0; i < tamanho; i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, login.username[i]);
+	}
+
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 
 }
 
@@ -1323,13 +1479,25 @@ void estadoHumor(){
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_TEXTURE_2D); 
+
+	glBindTexture(GL_TEXTURE_2D, hud.hudRightImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(85, 85);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(100, 85);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(100, 100);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(85, 100);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -1337,10 +1505,10 @@ void estadoHumor(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
 }
 
 void textoPesquisa(){
+
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
@@ -1454,17 +1622,27 @@ void pesquisaBtn(){
 
 	listaElementosPicking[1] = novoBtn;
 
-	glLoadName(100);
+	//glLoadName(100);
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, hud.btnPesqImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(65, 94);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(74, 94);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(74, 97);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(65, 97);
 	glEnd();
 
 
-
+	glDisable(GL_TEXTURE_2D);
 
 
 	//glPopMatrix();
@@ -1474,7 +1652,6 @@ void pesquisaBtn(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
 
 }
 
@@ -1516,6 +1693,7 @@ void pesquisaBtn(){
 
 
 
+
 void display(void)
 {
 
@@ -1535,10 +1713,13 @@ void display(void)
 
 		material(slate);
 		desenhaSolo();
-
-
+		
 		desenhaEixos();
-
+		//DesenhaQuadrado(estado.camera.center[0], estado.camera.center[1], estado.camera.center[2]);
+		//DesenhaQuadrado(estado.camera.posicao.x, estado.camera.posicao.y, estado.camera.posicao.z);
+		//cout << "pos x" << estado.camera.posicao.x << endl;
+		//cout << "pos y" << estado.camera.posicao.y << endl;
+		//cout << "pos z" << estado.camera.posicao.z << endl;
 		// desnha o grafo 3D
 		drawGraph(GL_SELECT);
 
@@ -1549,6 +1730,7 @@ void display(void)
 		estadoHumor();
 		pesquisa();
 		textoPesquisa();
+		desenhaTextoHudRight();
 
 		pesquisaBtn();
 		/* fim HUD */
@@ -1563,6 +1745,11 @@ void display(void)
 
 		if (notificationStatus.selectedNotification == true){
 			desenhaMenuEscolhaMiniJogo();
+			desenhaBtnLabirinto();
+			desenhaBtnHangman();
+			desenhaBtnTicTacToe();
+			desenhaBtnAceita();
+			desenhaBtnRegeita();
 		}
 
 		/* fim desenho estruturas 2D*/
@@ -1576,8 +1763,6 @@ void display(void)
 
 		glFlush();
 		glutSwapBuffers(); // trocar buffer
-
-
 
 	}
 
@@ -1611,7 +1796,7 @@ void keyboard(unsigned char key, int x, int y)
 
 
 		default:
-			if (login.usernameSelected == true) {
+			if (login.usernameSelected == true && key != '\b') {
 				login.username += key;
 				//cout << key << endl;
 			}
@@ -1646,7 +1831,7 @@ void keyboard(unsigned char key, int x, int y)
 
 
 			default:
-				if (elementos2D.searchSelected == true) {
+				if (elementos2D.searchSelected == true && key != '\b') {
 					elementos2D.searchText = elementos2D.searchText += key;
 					//cout << key << endl;
 				}
@@ -1841,6 +2026,14 @@ void Special(int key, int x, int y){
 		addArco(criaArco(4, 6, 1, 1));  // 4 - 6
 		glutPostRedisplay();
 		break;
+		
+	case GLUT_KEY_F7:
+		if (estado.luz == false)
+			estado.luz = true;
+		else
+			estado.luz = false;
+			break;
+		
 	case GLUT_KEY_UP: estado.teclas.up = GL_TRUE;
 		break;
 	case GLUT_KEY_DOWN: estado.teclas.down = GL_TRUE;
@@ -2045,38 +2238,274 @@ void enviaPedidoNotificacao(int idUserDestino){
 
 }
 
-void desenhaMenuEscolhaMiniJogo(){
-		material(azul);
+void desenhaBtnLabirinto(){
 
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		gluOrtho2D(0, 100, 100, 0);
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-		glLoadIdentity();
-		glDisable(GL_CULL_FACE);
+	material(preto);
 
-		glClear(GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
 
-		glBegin(GL_POLYGON);
-		glColor3f(0, 1, 1);
-		glVertex2f(70, 12);
-		glVertex2f(100, 12);
-		glVertex2f(100, 22);
-		glVertex2f(70, 22);
-		glEnd();
+	glClear(GL_DEPTH_BUFFER_BIT);
 
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 18;
+	novoBtn.y2 = 23;
+	novoBtn.nomeElem = "jogoLabirinto";
 
-		// Volta a preparar para desenhar 3D
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
+	listaElementosPicking[4] = novoBtn;
 
-		//glutSwapBuffers();
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 }
 
+void desenhaBtnHangman(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 24;
+	novoBtn.y2 = 29;
+	novoBtn.nomeElem = "jogoHangman";
+
+	listaElementosPicking[5] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnTicTacToe(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 30;
+	novoBtn.y2 = 35;
+	novoBtn.nomeElem = "jogoTicTacToe";
+
+	listaElementosPicking[6] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnAceita(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 36;
+	novoBtn.y2 = 41;
+	novoBtn.nomeElem = "jogoAdiciona";
+
+	listaElementosPicking[7] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnRegeita(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glEnable(GL_TEXTURE_2D); //obrigatorio para ler imagens no soil
+	//GLuint ax = load3D("menu.png");
+
+	glBindTexture(GL_TEXTURE_2D, login.imagemFundo);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 42;
+	novoBtn.y2 = 47;
+	novoBtn.nomeElem = "jogoRegeita";
+
+	listaElementosPicking[8] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glTexCoord2f(0.0, 0.0);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+
+void desenhaMenuEscolhaMiniJogo(){
+
+	material(azul);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	/* fundo menu norificacao */
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(70, 12);
+	glVertex2f(100, 12);
+	glVertex2f(100, 48);
+	glVertex2f(70, 48);
+	glEnd();
+
+
+	// Volta a preparar para desenhar 3D
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+}
+
+void getRequests(){
+
+	WCF* EpicService = new WCF();
+	vector<int> lista;
+	lista = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
+
+}
+
+void erroPedidoWebService(){
+	/* erro */
+}
+
+void webServiceAddFriend(string username, string password, int idUser, int idAskFriend){
+
+	WCF* EpicService = new WCF();
+	BOOL resultado = EpicService->getCreateFriendRequest(username, password, idUser, idAskFriend);
+	if (resultado == false){
+		erroPedidoWebService();
+	}
+}
 void trataEvento(string nomeBtn){
 
 
@@ -2087,6 +2516,9 @@ void trataEvento(string nomeBtn){
 		if (retorno != NULL){
 			/* chamar a camara e alterar a sua posição */
 			cout << "Nao null: " << retorno->userId << endl;
+			estado.camera.posicao.x = (retorno->x * 5)-10;
+			estado.camera.posicao.y = (retorno->y * 5)-10;
+			estado.camera.posicao.z = (retorno->z * 5)+2;
 
 		}
 
@@ -2102,6 +2534,9 @@ void trataEvento(string nomeBtn){
 			cout << "Adicionou amigo" << endl;
 			cout << "Id ultimo selecionado: " << elementos2D.lastSelected << endl;
 			enviaPedidoNotificacao(elementos2D.lastSelected);
+
+			/* chamada de web service */
+			webServiceAddFriend(login.username, login.password, login.userId, elementos2D.lastSelected);
 
 			elementos2D.userDetails = false;
 
@@ -2121,6 +2556,37 @@ void trataEvento(string nomeBtn){
 	
 	}
 
+	if (notificationStatus.selectedNotification == true){
+		if (nomeBtn == "jogoHangman"){
+			cout << "hang" << endl;
+			WCF* EpicService = new WCF();
+		//	EpicService->selectGameToPlay(login.username, login.password, ,2 );
+
+
+		}
+		else if (nomeBtn=="jogoLabirinto"){
+			cout << "lab" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->selectGameToPlay(login.username, login.password, , 3);
+		}
+		else if (nomeBtn == "jogoTicTacToe"){
+			cout << "tic" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->selectGameToPlay(login.username, login.password, , 1);
+		}
+		else if (nomeBtn == "jogoAdiciona"){
+			cout << "add" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->acceptFriendRequest(login.username, login.password, );
+
+		}
+		else if (nomeBtn == "jogoRegeita"){
+			cout << "reject" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->rejectFriendRequest(login.username, login.password, );
+		}
+	
+	}
 
 	elementos2D.searchSelected = false;
 }
@@ -2479,14 +2945,26 @@ void adicionaAmigoBtn(){
 
 	listaElementosPicking[2] = novoBtn;
 
-	material(preto);
+	glEnable(GL_TEXTURE_2D); 
+
+	glBindTexture(GL_TEXTURE_2D, hud.addFriendImg);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	
 	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
 	glVertex2f(55, 54);
+	glTexCoord2f(1.0, 1.0);
 	glVertex2f(64, 54);
+	glTexCoord2f(1.0, 0.0);
 	glVertex2f(64, 59);
+	glTexCoord2f(0.0, 0.0);
 	glVertex2f(55, 59);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -2564,6 +3042,7 @@ void mouse(int btn, int state, int x, int y){
 		case GLUT_RIGHT_BUTTON:
 
 			notificationStatus.showNotification = true;
+			notificationStatus.selectedNotification = false;
 
 			elementos2D.userDetails = false;
 
