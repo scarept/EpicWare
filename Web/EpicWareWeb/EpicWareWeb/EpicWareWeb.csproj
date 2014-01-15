@@ -331,6 +331,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\modern_dot_digital-7.ttf" />
+    <Content Include="Images\403.png" />
+    <Content Include="Images\404.png" />
     <Content Include="Images\Flags\FR.gif" />
     <Content Include="Images\Logos\tagcloud.png" />
     <Content Include="WebService.svc" />
@@ -1088,6 +1090,8 @@
     <Content Include="Views\Home\_SearchList.cshtml" />
     <Content Include="Views\User\_TagsUser.cshtml" />
     <Content Include="Views\Home\ScoreBoard.cshtml" />
+    <Content Include="Views\Shared\e404.cshtml" />
+    <Content Include="Views\Shared\e403.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
