@@ -18,6 +18,8 @@
 
 int teste = 0;
 
+
+
 typedef struct PrologInfo{
 
 	int argc;
@@ -27,6 +29,8 @@ typedef struct PrologInfo{
 typedef struct {
 	GLboolean   a, w, s, d, h, p;
 }Teclas;
+
+int score;
 
 typedef struct{
 	GLint	x, y;
@@ -359,6 +363,12 @@ Labyrinth::~Labyrinth(){}
 			switch (key) {
 			case 'A':
 			case 'a': tecla.a = GL_TRUE;
+				if (quad.matrix[0][3] == quad.y && quad.matrix[0][4] == quad.x - 1){
+					
+					score = mod.matLabirinto[0][0];
+
+					glutLeaveMainLoop();
+				}
 
 				if (quad.matrix[quad.y][quad.x - 1] == 0)
 				{
@@ -369,6 +379,11 @@ Labyrinth::~Labyrinth(){}
 				break;
 			case 'W':
 			case 'w': tecla.w = GL_TRUE;
+				if (quad.matrix[0][3] == quad.y - 1 && quad.matrix[0][4] == quad.x)
+				{
+					score = mod.matLabirinto[0][0];
+					glutLeaveMainLoop();
+				}
 				if (quad.matrix[quad.y - 1][quad.x] == 0)
 				{
 					quad.y = quad.y - 1;
@@ -378,7 +393,8 @@ Labyrinth::~Labyrinth(){}
 			case 'S':
 			case 's': tecla.s = GL_TRUE;
 				if (quad.matrix[0][3] == quad.y + 1 && quad.matrix[0][4] == quad.x){
-					teste = 2;
+					score = mod.matLabirinto[0][0];
+					glutLeaveMainLoop();
 				}
 
 				if (quad.matrix[quad.y + 1][quad.x] == 0)
@@ -389,6 +405,10 @@ Labyrinth::~Labyrinth(){}
 				break;
 			case 'D':
 			case 'd': tecla.d = GL_TRUE;
+				if (quad.matrix[0][3] == quad.y && quad.matrix[0][4] == quad.x + 1){
+					score = mod.matLabirinto[0][0];
+					glutLeaveMainLoop();
+				}
 				if (quad.matrix[quad.y][quad.x + 1] == 0)
 				{
 					quad.x = quad.x + 1;
@@ -589,5 +609,5 @@ Labyrinth::~Labyrinth(){}
 
 		glutMainLoop();
 
-		return 0;
+		return score;
 	}

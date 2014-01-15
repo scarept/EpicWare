@@ -34,6 +34,7 @@ void desenhaBtnAceita();
 void desenhaBtnRegeita();
 
 void getRequests();
+void getWaitingResponses();
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
@@ -218,6 +219,10 @@ Estado estado;
 Modelo modelo;
 Login login;
 HUD hud;
+
+
+vector<int> listaNotificacoesAmizade;
+vector<int> listaNotificacoesRespondidas;
 
 void initEstado(){
 	estado.eixo[0] = 0;
@@ -454,9 +459,12 @@ void userInit(User *utilizador){
 	user.largura = utilizador->userTagsCount;
 	//char * t = (char)utilizador->userProfile->name;
 	user.nome = wcharToString(utilizador->userProfile->name);
-
+//	WCHAR *oo = utilizador->mood->name;
+	user.estadoHumor = wcharToString(utilizador->mood->name);
 	nos[0] = user;
 	numNos = 1;
+
+	
 
 	utilizador->listConnections;
 
@@ -627,6 +635,7 @@ void gameInit(User *utilizador)
 
 	/* check pedidos de amizades e notificações */
 	getRequests();
+	getWaitingResponses();
 
 	//modelo.aa = 0;
 	estado.camera.dir_lat = 0.17999;
@@ -2515,9 +2524,26 @@ void desenhaMenuEscolhaMiniJogo(){
 void getRequests(){
 
 	WCF* EpicService = new WCF();
-	vector<int> lista;
-	lista = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
+	listaNotificacoesAmizade = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
+	if (listaNotificacoesAmizade.size()>0){
+		notificationStatus.showNotification = true;
+	}
 
+}
+
+void getWaitingResponses(){
+	WCF* EpicService = new WCF();
+	listaNotificacoesRespondidas = EpicService->waitingGamePlay(login.username, login.password, login.userId);
+	if (listaNotificacoesRespondidas.size()>0){
+		cout << listaNotificacoesRespondidas[0] << endl;
+		FriendRequest *aa;
+		aa=EpicService->getFriendRequestById(login.username, login.password, listaNotificacoesRespondidas[0]);
+		cout<<aa->friendRequestID<<endl;
+
+		//int aaa;
+	//	notificationStatus.showNotification = true;
+	}
+	//listaNotificacoesAmizade
 }
 
 void erroPedidoWebService(){
@@ -2586,8 +2612,8 @@ void trataEvento(string nomeBtn){
 		if (nomeBtn == "jogoHangman"){
 			cout << "hang" << endl;
 			WCF* EpicService = new WCF();
-		//	EpicService->selectGameToPlay(login.username, login.password, ,2 );
-
+			int id = listaNotificacoesAmizade[0];
+			EpicService->selectGameToPlay(login.username, login.password, listaNotificacoesAmizade[0], 2);
 
 		}
 		else if (nomeBtn=="jogoLabirinto"){
@@ -2921,14 +2947,17 @@ void infoUser(int idUserSelect){
 
 	/* escrever texto */
 	material(cinza);
-	char *nome = "Luis Mendes";
 	No *no;
 	no = infoByNoId(idUserSelect);
 	textoDescricao(no->nome, x, y);
-	//char *idade = "23 Anos";
-	//textoDescricao(idade, x, y + 5);
-	//char *humor = "A adorar openGL :\\";
-	//textoDescricao(humor, x, y + 10);
+
+	textoDescricao(no->estadoHumor, x, y + 5);
+	
+	string nivel;// = "Nivel: " + no->nivel - 1;
+	strcpy(&nivel[0], "Nivel: ");
+	char aux[3];
+	strcat(&nivel[0], _itoa(no->nivel - 1, aux, 10));
+	textoDescricao(nivel.c_str(), x, y + 10);
 
 	// Making sure we can render 3d again
 	glMatrixMode(GL_PROJECTION);
@@ -3022,8 +3051,6 @@ void adicionaAmigoBtn(){
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	//glutSwapBuffers();
-
 }
 
 bool idFriend(int idUserSelect){
@@ -3091,7 +3118,7 @@ void mouse(int btn, int state, int x, int y){
 		switch (btn) {
 		case GLUT_RIGHT_BUTTON:
 
-			notificationStatus.showNotification = true;
+			//notificationStatus.showNotification = true;
 			notificationStatus.selectedNotification = false;
 
 			elementos2D.userDetails = false;

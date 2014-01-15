@@ -76,5 +76,28 @@ namespace EpicWareWeb
 
         [OperationContract]
         bool createFriendRequest(int id1, int id2, string user, string pass);
+
+        [OperationContract]
+        List<int> getFRReceivedPending(int id, string user, string pass);
+
+        [OperationContract]
+        bool acceptFriendRequest(int idFriendRequest, string user, string pass);
+
+        [OperationContract]
+        bool rejectFriendRequest(int idFriendRequest, string user, string pass);
+
+        [OperationContract]
+        bool selectGameToPlay(int idFriendRequest, int idGame, string user, string pass);
+
+        [OperationContract]
+        bool registerGameResult(int idFriendRequest, bool win, int points, string user, string pass);
+
+        [OperationContract]
+        List<int> waitingGamePlay(int idUser, string user, string pass);
+
+        [OperationContract]
+        FriendRequest getFriendRequestById(int id, string user, string pass);
+
+
     }
 }

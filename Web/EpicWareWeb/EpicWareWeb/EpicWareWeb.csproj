@@ -198,6 +198,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IWebService.cs" />
+    <Compile Include="Migrations\201401142351057_upd.cs" />
+    <Compile Include="Migrations\201401142351057_upd.Designer.cs">
+      <DependentUpon>201401142351057_upd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Connection.cs" />
@@ -327,9 +331,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\modern_dot_digital-7.ttf" />
+    <Content Include="Images\403.png" />
+    <Content Include="Images\404.png" />
     <Content Include="Images\Flags\FR.gif" />
     <Content Include="Images\Logos\tagcloud.png" />
     <Content Include="WebService.svc" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\LAPR5.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Buttons\loginOut.png" />
@@ -1082,7 +1089,9 @@
     <Content Include="Views\User\_FriendsList.cshtml" />
     <Content Include="Views\Home\_SearchList.cshtml" />
     <Content Include="Views\User\_TagsUser.cshtml" />
-    <Content Include="Views\User\Scoreboard.cshtml" />
+    <Content Include="Views\Home\ScoreBoard.cshtml" />
+    <Content Include="Views\Shared\e404.cshtml" />
+    <Content Include="Views\Shared\e403.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1091,6 +1100,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201401142351057_upd.resx">
+      <DependentUpon>201401142351057_upd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\LanguageModels.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageModels.en.Designer.cs</LastGenOutput>

@@ -2,6 +2,8 @@
 
 class Labyrinth
 {
+
+
 private:
 public:
 	Labyrinth::Labyrinth();
