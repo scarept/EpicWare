@@ -17,7 +17,7 @@ int* fastestWayAvailable(int **matriz, int y, int x){
 
 
 	
-	char* dummy_args[] = { "libswipl.dll", "-s", ".\/pl\/labyrinthIA.pl", NULL };
+	char* dummy_args[] = { "libswipl.dll", "-s", "./pl/labyrinthIA.pl", NULL };
 	PlEngine e(3, dummy_args);
 	
 	/* Colocar informação da matriz na base de conhecimento*/
