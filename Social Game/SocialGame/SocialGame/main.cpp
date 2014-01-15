@@ -22,7 +22,13 @@ void escreveTexto();
 void dawHud();
 void janelaInfoUser(int idUser);
 void menu(int item);
+
 void desenhaMenuEscolhaMiniJogo();
+void desenhaBtnLabirinto();
+void desenhaBtnHangman();
+void desenhaBtnTicTacToe();
+void desenhaBtnAceita();
+void desenhaBtnRegeita();
 
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
@@ -1563,6 +1569,11 @@ void display(void)
 
 		if (notificationStatus.selectedNotification == true){
 			desenhaMenuEscolhaMiniJogo();
+			desenhaBtnLabirinto();
+			desenhaBtnHangman();
+			desenhaBtnTicTacToe();
+			desenhaBtnAceita();
+			desenhaBtnRegeita();
 		}
 
 		/* fim desenho estruturas 2D*/
@@ -2045,36 +2056,252 @@ void enviaPedidoNotificacao(int idUserDestino){
 
 }
 
+void desenhaBtnLabirinto(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 18;
+	novoBtn.y2 = 23;
+	novoBtn.nomeElem = "jogoLabirinto";
+
+	listaElementosPicking[4] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnHangman(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 24;
+	novoBtn.y2 = 29;
+	novoBtn.nomeElem = "jogoHangman";
+
+	listaElementosPicking[5] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnTicTacToe(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 30;
+	novoBtn.y2 = 35;
+	novoBtn.nomeElem = "jogoTicTacToe";
+
+	listaElementosPicking[6] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnAceita(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 36;
+	novoBtn.y2 = 41;
+	novoBtn.nomeElem = "jogoAdiciona";
+
+	listaElementosPicking[7] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void desenhaBtnRegeita(){
+
+	material(preto);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	//glOrtho(0.0, 1000, 700, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glEnable(GL_TEXTURE_2D); //obrigatorio para ler imagens no soil
+	//GLuint ax = load3D("menu.png");
+
+	glBindTexture(GL_TEXTURE_2D, login.imagemFundo);
+	/* render texturas */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	pickingPesquisa novoBtn;
+	novoBtn.x1 = 72;
+	novoBtn.x2 = 98;
+	novoBtn.y1 = 42;
+	novoBtn.y2 = 47;
+	novoBtn.nomeElem = "jogoRegeita";
+
+	listaElementosPicking[8] = novoBtn;
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(novoBtn.x1, novoBtn.y1);
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(novoBtn.x2, novoBtn.y1);
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(novoBtn.x2, novoBtn.y2);
+	glTexCoord2f(0.0, 0.0);
+	glVertex2f(novoBtn.x1, novoBtn.y2);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+
+	// Making sure we can render 3d again
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+
 void desenhaMenuEscolhaMiniJogo(){
-		material(azul);
 
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		gluOrtho2D(0, 100, 100, 0);
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-		glLoadIdentity();
-		glDisable(GL_CULL_FACE);
+	material(azul);
 
-		glClear(GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, 100, 100, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
 
-		glBegin(GL_POLYGON);
-		glColor3f(0, 1, 1);
-		glVertex2f(70, 12);
-		glVertex2f(100, 12);
-		glVertex2f(100, 22);
-		glVertex2f(70, 22);
-		glEnd();
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	/* fundo menu norificacao */
+	glBegin(GL_POLYGON);
+	glColor3f(0, 1, 1);
+	glVertex2f(70, 12);
+	glVertex2f(100, 12);
+	glVertex2f(100, 48);
+	glVertex2f(70, 48);
+	glEnd();
 
 
-		// Volta a preparar para desenhar 3D
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
+	// Volta a preparar para desenhar 3D
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 
-		//glutSwapBuffers();
 }
 
 void trataEvento(string nomeBtn){
@@ -2121,6 +2348,27 @@ void trataEvento(string nomeBtn){
 	
 	}
 
+	if (notificationStatus.selectedNotification == true){
+		if (nomeBtn == "jogoHangman"){
+			cout << "hang" << endl;
+
+		}
+		else if (nomeBtn=="jogoLabirinto"){
+			cout << "lab" << endl;
+		}
+		else if (nomeBtn == "jogoTicTacToe"){
+			cout << "tic" << endl;
+
+		}
+		else if (nomeBtn == "jogoAdiciona"){
+			cout << "add" << endl;
+
+		}
+		else if (nomeBtn == "jogoRegeita"){
+			cout << "reject" << endl;
+		}
+	
+	}
 
 	elementos2D.searchSelected = false;
 }
