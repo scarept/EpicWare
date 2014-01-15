@@ -6,12 +6,12 @@ SET PROLOG=SWI-Prolog\bin
 SET OUTPUT_PATH=Social Game\SocialGame\Release
 SET OUTPUT_PATH2=Social Game\SocialGame\Debug
 
-SET HANGMAN_PATH=HangMan\WCFProlog\Release
-SET HANGMAN_PATH2=HangMan\WCFProlog\Debug
-SET LABYRINTH_PATH=Labyrinth\labyrinth\Release
-SET LABYRINTH_PATH2=Labyrinth\labyrinth\Debug
-SET TICTACTOE_PATH=TicTacToe\Release
-SET TICTACTOE_PATH2=TicTacToe\Debug
+SET HANGMAN_PATH=Social Game\MiniGames\HangMan\WCFProlog\Release
+SET HANGMAN_PATH2=Social Game\MiniGames\HangMan\WCFProlog\Debug
+SET LABYRINTH_PATH=Social Game\MiniGames\Labyrinth\labyrinth\Release
+SET LABYRINTH_PATH2=Social Game\MiniGames\Labyrinth\labyrinth\Debug
+SET TICTACTOE_PATH=Social Game\MiniGames\TicTacToe\Release
+SET TICTACTOE_PATH2=Social Game\MiniGames\TicTacToe\Debug
 
 SET MINIGAMES_SCRIPT=BuildAndMakeMiniGames.bat
 
