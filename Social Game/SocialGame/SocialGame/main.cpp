@@ -2482,21 +2482,31 @@ void trataEvento(string nomeBtn){
 	if (notificationStatus.selectedNotification == true){
 		if (nomeBtn == "jogoHangman"){
 			cout << "hang" << endl;
+			WCF* EpicService = new WCF();
+		//	EpicService->selectGameToPlay(login.username, login.password, ,2 );
+
 
 		}
 		else if (nomeBtn=="jogoLabirinto"){
 			cout << "lab" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->selectGameToPlay(login.username, login.password, , 3);
 		}
 		else if (nomeBtn == "jogoTicTacToe"){
 			cout << "tic" << endl;
-
+			WCF* EpicService = new WCF();
+			//EpicService->selectGameToPlay(login.username, login.password, , 1);
 		}
 		else if (nomeBtn == "jogoAdiciona"){
 			cout << "add" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->acceptFriendRequest(login.username, login.password, );
 
 		}
 		else if (nomeBtn == "jogoRegeita"){
 			cout << "reject" << endl;
+			WCF* EpicService = new WCF();
+			//EpicService->rejectFriendRequest(login.username, login.password, );
 		}
 	
 	}
@@ -2943,6 +2953,7 @@ void mouse(int btn, int state, int x, int y){
 		case GLUT_RIGHT_BUTTON:
 
 			notificationStatus.showNotification = true;
+			notificationStatus.selectedNotification = false;
 
 			elementos2D.userDetails = false;
 
