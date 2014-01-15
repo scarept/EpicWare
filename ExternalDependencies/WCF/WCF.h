@@ -37,6 +37,9 @@ public:
 	UserData* WCF::getUserById(string username, string password, int idUser);/* alterar cpp */
 	int WCF::getConnectioStrenght(string username, string password, int idUser1, int idUser2);
 	int WCF::getNumberTagsForUserId(string username, string password, int idUser);
+	vector<int> WCF::getFRReceivedPending(string username, string password, int idUser);
+	BOOL WCF::getCreateFriendRequest(string username, string password, int idUser1, int idUser2);
+	BOOL WCF::selectGameToPlay(string username, string password, int idFriendRequest, int idGame);
 };
 
 #endif

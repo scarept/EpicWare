@@ -30,6 +30,8 @@ void desenhaBtnTicTacToe();
 void desenhaBtnAceita();
 void desenhaBtnRegeita();
 
+void getRequests();
+
 //convers�es
 #define radToDeg(x)   (180*(x)/M_PI)
 #define degToRad(x)   (M_PI*(x)/180)
@@ -603,6 +605,8 @@ void gameInit(User *utilizador)
 	preencheInfoLigacao();
 
 
+	/* check pedidos de amizades e notificações */
+	getRequests();
 
 	//modelo.aa = 0;
 	estado.camera.dir_lat = 0.17999;
@@ -2304,6 +2308,26 @@ void desenhaMenuEscolhaMiniJogo(){
 
 }
 
+void getRequests(){
+
+	WCF* EpicService = new WCF();
+	vector<int> lista;
+	lista = EpicService->getFRReceivedPending(login.username, login.password, login.userId);
+
+}
+
+void erroPedidoWebService(){
+	/* erro */
+}
+
+void webServiceAddFriend(string username, string password, int idUser, int idAskFriend){
+
+	WCF* EpicService = new WCF();
+	BOOL resultado = EpicService->getCreateFriendRequest(username, password, idUser, idAskFriend);
+	if (resultado == false){
+		erroPedidoWebService();
+	}
+}
 void trataEvento(string nomeBtn){
 
 
@@ -2329,6 +2353,9 @@ void trataEvento(string nomeBtn){
 			cout << "Adicionou amigo" << endl;
 			cout << "Id ultimo selecionado: " << elementos2D.lastSelected << endl;
 			enviaPedidoNotificacao(elementos2D.lastSelected);
+
+			/* chamada de web service */
+			webServiceAddFriend(login.username, login.password, login.userId, elementos2D.lastSelected);
 
 			elementos2D.userDetails = false;
 

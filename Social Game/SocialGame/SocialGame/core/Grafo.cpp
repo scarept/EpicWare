@@ -163,13 +163,14 @@ void distribuicaoRadial(No no_inicio, vector<int> amigosDiretos, int nivel){
 	int tamanho = contaDiferentes(amigosDiretos);
 
 	if (tamanho != 0){
-		alpha = 360 / tamanho;
+		alpha = 360 / tamanhoLista;
 		alpha = degToRad(alpha);
 	}
 	for (int i = 0; i < tamanhoLista; i++){
 
 		if (testaExistencia(amigosDiretos[i]) == false){
-			float x = raio * ((cos(i*alpha)));
+
+			float x = raio * (cos(i*alpha));
 			float y = raio * (sin(i*alpha));
 
 			nos[numNos].nome = "ND";
