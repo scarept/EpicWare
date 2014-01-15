@@ -219,15 +219,23 @@ namespace EpicWareWeb
 
                     db.friendRequests.Add(fR);
                     db.SaveChanges();
-                    
 
-                    /* Create Notification */
-                    Notification note = new Notification();
-                    Notification nTyp = new Notification();
-                    note.message = @EpicWareWeb.Views.User.User.pedidoAmizadePeloJogo + " : " + user1.userProfile.nickname;
-                    note.time = DateTime.Now;
-                    note.read = false;
-                    user2.notifications.Add(note);
+                    try
+                    {
+                        /* Create Notification */
+                        Notification note = new Notification();
+                        NotificationType nTyp = new NotificationType();
+                        note.message = @EpicWareWeb.Views.User.User.pedidoAmizadePeloJogo + " : " + user1.userProfile.nickname;
+                        note.time = DateTime.Now;
+                        note.read = false;
+                        note.notificationType = nTyp;
+                        user2.notifications.Add(note);
+                    }
+                    catch (Exception) { }
+
+            
+
+                    
 
                     db.Entry(user1).State = EntityState.Modified;
                     db.Entry(user2).State = EntityState.Modified;
@@ -245,71 +253,277 @@ namespace EpicWareWeb
 
         }
 
-        //public User teste()
-        //{
-        //    //User teste = new User();
-        //    //teste.active = true;
-        //    //teste.email = "a";
-        //    //teste.language = new Language();
-        //    //teste.language.name = "";
-        //    //teste.listConnections = new List<Connection>();
-        //    //teste.missions = new List<Mission>();
-        //    //teste.mood = new Mood();
-        //    //teste.mood.name = "";
-        //    //teste.notifications = new List<Notification>();
-        //    //teste.scores = new List<ScoreUser>();
-        //    //teste.userID = 1;
-        //    //teste.userProfile = new Profile();
-        //    //teste.UserProfileID = 1;
-        //    //teste.userTags = new List<Tag>();
+        /*Retorna uma lista com os id dos pedidos de amizade recebidos pendentes*/
+        public List<int> getFRReceivedPending(int id, string user, string pass)
+        {
+            List<int> intRetunr = new List<int>();
+            if (Membership.ValidateUser(user, pass))
+            {
+                var frQuery = from d in db.friendRequests
+                           where d.user2.userID == id
+                           select d;
+            List<FriendRequest> list = frQuery.ToList();
+            
+            foreach (FriendRequest item in list)
+            {
+                intRetunr.Add(item.friendRequestID);
+            }
+            return intRetunr;
+            }else{
+                return null;
+            }
+            
+        }
+        
+        /* Permite aceitar o pedido de amizade pelo jogo sem ter que jogar nenhum minijogo*/
+        public bool acceptFriendRequest(int idFriendRequest, string user, string pass)
+        {
+            
+            if (Membership.ValidateUser(user, pass))
+            {
+                /*Get friend request*/
+            FriendRequest fR = db.friendRequests.Find(idFriendRequest);
 
-        //    //teste.userProfile.country = new Country();
-        //    //teste.userProfile.country.name = "";
-        //    //teste.userProfile.facebookProfile = "";
-        //    //teste.userProfile.gender = "";
-        //    //teste.userProfile.lastName = "";
-        //    //teste.userProfile.linkedinProfile = "";
-        //    //teste.userProfile.name = "";
-        //    //teste.userProfile.nickname = "";
-        //    //teste.userProfile.pathImg = "";
-        //    //teste.userProfile.phoneNumber = 1;
-        //    //teste.userProfile.profileID = 1;
-        //    //teste.userProfile.twitterProfile = "";
+            User user1 = fR.user1;
+            User user2 = fR.user2;
 
-        //    User teste = removeProxyUser(db.users.Find(1));
-        //    return teste;
-        //}
+            Connection conn1 = new Connection();
+            Connection conn2 = new Connection();
 
+            /* Strenght */
+            conn1.strenght = 1;
+            conn2.strenght = 1;
+
+            /* Tag Connection */
+            conn1.tagConnection = db.tagConnections.Find(1);
+            conn2.tagConnection = db.tagConnections.Find(1);
+
+            /* Owner */
+            conn1.Owner = user1;
+            conn2.Owner = user2;
+
+            /* User Connected */
+            conn1.userConnected = user2;
+            conn2.userConnected = user1;
+
+            /* Save connections on all users and remove FrindRequest*/
+            user1.listConnections.Add(conn1);
+            user2.listConnections.Add(conn2);
+
+            /* Create Notification */
+            Notification note = new Notification();
+            note.message = user2.userProfile.nickname + " " + EpicWareWeb.Views.User.User.fraceite;
+            note.time = DateTime.Now;
+            note.read = false;
+            NotificationType nTyp = new NotificationType();
+            nTyp.type = "game"; // Notificação de jogo
+            nTyp.resultLink = "/LAPR5/User/Profile/" + user1.userID;
+            note.notificationType = nTyp;
+            user1.notifications.Add(note);
+            try
+            {
+                db.Entry(user2).State = EntityState.Modified;
+                db.Entry(user1).State = EntityState.Modified;
+                db.SaveChanges();
+                db.friendRequests.Remove(fR);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            }else{
+                return false;
+            }
+            
+        
+                
+         
+
+
+
+        }
+
+        /* Rejeitar pedido de amizade pelo jogo */
+        public bool rejectFriendRequest(int idFriendRequest, string user, string pass)
+        {
+            if (Membership.ValidateUser(user, pass))
+            {
+                try
+                {
+                    FriendRequest fR = db.friendRequests.Find(idFriendRequest);
+                    db.friendRequests.Remove(fR);
+                    db.SaveChanges();
+                    return true;
+                }catch(Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        /* Permite registar qual o jogo que quem recebeu o pedido de amizade quer que o outro jogue para ser seu amigo */
+        public bool selectGameToPlay(int idFriendRequest, int idGame, string user, string pass)
+        {
+            if (Membership.ValidateUser(user, pass))
+            {
+                FriendRequest fR = db.friendRequests.Find(idFriendRequest);
+                Game game = db.games.Find(idGame);
+                fR.game = game;
+                try
+                {
+                    db.Entry(fR).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+
+
+
+        }
+
+        /* Permite o registo de uma resultado de um jogo */
+        public bool registerGameResult(int idFriendRequest,bool win,int points, string user, string pass)
+        {
+            if (Membership.ValidateUser(user, pass))
+            {
+                FriendRequest fR = db.friendRequests.Find(idFriendRequest);
+                if (win)
+                {
+                    try
+                    {
+                        /* Create Notification */
+                        Notification note = new Notification();
+                        note.message = "O pedido de amizade foi aceite por ter ganho o desafio";
+                        note.time = DateTime.Now;
+                        note.read = false;
+                        NotificationType nTyp = new NotificationType();
+                        nTyp.type = "game"; // Notificação de jogo
+                        note.notificationType = nTyp;
+
+                        User userTmp = fR.user1;
+                        acceptFriendRequest(idFriendRequest, user, pass);
+                        ScoreUser score = new ScoreUser();
+                        score.MyProperty = fR.game;
+                        score.points = points;
+                        userTmp.scores.Add(score);
+                        userTmp.notifications.Add(note);
+                        db.Entry(userTmp).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        /* Create Notification */
+                        Notification note = new Notification();
+                        note.message = "O pedido de amizade foi rejeitado por ter perdido o desafio";
+                        note.time = DateTime.Now;
+                        note.read = false;
+                        NotificationType nTyp = new NotificationType();
+                        nTyp.type = "game"; // Notificação de jogo
+                        note.notificationType = nTyp;
+                        User userTmp = fR.user1;
+                        userTmp.notifications.Add(note);
+                        db.Entry(userTmp).State = EntityState.Modified;
+                        db.friendRequests.Remove(fR);
+                        db.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
+        /*Retorna uma lista de inteiros com os id's dos pedidos de amizade que aguradam que quem pediu jogo o jogo*/
+        public List<int> waitingGamePlay(int idUser, string user, string pass)
+        {
+            List<int> intReturn = new List<int>();
+            if (Membership.ValidateUser(user, pass))
+            {
+                var frQuery = from d in db.friendRequests
+                              where d.user1.userID == idUser
+                              && d.game != null
+                              select d;
+                List<FriendRequest> list = frQuery.ToList();
+                foreach(FriendRequest item in list)
+                {
+                    intReturn.Add(item.friendRequestID);
+                }
+                return intReturn;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        /*Retorna o Objeto pedido de amizade dado um determinado id*/
+        public FriendRequest getFriendRequestById(int id, string user, string pass)
+        {
+            return db.friendRequests.Find(id);
+        }
 
         /*AUX METHODS*/
 
         private User removeProxyUser(User tmp)
         {
             User user = new User();
-            user.active = tmp.active;
-            user.email = tmp.email;
-            user.language = tmp.language;
-            user.missions = tmp.missions;
+            //user.active = tmp.active;
+            //user.email = tmp.email;
+            //user.language = tmp.language;
+            //user.missions = tmp.missions;
             user.mood = tmp.mood;
-            user.notifications = removeProxyNotifications(tmp.notifications);
-            user.scores = tmp.scores;
+            //user.notifications = removeProxyNotifications(tmp.notifications);
+            //user.scores = tmp.scores;
             user.userID = tmp.userID;
-            user.UserProfileID = tmp.UserProfileID;
-            user.userTags = tmp.userTags;
+            //user.UserProfileID = tmp.UserProfileID;
+            //user.userTags = tmp.userTags;
 
             user.userProfile = new Profile();
-            user.userProfile.birthday = tmp.userProfile.birthday;
-            user.userProfile.country = tmp.userProfile.country;
-            user.userProfile.facebookProfile = tmp.userProfile.facebookProfile;
+            //user.userProfile.birthday = tmp.userProfile.birthday;
+            //user.userProfile.country = tmp.userProfile.country;
+            //user.userProfile.facebookProfile = tmp.userProfile.facebookProfile;
             user.userProfile.gender = tmp.userProfile.gender;
             user.userProfile.lastName = tmp.userProfile.lastName;
-            user.userProfile.linkedinProfile = tmp.userProfile.linkedinProfile;
+            //user.userProfile.linkedinProfile = tmp.userProfile.linkedinProfile;
             user.userProfile.name = tmp.userProfile.name;
             user.userProfile.nickname = tmp.userProfile.nickname;
-            user.userProfile.pathImg = tmp.userProfile.pathImg;
-            user.userProfile.phoneNumber = tmp.userProfile.phoneNumber;
+            //user.userProfile.pathImg = tmp.userProfile.pathImg;
+            //user.userProfile.phoneNumber = tmp.userProfile.phoneNumber;
             user.userProfile.profileID = tmp.userProfile.profileID;
-            user.userProfile.twitterProfile = tmp.userProfile.twitterProfile;
+            //user.userProfile.twitterProfile = tmp.userProfile.twitterProfile;
             return user;
         }
 
@@ -321,15 +535,21 @@ namespace EpicWareWeb
                 Notification note = new Notification();
                 NotificationType nTyp = new NotificationType();
                 note.message = tmp.message;
-                note.notificationID = note.notificationID;
+                note.notificationID = tmp.notificationID;
                 note.read = tmp.read;
                 note.time = tmp.time;
-
-                nTyp.notificationTypeID = tmp.notificationType.notificationTypeID;
-                nTyp.resultLink = tmp.notificationType.resultLink;
-                nTyp.type = tmp.notificationType.type;
-
                 note.notificationType = nTyp;
+
+
+                if(tmp.notificationType != null)
+                {
+                    nTyp.notificationTypeID = tmp.notificationType.notificationTypeID;
+                    nTyp.resultLink = tmp.notificationType.resultLink;
+                    nTyp.type = tmp.notificationType.type;
+
+                    note.notificationType = nTyp;
+                }
+
 
                 returnList.Add(note);
             }

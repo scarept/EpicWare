@@ -40,6 +40,10 @@ public:
 	vector<int> WCF::getFRReceivedPending(string username, string password, int idUser);
 	BOOL WCF::getCreateFriendRequest(string username, string password, int idUser1, int idUser2);
 	BOOL WCF::selectGameToPlay(string username, string password, int idFriendRequest, int idGame);
+	BOOL WCF::acceptFriendRequest(string username, string password, int idFriendRequest);
+	BOOL WCF::rejectFriendRequest(string username, string password, int idFriendRequest);
+	BOOL WCF::registerGameResult(string username, string password, int idFriendRequest, int idGame, bool win, int points);
+	vector<int> WCF::waitingGamePlay(string username, string password, int idUser);
 };
 
 #endif

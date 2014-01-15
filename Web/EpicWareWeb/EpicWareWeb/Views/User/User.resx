@@ -387,4 +387,13 @@
   <data name="pedidoAmizadePeloJogo" xml:space="preserve">
     <value>Pedido de amizade enviado pelo jogo</value>
   </data>
+  <data name="nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="pontos" xml:space="preserve">
+    <value>Pontuação</value>
+  </data>
+  <data name="position" xml:space="preserve">
+    <value>Posição</value>
+  </data>
 </root>
