@@ -132,7 +132,7 @@
   <data name="amizade_pendente" xml:space="preserve">
     <value>Pending friend request</value>
   </data>
-  <data name="aniversario1" xml:space="preserve">
+  <data name="aniversario" xml:space="preserve">
     <value>Birthday</value>
   </data>
   <data name="avisoContaDesativada" xml:space="preserve">
@@ -174,7 +174,7 @@
   <data name="feliz" xml:space="preserve">
     <value>Happy</value>
   </data>
-  <data name="feminino1" xml:space="preserve">
+  <data name="feminino" xml:space="preserve">
     <value>Female</value>
   </data>
   <data name="forca" xml:space="preserve">
@@ -195,7 +195,7 @@
   <data name="friend_list" xml:space="preserve">
     <value>All friends</value>
   </data>
-  <data name="genero1" xml:space="preserve">
+  <data name="genero" xml:space="preserve">
     <value>Gender</value>
   </data>
   <data name="home" xml:space="preserve">
@@ -204,7 +204,7 @@
   <data name="hora" xml:space="preserve">
     <value>Hour</value>
   </data>
-  <data name="humor1" xml:space="preserve">
+  <data name="humor" xml:space="preserve">
     <value>Mood</value>
   </data>
   <data name="image" xml:space="preserve">
@@ -234,7 +234,7 @@
   <data name="logout" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="masculino1" xml:space="preserve">
+  <data name="masculino" xml:space="preserve">
     <value>Male</value>
   </data>
   <data name="mensagem" xml:space="preserve">
@@ -246,7 +246,7 @@
   <data name="nao" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="nick1" xml:space="preserve">
+  <data name="nick" xml:space="preserve">
     <value>Nickname</value>
   </data>
   <data name="noPending" xml:space="preserve">
@@ -273,7 +273,7 @@
   <data name="oseuamigo" xml:space="preserve">
     <value>Your friend</value>
   </data>
-  <data name="pais1" xml:space="preserve">
+  <data name="pais" xml:space="preserve">
     <value>Country</value>
   </data>
   <data name="para" xml:space="preserve">
@@ -294,7 +294,7 @@
   <data name="pendentes" xml:space="preserve">
     <value>Pending requests</value>
   </data>
-  <data name="perfil1" xml:space="preserve">
+  <data name="perfil" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="reativar" xml:space="preserve">
@@ -324,7 +324,7 @@
   <data name="search" xml:space="preserve">
     <value>Search's result</value>
   </data>
-  <data name="semimagem1" xml:space="preserve">
+  <data name="semimagem" xml:space="preserve">
     <value>No picture</value>
   </data>
   <data name="send" xml:space="preserve">
@@ -333,7 +333,7 @@
   <data name="sim" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="social1" xml:space="preserve">
+  <data name="social" xml:space="preserve">
     <value>Social</value>
   </data>
   <data name="sugerir_amigos" xml:space="preserve">
